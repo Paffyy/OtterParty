@@ -5,24 +5,9 @@ using UnityEngine;
 
 public class Manager
 {
-    private Manager() {  }
+    #region Singleton
+    private Manager() { }
     private static Manager instance;
-    private Vector3 checkPoint;
-    public bool HasLoadedFromSave { get; set; }
-    public bool HasLoadedFromPreviousLevel { get; set; }
-    private bool isPaused;
-    public bool IsPaused
-    {
-        get
-        {
-            return isPaused;
-        }
-
-        set
-        {
-            isPaused = value;
-        }
-    }
 
     public static Manager Instance
     {
@@ -32,6 +17,12 @@ public class Manager
                 instance = new Manager();
             return instance;
         }
+    }
+    #endregion
+
+    public Vector3 GetFacingDirection(Transform origin, Transform target)
+    {
+        return (origin.position - target.position).normalized;
     }
 
     public List<Collider> GetFrontConeHit(Vector3 facingDirection, Transform transform, LayerMask layerMask, float radius, float angle)
@@ -62,8 +53,6 @@ public class Manager
         }
         return listOfFlankingPoints;
     }
-
-
     public List<Collider> GetAoeHit(Vector3 pos, LayerMask layerMask, float radius)
     {
         var colliders = Physics.OverlapSphere(pos, radius, layerMask).ToList() ?? new List<Collider>();
@@ -105,15 +94,4 @@ public class Manager
         }
         return listOfRandomPoints;
     }
-
-    public Vector3 GetCheckPoint()
-    {
-        return checkPoint;
-    }
-
-    public void SetCheckPoint(Vector3 position)
-    {
-        checkPoint = position;
-    }
-
 }
