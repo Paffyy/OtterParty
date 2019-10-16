@@ -27,7 +27,7 @@ public class TestController : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Grow"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""8d150e76-8206-47c6-bc44-3c50ab271bd3"",
                     ""expectedControlType"": """",
@@ -109,7 +109,7 @@ public class TestController : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Grow"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,7 +121,7 @@ public class TestController : IInputActionCollection, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-        m_Gameplay_Grow = m_Gameplay.FindAction("Grow", throwIfNotFound: true);
+        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -172,13 +172,13 @@ public class TestController : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Move;
-    private readonly InputAction m_Gameplay_Grow;
+    private readonly InputAction m_Gameplay_Jump;
     public struct GameplayActions
     {
         private TestController m_Wrapper;
         public GameplayActions(TestController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
-        public InputAction @Grow => m_Wrapper.m_Gameplay_Grow;
+        public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -191,9 +191,9 @@ public class TestController : IInputActionCollection, IDisposable
                 Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                Grow.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrow;
-                Grow.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrow;
-                Grow.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrow;
+                Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -201,9 +201,9 @@ public class TestController : IInputActionCollection, IDisposable
                 Move.started += instance.OnMove;
                 Move.performed += instance.OnMove;
                 Move.canceled += instance.OnMove;
-                Grow.started += instance.OnGrow;
-                Grow.performed += instance.OnGrow;
-                Grow.canceled += instance.OnGrow;
+                Jump.started += instance.OnJump;
+                Jump.performed += instance.OnJump;
+                Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -211,6 +211,6 @@ public class TestController : IInputActionCollection, IDisposable
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnGrow(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }
