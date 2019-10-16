@@ -30,15 +30,16 @@ public class CharacterController : MonoBehaviour
 
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        Vector3 movement = new Vector3(move.x, 0, move.y) * Time.deltaTime * speed;
-        rigidbody.AddForce(movement);
-        if(movement != Vector3.zero)
-        {
-            rigidbody.rotation = Quaternion.LookRotation(movement);
-        }
-       // transform.Translate(movement, Space.World);
+  
+            Vector3 movement = new Vector3(move.x, 0, move.y) * Time.deltaTime * speed;
+            rigidbody.AddForce(movement);
+            if (movement != Vector3.zero)
+            {
+                rigidbody.rotation = Quaternion.LookRotation(movement);
+            }
+
     }
 
     void Jump()
