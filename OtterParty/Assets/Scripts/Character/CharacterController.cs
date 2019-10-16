@@ -34,7 +34,8 @@ public class CharacterController : MonoBehaviour
     {
   
             Vector3 movement = new Vector3(move.x, 0, move.y) * Time.deltaTime * speed;
-            rigidbody.AddForce(movement);
+        // rigidbody.AddForce(movement);
+        transform.Translate(movement, Space.World);
             if (movement != Vector3.zero)
             {
                 rigidbody.rotation = Quaternion.LookRotation(movement);
