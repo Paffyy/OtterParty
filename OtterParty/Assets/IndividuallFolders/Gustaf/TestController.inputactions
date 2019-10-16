@@ -1,0 +1,52 @@
+{
+    "name": "TestController",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "bb8cfe7a-a7eb-4f46-a628-cd463a89ff46",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "919c46cf-20fe-4691-a2f3-c04063ef6e82",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Grow",
+                    "type": "Button",
+                    "id": "8d150e76-8206-47c6-bc44-3c50ab271bd3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2fa85812-051b-41a1-baf6-7eab7622bca5",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9e78a7b7-a1d2-4ff9-a7e6-afd88dbd83b0",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

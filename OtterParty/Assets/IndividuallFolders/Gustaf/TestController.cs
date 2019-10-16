@@ -1,0 +1,161 @@
+// GENERATED AUTOMATICALLY FROM 'Assets/IndividuallFolders/Gustaf/TestController.inputactions'
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
+
+public class TestController : IInputActionCollection, IDisposable
+{
+    private InputActionAsset asset;
+    public TestController()
+    {
+        asset = InputActionAsset.FromJson(@"{
+    ""name"": ""TestController"",
+    ""maps"": [
+        {
+            ""name"": ""Gameplay"",
+            ""id"": ""bb8cfe7a-a7eb-4f46-a628-cd463a89ff46"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""919c46cf-20fe-4691-a2f3-c04063ef6e82"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Grow"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d150e76-8206-47c6-bc44-3c50ab271bd3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2fa85812-051b-41a1-baf6-7eab7622bca5"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e78a7b7-a1d2-4ff9-a7e6-afd88dbd83b0"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        }
+    ],
+    ""controlSchemes"": []
+}");
+        // Gameplay
+        m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
+        m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
+        m_Gameplay_Grow = m_Gameplay.FindAction("Grow", throwIfNotFound: true);
+    }
+
+    public void Dispose()
+    {
+        UnityEngine.Object.Destroy(asset);
+    }
+
+    public InputBinding? bindingMask
+    {
+        get => asset.bindingMask;
+        set => asset.bindingMask = value;
+    }
+
+    public ReadOnlyArray<InputDevice>? devices
+    {
+        get => asset.devices;
+        set => asset.devices = value;
+    }
+
+    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+    public bool Contains(InputAction action)
+    {
+        return asset.Contains(action);
+    }
+
+    public IEnumerator<InputAction> GetEnumerator()
+    {
+        return asset.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    public void Enable()
+    {
+        asset.Enable();
+    }
+
+    public void Disable()
+    {
+        asset.Disable();
+    }
+
+    // Gameplay
+    private readonly InputActionMap m_Gameplay;
+    private IGameplayActions m_GameplayActionsCallbackInterface;
+    private readonly InputAction m_Gameplay_Move;
+    private readonly InputAction m_Gameplay_Grow;
+    public struct GameplayActions
+    {
+        private TestController m_Wrapper;
+        public GameplayActions(TestController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Gameplay_Move;
+        public InputAction @Grow => m_Wrapper.m_Gameplay_Grow;
+        public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
+        public void SetCallbacks(IGameplayActions instance)
+        {
+            if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
+            {
+                Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                Grow.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrow;
+                Grow.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrow;
+                Grow.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnGrow;
+            }
+            m_Wrapper.m_GameplayActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                Move.started += instance.OnMove;
+                Move.performed += instance.OnMove;
+                Move.canceled += instance.OnMove;
+                Grow.started += instance.OnGrow;
+                Grow.performed += instance.OnGrow;
+                Grow.canceled += instance.OnGrow;
+            }
+        }
+    }
+    public GameplayActions @Gameplay => new GameplayActions(this);
+    public interface IGameplayActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnGrow(InputAction.CallbackContext context);
+    }
+}
