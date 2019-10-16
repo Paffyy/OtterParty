@@ -19,7 +19,7 @@ public class Shooting : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F) && IsOffCooldown)
         {
-            Cooldown.Instance.StartNewCooldown(cooldownDuration, IsOffCooldown, this);
+            Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
             IsOffCooldown = false;
             CheckCollision();
         }

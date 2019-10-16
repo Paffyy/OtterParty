@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     //public PointSystem PointSystem { get; set; } 
     private Minigame currentMinigame;
-    //private List<Player> players;
+    public List<Player> Players { get; set; }
     private List<Minigame> minigames;
 
     #region Singleton
@@ -31,6 +32,11 @@ public class GameController : MonoBehaviour
     public void StartNextMinigame()
     {
         // load minigame
-
+        SceneManager.LoadScene(currentMinigame.ID);
     }
+
+}
+public class Player // debug
+{
+
 }
