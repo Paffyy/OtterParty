@@ -31,8 +31,8 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         Vector3 movement = new Vector3(move.x, 0, move.y) * Time.deltaTime * speed;
-        //  rigidbody.velocity += movement;
-        transform.Translate(movement, Space.World);
+        rigidbody.AddForce(movement);
+       // transform.Translate(movement, Space.World);
     }
 
     void Grow()
