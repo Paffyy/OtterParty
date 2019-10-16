@@ -15,6 +15,7 @@ public class Minigame : MonoBehaviour
     private GameObject tutorialUI;
 
     private bool winCondition;
+
     private enum GameModes { FFA, AllvsOne, Team  };
 
     public void CheckWinCondition()
