@@ -35,19 +35,26 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        movement = new Vector3(move.x, 0, move.y) * speed;
-        transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
+        if(move.normalized.sqrMagnitude > 0.3f)
+        {
+            movement = new Vector3(move.x, 0, move.y) * speed;
+            transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
+        }
+        else
+        {
+            movement = Vector3.zero;
+        }
     }
 
     void FixedUpdate()
-    { 
-        playerBody.velocity = Vector3.ClampMagnitude(playerBody.velocity + movement, maxSpeed);
+    {
+        playerBody.velocity = movement;
     }
 
     void Jump()
     {
         Debug.Log("Jumping");
-        playerBody.velocity += Vector3.up * jumpHeight;
+        playerBody.velocity = new Vector3(movement.x, jumpHeight, movement.z);
     }
 
     void OnEnable()
