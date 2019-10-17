@@ -35,7 +35,7 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        if(move.sqrMagnitude > 0.2f)
+        if(move.sqrMagnitude > 0.3f)
         {
             movement = new Vector3(move.x, 0, move.y) * speed;
             transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
@@ -48,7 +48,8 @@ public class CharacterController : MonoBehaviour
 
     void FixedUpdate()
     {
-        playerBody.velocity = movement;
+        playerBody.MovePosition(transform.position + movement * Time.deltaTime);
+        //playerBody.velocity = movement;
     }
 
     void Jump()
