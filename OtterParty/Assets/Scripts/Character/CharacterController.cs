@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
 
 public class CharacterController : MonoBehaviour
 {
@@ -23,9 +22,6 @@ public class CharacterController : MonoBehaviour
         playerBody = GetComponent<Rigidbody>();
         controls = new TestController();
 
-        controls.Gameplay.Jump.performed += ctx => Jump();
-        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
     }
 
     void Start()
@@ -35,7 +31,7 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        if(move.sqrMagnitude > 0.3f)
+        if(move.sqrMagnitude > 0.2f)
         {
             movement = new Vector3(move.x, 0, move.y) * speed;
             transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
@@ -55,7 +51,7 @@ public class CharacterController : MonoBehaviour
     void Jump()
     {
         Debug.Log("Jumping");
-        playerBody.velocity = new Vector3(movement.x, jumpHeight, movement.z);
+        playerBody.velocity += new Vector3(0, jumpHeight, 0);
     }
 
     void OnEnable()
@@ -66,5 +62,13 @@ public class CharacterController : MonoBehaviour
     private void OnDisable()
     {
         controls.Gameplay.Disable();
+    }
+    private void OnMove(InputValue value)
+    {
+        move = value.Get<Vector2>();
+    }
+    private void OnJump()
+    {
+        Jump();
     }
 }

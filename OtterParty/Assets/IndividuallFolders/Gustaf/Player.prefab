@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbf42f752ce0a44bb66058e1ff12c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  jumpHeight: 50
+  speed: 8
+  jumpHeight: 6
   maxSpeed: 10
 --- !u!54 &1865357004755966653
 Rigidbody:
@@ -149,9 +149,21 @@ MonoBehaviour:
   m_DeviceRegainedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 919c46cf-20fe-4691-a2f3-c04063ef6e82
+    m_ActionName: Gameplay/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8d150e76-8206-47c6-bc44-3c50ab271bd3
+    m_ActionName: Gameplay/Jump[/XInputControllerWindows/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: db3d9c05-7578-4f00-82e0-e3edec468394
+    m_ActionName: Gameplay/Fire[/XInputControllerWindows/rightTrigger,/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: New control scheme
+  m_DefaultControlScheme: 
   m_DefaultActionMap: bb8cfe7a-a7eb-4f46-a628-cd463a89ff46
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
