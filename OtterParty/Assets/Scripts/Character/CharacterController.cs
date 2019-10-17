@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 public class CharacterController : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private float jumpHeight;
     private Vector3 movement;
-
+    [SerializeField]
+    private int maxSpeed;
     void Awake()
     {
         Debug.Log("Awake");
@@ -33,20 +35,19 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        movement = new Vector3(move.x, playerBody.velocity.y, move.y) * speed;
+        movement = new Vector3(move.x, 0, move.y) * speed;
         transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
     }
 
     void FixedUpdate()
     { 
-        playerBody.velocity = movement;
+        playerBody.velocity = Vector3.ClampMagnitude(playerBody.velocity + movement, maxSpeed);
     }
 
     void Jump()
     {
         Debug.Log("Jumping");
-        //playerBody.velocity += new Vector3(0, jumpHeight, 0);
-        playerBody.AddForce(transform.TransformDirection(Vector3.up) * jumpHeight);
+        playerBody.velocity += Vector3.up * jumpHeight;
     }
 
     void OnEnable()
