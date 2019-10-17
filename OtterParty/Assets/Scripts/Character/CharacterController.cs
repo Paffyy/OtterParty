@@ -35,7 +35,7 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        if(move.normalized.sqrMagnitude > 0.3f)
+        if(move.sqrMagnitude > 0.2f)
         {
             movement = new Vector3(move.x, 0, move.y) * speed;
             transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
