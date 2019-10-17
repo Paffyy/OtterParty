@@ -16,10 +16,10 @@ public class Cooldown
             return instance;
         }
     }
-    public void StartNewCooldown(int duration, Shooting sender)
+    public void StartNewCooldown(float duration, Shooting sender)
     {
         Task.Factory.StartNew(async () => {
-            await Task.Delay(duration * 1000);
+            await Task.Delay((int)(duration * 1000));
             sender.IsOffCooldown = true;
         });
                 

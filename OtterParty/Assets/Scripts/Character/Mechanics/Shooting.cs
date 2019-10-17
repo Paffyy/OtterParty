@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,22 +11,15 @@ public class Shooting : MonoBehaviour
     [Range(1, 100.0f)]
     private int projectileRange;
     [SerializeField]
-    [Range(1, 5f)]
-    private int cooldownDuration;
+    [Range(0.25f, 2.0f)]
+    private float cooldownDuration;
 
     public bool IsOffCooldown = true;
-
-    void Update()
+    private Rigidbody playerRigidbody;
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.F) && IsOffCooldown)
-        {
-            Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
-            IsOffCooldown = false;
-            CheckCollision();
-        }
-        Debug.DrawRay(transform.position, transform.forward);
+        playerRigidbody = GetComponent<Rigidbody>();
     }
-
     private void CheckCollision()
     {
         Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, projectileRange, targetMask);
@@ -37,5 +31,20 @@ public class Shooting : MonoBehaviour
                 EventHandler.Instance.FireEvent(EventHandler.EventType.HitEvent, e);
             }
         }
+        ApplySelfKnockback();
+    }
+
+    private void ApplySelfKnockback()
+    {
+        int knockbackMagnitude = Constants.Instance.DefaultKnockbackDistance;
+        Vector3 knockbackVector = -transform.forward * knockbackMagnitude;
+        playerRigidbody.velocity += knockbackVector;
+    }
+
+    void OnFire()
+    {
+        Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
+        IsOffCooldown = false;
+        CheckCollision();
     }
 }

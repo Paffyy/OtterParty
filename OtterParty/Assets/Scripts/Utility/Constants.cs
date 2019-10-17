@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Constants 
 {
-    public int DefaultKnockbackDistance { get; set; } = 8;
+    public int DefaultKnockbackDistance { get; set; } = 4;
 
     #region Singleton
     private Constants() { }
