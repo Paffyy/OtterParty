@@ -6,18 +6,19 @@ using UnityEngine.InputSystem;
 public class CharacterController : MonoBehaviour
 {
 
-    private Rigidbody rigidbody;
+    private Rigidbody playerBody;
     private TestController controls;
     private Vector2 move;
     [SerializeField]
     private float speed;
     [SerializeField]
     private float jumpHeight;
+    private Vector3 movement;
 
     void Awake()
     {
         Debug.Log("Awake");
-        rigidbody = GetComponent<Rigidbody>();
+        playerBody = GetComponent<Rigidbody>();
         controls = new TestController();
 
         controls.Gameplay.Jump.performed += ctx => Jump();
@@ -30,23 +31,22 @@ public class CharacterController : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    void Update()
     {
-  
-            Vector3 movement = new Vector3(move.x, 0, move.y) * Time.deltaTime * speed;
-        // rigidbody.AddForce(movement);
-        transform.Translate(movement, Space.World);
-            if (movement != Vector3.zero)
-            {
-                rigidbody.rotation = Quaternion.LookRotation(movement);
-            }
+        movement = new Vector3(move.x, playerBody.velocity.y, move.y) * speed;
+        transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
+    }
 
+    void FixedUpdate()
+    { 
+        playerBody.velocity = movement;
     }
 
     void Jump()
     {
         Debug.Log("Jumping");
-        rigidbody.velocity = new Vector3(0, jumpHeight, 0); 
+        //playerBody.velocity += new Vector3(0, jumpHeight, 0);
+        playerBody.AddForce(transform.TransformDirection(Vector3.up) * jumpHeight);
     }
 
     void OnEnable()
