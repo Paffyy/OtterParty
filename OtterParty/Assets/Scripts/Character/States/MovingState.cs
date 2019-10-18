@@ -17,7 +17,6 @@ public class MovingState : CharacterBaseState
     private void Jump()
     {
         owner.Jump();
-        //owner.Transition<AirState>();
     }
     private void Movement(Vector2 inputDirection)
     {

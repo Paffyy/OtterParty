@@ -41,7 +41,6 @@ public abstract class StateMachine : MonoBehaviour
         currentState.Enter();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (states.Length > 0)

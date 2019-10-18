@@ -9,10 +9,9 @@ public class KnockbackState : CharacterBaseState
     [SerializeField]
     [Range(0.5f,2.0f)]
     private float stunDuration;
-    public int StunDuration { get; set; }
     public override void Enter()
     {
-        owner.GetComponent<Rigidbody>().velocity += -owner.transform.forward * Constants.Instance.DefaultKnockbackDistance;
+        owner.GetComponent<Rigidbody>().velocity = -owner.transform.forward * Constants.Instance.DefaultKnockbackDistance * 2;
         base.Enter();
         Task.Factory.StartNew(async() => 
         {
