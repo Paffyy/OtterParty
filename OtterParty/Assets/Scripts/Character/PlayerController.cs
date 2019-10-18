@@ -30,16 +30,20 @@ public class PlayerController : StateMachine
 
     void Update()
     {
-        if(InputDirection.sqrMagnitude > deadZoneValue)
+        if (true)
         {
-            movement = new Vector3(InputDirection.x, 0, InputDirection.y) * speed;
-            transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
-        }
-        else
-        {
-            movement = Vector3.zero;
+            if (InputDirection.sqrMagnitude > deadZoneValue)
+            {
+                movement = new Vector3(InputDirection.x, 0, InputDirection.y) * speed;
+                transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
+            }
+            else
+            {
+                movement = Vector3.zero;
+            }
         }
     }
+
     void FixedUpdate()
     {
         playerBody.MovePosition(transform.position + movement * Time.deltaTime);
@@ -51,8 +55,8 @@ public class PlayerController : StateMachine
     }
     private void OnMove(InputValue value)
     {
-        var move = value.Get<Vector2>();
-        OnMoveAction?.Invoke(move);
+        var input = value.Get<Vector2>();
+        OnMoveAction?.Invoke(input);
     }
     private void OnJump()
     {
