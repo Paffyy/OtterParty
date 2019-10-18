@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,27 +7,25 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(menuName = "Player/MovingState")]
 public class MovingState : CharacterBaseState
 {
-
     public override void Enter()
     {
         Debug.Log("Enter movingstate");
+        owner.OnMoveAction += inputDirection => Movement(inputDirection);
+        owner.OnJumpAction += Jump;
         base.Enter();
     }
-
-    void Start()
+    private void Jump()
     {
-        
+        owner.Jump();
+        //owner.Transition<AirState>();
     }
-
-    void Update()
+    private void Movement(Vector2 inputDirection)
     {
-        
+        owner.InputDirection = inputDirection;
     }
-
-
-    //private void OnJump()
-    //{
-    //    Debug.Log("Jumping");
-    //    owner.Jump();
-    //}
+    public override void Exit()
+    {
+        owner.OnMoveAction -= Movement;
+        owner.OnJumpAction -= Jump;
+    }
 }

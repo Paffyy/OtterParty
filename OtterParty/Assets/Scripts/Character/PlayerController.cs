@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,33 +8,31 @@ public class PlayerController : StateMachine
 {
 
     private Rigidbody playerBody;
-    private TestController controls;
-    private Vector2 move;
     [SerializeField]
     private float speed;
     [SerializeField]
     private float jumpHeight;
-    private Vector3 movement;
     [SerializeField]
     private int maxSpeed;
+    [SerializeField]
+    [Range(0.1f, 0.3f)]
+    private float deadZoneValue;
+    public Vector2 InputDirection { get; set; }
+    public Action OnJumpAction;
+    public Action<Vector2> OnMoveAction;
+    private Vector3 movement;
 
     protected override void Awake()
     {
         playerBody = GetComponent<Rigidbody>();
-        controls = new TestController();
         base.Awake();
-    }
-
-    void Start()
-    {
-
     }
 
     void Update()
     {
-        if(move.sqrMagnitude > 0.2f)
+        if(InputDirection.sqrMagnitude > deadZoneValue)
         {
-            movement = new Vector3(move.x, 0, move.y) * speed;
+            movement = new Vector3(InputDirection.x, 0, InputDirection.y) * speed;
             transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
         }
         else
@@ -41,34 +40,22 @@ public class PlayerController : StateMachine
             movement = Vector3.zero;
         }
     }
-
     void FixedUpdate()
     {
         playerBody.MovePosition(transform.position + movement * Time.deltaTime);
-        //playerBody.velocity = movement;
     }
 
     public void Jump()
     {
         playerBody.velocity += new Vector3(0, jumpHeight, 0);
     }
-
-
-    void OnEnable()
-    {
-        controls.Gameplay.Enable();
-    }
-
-    private void OnDisable()
-    {
-        controls.Gameplay.Disable();
-    }
     private void OnMove(InputValue value)
     {
-        move = value.Get<Vector2>();
+        var move = value.Get<Vector2>();
+        OnMoveAction?.Invoke(move);
     }
     private void OnJump()
     {
-        Jump();
+        OnJumpAction?.Invoke();
     }
 }

@@ -15,7 +15,7 @@ public class CharacterBaseState : State
 
     void Start()
     {
-        
+      
     }
 
 
