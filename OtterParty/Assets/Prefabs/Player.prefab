@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1865357004755966640}
   - component: {fileID: 1865357004755966653}
   - component: {fileID: 612957688146811030}
+  - component: {fileID: 1871255283306189785}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -109,8 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   states:
-  - {fileID: 11400000, guid: aac9904c44e1f9c4bb49d2fdd4eee607, type: 2}
-  - {fileID: 11400000, guid: 30a0071c469d8c6498dec463be4f30ac, type: 2}
+  - {fileID: 11400000, guid: fe286fe4870a39346adff9dcc8fe1302, type: 2}
+  - {fileID: 11400000, guid: 85432ba49c5929a4c87592a60fbb746f, type: 2}
   speed: 8
   jumpHeight: 6
   maxSpeed: 10
@@ -171,6 +172,19 @@ MonoBehaviour:
   m_DefaultActionMap: bb8cfe7a-a7eb-4f46-a628-cd463a89ff46
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!65 &1871255283306189785
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865357004755966654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.029940335, z: 0.99999994}
+  m_Center: {x: 0, y: -0.5157534, z: 0}
 --- !u!1 &1865357005886718676
 GameObject:
   m_ObjectHideFlags: 0

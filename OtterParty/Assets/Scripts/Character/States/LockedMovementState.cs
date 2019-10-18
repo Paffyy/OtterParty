@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,58 +7,62 @@ using UnityEngine;
 public class LockedMovementState : CharacterBaseState
 {
     [SerializeField]
-    private float fastSpeed;
+    [Range(2f, 2.5f)]
+    private float speed;
     [SerializeField]
-    private float slowSpeed;
-    private bool otherButtonPressed;
+    [Range(0.75f, 0.85f)]
+    private float variationPenalty;
+    [SerializeField]
+    [Range(2.4f, 2.8f)]
+    private float maxSpeed;
+    [SerializeField]
+    [Range(1f, 10f)]
+    private float jumpHeight;
     private Vector3 movement;
+    private Rigidbody playerBody;
+    private bool previousButtonPressed;
 
 
     public override void Enter()
     {
-        owner.speed = 0;
+        playerBody = owner.GetComponent<Rigidbody>();
         Debug.Log("Enter LockedMovementState");
-        owner.OnLeftSpamAction += LeftBumper;
-        owner.OnRightSpamAction += RightBumper;
+        owner.OnSpamAction += SpamAction;
+        owner.OnJumpAction += JumpAction;
         base.Enter();
     }
 
-    public override void HandleUpdate()
+    private void SpamAction(bool isRightButtonPressed)
     {
-        owner.playerBody.MovePosition(owner.transform.position + movement * Time.deltaTime);
+        float spamSpeed = previousButtonPressed != isRightButtonPressed ? speed : speed * variationPenalty;
+        ApplyMovement(new Vector3(0, 0, spamSpeed));
+        previousButtonPressed = isRightButtonPressed;
     }
 
-    private void LeftBumper()
+    private void ApplyMovement(Vector3 movement)
     {
-        Debug.Log("LeftBumperPressed");
-        if(otherButtonPressed == false)
-        {
-            movement = new Vector3(0, 0, fastSpeed);
-            otherButtonPressed = true;
-        } else
-        {
-            movement = new Vector3(0, 0, slowSpeed);
-        }
-    }
+        float updatedSpeed = Vector3.ProjectOnPlane((playerBody.velocity + movement), Vector3.up).magnitude;
 
-    private void RightBumper()
-    {
-        Debug.Log("RightBumperPressed");
-        if (otherButtonPressed == true)
+        if (updatedSpeed > maxSpeed)
         {
-            movement = new Vector3(0, 0, fastSpeed);
-            otherButtonPressed = false;
+            playerBody.velocity = playerBody.velocity.normalized * maxSpeed;
         }
         else
         {
-            movement = new Vector3(0, 0, slowSpeed);
+            playerBody.velocity += movement;
         }
+    }
+
+    private void JumpAction()
+    {
+        owner.Jump(jumpHeight);
+        owner.Transition<LockedAirState>();
     }
 
     public override void Exit()
     {
         Debug.Log("Exiting LockedMovementState");
-        owner.OnLeftSpamAction -= LeftBumper;
-        owner.OnRightSpamAction -= RightBumper;
+        owner.OnSpamAction -= SpamAction;
+        owner.OnJumpAction -= JumpAction;
     }
 }

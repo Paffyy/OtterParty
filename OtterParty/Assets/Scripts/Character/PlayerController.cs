@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : StateMachine
 {
 
-    public Rigidbody playerBody;
+    private Rigidbody playerBody;
     [SerializeField]
     public float speed;
     [SerializeField]
@@ -20,9 +20,9 @@ public class PlayerController : StateMachine
     public Vector2 InputDirection { get; set; }
     public Action OnJumpAction;
     public Action<Vector2> OnMoveAction;
-    public Action OnLeftSpamAction;
-    public Action OnRightSpamAction;
+    public Action<bool> OnSpamAction;
     private Vector3 movement;
+    public bool IsGrounded { get; set; }
 
     protected override void Awake()
     {
@@ -55,6 +55,10 @@ public class PlayerController : StateMachine
     {
         playerBody.velocity += new Vector3(0, jumpHeight, 0);
     }
+    public void Jump(float jumpHeightInput)
+    {
+        playerBody.velocity += new Vector3(0, jumpHeightInput, 0);
+    }
     private void OnMove(InputValue value)
     {
         var input = value.Get<Vector2>();
@@ -66,10 +70,18 @@ public class PlayerController : StateMachine
     }
     private void OnLeftSpam()
     {
-        OnLeftSpamAction?.Invoke();
+        OnSpamAction?.Invoke(false);
     }
     private void OnRightSpam()
     {
-        OnRightSpamAction?.Invoke();
+        OnSpamAction?.Invoke(true);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            IsGrounded = true;
+        }
     }
 }
