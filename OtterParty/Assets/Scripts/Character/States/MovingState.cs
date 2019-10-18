@@ -10,7 +10,7 @@ public class MovingState : CharacterBaseState
     public override void Enter()
     {
         Debug.Log("Enter movingstate");
-        owner.OnMoveAction += inputDirection => Movement(inputDirection);
+        owner.OnMoveAction += Movement;
         owner.OnJumpAction += Jump;
         base.Enter();
     }
@@ -26,6 +26,7 @@ public class MovingState : CharacterBaseState
     public override void Exit()
     {
         owner.OnMoveAction -= Movement;
+        owner.InputDirection = Vector2.zero;
         owner.OnJumpAction -= Jump;
     }
 }
