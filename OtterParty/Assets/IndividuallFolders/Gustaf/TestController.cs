@@ -41,6 +41,22 @@ public class TestController : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftSpam"",
+                    ""type"": ""Button"",
+                    ""id"": ""817991db-6130-41ff-b68b-ed424a80cc24"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightSpam"",
+                    ""type"": ""Button"",
+                    ""id"": ""97b00100-16a7-4080-ad2a-225092ea5e8b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -153,6 +169,28 @@ public class TestController : IInputActionCollection, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5545226d-b171-4ebc-bdce-db76c834133e"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftSpam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbea1ecd-c0fc-4649-9f1e-9ee6f25bffc6"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightSpam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +202,8 @@ public class TestController : IInputActionCollection, IDisposable
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
+        m_Gameplay_LeftSpam = m_Gameplay.FindAction("LeftSpam", throwIfNotFound: true);
+        m_Gameplay_RightSpam = m_Gameplay.FindAction("RightSpam", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -216,6 +256,8 @@ public class TestController : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Fire;
+    private readonly InputAction m_Gameplay_LeftSpam;
+    private readonly InputAction m_Gameplay_RightSpam;
     public struct GameplayActions
     {
         private TestController m_Wrapper;
@@ -223,6 +265,8 @@ public class TestController : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
+        public InputAction @LeftSpam => m_Wrapper.m_Gameplay_LeftSpam;
+        public InputAction @RightSpam => m_Wrapper.m_Gameplay_RightSpam;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -241,6 +285,12 @@ public class TestController : IInputActionCollection, IDisposable
                 Fire.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
                 Fire.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
                 Fire.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
+                LeftSpam.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftSpam;
+                LeftSpam.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftSpam;
+                LeftSpam.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftSpam;
+                RightSpam.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightSpam;
+                RightSpam.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightSpam;
+                RightSpam.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightSpam;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -254,6 +304,12 @@ public class TestController : IInputActionCollection, IDisposable
                 Fire.started += instance.OnFire;
                 Fire.performed += instance.OnFire;
                 Fire.canceled += instance.OnFire;
+                LeftSpam.started += instance.OnLeftSpam;
+                LeftSpam.performed += instance.OnLeftSpam;
+                LeftSpam.canceled += instance.OnLeftSpam;
+                RightSpam.started += instance.OnRightSpam;
+                RightSpam.performed += instance.OnRightSpam;
+                RightSpam.canceled += instance.OnRightSpam;
             }
         }
     }
@@ -263,5 +319,7 @@ public class TestController : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnLeftSpam(InputAction.CallbackContext context);
+        void OnRightSpam(InputAction.CallbackContext context);
     }
 }
