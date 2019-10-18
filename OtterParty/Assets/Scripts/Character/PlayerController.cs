@@ -7,9 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : StateMachine
 {
 
-    private Rigidbody playerBody;
+    public Rigidbody playerBody;
     [SerializeField]
-    private float speed;
+    public float speed;
     [SerializeField]
     private float jumpHeight;
     [SerializeField]
@@ -20,6 +20,8 @@ public class PlayerController : StateMachine
     public Vector2 InputDirection { get; set; }
     public Action OnJumpAction;
     public Action<Vector2> OnMoveAction;
+    public Action OnLeftSpamAction;
+    public Action OnRightSpamAction;
     private Vector3 movement;
 
     protected override void Awake()
@@ -57,5 +59,13 @@ public class PlayerController : StateMachine
     private void OnJump()
     {
         OnJumpAction?.Invoke();
+    }
+    private void OnLeftSpam()
+    {
+        OnLeftSpamAction?.Invoke();
+    }
+    private void OnRightSpam()
+    {
+        OnRightSpamAction?.Invoke();
     }
 }
