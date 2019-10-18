@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     //public PointSystem PointSystem { get; set; } 
-    private Minigame currentMinigame;
     public List<Player> Players { get; set; }
     private List<Minigame> minigames;
+    private Minigame currentMinigame;
 
     #region Singleton
     private GameController() { }
@@ -24,15 +24,30 @@ public class GameController : MonoBehaviour
     }
     #endregion
 
+    private void Awake()
+    {
+        var parrent = GameObject.Find("Minigames");
+        if (parrent != null)
+        {
+            foreach (GameObject item in parrent.transform)
+            {
+                var minigame = item.GetComponent<Minigame>();
+                if (minigame != null)
+                {
+                    minigames.Add(minigame);
+                }
+            }
+            currentMinigame = minigames[0];
+        }
+    }
     private void Start()
     {
-        currentMinigame = minigames[0];
         StartNextMinigame();
     }
     public void StartNextMinigame()
     {
         // load minigame
-        SceneManager.LoadScene(currentMinigame.ID);
+        SceneManager.LoadScene(currentMinigame.Id);
     }
 
 }
