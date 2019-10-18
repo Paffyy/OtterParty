@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterController : MonoBehaviour
+public class PlayerController : StateMachine
 {
 
     private Rigidbody playerBody;
@@ -16,12 +16,12 @@ public class CharacterController : MonoBehaviour
     private Vector3 movement;
     [SerializeField]
     private int maxSpeed;
-    void Awake()
+
+    protected override void Awake()
     {
-        Debug.Log("Awake");
         playerBody = GetComponent<Rigidbody>();
         controls = new TestController();
-
+        base.Awake();
     }
 
     void Start()
@@ -48,11 +48,11 @@ public class CharacterController : MonoBehaviour
         //playerBody.velocity = movement;
     }
 
-    void Jump()
+    public void Jump()
     {
-        Debug.Log("Jumping");
         playerBody.velocity += new Vector3(0, jumpHeight, 0);
     }
+
 
     void OnEnable()
     {
