@@ -26,7 +26,6 @@ public class LockedMovementState : CharacterBaseState
     public override void Enter()
     {
         playerBody = owner.GetComponent<Rigidbody>();
-        Debug.Log("Enter LockedMovementState");
         owner.OnSpamAction += SpamAction;
         owner.OnJumpAction += JumpAction;
         base.Enter();
@@ -61,7 +60,6 @@ public class LockedMovementState : CharacterBaseState
 
     public override void Exit()
     {
-        Debug.Log("Exiting LockedMovementState");
         owner.OnSpamAction -= SpamAction;
         owner.OnJumpAction -= JumpAction;
     }

@@ -14,7 +14,6 @@ public class LockedAirState : CharacterBaseState
     {
         owner.IsGrounded = false;
         base.Enter();
-        Debug.Log("Entered LockedAirState");
     }
 
     public override void HandleUpdate()
@@ -24,18 +23,14 @@ public class LockedAirState : CharacterBaseState
 
     public override void HandleLateUpdate()
     {
-        Debug.Log("Handling update");
         if (owner.IsGrounded)
         {
-            Debug.Log("Grounded");
             owner.Transition<LockedMovementState>();
         }
-        //CheckCollision();
     }
 
     private void CheckCollision()
     {
-        Debug.Log("Checking collision");
         float distance = owner.GetComponent<MeshFilter>().mesh.bounds.extents.y + skinWidth;
         Debug.Log(distance);
         Physics.Raycast(owner.transform.position, Vector3.down, out RaycastHit hit, distance, collisionMask);
@@ -47,6 +42,5 @@ public class LockedAirState : CharacterBaseState
 
     public override void Exit()
     {
-        Debug.Log("Exited LockedAirState");
     }
 }

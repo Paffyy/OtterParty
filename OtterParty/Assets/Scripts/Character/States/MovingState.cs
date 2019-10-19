@@ -7,16 +7,20 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(menuName = "Player/MovingState")]
 public class MovingState : CharacterBaseState
 {
+    [SerializeField]
+    [Range(1f, 10f)]
+    private float jumpHeight;
+
     public override void Enter()
     {
-        Debug.Log("Enter movingstate");
         owner.OnMoveAction += Movement;
-        owner.OnJumpAction += Jump;
+        owner.OnJumpAction += JumpAction;
         base.Enter();
     }
-    private void Jump()
+    private void JumpAction()
     {
-        owner.Jump();
+        owner.Jump(jumpHeight);
+        owner.Transition<AirState>();
     }
     private void Movement(Vector2 inputDirection)
     {
@@ -26,6 +30,6 @@ public class MovingState : CharacterBaseState
     {
         owner.OnMoveAction -= Movement;
         owner.InputDirection = Vector2.zero;
-        owner.OnJumpAction -= Jump;
+        owner.OnJumpAction -= JumpAction;
     }
 }
