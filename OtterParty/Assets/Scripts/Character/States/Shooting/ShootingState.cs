@@ -10,13 +10,13 @@ public class ShootingState : CharacterBaseState
     [SerializeField]
     private LayerMask targetMask;
     [SerializeField]
-    [Range(1, 100.0f)]
+    [Range(25, 100.0f)]
     private int projectileRange;
     [SerializeField]
-    [Range(0.25f, 2.0f)]
+    [Range(0.5f, 2.0f)]
     private float cooldownDuration;
     [SerializeField]
-    [Range(5f, 10f)]
+    [Range(5f, 15f)]
     private float selfKnockbackValue;
     public bool IsOffCooldown { get; set; } = true;
     public override void Enter()
@@ -37,8 +37,8 @@ public class ShootingState : CharacterBaseState
                 EventHandler.Instance.FireEvent(EventHandler.EventType.HitEvent, e);
             }
         }
-        Debug.Log("fire");
         ApplySelfKnockback();
+        //TODO Migrate to KnockbackState instead
     }
 
     private void ApplySelfKnockback()

@@ -18,11 +18,7 @@ public class HitListener : BaseListener
             int knockbackMagnitude = Constants.Instance.DefaultKnockbackDistance;
             Vector3 knockbackVector =  Vector3.ProjectOnPlane(direction * knockbackMagnitude,Vector3.up);
             hitEventInfo.ObjectHit.GetComponent<Rigidbody>().velocity += -knockbackVector;
-            _debug_lives--;
-            if (_debug_lives == 0)
-            {
-                Destroy(hitEventInfo.ObjectHit.gameObject, 0.1f);
-            }
+            Destroy(hitEventInfo.ObjectHit.gameObject, 1f);
         }
     }
 }
