@@ -43,7 +43,7 @@ public class Shooting : MonoBehaviour
 
     void OnFire()
     {
-        Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
+        // Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
         IsOffCooldown = false;
         CheckCollision();
     }
