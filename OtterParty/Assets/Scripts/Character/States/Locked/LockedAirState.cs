@@ -14,6 +14,7 @@ public class LockedAirState : CharacterBaseState
     {
         owner.IsGrounded = false;
         base.Enter();
+        Debug.Log("AirState");
     }
 
     public override void HandleUpdate()

@@ -13,7 +13,7 @@ public class LockedMovementState : CharacterBaseState
     [Range(0.75f, 0.85f)]
     private float variationPenalty;
     [SerializeField]
-    [Range(2.4f, 2.8f)]
+    [Range(2.4f, 6f)]
     private float maxSpeed;
     [SerializeField]
     [Range(1f, 10f)]
@@ -29,6 +29,7 @@ public class LockedMovementState : CharacterBaseState
         owner.OnSpamAction += SpamAction;
         owner.OnJumpAction += JumpAction;
         base.Enter();
+        Debug.Log("EnterMov");
     }
 
     private void SpamAction(bool isRightButtonPressed)
