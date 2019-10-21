@@ -6,7 +6,7 @@ public class NewBehaviourScript : MonoBehaviour
 {
     [SerializeField]
     private int loadSceneIndex;
-
+    
     private void OnChangeScene()
     {
         SceneManager.LoadScene(loadSceneIndex);

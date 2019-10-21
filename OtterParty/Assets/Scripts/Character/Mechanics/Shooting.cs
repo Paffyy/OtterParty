@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Obsolete("Test script (Has been migrated to state)", true)]
 public class Shooting : MonoBehaviour
 {
     [SerializeField]
