@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1865357004755966653}
   - component: {fileID: 612957688146811030}
   - component: {fileID: 1871255283306189785}
+  - component: {fileID: 5426868859183454995}
   m_Layer: 11
   m_Name: LockedMovementPlayer
   m_TagString: Player
@@ -186,6 +187,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.029940335, z: 0.99999994}
   m_Center: {x: 0, y: -0.5157534, z: 0}
+--- !u!114 &5426868859183454995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865357004755966654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12757bc38a2b6e343aa3261957a12ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneIndex: 1
 --- !u!1 &1865357005886718676
 GameObject:
   m_ObjectHideFlags: 0

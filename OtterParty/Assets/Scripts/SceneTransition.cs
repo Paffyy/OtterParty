@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class NewBehaviourScript : MonoBehaviour
+public class SceneTransition : MonoBehaviour
 {
     [SerializeField]
     private int loadSceneIndex;
     
-    private void OnChangeScene()
+    private void OnSwitchScene()
     {
         SceneManager.LoadScene(loadSceneIndex);
     }
