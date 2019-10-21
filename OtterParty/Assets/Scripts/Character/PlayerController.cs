@@ -54,6 +54,12 @@ public class PlayerController : StateMachine
             movement = Vector3.zero;
         }
     }
+
+    public void OnPlayerJoined()
+    {
+        Debug.Log("Joined");
+    }
+
     public void Jump()
     {
         playerBody.velocity += new Vector3(0, jumpHeight, 0);
