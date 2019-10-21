@@ -29,7 +29,7 @@ public class MovingState : CharacterBaseState
     public override void Exit()
     {
         owner.OnMoveAction -= Movement;
-        owner.InputDirection = Vector2.zero;
+       
         owner.OnJumpAction -= JumpAction;
     }
 }

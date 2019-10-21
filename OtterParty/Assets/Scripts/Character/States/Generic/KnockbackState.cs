@@ -11,6 +11,7 @@ public class KnockbackState : CharacterBaseState
     private float stunDuration;
     public override void Enter()
     {
+        owner.InputDirection = Vector2.zero;
         owner.GetComponent<Rigidbody>().velocity = -owner.transform.forward * Constants.Instance.DefaultKnockbackDistance;
         base.Enter();
         Task.Factory.StartNew(async() => 
