@@ -57,6 +57,14 @@ public class TestController : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SwitchScene"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4761744-a230-45dd-bdf4-43b4baa5e437"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -213,6 +221,28 @@ public class TestController : IInputActionCollection, IDisposable
                     ""action"": ""RightSpam"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71c06d89-fa7d-4c2d-9599-4138a99ee7ad"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""213cdc3c-1f40-4327-87e1-558953c354f1"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -226,6 +256,7 @@ public class TestController : IInputActionCollection, IDisposable
         m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
         m_Gameplay_LeftSpam = m_Gameplay.FindAction("LeftSpam", throwIfNotFound: true);
         m_Gameplay_RightSpam = m_Gameplay.FindAction("RightSpam", throwIfNotFound: true);
+        m_Gameplay_SwitchScene = m_Gameplay.FindAction("SwitchScene", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -280,6 +311,7 @@ public class TestController : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Fire;
     private readonly InputAction m_Gameplay_LeftSpam;
     private readonly InputAction m_Gameplay_RightSpam;
+    private readonly InputAction m_Gameplay_SwitchScene;
     public struct GameplayActions
     {
         private TestController m_Wrapper;
@@ -289,6 +321,7 @@ public class TestController : IInputActionCollection, IDisposable
         public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
         public InputAction @LeftSpam => m_Wrapper.m_Gameplay_LeftSpam;
         public InputAction @RightSpam => m_Wrapper.m_Gameplay_RightSpam;
+        public InputAction @SwitchScene => m_Wrapper.m_Gameplay_SwitchScene;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -313,6 +346,9 @@ public class TestController : IInputActionCollection, IDisposable
                 RightSpam.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightSpam;
                 RightSpam.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightSpam;
                 RightSpam.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightSpam;
+                SwitchScene.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchScene;
+                SwitchScene.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchScene;
+                SwitchScene.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchScene;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -332,6 +368,9 @@ public class TestController : IInputActionCollection, IDisposable
                 RightSpam.started += instance.OnRightSpam;
                 RightSpam.performed += instance.OnRightSpam;
                 RightSpam.canceled += instance.OnRightSpam;
+                SwitchScene.started += instance.OnSwitchScene;
+                SwitchScene.performed += instance.OnSwitchScene;
+                SwitchScene.canceled += instance.OnSwitchScene;
             }
         }
     }
@@ -343,5 +382,6 @@ public class TestController : IInputActionCollection, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnLeftSpam(InputAction.CallbackContext context);
         void OnRightSpam(InputAction.CallbackContext context);
+        void OnSwitchScene(InputAction.CallbackContext context);
     }
 }
