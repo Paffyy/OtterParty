@@ -32,9 +32,10 @@ public class PlayerController : StateMachine
         base.Awake();
     }
 
-    private void Update()
+    private new void Update()
     {
         ApplyMovement();
+        base.Update();
     }
 
     private void FixedUpdate()
@@ -53,11 +54,6 @@ public class PlayerController : StateMachine
         {
             movement = Vector3.zero;
         }
-    }
-
-    public void OnPlayerJoined()
-    {
-        Debug.Log("Joined");
     }
 
     public void Jump()

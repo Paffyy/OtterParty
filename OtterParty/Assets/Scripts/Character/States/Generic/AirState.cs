@@ -13,7 +13,7 @@ public class AirState : CharacterBaseState
         base.Enter();
     }
 
-    public override void HandleLateUpdate()
+    public override void HandleUpdate()
     {
         if (owner.IsGrounded)
         {

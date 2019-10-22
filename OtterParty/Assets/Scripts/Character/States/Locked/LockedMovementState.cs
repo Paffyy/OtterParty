@@ -29,7 +29,6 @@ public class LockedMovementState : CharacterBaseState
         owner.OnSpamAction += SpamAction;
         owner.OnJumpAction += JumpAction;
         base.Enter();
-        Debug.Log("EnterMov");
     }
 
     private void SpamAction(bool isRightButtonPressed)

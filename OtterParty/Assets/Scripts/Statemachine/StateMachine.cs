@@ -41,7 +41,7 @@ public abstract class StateMachine : MonoBehaviour
         currentState.Enter();
     }
 
-    private void Update()
+    protected void Update()
     {
         if (states.Length > 0)
             currentState.HandleUpdate();

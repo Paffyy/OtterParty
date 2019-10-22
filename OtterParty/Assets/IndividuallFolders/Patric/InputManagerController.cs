@@ -28,8 +28,6 @@ public class InputManagerController : MonoBehaviour
 
     private void OnPlayerJoined(PlayerInput input)
     {
-
-        Debug.Log(input.playerIndex);
         input.gameObject.transform.position = checkPoints[input.playerIndex].transform.position;
         input.gameObject.transform.rotation = checkPoints[input.playerIndex].transform.rotation;
     }

@@ -15,7 +15,6 @@ public class StunObstacle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-
             other.GetComponent<PlayerController>().Transition<LockedKnockbackState>();
             Destroy(gameObject);
         }
