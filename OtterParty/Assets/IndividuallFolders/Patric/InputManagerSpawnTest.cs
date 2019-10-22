@@ -9,11 +9,11 @@ public class InputManagerSpawnTest : MonoBehaviour
     [SerializeField]
     private GameObject prefab;
     private bool joined;
-    private List<PlayerTest> players;
+    private List<Player> players;
     void Awake()
     {
         pim = GetComponent<PlayerInputManager>();
-        players = new List<PlayerTest>();
+        players = new List<Player>();
     }
  
     void Update()
@@ -29,10 +29,9 @@ public class InputManagerSpawnTest : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-            Debug.Log(players.Count);
             foreach (var item in players)
             {
-                pim.JoinPlayer(item.Index, item.Index, null, item.Device);
+                pim.JoinPlayer(item.ID, item.ID, null, item.Device);
             }
         }
     }
@@ -40,18 +39,14 @@ public class InputManagerSpawnTest : MonoBehaviour
     {
         if (!joined)
         {
-            var p = new PlayerTest()
+            var gObject = obj.gameObject;
+            var p = new Player()
             {
-                Index = obj.playerIndex,
-                Device = obj.devices[0]
+                ID = obj.playerIndex,
+                Device = obj.devices[0],
             };
             players.Add(p);
-            Debug.Log("join");
+            red = true;
         }
-    }
-    public class PlayerTest
-    {
-        public int Index { get; set; }
-        public InputDevice Device { get; set; }
     }
 }

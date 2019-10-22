@@ -8,6 +8,5 @@ public class Player
     public int ID { get; set; }
     public string Name { get; set; }
     public InputDevice Device { get; set; }
-    public GameObject PlayerObject { get; set; }
     public int HatIndex { get; set; }
 }
