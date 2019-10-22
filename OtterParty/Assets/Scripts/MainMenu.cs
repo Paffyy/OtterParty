@@ -7,11 +7,13 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
+        Debug.Log("PlayGame");
         // todo
     }
 
     public void OpenOptions()
     {
+        Debug.Log("OpenOptions");
         // todo
     }
 
