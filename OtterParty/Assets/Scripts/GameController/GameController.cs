@@ -46,12 +46,8 @@ public class GameController : MonoBehaviour
     }
     public void StartNextMinigame()
     {
-        // load minigame
         SceneManager.LoadScene(currentMinigame.Id);
     }
 
 }
-public class Player // debug
-{
 
-}
