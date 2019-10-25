@@ -16,6 +16,7 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     [Range(1, 5f)]
     private int countDownTimer;
+
     private List<GameObject> playerObjects = new List<GameObject>();
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
@@ -51,7 +52,6 @@ public class MinigameController : MonoBehaviour
         currentPoints++;
         if (IsLastPlayerStanding())
         {
-            minigamePointSystem.UpdateScore(playerPoints);
             GameIsOver(); 
         }
     }
@@ -83,10 +83,10 @@ public class MinigameController : MonoBehaviour
     }
     private void OnPlayerJoined(PlayerInput playerInput)
     {
-
+        // asign player gameobjects here
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
-        playerInput.gameObject.GetComponent<MeshRenderer>().material.color = PlayerColors.Instance.Colors[playerInput.playerIndex];
+        playerInput.gameObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[playerInput.playerIndex];
     }
     private void EnablePlayers()
     {
@@ -115,6 +115,10 @@ public class MinigameController : MonoBehaviour
         }
         minigamePointSystem.UpdateScore(playerPoints);
 
+        if (GameController.Instance != null)
+        {
+            GameController.Instance.PointSystem.UpdateScore(minigamePointSystem.GetCurrentScore());
+        }
         StopAllCoroutines();
         FreezeAll();
         ShowStandingsUI();

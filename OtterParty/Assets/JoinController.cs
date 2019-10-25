@@ -7,8 +7,6 @@ public class JoinController : MonoBehaviour
 {
     private PlayerInputManager playerInputManager;
     [SerializeField]
-    private List<Material> playerMaterials;
-    [SerializeField]
     private GameObject textParent;
     private List<GameObject> texts;
     void Awake()
@@ -25,8 +23,8 @@ public class JoinController : MonoBehaviour
     {
         if (GameController.Instance != null)
         {
-            GameController.Instance.Players.Add(new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0], playerMaterials[input.playerIndex]));
-            input.gameObject.GetComponent<MeshRenderer>().material = playerMaterials[input.playerIndex];
+            GameController.Instance.Players.Add(new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0],  GameController.Instance.PlayerMaterials[input.playerIndex]));
+            input.gameObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[input.playerIndex];
             texts[input.playerIndex].SetActive(true);
         }
     }

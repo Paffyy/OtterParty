@@ -10,6 +10,13 @@ public class GameController : MonoBehaviour
     private List<Minigame> minigames = new List<Minigame>();
     private Minigame nextMinigame;
     private int nextMinigameIndex = 0;
+    [SerializeField]
+    private List<Material> playerMaterials;
+    public List<Material> PlayerMaterials
+    {
+        get { return playerMaterials; }
+        set { playerMaterials = value; }
+    }
 
     #region Singleton
     private GameController() { }
@@ -56,6 +63,14 @@ public class GameController : MonoBehaviour
             return;
         }
         nextMinigameIndex++;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Instance.StartNextMinigame();
+        }
     }
 }
 
