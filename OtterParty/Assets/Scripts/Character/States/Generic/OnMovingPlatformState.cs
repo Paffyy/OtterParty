@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-[CreateAssetMenu(menuName = "Player/MovingState")]
-public class MovingState : CharacterBaseState
+[CreateAssetMenu(menuName = "Player/OnMovingPlatformState")]
+public class OnMovingPlatformState : CharacterBaseState
 {
     [SerializeField]
     [Range(1f, 10f)]
@@ -13,22 +11,27 @@ public class MovingState : CharacterBaseState
 
     public override void Enter()
     {
+        owner.IsOnMovingPlatform = true;
         owner.OnMoveAction += Movement;
         owner.OnJumpAction += JumpAction;
         base.Enter();
     }
+
+    private void Movement(Vector2 inputDirection)
+    {
+        owner.InputDirection = inputDirection;
+    }
+    
     private void JumpAction()
     {
         owner.Jump(jumpHeight);
         owner.Transition<AirState>();
     }
-    private void Movement(Vector2 inputDirection)
-    {
-        owner.InputDirection = inputDirection;
-    }
+
     public override void Exit()
     {
-        owner.OnMoveAction -= Movement;   
+        owner.IsOnMovingPlatform = false;
+        owner.OnMoveAction -= Movement;
         owner.OnJumpAction -= JumpAction;
     }
 }

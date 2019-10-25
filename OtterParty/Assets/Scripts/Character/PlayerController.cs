@@ -22,12 +22,14 @@ public class PlayerController : StateMachine
     public Action<Vector2> OnMoveAction { get; set; }
     public Action<bool> OnSpamAction { get; set; }
     public bool IsGrounded { get; set; }
+    public bool IsOnMovingPlatform { get; set; }
 
     private Rigidbody playerBody;
     private Vector3 movement;
 
     protected override void Awake()
     {
+        IsOnMovingPlatform = false;
         playerBody = GetComponent<Rigidbody>();
         base.Awake();
     }
@@ -40,7 +42,14 @@ public class PlayerController : StateMachine
 
     private void FixedUpdate()
     {
-        playerBody.MovePosition(transform.position + movement * Time.deltaTime);
+        if (!IsOnMovingPlatform)
+        {
+            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
+        }
+        else if (IsOnMovingPlatform)
+        {
+            playerBody.velocity = transform.position + movement * Time.deltaTime;
+        }
     }
 
     private void ApplyMovement()
