@@ -46,7 +46,6 @@ public class InputManagerSpawnTest : MonoBehaviour
                 Device = obj.devices[0],
             };
             players.Add(p);
-            red = true;
         }
     }
 }

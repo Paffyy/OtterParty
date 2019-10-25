@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActivePlatform : MonoBehaviour
+public class ActivePlatform : MonoBehaviour
 {
     protected void OnTriggerEnter(Collider other)
     {
