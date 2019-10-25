@@ -83,6 +83,7 @@ public class MinigameController : MonoBehaviour
     }
     private void OnPlayerJoined(PlayerInput playerInput)
     {
+
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
         playerInput.gameObject.GetComponent<MeshRenderer>().material.color = PlayerColors.Instance.Colors[playerInput.playerIndex];
