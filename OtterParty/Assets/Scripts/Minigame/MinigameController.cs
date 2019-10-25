@@ -115,13 +115,13 @@ public class MinigameController : MonoBehaviour
         }
         minigamePointSystem.UpdateScore(playerPoints);
 
+        StopAllCoroutines();
+        FreezeAll();
+        ShowStandingsUI();
         if (GameController.Instance != null)
         {
             GameController.Instance.PointSystem.UpdateScore(minigamePointSystem.GetCurrentScore());
         }
-        StopAllCoroutines();
-        FreezeAll();
-        ShowStandingsUI();
         StartCoroutine("GoToNextScene");
     }
     private IEnumerator GoToNextScene()

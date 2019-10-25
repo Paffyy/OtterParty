@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2819906021235509612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5831298524458004594}
+  m_Layer: 0
+  m_Name: Moveme
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5831298524458004594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819906021235509612}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8334443724275776841}
+  m_Father: {fileID: 8334443724802519582}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8334443722905350588
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,10 +120,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8334443724275776845}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.1673, y: 55.588, z: 397.95}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 12.247428, y: 0.38586, z: 10.5781975}
   m_Children: []
-  m_Father: {fileID: 8334443724802519582}
+  m_Father: {fileID: 5831298524458004594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8334443724275776840
@@ -166,6 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98551ab8b0a9e2409e9f5c6794316a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 5831298524458004594}
 --- !u!65 &8334443724275776822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -208,7 +240,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8334443724275776841}
+  - {fileID: 5831298524458004594}
   - {fileID: 8334443722905350589}
   - {fileID: 8334443722918812555}
   m_Father: {fileID: 0}
@@ -226,7 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4b468d828b3eb40b2eaabb3f15e98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingPlatform: {fileID: 8334443724275776841}
+  parent: {fileID: 5831298524458004594}
+  movingPlatform: {fileID: 5831298524458004594}
   firstPosition: {fileID: 8334443722905350589}
   secondPosition: {fileID: 8334443722918812555}
   smooth: 5

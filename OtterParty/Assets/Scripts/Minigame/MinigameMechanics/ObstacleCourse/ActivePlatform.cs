@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class ActivePlatform : MonoBehaviour
 {
+    [SerializeField]
+    private Transform parent;
     protected void OnTriggerEnter(Collider other)
     {
-        other.gameObject.transform.parent = gameObject.transform;
+        other.gameObject.transform.parent = parent;
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
         if(player != null)
         {
