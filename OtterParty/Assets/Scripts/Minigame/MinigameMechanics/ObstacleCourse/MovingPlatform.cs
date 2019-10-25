@@ -24,7 +24,7 @@ public class MovingPlatform : ActivePlatform
 
     void FixedUpdate()
     {
-        movingPlatform.position = Vector3.Lerp(movingPlatform.position, newPosition, smooth * Time.deltaTime);
+        movingPlatform.position = Vector3.MoveTowards(movingPlatform.position, newPosition, smooth * Time.deltaTime);
     }
 
     private void ChangeTarget()
