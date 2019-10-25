@@ -31,7 +31,10 @@ public class InputManagerSpawnTest : MonoBehaviour
         {
             foreach (var item in players)
             {
-                pim.JoinPlayer(item.ID, item.ID, null, item.Device);
+                if (item.Name.Contains("Keyboard"))
+                {
+                    pim.JoinPlayer(item.ID, item.ID, null, item.Device);
+                }
             }
         }
     }

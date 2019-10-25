@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    //public PointSystem PointSystem { get; set; } 
-    public List<Player> Players { get; set; }
-    private List<Minigame> minigames;
-    private Minigame currentMinigame;
-
+    public PointSystem PointSystem { get; set; } 
+    public List<Player> Players { get; set; } = new List<Player>();
+    private List<Minigame> minigames = new List<Minigame>();
+    private Minigame nextMinigame;
+    private int nextMinigameIndex = 0;
     #region Singleton
     private GameController() { }
     private static GameController instance;
@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
         get
         {
             if (instance == null)
-                instance = new GameController();
+                instance = GameObject.FindObjectOfType<GameController>();
             return instance;
         }
     }
@@ -26,28 +26,35 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         var parrent = GameObject.Find("Minigames");
         if (parrent != null)
         {
-            foreach (GameObject item in parrent.transform)
+            foreach (Transform item in parrent.transform)
             {
-                var minigame = item.GetComponent<Minigame>();
+                var minigame = item.gameObject.GetComponent<Minigame>();
                 if (minigame != null)
                 {
                     minigames.Add(minigame);
                 }
             }
-            currentMinigame = minigames[0];
+            nextMinigame = minigames[nextMinigameIndex];
         }
-    }
-    private void Start()
-    {
-        StartNextMinigame();
     }
     public void StartNextMinigame()
     {
-        SceneManager.LoadScene(currentMinigame.Id);
+        if (nextMinigameIndex < minigames.Count)
+        {
+            nextMinigame = minigames[nextMinigameIndex];
+            SceneManager.LoadScene(nextMinigame.SceneIndex);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+            nextMinigameIndex = 0;
+            return;
+        }
+        nextMinigameIndex++;
     }
-
 }
 

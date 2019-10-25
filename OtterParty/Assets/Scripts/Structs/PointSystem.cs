@@ -34,7 +34,4 @@ public class PointSystem
         return temp;
     }
     public Dictionary<Player, int> GetCurrentScore() => playerScores;
-
-
-
 }

@@ -21,11 +21,6 @@ public class InputManagerController : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        playerInputManager.onPlayerJoined += OnPlayerJoined;
-    }
-
     private void OnPlayerJoined(PlayerInput input)
     {
         input.gameObject.transform.position = checkPoints[input.playerIndex].transform.position;
@@ -37,7 +32,4 @@ public class InputManagerController : MonoBehaviour
         playerInputManager.transform.rotation = checkPoints[(int)id].transform.rotation;
 
     }
-
-
-
 }
