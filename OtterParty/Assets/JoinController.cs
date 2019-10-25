@@ -23,8 +23,15 @@ public class JoinController : MonoBehaviour
     {
         if (GameController.Instance != null)
         {
-            GameController.Instance.Players.Add(new Player((int)input.user.id, "Player_" + input.user.id, input.devices[0]));
+            GameController.Instance.Players.Add(new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0]));
             texts[input.playerIndex].SetActive(true);
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            GameController.Instance.StartNextMinigame();
         }
     }
 }

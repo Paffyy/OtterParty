@@ -25,6 +25,7 @@ public class InputManagerController : MonoBehaviour
     {
         input.gameObject.transform.position = checkPoints[input.playerIndex].transform.position;
         input.gameObject.transform.rotation = checkPoints[input.playerIndex].transform.rotation;
+        input.gameObject.GetComponent<MeshRenderer>().material.color = PlayerColors.Instance.Colors[input.playerIndex];
     }
     private void MovePimToCheckpoint(uint id)
     {

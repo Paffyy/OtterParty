@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MinigameController : MonoBehaviour
 {
@@ -15,18 +16,30 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     [Range(1, 5f)]
     private int countDownTimer;
-
+    private List<GameObject> playerObjects = new List<GameObject>();
+    private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
+    private List<Transform> checkPoints = new List<Transform>();
     private PointSystem minigamePointSystem;
-    private Dictionary<Player,bool> playersAlive;
+
+    private PlayerInputManager playerInputManager;
     private int currentPoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
 
     private void Awake()
     {
+        playerInputManager = GetComponent<PlayerInputManager>();
         foreach (var item in GameController.Instance.Players)
         {
             playersAlive.Add(item,true);
         }
+        foreach (Transform item in gameObject.transform)
+        {
+            checkPoints.Add(item);
+        }
+    }
+    private void Start()
+    {
+        JoinPlayers();
     }
 
     public void EliminatePlayer(Player p) // FFA
@@ -61,10 +74,25 @@ public class MinigameController : MonoBehaviour
         StartMinigameTimer();
         EnablePlayers();
     }
-
+    private void JoinPlayers()
+    {
+        foreach (var item in GameController.Instance.Players)
+        {
+            playerInputManager.JoinPlayer(item.ID, -1, null, item.Device);
+        }
+    }
+    private void OnPlayerJoined(PlayerInput playerInput)
+    {
+        playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
+        playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
+        playerInput.gameObject.GetComponent<MeshRenderer>().material.color = PlayerColors.Instance.Colors[playerInput.playerIndex];
+    }
     private void EnablePlayers()
     {
-        throw new NotImplementedException();
+        foreach (var item in playerObjects)
+        {
+            // unlock players
+        }
     }
 
     public void StartMinigameTimer(int duration = 60)
