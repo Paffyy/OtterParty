@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    //public PointSystem PointSystem { get; set; } 
-    public List<Player> Players { get; set; }
-    private List<Minigame> minigames;
+    public PointSystem PointSystem { get; set; } 
+    public List<Player> Players { get; set; } = new List<Player>();
+    private List<Minigame> minigames = new List<Minigame>();
     private Minigame currentMinigame;
 
     #region Singleton
@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
         get
         {
             if (instance == null)
-                instance = new GameController();
+                instance = GameObject.FindObjectOfType<GameController>();
             return instance;
         }
     }
@@ -39,10 +39,6 @@ public class GameController : MonoBehaviour
             }
             currentMinigame = minigames[0];
         }
-    }
-    private void Start()
-    {
-        StartNextMinigame();
     }
     public void StartNextMinigame()
     {

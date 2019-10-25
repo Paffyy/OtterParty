@@ -31,7 +31,10 @@ public class InputManagerSpawnTest : MonoBehaviour
         {
             foreach (var item in players)
             {
-                pim.JoinPlayer(item.ID, item.ID, null, item.Device);
+                if (item.Name.Contains("Keyboard"))
+                {
+                    pim.JoinPlayer(item.ID, item.ID, null, item.Device);
+                }
             }
         }
     }
@@ -46,7 +49,6 @@ public class InputManagerSpawnTest : MonoBehaviour
                 Device = obj.devices[0],
             };
             players.Add(p);
-            red = true;
         }
     }
 }
