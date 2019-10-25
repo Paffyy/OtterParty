@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     private List<Minigame> minigames = new List<Minigame>();
     private Minigame nextMinigame;
     private int nextMinigameIndex = 0;
+
     #region Singleton
     private GameController() { }
     private static GameController instance;
