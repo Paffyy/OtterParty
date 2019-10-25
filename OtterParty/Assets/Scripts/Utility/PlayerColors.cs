@@ -17,6 +17,7 @@ public class PlayerColors
         }
     }
     #endregion
+
     public List<Color> Colors = new List<Color>()
     {
         new Color(216,27,96,1), // magenta

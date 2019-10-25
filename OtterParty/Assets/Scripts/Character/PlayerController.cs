@@ -48,7 +48,7 @@ public class PlayerController : StateMachine
         }
         else if (IsOnMovingPlatform)
         {
-            playerBody.velocity = transform.position + movement * Time.deltaTime;
+            playerBody.velocity = movement;
         }
     }
 
