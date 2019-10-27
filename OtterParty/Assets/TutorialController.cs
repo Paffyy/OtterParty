@@ -10,9 +10,12 @@ public class TutorialController : MonoBehaviour
     private float tutorialDuration; // Todo replace with aiming controller
     [SerializeField]
     private TextMeshProUGUI tutorialDurationText;
+    [SerializeField]
+    private bool isTestingUI;
+
     void Start()
     {
-        if (MinigameController.Instance != null && GameController.Instance != null)
+        if (MinigameController.Instance != null && GameController.Instance != null || isTestingUI)
         {
             StartCoroutine("StartMinigame");
         }
@@ -25,7 +28,12 @@ public class TutorialController : MonoBehaviour
     IEnumerator StartMinigame()
     {
         yield return new WaitForSeconds(tutorialDuration);
-        MinigameController.Instance.StartMinigameTimer();
+        if (MinigameController.Instance != null && GameController.Instance != null)
+        {
+            MinigameController.Instance.StartMinigameTimer();
+            MinigameController.Instance.JoinPlayers();
+        }
+       
         gameObject.SetActive(false);
     }
     private void FixedUpdate()

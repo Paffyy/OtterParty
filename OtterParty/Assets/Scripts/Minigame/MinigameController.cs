@@ -54,7 +54,7 @@ public class MinigameController : MonoBehaviour
     }
     private void Start()
     {
-        JoinPlayers();
+        //JoinPlayers();
     }
 
     public void EliminatePlayer(Player p) // FFA
@@ -88,7 +88,7 @@ public class MinigameController : MonoBehaviour
         StartMinigameTimer();
         EnablePlayers();
     }
-    private void JoinPlayers()
+    public void JoinPlayers()
     {
         foreach (var item in GameController.Instance.Players)
         {

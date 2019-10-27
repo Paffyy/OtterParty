@@ -513,7 +513,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ed33171a1fbd114498fb2b9ed6286dd8, type: 3}
   - {fileID: 21300000, guid: ce1a01b02bb722f44b8aa27b07b9ecae, type: 3}
   - {fileID: 21300000, guid: fa1a91382b2691c4a84f7b8728b5de6b, type: 3}
-  interval: 1
+  interval: 0.8
 --- !u!114 &334573470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 571418402}
   - component: {fileID: 571418401}
   m_Layer: 0
-  m_Name: MinigameController
+  m_Name: MinigameController - Disable for testing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -985,7 +985,7 @@ MonoBehaviour:
   spritesToLoop:
   - {fileID: 21300000, guid: fef5f4cca847c0c48a046cb580ec56c9, type: 3}
   - {fileID: 21300000, guid: 07be95f78957f1f4ab650c7232767556, type: 3}
-  interval: 1
+  interval: 0.8
 --- !u!114 &873219077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1933,6 +1933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialDuration: 15
   tutorialDurationText: {fileID: 1959977068}
+  isTestingUI: 0
 --- !u!1 &1645560708
 GameObject:
   m_ObjectHideFlags: 0
@@ -2480,7 +2481,7 @@ GameObject:
   - component: {fileID: 1954287104}
   - component: {fileID: 1954287103}
   m_Layer: 0
-  m_Name: Pim
+  m_Name: Pim - Enable for testing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

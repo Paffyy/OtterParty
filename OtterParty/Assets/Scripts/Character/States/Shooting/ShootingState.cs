@@ -10,7 +10,7 @@ public class ShootingState : CharacterBaseState
     [SerializeField]
     private LayerMask targetMask;
     [SerializeField]
-    [Range(25, 100.0f)]
+    [Range(5f, 25f)]
     private int projectileRange;
     [SerializeField]
     [Range(0.5f, 2.0f)]
@@ -19,8 +19,13 @@ public class ShootingState : CharacterBaseState
     [Range(5f, 15f)]
     private float selfKnockbackValue;
     public bool IsOffCooldown { get; set; } = true;
+    private ParticleSystem projectileParticle;
     public override void Enter()
     {
+        projectileParticle = owner.GetComponent<ParticleSystem>();
+        var main = projectileParticle.main;
+        float lifetime = projectileRange / main.startSpeed.constant;
+        main.startLifetime = lifetime;
         owner.OnMoveAction += Movement;
         owner.OnFireAction += Fire;
         base.Enter();
@@ -51,11 +56,18 @@ public class ShootingState : CharacterBaseState
     {
         if (IsOffCooldown)
         {
+            FireProjectile();
             Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
             IsOffCooldown = false;
             CheckCollision();
         }
     }
+
+    private void FireProjectile()
+    {
+        projectileParticle.Emit(1);
+    }
+
     private void Movement(Vector2 inputDirection)
     {
         owner.InputDirection = inputDirection;
