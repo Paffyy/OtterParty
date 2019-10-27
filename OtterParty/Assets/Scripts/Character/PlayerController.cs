@@ -42,13 +42,14 @@ public class PlayerController : StateMachine
 
     private void FixedUpdate()
     {
-        if (!IsOnMovingPlatform)
-        {
-            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
-        }
-        else if (IsOnMovingPlatform)
+        if (IsOnMovingPlatform) // velocity Movement
         {
             playerBody.velocity = movement;
+        }
+        else
+        {
+            playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0);
+            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
         }
     }
 
@@ -80,7 +81,10 @@ public class PlayerController : StateMachine
     }
     private void OnJump()
     {
-        OnJumpAction?.Invoke();
+        if (IsGrounded)
+        {
+            OnJumpAction?.Invoke();
+        }
     }
     private void OnLeftSpam()
     {
