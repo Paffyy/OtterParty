@@ -10,9 +10,11 @@ public class RotatingPlatform : ActivePlatform
     [SerializeField]
     [Range(-1, 1)]
     private int rotationDirection;
+    [SerializeField]
+    private Transform rotatingPlatform;
 
     private void FixedUpdate()
     {
-        transform.Rotate(new Vector3(0, rotationDirection, 0), rotationSpeed);
+        rotatingPlatform.Rotate(new Vector3(0, rotationDirection, 0), rotationSpeed);
     }
 }
