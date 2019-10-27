@@ -46,12 +46,11 @@ public class GameController : MonoBehaviour
                     minigames.Add(minigame);
                 }
             }
-            nextMinigame = minigames[nextMinigameIndex];
         }
     }
     public void StartNextMinigame()
     {
-        if (nextMinigameIndex < minigames.Count)
+        if (nextMinigameIndex <= minigames.Count)
         {
             nextMinigame = minigames[nextMinigameIndex];
             SceneManager.LoadScene(nextMinigame.SceneIndex);
@@ -67,7 +66,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.F))
         {
             Instance.StartNextMinigame();
         }

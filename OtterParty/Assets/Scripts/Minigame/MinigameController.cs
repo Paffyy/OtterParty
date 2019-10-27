@@ -26,6 +26,20 @@ public class MinigameController : MonoBehaviour
     private int currentPoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
 
+    #region Singleton
+    private MinigameController() { }
+    private static MinigameController instance;
+    public static MinigameController Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = GameObject.FindObjectOfType<MinigameController>();
+            return instance;
+        }
+    }
+    #endregion
+
     private void Awake()
     {
         playerInputManager = GetComponent<PlayerInputManager>();
