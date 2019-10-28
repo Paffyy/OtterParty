@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private Transform endPosition;
     [SerializeField]
-    [Range(0.1f, 5.0f)]
+    [Range(1.0f, 8.0f)]
     private float movingSpeed;
 
     void FixedUpdate()

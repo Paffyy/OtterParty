@@ -21,7 +21,6 @@ public class MovingPlatform : ActivePlatform
     [SerializeField]
     private MeshRenderer mesh;
 
-
     void Start()
     {
         if(material != null)
