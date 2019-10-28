@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 7833761761695191567}
   - component: {fileID: 7833761761695191552}
   m_Layer: 0
-  m_Name: PlayerPoints
+  m_Name: PlayerPointsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,8 +356,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9af7c31ddc052468e2fd55e2e126b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerImage: {fileID: 7833761762585023486}
   currentPointsText: {fileID: 7833761761596577742}
   pointsToAddText: {fileID: 7833761761070658637}
+  playerSprites:
+  - {fileID: 21300000, guid: 35bdba05baacb0f4588fa9284042f5fe, type: 3}
+  - {fileID: 21300000, guid: 06dd521887a6a4d40b2ebc962f316906, type: 3}
+  - {fileID: 21300000, guid: 5659985abe005a4439d951e3fab7e24b, type: 3}
+  - {fileID: 21300000, guid: 6eb43d7f293c48d44a6e5e4ec474e3bd, type: 3}
 --- !u!1 &7833761762585023484
 GameObject:
   m_ObjectHideFlags: 0
