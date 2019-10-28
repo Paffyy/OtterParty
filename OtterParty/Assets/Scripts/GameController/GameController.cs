@@ -63,12 +63,16 @@ public class GameController : MonoBehaviour
         }
         nextMinigameIndex++;
     }
+    private void InitPointSystem() // Should run after Players have joined
+    {
+        PointSystem.InitializePlayers(Players);
+    }
 
-    private void Update()
+    private void Update() // TODO replace with button
     {
         if (Input.GetKeyUp(KeyCode.F))
         {
-            Instance.StartNextMinigame();
+            StartNextMinigame();
         }
     }
 }

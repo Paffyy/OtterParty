@@ -19,5 +19,6 @@ public class Player
     public string Name { get; set; }
     public InputDevice Device { get; set; }
     public Material Material { get; set; }
+    public GameObject PlayerObject { get; set; }
     public int HatIndex { get; set; }
 }
