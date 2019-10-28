@@ -42,10 +42,6 @@ public class MinigameController : MonoBehaviour
     private void Awake()
     {
         playerInputManager = GetComponent<PlayerInputManager>();
-        foreach (var item in GameController.Instance.Players)
-        {
-            playersAlive.Add(item,true);
-        }
         foreach (Transform item in gameObject.transform)
         {
             checkPoints.Add(item);
@@ -92,7 +88,8 @@ public class MinigameController : MonoBehaviour
     }
     IEnumerator StartCountDown() // TODO Display The CountDown UI
     {
-        yield return new WaitForSeconds(countDownTimer);
+        yield return new WaitForSeconds(countDownTimer); 
+        // display countdowntimer
         StartMinigameTimer();
         ToggleActive(true);
     }
@@ -105,7 +102,6 @@ public class MinigameController : MonoBehaviour
     }
     private void OnPlayerJoined(PlayerInput playerInput)
     {
-        // asign player gameobjects here
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
         Player player = GameController.Instance.Players.FirstOrDefault(x => x.ID == playerInput.playerIndex);
@@ -157,10 +153,4 @@ public class MinigameController : MonoBehaviour
     {
         throw new NotImplementedException();
     }
-
-    /* Tutorial UI -> Display Untill every1 clicks
-     * CountDownTimer UI -> Show Timer when counting down
-     * Show updates on points/eliminations during game
-     * Show Scores adding to main score and prep next game
-     */
 }

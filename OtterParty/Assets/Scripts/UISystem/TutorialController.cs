@@ -30,7 +30,7 @@ public class TutorialController : MonoBehaviour
         yield return new WaitForSeconds(tutorialDuration);
         if (MinigameController.Instance != null && GameController.Instance != null)
         {
-            MinigameController.Instance.StartMinigameTimer();
+            MinigameController.Instance.StartMinigame();
             MinigameController.Instance.JoinPlayers();
         }
         gameObject.SetActive(false);
