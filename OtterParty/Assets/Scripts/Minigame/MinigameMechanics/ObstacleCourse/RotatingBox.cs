@@ -9,6 +9,18 @@ public class RotatingBox : MonoBehaviour
     private float rotationSpeed;
     [SerializeField]
     private Transform rotatingBox;
+    [SerializeField]
+    private Material material;
+    [SerializeField]
+    private MeshRenderer mesh;
+
+    void Start()
+    {
+        if (material != null)
+        {
+            mesh.material = material;
+        }
+    }
 
     void FixedUpdate()
     {
