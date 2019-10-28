@@ -17,10 +17,9 @@ public class MinigameController : MonoBehaviour
     [Range(1, 5f)]
     private int countDownTimer;
 
-    private List<GameObject> playerObjects = new List<GameObject>();
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
-    private PointSystem minigamePointSystem;
+    public PointSystem MinigamePointSystem { get; set; }
 
     private PlayerInputManager playerInputManager;
     private int currentPoints = 1;
@@ -54,15 +53,24 @@ public class MinigameController : MonoBehaviour
     }
     private void Start()
     {
-        //JoinPlayers();
+        if (GameController.Instance != null)
+        {
+            InitPlayers();
+        }
     }
-
+    private void InitPlayers()
+    {
+        foreach (var item in GameController.Instance.Players)
+        {
+            playersAlive.Add(item, false);
+        }
+    }
     public void EliminatePlayer(Player p) // FFA
     {
         playersAlive[p] = false;
         var playerPoints = new Dictionary<Player, int>();
         playerPoints.Add(p, currentPoints);
-        minigamePointSystem.UpdateScore(playerPoints);
+        MinigamePointSystem.UpdateScore(playerPoints);
         currentPoints++;
         if (IsLastPlayerStanding())
         {
@@ -86,7 +94,7 @@ public class MinigameController : MonoBehaviour
     {
         yield return new WaitForSeconds(countDownTimer);
         StartMinigameTimer();
-        EnablePlayers();
+        ToggleActive(true);
     }
     public void JoinPlayers()
     {
@@ -100,13 +108,15 @@ public class MinigameController : MonoBehaviour
         // asign player gameobjects here
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
-        playerInput.gameObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[playerInput.playerIndex];
+        Player player = GameController.Instance.Players.FirstOrDefault(x => x.ID == playerInput.playerIndex);
+        player.PlayerObject = playerInput.gameObject;
+        player.PlayerObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[player.ID];
     }
-    private void EnablePlayers()
+    private void ToggleActive(bool toggle)
     {
-        foreach (var item in playerObjects)
+        foreach (var item in GameController.Instance.Players)
         {
-            // unlock players
+            item.PlayerObject.SetActive(toggle);
         }
     }
 
@@ -127,14 +137,14 @@ public class MinigameController : MonoBehaviour
         {
             playerPoints.Add(item.Key, currentPoints);
         }
-        minigamePointSystem.UpdateScore(playerPoints);
+        MinigamePointSystem.UpdateScore(playerPoints);
 
         StopAllCoroutines();
-        FreezeAll();
+        ToggleActive(false);
         ShowStandingsUI();
         if (GameController.Instance != null)
         {
-            GameController.Instance.PointSystem.UpdateScore(minigamePointSystem.GetCurrentScore());
+            GameController.Instance.PointSystem.UpdateScore(MinigamePointSystem.GetCurrentScore());
         }
         StartCoroutine("GoToNextScene");
     }
@@ -142,10 +152,6 @@ public class MinigameController : MonoBehaviour
     {
         yield return new WaitForSeconds(endOfMatchDelay);
         GameController.Instance.StartNextMinigame();
-    }
-    private void FreezeAll()
-    {
-        throw new NotImplementedException();
     }
     private void ShowStandingsUI()
     {

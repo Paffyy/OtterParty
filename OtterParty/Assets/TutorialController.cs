@@ -13,7 +13,7 @@ public class TutorialController : MonoBehaviour
     [SerializeField]
     private bool isTestingUI;
 
-    void Start()
+    private void Start()
     {
         if (MinigameController.Instance != null && GameController.Instance != null || isTestingUI)
         {
@@ -33,7 +33,6 @@ public class TutorialController : MonoBehaviour
             MinigameController.Instance.StartMinigameTimer();
             MinigameController.Instance.JoinPlayers();
         }
-       
         gameObject.SetActive(false);
     }
     private void FixedUpdate()
