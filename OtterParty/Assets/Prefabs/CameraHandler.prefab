@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5587547050181065431}
   - component: {fileID: 4270277311689620050}
   - component: {fileID: 3421666442409569090}
-  - component: {fileID: 321777916}
+  - component: {fileID: 654810218}
   m_Layer: 0
   m_Name: CameraTrigger
   m_TagString: Killzone
@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4949122354474671014}
   m_LocalRotation: {x: -0.15736844, y: 0.15736844, z: 0.6893731, w: 0.6893731}
-  m_LocalPosition: {x: 0.00000016245, y: -9.87, z: 19.84}
-  m_LocalScale: {x: 2.7752118, y: 21.60516, z: 2.7752118}
+  m_LocalPosition: {x: 0.00000020794, y: -13.1, z: 17.1}
+  m_LocalScale: {x: 3.5522711, y: 27.654604, z: 3.5522711}
   m_Children: []
   m_Father: {fileID: 7261651710186212522}
   m_RootOrder: 0
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4949122354474671014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -111,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 96
   m_CollisionDetection: 0
---- !u!114 &321777916
+--- !u!114 &654810218
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,10 +120,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4949122354474671014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407a8f12e4e9a6d4d8d88b44e92d6b8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 881d1bb45414e544d92b455c4dfbb203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 5
 --- !u!1 &7261651710186212527
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,14 +148,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7261651710186212527}
-  m_LocalRotation: {x: 0.22254838, y: -0, z: -0, w: 0.97492164}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.42162022, y: -0, z: -0, w: 0.90677255}
+  m_LocalPosition: {x: 0, y: 4.0295715, z: 8.3526}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6273954730737342903}
   m_Father: {fileID: 7261651711540996391}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 25.718, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 49.874, y: 0, z: 0}
 --- !u!20 &7261651710186212525
 Camera:
   m_ObjectHideFlags: 0
@@ -285,4 +284,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 7261651710186212525}
   endPosition: {fileID: 7261651710849351445}
-  movingSpeed: 3.5
+  movingSpeed: 5
