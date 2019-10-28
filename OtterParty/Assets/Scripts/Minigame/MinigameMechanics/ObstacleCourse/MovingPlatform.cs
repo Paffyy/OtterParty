@@ -16,9 +16,18 @@ public class MovingPlatform : ActivePlatform
     private float smooth;
     [SerializeField]
     private float resetTime;
+    [SerializeField]
+    private Material material;
+    [SerializeField]
+    private MeshRenderer mesh;
+
 
     void Start()
     {
+        if(material != null)
+        {
+            mesh.material = material;
+        }
         ChangeTarget();
     }
 

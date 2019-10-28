@@ -8,20 +8,20 @@ public class ActivePlatform : MonoBehaviour
     private Transform parent;
     protected void OnTriggerEnter(Collider other)
     {
-        other.gameObject.transform.parent = parent;
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
         if(player != null)
         {
+            other.gameObject.transform.parent = parent;
             player.Transition<OnMovingPlatformState>();
         }
     }
 
     protected void OnTriggerExit(Collider other)
     {
-        other.gameObject.transform.parent = null;
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
+            other.gameObject.transform.parent = null;
             player.Transition<MovingState>();
         }
     }

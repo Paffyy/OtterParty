@@ -12,8 +12,20 @@ public class RotatingPlatform : ActivePlatform
     private int rotationDirection;
     [SerializeField]
     private Transform rotatingPlatform;
+    [SerializeField]
+    private Material material;
+    [SerializeField]
+    private MeshRenderer mesh;
 
-    private void FixedUpdate()
+    void Start()
+    {
+        if (material != null)
+        {
+            mesh.material = material;
+        }
+    }
+
+    void FixedUpdate()
     {
         rotatingPlatform.Rotate(new Vector3(0, rotationDirection, 0), rotationSpeed);
     }
