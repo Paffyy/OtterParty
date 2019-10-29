@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class FollowCameraScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Transform target;
+    [SerializeField]
+    private Vector3 cameraOffset;
+    [SerializeField]
+    private float cameraFollowSmoothness;
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        transform.position = Vector3.Lerp(transform.position, target.position + cameraOffset, cameraFollowSmoothness);
     }
 }
