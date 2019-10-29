@@ -19,15 +19,17 @@ public class MinigameController : MonoBehaviour
     private int countDownTimer;
     [SerializeField]
     private GameObject countDownUI;
+    [SerializeField]
+    private GameObject showStandingsUI;
 
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
-    public PointSystem MinigamePointSystem { get; set; }
+    public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
 
     private PlayerInputManager playerInputManager;
     private int currentPoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
-
+    private Canvas canvas;
     #region Singleton
     private MinigameController() { }
     private static MinigameController instance;
@@ -44,6 +46,7 @@ public class MinigameController : MonoBehaviour
 
     private void Awake()
     {
+        canvas = FindObjectOfType<Canvas>();
         playerInputManager = GetComponent<PlayerInputManager>();
         foreach (Transform item in gameObject.transform)
         {
@@ -55,14 +58,38 @@ public class MinigameController : MonoBehaviour
         if (GameController.Instance != null)
         {
             InitPlayers();
+            RegisterToEliminateEvents();
         }
     }
+
+    private void RegisterToEliminateEvents()
+    {
+        if (EventHandler.Instance != null)
+        {
+            EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, EliminatePlayerEvent);
+        }
+    }
+
+    private void EliminatePlayerEvent(BaseEventInfo e)
+    {
+        var eliminateEventInfo = e as EliminateEventInfo;
+        if (eliminateEventInfo != null)
+        {
+            var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == eliminateEventInfo.PlayerToEliminate);
+            if (player != null)
+            {
+                EliminatePlayer(player);
+            }
+        }
+    }
+
     private void InitPlayers()
     {
         foreach (var item in GameController.Instance.Players)
         {
-            playersAlive.Add(item, false);
+            playersAlive.Add(item, true);
         }
+        MinigamePointSystem.InitializePlayers(GameController.Instance.Players);
     }
     public void EliminatePlayer(Player p) // FFA
     {
@@ -81,7 +108,7 @@ public class MinigameController : MonoBehaviour
         int temp = 0;
         foreach (var item in playersAlive)
         {
-            temp = item.Value ? temp : temp++;
+            temp = item.Value ? temp : temp + 1;
         }
         return temp == GameController.Instance.Players.Count - 1;
     }
@@ -91,10 +118,10 @@ public class MinigameController : MonoBehaviour
     }
     IEnumerator StartCountDown() // TODO Display The CountDown UI
     {
-        countDownUI.SetActive(true);
+        //countDownUI.SetActive(true);
         yield return new WaitForSeconds(countDownTimer);
         // display countdowntimer
-        countDownUI.SetActive(false);
+        //countDownUI.SetActive(false);
         StartMinigameTimer();
         ToggleActive(true);
     }
@@ -143,10 +170,6 @@ public class MinigameController : MonoBehaviour
         StopAllCoroutines();
         ToggleActive(false);
         ShowStandingsUI();
-        if (GameController.Instance != null)
-        {
-            GameController.Instance.PointSystem.UpdateScore(MinigamePointSystem.GetCurrentScore());
-        }
         StartCoroutine("GoToNextScene");
     }
     private IEnumerator GoToNextScene()
@@ -156,11 +179,6 @@ public class MinigameController : MonoBehaviour
     }
     private void ShowStandingsUI()
     {
-        throw new NotImplementedException();
-    }
-
-    public int GetCountDownTimer()
-    {
-        return countDownTimer;
+        Instantiate(showStandingsUI,canvas.transform);
     }
 }

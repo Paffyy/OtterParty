@@ -15,6 +15,7 @@ public class TutorialController : MonoBehaviour
 
     private void Start()
     {
+        tutorialDurationText.text = tutorialDuration.ToString();
         if (MinigameController.Instance != null && GameController.Instance != null || isTestingUI)
         {
             StartCoroutine("StartMinigame");
