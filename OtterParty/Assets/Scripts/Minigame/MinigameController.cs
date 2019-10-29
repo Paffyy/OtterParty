@@ -25,6 +25,8 @@ public class MinigameController : MonoBehaviour
     private Animator countDownAnim;
     [SerializeField]
     private GameObject playerPrefab;
+    [SerializeField]
+    private GameType gameType;
 
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
@@ -33,6 +35,7 @@ public class MinigameController : MonoBehaviour
     private PlayerInputManager playerInputManager;
     private int currentPoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
+    private enum GameType { LastManStanding, FirstToGoal };
     private Canvas canvas;
     #region Singleton
     private MinigameController() { }
@@ -66,15 +69,23 @@ public class MinigameController : MonoBehaviour
             RegisterToEliminateEvents();
         }
     }
-
     private void RegisterToEliminateEvents()
     {
         if (EventHandler.Instance != null)
         {
-            EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, EliminatePlayerEvent);
+            switch (gameType)
+            {
+                case GameType.LastManStanding:
+                    EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, EliminatePlayerEvent);
+                    break;
+                case GameType.FirstToGoal:
+                    EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, GiveScoreEvent);
+                    break;
+                default:
+                    break;
+            }
         }
     }
-
     private void EliminatePlayerEvent(BaseEventInfo e)
     {
         var eliminateEventInfo = e as EliminateEventInfo;
@@ -83,8 +94,22 @@ public class MinigameController : MonoBehaviour
             var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == eliminateEventInfo.PlayerToEliminate);
             if (player != null)
             {
-                EliminatePlayer(player);
+                EliminatePlayer(player,true);
                 eliminateEventInfo.PlayerToEliminate.SetActive(false);
+            }
+        }
+    }
+    private void GiveScoreEvent(BaseEventInfo e)
+    {
+        var eliminateEventInfo = e as EliminateEventInfo;
+        if (eliminateEventInfo != null)
+        {
+            var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == eliminateEventInfo.PlayerToEliminate);
+            if (player != null)
+            {
+                currentPoints = GameController.Instance.Players.Count;
+                EliminatePlayer(player,false);
+                eliminateEventInfo.PlayerToEliminate.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
         }
     }
@@ -97,26 +122,38 @@ public class MinigameController : MonoBehaviour
         }
         MinigamePointSystem.InitializePlayers(GameController.Instance.Players);
     }
-    public void EliminatePlayer(Player p) // FFA
+    public void EliminatePlayer(Player p, bool isReverse) // FFA
     {
         playersAlive[p] = false;
         var playerPoints = new Dictionary<Player, int>();
         playerPoints.Add(p, currentPoints);
         MinigamePointSystem.UpdateScore(playerPoints);
-        currentPoints++;
-        if (IsLastPlayerStanding())
+        if (isReverse)
         {
-            GameIsOver(); 
+            currentPoints--;
+            if (IsLastPlayerStanding(0))
+            {
+                GameIsOver();
+            }
         }
+        else
+        {
+            currentPoints++;
+            if (IsLastPlayerStanding())
+            {
+                GameIsOver();
+            }
+        }
+       
     }
-    private bool IsLastPlayerStanding() // FFA
+    private bool IsLastPlayerStanding(int playerCountOffset = 1) // FFA
     {
         int temp = 0;
         foreach (var item in playersAlive)
         {
             temp = item.Value ? temp : temp + 1;
         }
-        return temp == GameController.Instance.Players.Count - 1;
+        return temp == GameController.Instance.Players.Count - playerCountOffset;
     }
     public void StartMinigame()
     {
@@ -159,7 +196,6 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
-
     public void StartMinigameTimer(int duration = 60)
     {
         StartCoroutine("MinigameTimer", duration);
