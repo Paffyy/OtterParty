@@ -5,7 +5,10 @@ using UnityEngine;
 public class EventHandler : MonoBehaviour
 {
     public delegate void EventListener(BaseEventInfo e);
-    public enum EventType { HitEvent, EliminateEvent
+    public enum EventType {
+        HitEvent,
+        EliminateEvent,
+        FinishLineEvent,
         
     }
     private Dictionary<EventType, List<EventListener>> eventListeners;
