@@ -34,8 +34,9 @@ public class MinigameController : MonoBehaviour
 
     private PlayerInputManager playerInputManager;
     private int currentPoints = 1;
+    private int currentReversePoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
-    private enum GameType { LastManStanding, FirstToGoal };
+    private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst };
     private Canvas canvas;
     #region Singleton
     private MinigameController() { }
@@ -67,6 +68,7 @@ public class MinigameController : MonoBehaviour
         {
             InitPlayers();
             RegisterToEliminateEvents();
+            currentReversePoints = GameController.Instance.Players.Count;
         }
     }
     private void RegisterToEliminateEvents()
@@ -79,7 +81,11 @@ public class MinigameController : MonoBehaviour
                     EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, EliminatePlayerEvent);
                     break;
                 case GameType.FirstToGoal:
-                    EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, GiveScoreEvent);
+                    EventHandler.Instance.Register(EventHandler.EventType.FinishLineEvent, GiveScoreEvent);
+                    break;
+                case GameType.BothLastAndFirst:
+                    EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, EliminatePlayerEvent);
+                    EventHandler.Instance.Register(EventHandler.EventType.FinishLineEvent, GiveScoreEvent);
                     break;
                 default:
                     break;
@@ -101,15 +107,15 @@ public class MinigameController : MonoBehaviour
     }
     private void GiveScoreEvent(BaseEventInfo e)
     {
-        var eliminateEventInfo = e as EliminateEventInfo;
-        if (eliminateEventInfo != null)
+        var finishEventInfo = e as FinishedEventInfo;
+        if (finishEventInfo != null)
         {
-            var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == eliminateEventInfo.PlayerToEliminate);
+            var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == finishEventInfo.PlayerWhoFinished);
             if (player != null)
             {
                 currentPoints = GameController.Instance.Players.Count;
-                EliminatePlayer(player,false);
-                eliminateEventInfo.PlayerToEliminate.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                EliminatePlayer(player, false);
+                finishEventInfo.PlayerWhoFinished.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
         }
     }
@@ -122,37 +128,51 @@ public class MinigameController : MonoBehaviour
         }
         MinigamePointSystem.InitializePlayers(GameController.Instance.Players);
     }
-    public void EliminatePlayer(Player p, bool isReverse) // FFA
+    public void EliminatePlayer(Player p, bool wasPlayerEliminated) // FFA
     {
         playersAlive[p] = false;
         var playerPoints = new Dictionary<Player, int>();
         playerPoints.Add(p, currentPoints);
         MinigamePointSystem.UpdateScore(playerPoints);
-        if (isReverse)
+        switch (gameType)
         {
-            currentPoints--;
-            if (IsLastPlayerStanding(0))
+            case GameType.LastManStanding:
             {
-                GameIsOver();
+                currentPoints++;
+                if (IsGameOver())
+                    GameIsOver();
+                break;
             }
-        }
-        else
-        {
-            currentPoints++;
-            if (IsLastPlayerStanding())
+            case GameType.FirstToGoal:
             {
-                GameIsOver();
+                Debug.Log(currentReversePoints);
+                currentReversePoints--;
+                if (IsGameOver(0))
+                    GameIsOver();
+                break;
             }
+            case GameType.BothLastAndFirst:
+            {
+                if (wasPlayerEliminated)
+                    currentPoints++;
+                else
+                    currentReversePoints--;
+                if (IsGameOver(0))
+                    GameIsOver();
+                break;
+            }
+            default:
+                break;
         }
-       
     }
-    private bool IsLastPlayerStanding(int playerCountOffset = 1) // FFA
+    private bool IsGameOver(int playerCountOffset = 1) // FFA
     {
         int temp = 0;
         foreach (var item in playersAlive)
         {
             temp = item.Value ? temp : temp + 1;
         }
+        Debug.Log(temp == GameController.Instance.Players.Count - playerCountOffset);
         return temp == GameController.Instance.Players.Count - playerCountOffset;
     }
     public void StartMinigame()

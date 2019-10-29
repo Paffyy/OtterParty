@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class AddPointsToPlayer : MonoBehaviour
 {
     [SerializeField]
-    [Range(3,6)]
+    [Range(1,4)]
     private int placementUpdateDelay;
     [Header("Refrences")]
     [SerializeField]
