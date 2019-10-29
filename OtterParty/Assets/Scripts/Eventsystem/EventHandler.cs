@@ -5,7 +5,7 @@ using UnityEngine;
 public class EventHandler : MonoBehaviour
 {
     public delegate void EventListener(BaseEventInfo e);
-    public enum EventType { HitEvent
+    public enum EventType { HitEvent, EliminateEvent
         
     }
     private Dictionary<EventType, List<EventListener>> eventListeners;

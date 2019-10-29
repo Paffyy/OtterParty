@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MinigameController : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     [Range(1, 5f)]
     private int countDownTimer;
+    [SerializeField]
+    private GameObject countDownUI;
 
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
@@ -88,8 +91,10 @@ public class MinigameController : MonoBehaviour
     }
     IEnumerator StartCountDown() // TODO Display The CountDown UI
     {
-        yield return new WaitForSeconds(countDownTimer); 
+        countDownUI.SetActive(true);
+        yield return new WaitForSeconds(countDownTimer);
         // display countdowntimer
+        countDownUI.SetActive(false);
         StartMinigameTimer();
         ToggleActive(true);
     }
@@ -152,5 +157,10 @@ public class MinigameController : MonoBehaviour
     private void ShowStandingsUI()
     {
         throw new NotImplementedException();
+    }
+
+    public int GetCountDownTimer()
+    {
+        return countDownTimer;
     }
 }

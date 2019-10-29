@@ -8,8 +8,8 @@ public class Killzone : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player killed!");
-            // todo
+            EliminateEventInfo eventInfo = new EliminateEventInfo(other.gameObject);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, eventInfo);
         }
     }
 }
