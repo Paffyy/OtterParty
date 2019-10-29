@@ -12,7 +12,6 @@ public class CountDownTimer : MonoBehaviour
 
     void Start()
     {
-        countDownTimer = MinigameController.Instance.GetCountDownTimer();  
     }
 
     void Update()

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public PointSystem PointSystem { get; set; } 
+    public PointSystem PointSystem { get; set; } = new PointSystem();
     public List<Player> Players { get; set; } = new List<Player>();
     private List<Minigame> minigames = new List<Minigame>();
     private Minigame nextMinigame;
@@ -72,6 +72,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.F))
         {
+            InitPointSystem();
             StartNextMinigame();
         }
     }

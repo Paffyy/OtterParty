@@ -1,74 +1,68 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AddPointsToPlayer : MonoBehaviour
 {
+    [SerializeField]
+    [Range(3,6)]
+    private int placementUpdateDelay;
     [Header("Refrences")]
     [SerializeField]
-    private Image playerImage;
-    [SerializeField]
-    private TextMeshProUGUI currentPointsText;
-    [SerializeField]
-    private TextMeshProUGUI pointsToAddText;
-    [SerializeField]
     private List<Sprite> playerSprites;
-    private Player player;
+    [SerializeField]
+    private List<RectTransform> placements;
+    [SerializeField]
+    private PlayerScore playerScorePrefab;
+    private List<PlayerScore> playerScores = new List<PlayerScore>();
 
-    public AddPointsToPlayer(Player player)
-    {
-        this.player = player;
-    }
-    private void Awake()
-    {
-        if (player != null)
-        {
-            playerImage.sprite = playerSprites[player.ID];
-        }
-        else
-        {
-            playerImage.sprite = playerSprites[0];
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            UpdatePoints();
-        }
-    }
     private void Start()
     {
-        SetPoints();
+        StartPointsUI();
     }
-    private void SetPoints()
+    private void StartPointsUI()
     {
-        if (GameController.Instance != null)
+        if (GameController.Instance != null && MinigameController.Instance != null)
         {
             var gameControllerPointsystem = GameController.Instance.PointSystem;
-            currentPointsText.text = gameControllerPointsystem.GetCurrentScore()[player].ToString();
-            if (MinigameController.Instance != null)
+            var minigameControllerPointSystem = MinigameController.Instance.MinigamePointSystem;
+            foreach (var item in GameController.Instance.Players)
             {
-                var minigameControllerPointDictionary = MinigameController.Instance.MinigamePointSystem.GetCurrentScore();
-                pointsToAddText.text = minigameControllerPointDictionary[player].ToString();
-                gameControllerPointsystem.UpdateScore(minigameControllerPointDictionary);
+                PlayerScore ps = Instantiate(playerScorePrefab, transform);
+                playerScores.Add(ps);
+                ps.Player = item;
+                ps.PlayerImage.sprite = playerSprites[item.ID];
+                ps.UpdatePoints(gameControllerPointsystem.GetCurrentScore()[item], minigameControllerPointSystem.GetCurrentScore()[item]);
             }
+            UpdatePlayerPlacement();
+            GameController.Instance.PointSystem.UpdateScore(minigameControllerPointSystem.GetCurrentScore());
+            StartCoroutine("UpdatePlacement");
         }
     }
-    public void UpdateScore()
+
+    IEnumerator UpdatePlacement()
     {
-        if (GameController.Instance != null)
-            currentPointsText.text = GameController.Instance.PointSystem.GetCurrentScore()[player].ToString();
-        else
-            currentPointsText.text = "9";
+        yield return new WaitForSeconds(placementUpdateDelay);
+        UpdatePlayerPlacement();
     }
-    private void UpdatePoints()
+
+    private void UpdatePlayerPlacement()
     {
-        pointsToAddText.GetComponent<Animator>().SetTrigger("Start");
-        // start Animation stuff points add to current
+        var pointDictionary = GameController.Instance.PointSystem.GetCurrentScore();
+        var sorted = from playerScore
+                     in pointDictionary
+                     orderby - playerScore.Value
+                     select playerScore;
+        int placementOrder = 0;
+        foreach (var item in sorted.ToList())
+        {
+            PlayerScore ps = playerScores.FirstOrDefault(x => x.Player == item.Key);
+            ps.GetComponent<RectTransform>().anchoredPosition = placements[placementOrder].anchoredPosition;
+            placementOrder++;
+        }
     }
 }

@@ -30,9 +30,6 @@ public class JoinController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            GameController.Instance.StartNextMinigame();
-        }
+
     }
 }
