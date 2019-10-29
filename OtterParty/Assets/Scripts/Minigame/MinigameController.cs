@@ -31,13 +31,15 @@ public class MinigameController : MonoBehaviour
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
     public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
+    private Canvas canvas;
 
     private PlayerInputManager playerInputManager;
+    //TODO Factorize 
     private int currentPoints = 1;
     private int currentReversePoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
     private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst };
-    private Canvas canvas;
+    // this
     #region Singleton
     private MinigameController() { }
     private static MinigameController instance;
