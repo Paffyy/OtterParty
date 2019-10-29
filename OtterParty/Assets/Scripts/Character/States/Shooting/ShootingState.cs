@@ -36,7 +36,7 @@ public class ShootingState : CharacterBaseState
         Physics.Raycast(owner.transform.position, owner.transform.forward, out RaycastHit hit, projectileRange, targetMask);
         if (hit.collider != null)
         {
-            if (EventHandler.Instance != null)
+            if (EventHandler.Instance != null && !hit.collider.gameObject.CompareTag("Environment"))
             {
                 var e = new HitEventInfo(owner.gameObject, hit.collider.gameObject);
                 EventHandler.Instance.FireEvent(EventHandler.EventType.HitEvent, e);
