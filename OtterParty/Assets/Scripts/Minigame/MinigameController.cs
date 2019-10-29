@@ -23,7 +23,8 @@ public class MinigameController : MonoBehaviour
     private GameObject showStandingsUI;
     [SerializeField]
     private Animator countDownAnim;
-
+    [SerializeField]
+    private GameObject playerPrefab;
 
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
@@ -51,6 +52,7 @@ public class MinigameController : MonoBehaviour
     {
         canvas = FindObjectOfType<Canvas>();
         playerInputManager = GetComponent<PlayerInputManager>();
+        playerInputManager.playerPrefab = playerPrefab;
         foreach (Transform item in gameObject.transform)
         {
             checkPoints.Add(item);
@@ -82,6 +84,7 @@ public class MinigameController : MonoBehaviour
             if (player != null)
             {
                 EliminatePlayer(player);
+                eliminateEventInfo.PlayerToEliminate.SetActive(false);
             }
         }
     }
@@ -118,13 +121,14 @@ public class MinigameController : MonoBehaviour
     public void StartMinigame()
     {
         StartCoroutine("StartCountDown");
+        ToggleActive(false);
     }
     IEnumerator StartCountDown() // TODO Display The CountDown UI
     {
         countDownAnim.SetBool("IsCountingDown", true);
         yield return new WaitForSeconds(countDownTimer);
-        StartMinigameTimer();
         ToggleActive(true);
+        StartMinigameTimer();
     }
     public void JoinPlayers()
     {
@@ -145,7 +149,14 @@ public class MinigameController : MonoBehaviour
     {
         foreach (var item in GameController.Instance.Players)
         {
-            item.PlayerObject.SetActive(toggle);
+            if (toggle)
+            {
+                item.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            }
+            else
+            {
+                item.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            }
         }
     }
 
