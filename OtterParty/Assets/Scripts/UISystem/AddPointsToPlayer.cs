@@ -3,38 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AddPointsToPlayer : MonoBehaviour
 {
+    [Header("Refrences")]
+    [SerializeField]
+    private Image playerImage;
     [SerializeField]
     private TextMeshProUGUI currentPointsText;
     [SerializeField]
     private TextMeshProUGUI pointsToAddText;
+    [SerializeField]
+    private List<Sprite> playerSprites;
     private Player player;
 
     public AddPointsToPlayer(Player player)
     {
         this.player = player;
     }
-
-    public void UpdateScore()
+    private void Awake()
     {
-        if (GameController.Instance != null)
-            currentPointsText.text = GameController.Instance.PointSystem.GetCurrentScore()[player].ToString();
+        if (player != null)
+        {
+            playerImage.sprite = playerSprites[player.ID];
+        }
         else
-            currentPointsText.text = "9";
+        {
+            playerImage.sprite = playerSprites[0];
+        }
     }
 
-    private void Start()
-    {
-        SetPoints();
-    }
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
             UpdatePoints();
         }
+    }
+    private void Start()
+    {
+        SetPoints();
     }
     private void SetPoints()
     {
@@ -49,6 +58,13 @@ public class AddPointsToPlayer : MonoBehaviour
                 gameControllerPointsystem.UpdateScore(minigameControllerPointDictionary);
             }
         }
+    }
+    public void UpdateScore()
+    {
+        if (GameController.Instance != null)
+            currentPointsText.text = GameController.Instance.PointSystem.GetCurrentScore()[player].ToString();
+        else
+            currentPointsText.text = "9";
     }
     private void UpdatePoints()
     {
