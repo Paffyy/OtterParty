@@ -23,12 +23,14 @@ public class PlayerController : StateMachine
     public Action<bool> OnSpamAction { get; set; }
     public bool IsGrounded { get; set; }
     public bool IsOnMovingPlatform { get; set; }
+    public bool IsInLockedMovement { get; set; }
 
     private Rigidbody playerBody;
     private Vector3 movement;
 
     protected override void Awake()
     {
+        IsInLockedMovement = false;
         IsOnMovingPlatform = false;
         playerBody = GetComponent<Rigidbody>();
         base.Awake();
@@ -46,11 +48,16 @@ public class PlayerController : StateMachine
         {
             playerBody.velocity = movement;
         }
+        else if (IsInLockedMovement)
+        {
+            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
+        }
         else
         {
             playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0);
             playerBody.MovePosition(transform.position + movement * Time.deltaTime);
         }
+        
     }
 
     private void ApplyMovement()
