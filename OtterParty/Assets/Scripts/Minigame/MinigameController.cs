@@ -21,6 +21,9 @@ public class MinigameController : MonoBehaviour
     private GameObject countDownUI;
     [SerializeField]
     private GameObject showStandingsUI;
+    [SerializeField]
+    private Animator countDownAnim;
+
 
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
@@ -118,10 +121,8 @@ public class MinigameController : MonoBehaviour
     }
     IEnumerator StartCountDown() // TODO Display The CountDown UI
     {
-        //countDownUI.SetActive(true);
+        countDownAnim.SetBool("IsCountingDown", true);
         yield return new WaitForSeconds(countDownTimer);
-        // display countdowntimer
-        //countDownUI.SetActive(false);
         StartMinigameTimer();
         ToggleActive(true);
     }
