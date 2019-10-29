@@ -180,6 +180,17 @@ public class TestController : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""ab879fdf-b18f-4c73-b5cb-5f5be09fb14c"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5545226d-b171-4ebc-bdce-db76c834133e"",
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
