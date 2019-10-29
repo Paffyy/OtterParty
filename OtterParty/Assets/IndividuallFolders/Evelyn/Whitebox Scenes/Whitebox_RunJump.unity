@@ -1058,7 +1058,7 @@ PrefabInstance:
     - target: {fileID: 2958997671821599337, guid: 78d5d404317512d47849d7875f1eb8c4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2958997671821599337, guid: 78d5d404317512d47849d7875f1eb8c4,
         type: 3}
@@ -3363,13 +3363,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361408275}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.0028049601, z: -0, w: 0.99999607}
   m_LocalPosition: {x: 2.2971573, y: 1.6992159, z: -68.478714}
   m_LocalScale: {x: 0.65196997, y: 1, z: 0.82866997}
   m_Children: []
   m_Father: {fileID: 1607870356}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0.321, z: 0}
 --- !u!1 &1382380015
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,7 +3920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mingameDuration: 60
   endOfMatchDelay: 8
-  countDownTimer: 3
+  countDownTimer: 4
   countDownUI: {fileID: 1105489819}
   showStandingsUI: {fileID: 7833761761695191566, guid: 3f487f8d5f53aef418060822f91e3d41,
     type: 3}
