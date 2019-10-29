@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Killzone : MonoBehaviour
 {
+    private List<GameObject> triggeredObjects = new List<GameObject>();
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            EliminateEventInfo eventInfo = new EliminateEventInfo(other.gameObject);
-            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, eventInfo);
+            if (!triggeredObjects.Contains(other.gameObject))
+            {
+                triggeredObjects.Add(other.gameObject);
+                EliminateEventInfo eventInfo = new EliminateEventInfo(other.gameObject);
+                EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, eventInfo);
+            }
         }
     }
 }
