@@ -185,8 +185,15 @@ public class MinigameController : MonoBehaviour
         countDownAnim.SetBool("IsCountingDown", true);
         yield return new WaitForSeconds(countDownTimer);
         ToggleActive(true);
+        StartMinigameMechanics();
         StartMinigameTimer();
     }
+
+    private void StartMinigameMechanics()
+    {
+        EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
+    }
+
     public void JoinPlayers()
     {
         foreach (var item in GameController.Instance.Players)

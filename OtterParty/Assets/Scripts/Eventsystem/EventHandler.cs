@@ -9,6 +9,7 @@ public class EventHandler : MonoBehaviour
         HitEvent,
         EliminateEvent,
         FinishLineEvent,
+        StartMinigameEvent,
         
     }
     private Dictionary<EventType, List<EventListener>> eventListeners;

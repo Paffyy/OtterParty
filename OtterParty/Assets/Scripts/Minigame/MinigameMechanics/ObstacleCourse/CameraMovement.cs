@@ -11,10 +11,19 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     [Range(1.0f, 8.0f)]
     private float movingSpeed;
+    private bool minigameStarted;
+
+    void Start()
+    {
+        EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartCameraMovement);
+    }
 
     void FixedUpdate()
     {
-        mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, endPosition.position, movingSpeed * Time.deltaTime);
+        if (minigameStarted)
+        {
+            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, endPosition.position, movingSpeed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,4 +34,8 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    private void StartCameraMovement(BaseEventInfo e)
+    {
+        minigameStarted = true;
+    }
 }
