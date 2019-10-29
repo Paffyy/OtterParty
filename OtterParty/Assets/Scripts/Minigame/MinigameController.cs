@@ -107,15 +107,15 @@ public class MinigameController : MonoBehaviour
     }
     private void GiveScoreEvent(BaseEventInfo e)
     {
-        var eliminateEventInfo = e as EliminateEventInfo;
-        if (eliminateEventInfo != null)
+        var finishEventInfo = e as FinishedEventInfo;
+        if (finishEventInfo != null)
         {
-            var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == eliminateEventInfo.PlayerToEliminate);
+            var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == finishEventInfo.PlayerWhoFinished);
             if (player != null)
             {
                 currentPoints = GameController.Instance.Players.Count;
                 EliminatePlayer(player, false);
-                eliminateEventInfo.PlayerToEliminate.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                finishEventInfo.PlayerWhoFinished.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
         }
     }
@@ -145,6 +145,7 @@ public class MinigameController : MonoBehaviour
             }
             case GameType.FirstToGoal:
             {
+                Debug.Log(currentReversePoints);
                 currentReversePoints--;
                 if (IsGameOver(0))
                     GameIsOver();
@@ -171,6 +172,7 @@ public class MinigameController : MonoBehaviour
         {
             temp = item.Value ? temp : temp + 1;
         }
+        Debug.Log(temp == GameController.Instance.Players.Count - playerCountOffset);
         return temp == GameController.Instance.Players.Count - playerCountOffset;
     }
     public void StartMinigame()
