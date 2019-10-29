@@ -133,21 +133,23 @@ public class MinigameController : MonoBehaviour
     public void EliminatePlayer(Player p, bool wasPlayerEliminated) // FFA
     {
         playersAlive[p] = false;
-        var playerPoints = new Dictionary<Player, int>();
-        playerPoints.Add(p, currentPoints);
-        MinigamePointSystem.UpdateScore(playerPoints);
         switch (gameType)
         {
             case GameType.LastManStanding:
             {
+                UpdatePointSystem(p,currentPoints);
                 currentPoints++;
                 if (IsGameOver())
+                {
+                    Player lastPlayerAlive = playersAlive.FirstOrDefault(x => x.Value).Key;
+                    UpdatePointSystem(lastPlayerAlive,currentPoints);
                     GameIsOver();
+                }
                 break;
             }
             case GameType.FirstToGoal:
             {
-                Debug.Log(currentReversePoints);
+                UpdatePointSystem(p, currentReversePoints);
                 currentReversePoints--;
                 if (IsGameOver(0))
                     GameIsOver();
@@ -156,9 +158,15 @@ public class MinigameController : MonoBehaviour
             case GameType.BothLastAndFirst:
             {
                 if (wasPlayerEliminated)
+                {
+                    UpdatePointSystem(p, currentPoints);
                     currentPoints++;
+                }
                 else
+                {
+                    UpdatePointSystem(p, currentPoints);
                     currentReversePoints--;
+                }
                 if (IsGameOver(0))
                     GameIsOver();
                 break;
@@ -167,6 +175,14 @@ public class MinigameController : MonoBehaviour
                 break;
         }
     }
+
+    private void UpdatePointSystem(Player p, int points)
+    {
+        var playerPoints = new Dictionary<Player, int>();
+        playerPoints.Add(p, points);
+        MinigamePointSystem.UpdateScore(playerPoints);
+    }
+
     private bool IsGameOver(int playerCountOffset = 1) // FFA
     {
         int temp = 0;
@@ -187,15 +203,13 @@ public class MinigameController : MonoBehaviour
         countDownAnim.SetBool("IsCountingDown", true);
         yield return new WaitForSeconds(countDownTimer);
         ToggleActive(true);
-        StartMinigameMechanics();
         StartMinigameTimer();
+        StartMinigameMechanics();
     }
-
     private void StartMinigameMechanics()
     {
         EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
     }
-
     public void JoinPlayers()
     {
         foreach (var item in GameController.Instance.Players)
@@ -237,18 +251,12 @@ public class MinigameController : MonoBehaviour
     public void GameIsOver() 
     {
         //Adds point to the last guy and adds points to all remaining players if timer runs out
-        var playerPoints = new Dictionary<Player, int>();
-        foreach (var item in playersAlive.Where(x => x.Value)) 
-        {
-            playerPoints.Add(item.Key, currentPoints);
-        }
-        MinigamePointSystem.UpdateScore(playerPoints);
-
         StopAllCoroutines();
         ToggleActive(false);
         ShowStandingsUI();
         StartCoroutine("GoToNextScene");
     }
+
     private IEnumerator GoToNextScene()
     {
         yield return new WaitForSeconds(endOfMatchDelay);

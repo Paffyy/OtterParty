@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
     }
     public void StartNextMinigame()
     {
-        if (nextMinigameIndex <= minigames.Count)
+        if (nextMinigameIndex < minigames.Count)
         {
             nextMinigame = minigames[nextMinigameIndex];
             SceneManager.LoadScene(nextMinigame.SceneIndex);
