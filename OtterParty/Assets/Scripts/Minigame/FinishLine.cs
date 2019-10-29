@@ -8,7 +8,8 @@ public class FinishLine : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-
+            FinishedEventInfo eventInfo = new FinishedEventInfo(other.gameObject);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, eventInfo);
         }
     }
 }
