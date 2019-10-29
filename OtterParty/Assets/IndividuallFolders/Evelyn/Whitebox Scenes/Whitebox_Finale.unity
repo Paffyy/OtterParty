@@ -1977,7 +1977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707694446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 8.2, z: -40.8}
+  m_LocalPosition: {x: -4, y: 16.22, z: -16.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2513,10 +2513,12 @@ MonoBehaviour:
   countDownUI: {fileID: 1906441892}
   showStandingsUI: {fileID: 7833761761695191566, guid: 3f487f8d5f53aef418060822f91e3d41,
     type: 3}
+  winnerUI: {fileID: 0}
   countDownAnim: {fileID: 1906441894}
   playerPrefab: {fileID: 2401150614555520595, guid: 3cef13e2038ec9646907d57b1c61981c,
     type: 3}
-  gameType: 1
+  gameType: 3
+  leadMultiplier: 15
 --- !u!4 &872269785
 Transform:
   m_ObjectHideFlags: 0

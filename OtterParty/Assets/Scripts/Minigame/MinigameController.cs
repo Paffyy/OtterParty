@@ -22,12 +22,15 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private GameObject showStandingsUI;
     [SerializeField]
+    private GameObject winnerUI;
+    [SerializeField]
     private Animator countDownAnim;
     [SerializeField]
     private GameObject playerPrefab;
     [SerializeField]
     private GameType gameType;
-
+    [SerializeField]
+    private float leadMultiplier;
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
     public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
@@ -38,7 +41,7 @@ public class MinigameController : MonoBehaviour
     private int currentPoints = 1;
     private int currentReversePoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
-    private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst };
+    private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst, Finale };
     // this
     #region Singleton
     private MinigameController() { }
@@ -219,9 +222,16 @@ public class MinigameController : MonoBehaviour
     }
     private void OnPlayerJoined(PlayerInput playerInput)
     {
+        Player player = GameController.Instance.Players.FirstOrDefault(x => x.ID == playerInput.playerIndex);
+        if (gameType == GameType.Finale)
+        {
+            float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
+            Vector3 leadVector = new Vector3(0, 0, playerScore / (GameController.Instance.Players.Count * GameController.Instance.Minigames.Count) * leadMultiplier);
+            checkPoints[playerInput.playerIndex].transform.position = checkPoints[playerInput.playerIndex].transform.position + leadVector;
+            Debug.Log(leadVector);
+        }
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
-        Player player = GameController.Instance.Players.FirstOrDefault(x => x.ID == playerInput.playerIndex);
         player.PlayerObject = playerInput.gameObject;
         player.PlayerObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[player.ID];
     }
@@ -264,6 +274,13 @@ public class MinigameController : MonoBehaviour
     }
     private void ShowStandingsUI()
     {
-        Instantiate(showStandingsUI,canvas.transform);
+        if (gameType == GameType.Finale)
+        {
+            Instantiate(winnerUI, canvas.transform);
+        }
+        else
+        {
+            Instantiate(showStandingsUI, canvas.transform);
+        }
     }
 }

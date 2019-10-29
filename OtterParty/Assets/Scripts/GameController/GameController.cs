@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
 {
     public PointSystem PointSystem { get; set; } = new PointSystem();
     public List<Player> Players { get; set; } = new List<Player>();
-    private List<Minigame> minigames = new List<Minigame>();
+    public List<Minigame> Minigames { get; set; } = new List<Minigame>();
     private Minigame nextMinigame;
     private int nextMinigameIndex = 0;
     [SerializeField]
@@ -41,18 +41,18 @@ public class GameController : MonoBehaviour
             foreach (Transform item in parrent.transform)
             {
                 var minigame = item.gameObject.GetComponent<Minigame>();
-                if (minigame != null)
+                if (Minigames != null)
                 {
-                    minigames.Add(minigame);
+                    Minigames.Add(minigame);
                 }
             }
         }
     }
     public void StartNextMinigame()
     {
-        if (nextMinigameIndex < minigames.Count)
+        if (nextMinigameIndex < Minigames.Count)
         {
-            nextMinigame = minigames[nextMinigameIndex];
+            nextMinigame = Minigames[nextMinigameIndex];
             SceneManager.LoadScene(nextMinigame.SceneIndex);
         }
         else
