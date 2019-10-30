@@ -24,6 +24,8 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private GameObject winnerUI;
     [SerializeField]
+    private GameObject splitscreenUI;
+    [SerializeField]
     private Animator countDownAnim;
     [SerializeField]
     private GameObject playerPrefab;
@@ -204,6 +206,10 @@ public class MinigameController : MonoBehaviour
     IEnumerator StartCountDown() // TODO Display The CountDown UI
     {
         countDownAnim.SetBool("IsCountingDown", true);
+        if (gameType == GameType.Finale)
+        {
+            Instantiate(splitscreenUI, canvas.transform);
+        }
         yield return new WaitForSeconds(countDownTimer);
         ToggleActive(true);
         StartMinigameTimer();
