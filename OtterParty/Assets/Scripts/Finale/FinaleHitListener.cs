@@ -21,7 +21,7 @@ public class FinaleHitListener : BaseListener
         {
             GameObject playerThatShot = eventInfo.ObjectThatFired;
             GameObject hitObject = eventInfo.ObjectHit;
-            Destroy(hitObject.gameObject);
+            hitObject.SetActive(false);
             if (!playerScore.ContainsKey(playerThatShot))
             {
                 playerScore.Add(playerThatShot, 1);
