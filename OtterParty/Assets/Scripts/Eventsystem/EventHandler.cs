@@ -10,6 +10,7 @@ public class EventHandler : MonoBehaviour
         EliminateEvent,
         FinishLineEvent,
         StartMinigameEvent,
+        FinaleWinEvent
         
     }
     private Dictionary<EventType, List<EventListener>> eventListeners;
