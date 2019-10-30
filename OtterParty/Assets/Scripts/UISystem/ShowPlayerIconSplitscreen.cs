@@ -18,6 +18,10 @@ public class ShowPlayerIconSplitscreen : MonoBehaviour
             item.gameObject.SetActive(false);
         }
     }
+    private void Start()
+    {
+        StartPointsUI();
+    }
     public void StartPointsUI()
     {
         if (GameController.Instance != null && MinigameController.Instance != null)

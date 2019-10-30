@@ -99,6 +99,7 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
+
     private void EliminatePlayerEvent(BaseEventInfo e)
     {
         var eliminateEventInfo = e as EliminateEventInfo;
@@ -281,7 +282,7 @@ public class MinigameController : MonoBehaviour
     {
         if (gameType == GameType.Finale)
         {
-            Instantiate(winnerUI, canvas.transform);
+            winnerUI.SetActive(true);
         }
         else
         {

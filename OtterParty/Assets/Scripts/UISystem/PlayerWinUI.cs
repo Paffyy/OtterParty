@@ -17,23 +17,19 @@ public class PlayerWinUI : MonoBehaviour
     }
     void Start()
     {
+        EventHandler.Instance.Register(EventHandler.EventType.FinaleWinEvent, UpdatePlayerWonIcon);
         gameObject.SetActive(false);
-        if (EventHandler.Instance != null)
-        {
-            EventHandler.Instance.Register(EventHandler.EventType.FinaleWinEvent, ShowPlayerWinUI);
-        }
     }
 
-    private void ShowPlayerWinUI(BaseEventInfo e)
+    private void UpdatePlayerWonIcon(BaseEventInfo e)
     {
-        FinishedEventInfo finishedEventInfo = e as FinishedEventInfo;
+        EliminateEventInfo finishedEventInfo = e as EliminateEventInfo;
         if (finishedEventInfo != null)
         {
             if (GameController.Instance != null && MinigameController.Instance != null)
             {
-                var playerID = GameController.Instance.Players.FirstOrDefault(x => x.PlayerObject == finishedEventInfo.PlayerWhoFinished).ID;
+                var playerID = GameController.Instance.Players.FirstOrDefault(x => x.PlayerObject == finishedEventInfo.PlayerToEliminate).ID;
                 playerIconImage.sprite = sprites[playerID];
-                gameObject.SetActive(true);
                 MinigameController.Instance.GameIsOver();
             }
         }

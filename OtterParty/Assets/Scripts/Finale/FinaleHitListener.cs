@@ -17,21 +17,25 @@ public class FinaleHitListener : BaseListener
     private void EnemyHit(BaseEventInfo e)
     {
         HitEventInfo eventInfo = e as HitEventInfo;
-        GameObject playerThatShot = eventInfo.ObjectThatFired;
-        GameObject hitObject = eventInfo.ObjectHit;
-        hitObject.GetComponent<FinaleEnemy>().Respawn();
-        if (!playerScore.ContainsKey(playerThatShot))
+        if (eventInfo != null)
         {
-            playerScore.Add(playerThatShot, 1);
-        }
-        else
-        {
-            playerScore[playerThatShot]++;
-        }
-        if(playerScore[playerThatShot] == winCondition)
-        {
-            EliminateEventInfo winnerEvent = new EliminateEventInfo(playerThatShot);
-            EventHandler.Instance.FireEvent(EventHandler.EventType.FinaleWinEvent, winnerEvent);
+            GameObject playerThatShot = eventInfo.ObjectThatFired;
+            GameObject hitObject = eventInfo.ObjectHit;
+            Destroy(hitObject.gameObject);
+            if (!playerScore.ContainsKey(playerThatShot))
+            {
+                playerScore.Add(playerThatShot, 1);
+            }
+            else
+            {
+                playerScore[playerThatShot]++;
+                if (playerScore[playerThatShot] == winCondition)
+                {
+                    EliminateEventInfo winnerEvent = new EliminateEventInfo(playerThatShot);
+                    EventHandler.Instance.FireEvent(EventHandler.EventType.FinaleWinEvent, winnerEvent);
+                }
+            }
+          
         }
     }
 }
