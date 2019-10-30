@@ -266,7 +266,6 @@ public class MinigameController : MonoBehaviour
     }
     public void GameIsOver() 
     {
-        //Adds point to the last guy and adds points to all remaining players if timer runs out
         StopAllCoroutines();
         ToggleActive(false);
         ShowStandingsUI();

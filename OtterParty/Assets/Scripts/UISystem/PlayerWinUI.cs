@@ -20,7 +20,7 @@ public class PlayerWinUI : MonoBehaviour
         gameObject.SetActive(false);
         if (EventHandler.Instance != null)
         {
-            //EventHandler.Instance.Register(EventHandler.EventType.FinaleWinEvent, ShowPlayerWinUI);
+            EventHandler.Instance.Register(EventHandler.EventType.FinaleWinEvent, ShowPlayerWinUI);
         }
     }
 
@@ -36,7 +36,6 @@ public class PlayerWinUI : MonoBehaviour
                 gameObject.SetActive(true);
                 MinigameController.Instance.GameIsOver();
             }
-         
         }
     }
 }
