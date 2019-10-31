@@ -21,7 +21,7 @@ public class CountDownTimer : MonoBehaviour
     {
         if (miniGameHasStarted)
         {
-            if (timer <= warningTimerThreshold)
+            if (timer < warningTimerThreshold + 1)
             {
                 textField.color = new Color32(247, 63, 35, 255);
             }
