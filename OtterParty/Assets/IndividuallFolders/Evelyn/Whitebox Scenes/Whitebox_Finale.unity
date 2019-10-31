@@ -6560,6 +6560,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Killzone
       objectReference: {fileID: 0}
+    - target: {fileID: 4330329019717041818, guid: 00c7bbfb17182f848bd821ef1302d1f2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 220589987454120732, guid: 00c7bbfb17182f848bd821ef1302d1f2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7449,6 +7454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ba453ca1093e541ab94a3d090692c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfRespawns: 3
+  hasLimitedRespawns: 1
 --- !u!1001 &1478060448445636035
 PrefabInstance:
   m_ObjectHideFlags: 0
