@@ -12,7 +12,8 @@ public class EventHandler : MonoBehaviour
         StartMinigameEvent,
         FinaleWinEvent,
         RespawnEvent,
-        CheckPointEvent
+        CheckPointEvent,
+        UpdateScoreEvent
     }
 
     private Dictionary<EventType, List<EventListener>> eventListeners;

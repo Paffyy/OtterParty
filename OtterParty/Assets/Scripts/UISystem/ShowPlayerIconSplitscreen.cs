@@ -30,6 +30,19 @@ public class ShowPlayerIconSplitscreen : MonoBehaviour
     private void Start()
     {
         StartPointsUI();
+        EventHandler.Instance.Register(EventHandler.EventType.UpdateScoreEvent, UpdatePlayerScore);
+
+    }
+
+    private void UpdatePlayerScore(BaseEventInfo e)
+    {
+        UpdatePlayerScoreEventInfo eventInfo = e as UpdatePlayerScoreEventInfo;
+        if (eventInfo != null)
+        {
+            Player p = GameController.Instance.Players.FirstOrDefault(x => x.PlayerObject == eventInfo.Player);
+            playerScoreTexts[p.ID].gameObject.SetActive(true);
+            playerScoreTexts[p.ID].text = eventInfo.Score.ToString(); // same animation as pointsystem
+        }
     }
     public void StartPointsUI()
     {
