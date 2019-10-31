@@ -263,13 +263,13 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
-    public void StartMinigameTimer(int duration = 60)
+    public void StartMinigameTimer()
     {
-        StartCoroutine("MinigameTimer", duration);
+        StartCoroutine("MinigameTimer", mingameDuration);
         if(countDownTimerUI != null)
         {
             countDownTimerUI.SetActive(true);
-            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(duration);
+            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(mingameDuration);
         }
     }
 

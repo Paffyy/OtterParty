@@ -24,12 +24,13 @@ public class PlayerController : StateMachine
     public bool IsGrounded { get; set; }
     public bool IsOnMovingPlatform { get; set; }
     public bool IsInLockedMovement { get; set; }
-
+    public Transform Parent { get; set; }
     private Rigidbody playerBody;
     private Vector3 movement;
 
     protected override void Awake()
     {
+        Parent = transform.parent;
         IsInLockedMovement = false;
         IsOnMovingPlatform = false;
         playerBody = GetComponent<Rigidbody>();

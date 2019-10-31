@@ -21,7 +21,14 @@ public class ActivePlatform : MonoBehaviour
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            other.gameObject.transform.parent = null;
+            if (player.Parent != null)
+            {
+                other.gameObject.transform.parent = player.Parent;
+            }
+            else
+            {
+                other.gameObject.transform.parent = null;
+            }
             player.Transition<MovingState>();
         }
     }

@@ -19,8 +19,6 @@ public class FinaleHitListener : BaseListener
         HitEventInfo eventInfo = e as HitEventInfo;
         if (eventInfo != null)
         {
-            UpdatePlayerScoreEventInfo updateEventInfo = new UpdatePlayerScoreEventInfo() { };
-            EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateScoreEvent, updateEventInfo);
             GameObject playerThatShot = eventInfo.ObjectThatFired;
             GameObject hitObject = eventInfo.ObjectHit;
             hitObject.SetActive(false);
@@ -37,6 +35,8 @@ public class FinaleHitListener : BaseListener
                     EventHandler.Instance.FireEvent(EventHandler.EventType.FinaleWinEvent, winnerEvent);
                 }
             }
+            UpdatePlayerScoreEventInfo updateEventInfo = new UpdatePlayerScoreEventInfo() { Player = playerThatShot, Score = playerScore[playerThatShot]};
+            EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateScoreEvent, updateEventInfo);
         }
     }
 }

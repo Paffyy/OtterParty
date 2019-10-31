@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 5028744001498967116}
-  cameraOffset: {x: 0, y: 9.5, z: -10}
+  cameraOffset: {x: 0, y: 14, z: -15}
   cameraFollowSmoothness: 0.9
 --- !u!1 &2401150614555520595
 GameObject:
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 2401150614555520604}
   m_Layer: 11
   m_Name: FinalePlayer
-  m_TagString: Player
+  m_TagString: FinalePlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5136,10 +5136,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5028744001498967116}
     m_Modifications:
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Name
-      value: BlobShadowProjector
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5195,6 +5191,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.49948066
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Name
+      value: BlobShadowProjector
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
