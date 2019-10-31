@@ -8,6 +8,7 @@ public class FreeMovementTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             other.gameObject.GetComponent<PlayerController>().Transition<MovingState>();
         }
     }

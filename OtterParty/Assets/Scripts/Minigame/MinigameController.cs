@@ -33,6 +33,7 @@ public class MinigameController : MonoBehaviour
     private GameType gameType;
     [SerializeField]
     private float leadMultiplier;
+    private RigidbodyConstraints playerConstraints;
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
     public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
@@ -64,6 +65,7 @@ public class MinigameController : MonoBehaviour
         canvas = FindObjectOfType<Canvas>();
         playerInputManager = GetComponent<PlayerInputManager>();
         playerInputManager.playerPrefab = playerPrefab;
+        playerConstraints = playerPrefab.GetComponentInChildren<Rigidbody>().constraints;
         foreach (Transform item in gameObject.transform)
         {
             checkPoints.Add(item);
@@ -247,7 +249,7 @@ public class MinigameController : MonoBehaviour
         {
             if (toggle)
             {
-                item.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                item.PlayerObject.GetComponent<Rigidbody>().constraints = playerConstraints;
             }
             else
             {
