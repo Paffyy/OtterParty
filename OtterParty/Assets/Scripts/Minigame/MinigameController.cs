@@ -140,6 +140,10 @@ public class MinigameController : MonoBehaviour
     }
     public void EliminatePlayer(Player p, bool wasPlayerEliminated) // FFA
     {
+        if (!playersAlive[p])
+        {
+            return;
+        }
         playersAlive[p] = false;
         switch (gameType)
         {
