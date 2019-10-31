@@ -41,6 +41,7 @@ public class JoinController : MonoBehaviour
     private void EnableStartButton()
     {
         startButton.SetActive(true);
+        startButton.GetComponent<Animator>().SetTrigger("Selected");
     }
 
     public void StartGame()
