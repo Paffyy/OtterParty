@@ -6,13 +6,18 @@ using UnityEngine.InputSystem;
 
 public class JoinController : MonoBehaviour
 {
-    private PlayerInputManager playerInputManager;
     [SerializeField]
     private GameObject textParent;
-    private List<GameObject> texts;
-    private int playerCount = 0;
+    [SerializeField]
+    private int joinDuration;
     [SerializeField]
     private GameObject startButton;
+
+    private List<GameObject> texts;
+    private int playerCount = 0;
+    private PlayerInputManager playerInputManager;
+    private bool hasStarted;
+
     void Awake()
     {
         texts = new List<GameObject>();
@@ -46,8 +51,18 @@ public class JoinController : MonoBehaviour
 
     public void StartGame()
     {
+        if (!hasStarted)
+        {
+            StartCoroutine("StartingIn");
+            hasStarted = true;
+        }
+    }
+    IEnumerator StartinIn()
+    {
+        yield return new WaitForSeconds(joinDuration);
         GameController.Instance.InitPointSystem();
         GameController.Instance.StartNextMinigame();
+
     }
     private void Update()
     {
