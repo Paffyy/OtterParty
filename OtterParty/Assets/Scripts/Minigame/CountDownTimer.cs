@@ -21,14 +21,15 @@ public class CountDownTimer : MonoBehaviour
     {
         if (miniGameHasStarted)
         {
-            if(timer > 0)
+            if (timer <= warningTimerThreshold)
+            {
+                textField.color = new Color32(247, 63, 35, 255);
+            }
+
+            if (timer > 0)
             {
                 timer -= Time.deltaTime;
                 textField.text = timer.ToString("0");
-            }
-            if(timer <= warningTimerThreshold)
-            {
-                textField.color = new Color32(247, 63, 35, 255);
             }
         }
     }
