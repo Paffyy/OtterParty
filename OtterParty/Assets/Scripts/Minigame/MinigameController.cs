@@ -235,7 +235,6 @@ public class MinigameController : MonoBehaviour
             float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
             Vector3 leadVector = new Vector3(0, 0, playerScore / (GameController.Instance.Players.Count * GameController.Instance.Minigames.Count) * leadMultiplier);
             checkPoints[playerInput.playerIndex].transform.position = checkPoints[playerInput.playerIndex].transform.position + leadVector;
-            Debug.Log(leadVector);
         }
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;

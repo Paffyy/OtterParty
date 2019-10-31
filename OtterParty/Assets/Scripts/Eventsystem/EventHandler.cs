@@ -10,9 +10,11 @@ public class EventHandler : MonoBehaviour
         EliminateEvent,
         FinishLineEvent,
         StartMinigameEvent,
-        FinaleWinEvent
-        
+        FinaleWinEvent,
+        RespawnEvent,
+        CheckPointEvent
     }
+
     private Dictionary<EventType, List<EventListener>> eventListeners;
     private static EventHandler instance;
     public static EventHandler Instance
