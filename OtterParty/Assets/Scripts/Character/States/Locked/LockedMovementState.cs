@@ -7,7 +7,7 @@ using UnityEngine;
 public class LockedMovementState : CharacterBaseState
 {
     [SerializeField]
-    [Range(2f, 2.5f)]
+    [Range(2f, 2.8f)]
     private float speed;
     [SerializeField]
     [Range(0.75f, 0.85f)]

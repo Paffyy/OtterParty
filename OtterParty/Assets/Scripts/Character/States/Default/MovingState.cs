@@ -13,6 +13,7 @@ public class MovingState : CharacterBaseState
 
     public override void Enter()
     {
+        owner.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         owner.OnMoveAction += Movement;
         owner.OnJumpAction += JumpAction;
         base.Enter();
