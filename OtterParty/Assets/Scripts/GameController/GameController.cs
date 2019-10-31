@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour
         else
         {
             SceneManager.LoadScene(0);
-            nextMinigameIndex = 0;
+            Destroy(gameObject);
             return;
         }
         nextMinigameIndex++;
