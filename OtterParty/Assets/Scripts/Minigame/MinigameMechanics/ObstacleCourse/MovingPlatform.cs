@@ -37,7 +37,6 @@ public class MovingPlatform : ActivePlatform
 
     private void ChangeTarget()
     {
-        Debug.Log(currentState);
         if (currentState == "Moving to position 1")
         {
             currentState = "Moving to position 2";
