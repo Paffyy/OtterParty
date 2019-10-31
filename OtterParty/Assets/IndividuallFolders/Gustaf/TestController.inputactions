@@ -243,6 +243,109 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "OnlyController",
+            "id": "a4a90b43-af69-4f6d-a3f4-452b1a5ab20b",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "da40d3c6-e808-4364-847f-b014bc732751",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "2b2cb4e3-d040-49a3-8f6d-bdff84772b47",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "b381f830-7eb2-493a-97a8-22821535c8dc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LeftSpam",
+                    "type": "Button",
+                    "id": "9c44e007-357d-4efb-8e76-993b9237723e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "RightSpam",
+                    "type": "Button",
+                    "id": "5d82a277-e815-4ffb-aec9-e4d530616715",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c1633a32-2e76-4b01-b293-6fa7f373f5ef",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f5b8d25-f43f-4f93-ad79-0d838e891b50",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "741e82f5-7020-4f68-9a52-2fc9292ef05c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "44d45bce-bf6f-4e1b-ab97-2e58d74b4f65",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftSpam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9344d6e3-84c8-407d-bd7a-2ae3752b4d86",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightSpam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

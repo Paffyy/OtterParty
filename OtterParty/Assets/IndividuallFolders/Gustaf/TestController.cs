@@ -256,6 +256,109 @@ public class TestController : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""OnlyController"",
+            ""id"": ""a4a90b43-af69-4f6d-a3f4-452b1a5ab20b"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""da40d3c6-e808-4364-847f-b014bc732751"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b2cb4e3-d040-49a3-8f6d-bdff84772b47"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""b381f830-7eb2-493a-97a8-22821535c8dc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftSpam"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c44e007-357d-4efb-8e76-993b9237723e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightSpam"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d82a277-e815-4ffb-aec9-e4d530616715"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c1633a32-2e76-4b01-b293-6fa7f373f5ef"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f5b8d25-f43f-4f93-ad79-0d838e891b50"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""741e82f5-7020-4f68-9a52-2fc9292ef05c"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44d45bce-bf6f-4e1b-ab97-2e58d74b4f65"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftSpam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9344d6e3-84c8-407d-bd7a-2ae3752b4d86"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightSpam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -268,6 +371,13 @@ public class TestController : IInputActionCollection, IDisposable
         m_Gameplay_LeftSpam = m_Gameplay.FindAction("LeftSpam", throwIfNotFound: true);
         m_Gameplay_RightSpam = m_Gameplay.FindAction("RightSpam", throwIfNotFound: true);
         m_Gameplay_SwitchScene = m_Gameplay.FindAction("SwitchScene", throwIfNotFound: true);
+        // OnlyController
+        m_OnlyController = asset.FindActionMap("OnlyController", throwIfNotFound: true);
+        m_OnlyController_Move = m_OnlyController.FindAction("Move", throwIfNotFound: true);
+        m_OnlyController_Jump = m_OnlyController.FindAction("Jump", throwIfNotFound: true);
+        m_OnlyController_Fire = m_OnlyController.FindAction("Fire", throwIfNotFound: true);
+        m_OnlyController_LeftSpam = m_OnlyController.FindAction("LeftSpam", throwIfNotFound: true);
+        m_OnlyController_RightSpam = m_OnlyController.FindAction("RightSpam", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -386,6 +496,71 @@ public class TestController : IInputActionCollection, IDisposable
         }
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
+
+    // OnlyController
+    private readonly InputActionMap m_OnlyController;
+    private IOnlyControllerActions m_OnlyControllerActionsCallbackInterface;
+    private readonly InputAction m_OnlyController_Move;
+    private readonly InputAction m_OnlyController_Jump;
+    private readonly InputAction m_OnlyController_Fire;
+    private readonly InputAction m_OnlyController_LeftSpam;
+    private readonly InputAction m_OnlyController_RightSpam;
+    public struct OnlyControllerActions
+    {
+        private TestController m_Wrapper;
+        public OnlyControllerActions(TestController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_OnlyController_Move;
+        public InputAction @Jump => m_Wrapper.m_OnlyController_Jump;
+        public InputAction @Fire => m_Wrapper.m_OnlyController_Fire;
+        public InputAction @LeftSpam => m_Wrapper.m_OnlyController_LeftSpam;
+        public InputAction @RightSpam => m_Wrapper.m_OnlyController_RightSpam;
+        public InputActionMap Get() { return m_Wrapper.m_OnlyController; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(OnlyControllerActions set) { return set.Get(); }
+        public void SetCallbacks(IOnlyControllerActions instance)
+        {
+            if (m_Wrapper.m_OnlyControllerActionsCallbackInterface != null)
+            {
+                Move.started -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnMove;
+                Move.performed -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnMove;
+                Move.canceled -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnMove;
+                Jump.started -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnJump;
+                Jump.performed -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnJump;
+                Jump.canceled -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnJump;
+                Fire.started -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnFire;
+                Fire.performed -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnFire;
+                Fire.canceled -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnFire;
+                LeftSpam.started -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnLeftSpam;
+                LeftSpam.performed -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnLeftSpam;
+                LeftSpam.canceled -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnLeftSpam;
+                RightSpam.started -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnRightSpam;
+                RightSpam.performed -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnRightSpam;
+                RightSpam.canceled -= m_Wrapper.m_OnlyControllerActionsCallbackInterface.OnRightSpam;
+            }
+            m_Wrapper.m_OnlyControllerActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                Move.started += instance.OnMove;
+                Move.performed += instance.OnMove;
+                Move.canceled += instance.OnMove;
+                Jump.started += instance.OnJump;
+                Jump.performed += instance.OnJump;
+                Jump.canceled += instance.OnJump;
+                Fire.started += instance.OnFire;
+                Fire.performed += instance.OnFire;
+                Fire.canceled += instance.OnFire;
+                LeftSpam.started += instance.OnLeftSpam;
+                LeftSpam.performed += instance.OnLeftSpam;
+                LeftSpam.canceled += instance.OnLeftSpam;
+                RightSpam.started += instance.OnRightSpam;
+                RightSpam.performed += instance.OnRightSpam;
+                RightSpam.canceled += instance.OnRightSpam;
+            }
+        }
+    }
+    public OnlyControllerActions @OnlyController => new OnlyControllerActions(this);
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -394,5 +569,13 @@ public class TestController : IInputActionCollection, IDisposable
         void OnLeftSpam(InputAction.CallbackContext context);
         void OnRightSpam(InputAction.CallbackContext context);
         void OnSwitchScene(InputAction.CallbackContext context);
+    }
+    public interface IOnlyControllerActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
+        void OnLeftSpam(InputAction.CallbackContext context);
+        void OnRightSpam(InputAction.CallbackContext context);
     }
 }

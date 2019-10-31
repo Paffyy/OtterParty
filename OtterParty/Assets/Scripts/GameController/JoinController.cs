@@ -57,7 +57,7 @@ public class JoinController : MonoBehaviour
 
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5f);
         EnableStartButton();
     }
 
