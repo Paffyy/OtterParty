@@ -202,7 +202,6 @@ public class MinigameController : MonoBehaviour
         {
             temp = item.Value ? temp : temp + 1;
         }
-        Debug.Log(temp == GameController.Instance.Players.Count - playerCountOffset);
         return temp == GameController.Instance.Players.Count - playerCountOffset;
     }
     public void StartMinigame()
