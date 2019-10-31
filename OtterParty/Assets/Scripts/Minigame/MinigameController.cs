@@ -33,6 +33,8 @@ public class MinigameController : MonoBehaviour
     private GameType gameType;
     [SerializeField]
     private float leadMultiplier;
+    [SerializeField]
+    private GameObject countDownTimerUI;
     private RigidbodyConstraints playerConstraints;
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
@@ -259,9 +261,15 @@ public class MinigameController : MonoBehaviour
     public void StartMinigameTimer(int duration = 60)
     {
         StartCoroutine("MinigameTimer", duration);
+        if(countDownTimerUI != null)
+        {
+            countDownTimerUI.SetActive(true);
+            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(duration);
+        }
     }
+
     IEnumerator MinigameTimer(int duration)
-    {
+    {   
         yield return new WaitForSeconds(duration);
         GameIsOver();
     }
