@@ -38,7 +38,7 @@ public class JoinController : MonoBehaviour
             playerCount++;
             if (playerCount == 2)
             {
-                EnableStartButton();
+                StartCoroutine("StartDelay");
             }
         }
     }
@@ -51,19 +51,22 @@ public class JoinController : MonoBehaviour
 
     public void StartGame()
     {
-        if (!hasStarted)
-        {
-            StartCoroutine("StartingIn");
-            hasStarted = true;
-        }
-    }
-    IEnumerator StartinIn()
-    {
-        yield return new WaitForSeconds(joinDuration);
         GameController.Instance.InitPointSystem();
         GameController.Instance.StartNextMinigame();
-
     }
+
+    IEnumerator StartDelay()
+    {
+        yield return new WaitForSeconds(3);
+        EnableStartButton();
+    }
+
+    //IEnumerator StartingIn()
+    //{
+    //    yield return new WaitForSeconds(joinDuration);
+    //    GameController.Instance.InitPointSystem();
+    //    GameController.Instance.StartNextMinigame();
+    //}
     private void Update()
     {
 
