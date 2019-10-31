@@ -11,6 +11,15 @@ public class ShowPlayerIconSplitscreen : MonoBehaviour
     [Header("Refrences")]
     [SerializeField]
     private List<Image> playerImages;
+    [SerializeField]
+    private List<TextMeshProUGUI> playerScoreTexts;
+
+    public List<TextMeshProUGUI> PlayerScoreTexts
+    {
+        get { return playerScoreTexts; }
+        set { playerScoreTexts = value; }
+    }
+
     private void Awake()
     {
         foreach (var item in playerImages)
