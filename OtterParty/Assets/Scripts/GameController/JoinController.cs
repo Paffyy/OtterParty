@@ -11,6 +11,8 @@ public class JoinController : MonoBehaviour
     private GameObject textParent;
     private List<GameObject> texts;
     private int playerCount = 0;
+    [SerializeField]
+    private GameObject startButton;
     void Awake()
     {
         texts = new List<GameObject>();
@@ -38,10 +40,10 @@ public class JoinController : MonoBehaviour
 
     private void EnableStartButton()
     {
-
+        startButton.SetActive(true);
     }
 
-    private void StartGame()
+    public void StartGame()
     {
         GameController.Instance.InitPointSystem();
         GameController.Instance.StartNextMinigame();
