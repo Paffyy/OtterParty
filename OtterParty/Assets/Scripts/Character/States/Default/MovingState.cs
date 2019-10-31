@@ -13,6 +13,8 @@ public class MovingState : CharacterBaseState
 
     public override void Enter()
     {
+        Rigidbody playerBody = owner.GetComponent<Rigidbody>();
+        playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0);
         owner.OnMoveAction += Movement;
         owner.OnJumpAction += JumpAction;
         base.Enter();
