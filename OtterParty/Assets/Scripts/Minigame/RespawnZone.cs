@@ -39,6 +39,7 @@ public class RespawnZone : MonoBehaviour
 
     private void fireRespawnEvent(GameObject player)
     {
+        player.GetComponent<PlayerController>().Transition<MovingState>();
         PlayerEventInfo eventInfo = new PlayerEventInfo(player);
         EventHandler.Instance.FireEvent(EventHandler.EventType.RespawnEvent, eventInfo);
     }          

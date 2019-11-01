@@ -273,7 +273,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 4
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -293,6 +293,14 @@ MonoBehaviour:
       - m_Name: 
         m_Id: 723c5bd1-a43a-44d9-88e5-01c4a97419bb
         m_Path: <Gamepad>/start
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Action
+        m_Flags: 0
+      - m_Name: 
+        m_Id: 0da4d654-e3b1-44ba-b93c-06b1002df119
+        m_Path: <Keyboard>/f12
         m_Interactions: 
         m_Processors: 
         m_Groups: 
@@ -853,8 +861,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1000059203}
-  - {fileID: 846574301}
   - {fileID: 1188207456}
+  - {fileID: 846574301}
   - {fileID: 1560844087}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1248,7 +1256,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400180447}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &846574302
 MonoBehaviour:
@@ -1703,7 +1711,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400180447}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1188207457
 MonoBehaviour:
