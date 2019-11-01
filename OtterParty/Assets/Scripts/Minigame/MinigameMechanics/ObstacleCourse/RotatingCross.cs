@@ -16,15 +16,12 @@ public class RotatingCross : MonoBehaviour
     private Material material;
     [SerializeField]
     private MeshRenderer meshOne;
-    [SerializeField]
-    private MeshRenderer meshTwo;
 
     void Start()
     {
         if (material != null)
         {
             meshOne.material = material;
-            meshTwo.material = material;
         }
     }
 
