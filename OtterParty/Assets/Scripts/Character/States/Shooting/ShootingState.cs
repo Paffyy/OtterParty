@@ -20,6 +20,7 @@ public class ShootingState : CharacterBaseState
     private float selfKnockbackValue;
     public bool IsOffCooldown { get; set; } = true;
     private ParticleSystem projectileParticle;
+
     public override void Enter()
     {
         projectileParticle = owner.GetComponent<ParticleSystem>();
@@ -59,7 +60,7 @@ public class ShootingState : CharacterBaseState
 
     private void Fire()
     {
-        if (IsOffCooldown)
+        if (owner.IsActive && IsOffCooldown)
         {
             FireProjectile();
             Cooldown.Instance.StartNewCooldown(cooldownDuration, this);

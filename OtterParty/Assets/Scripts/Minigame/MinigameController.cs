@@ -255,10 +255,12 @@ public class MinigameController : MonoBehaviour
         {
             if (toggle)
             {
+                item.PlayerObject.GetComponent<PlayerController>().IsActive = true;
                 item.PlayerObject.GetComponent<Rigidbody>().constraints = playerConstraints;
             }
             else
             {
+                item.PlayerObject.GetComponent<PlayerController>().IsActive = false;
                 item.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
         }
