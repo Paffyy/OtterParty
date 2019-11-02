@@ -17,7 +17,7 @@ public class FinaleHitListener : BaseListener
     private void EnemyHit(BaseEventInfo e)
     {
         HitEventInfo eventInfo = e as HitEventInfo;
-        if (eventInfo != null)
+        if (eventInfo != null && !eventInfo.ObjectHit.CompareTag("Player"))
         {
             GameObject playerThatShot = eventInfo.ObjectThatFired;
             GameObject hitObject = eventInfo.ObjectHit;
