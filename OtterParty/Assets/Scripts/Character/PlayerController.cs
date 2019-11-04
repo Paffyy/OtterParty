@@ -26,6 +26,9 @@ public class PlayerController : StateMachine
     public bool IsInLockedMovement { get; set; }
     public bool IsActive { get; set; }
     public Transform Parent { get; set; }
+    public BoxCollider PlayerBody { get { return bodyCollider; } }
+    [SerializeField]
+    private BoxCollider bodyCollider;
     private Rigidbody playerBody;
     private Vector3 movement;
 

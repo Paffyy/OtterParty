@@ -5417,6 +5417,11 @@ PrefabInstance:
       propertyPath: material
       value: 
       objectReference: {fileID: 2100000, guid: 8bc69d98c53b0364aaa66184bd132f52, type: 2}
+    - target: {fileID: 2384971305573972367, guid: 7654555e88ca1e74d85f20b441be414e,
+        type: 3}
+      propertyPath: rotateOnAxis
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7654555e88ca1e74d85f20b441be414e, type: 3}
 --- !u!1 &1471606466
@@ -7109,6 +7114,11 @@ PrefabInstance:
       propertyPath: material
       value: 
       objectReference: {fileID: 2100000, guid: 73b240c3048944f4cb6e3bf870f2fe88, type: 2}
+    - target: {fileID: 2384971305573972367, guid: 7654555e88ca1e74d85f20b441be414e,
+        type: 3}
+      propertyPath: rotateOnAxis
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2384971306208451689, guid: 7654555e88ca1e74d85f20b441be414e,
         type: 3}
       propertyPath: m_Size.y
@@ -7952,8 +7962,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ba453ca1093e541ab94a3d090692c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRespawns: 3
-  hasLimitedRespawns: 1
 --- !u!1001 &1478060448445636035
 PrefabInstance:
   m_ObjectHideFlags: 0
