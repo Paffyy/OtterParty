@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class CameraTrigger : MonoBehaviour
 {
-    [SerializeField]
-    [Range(2.0f, 10.0f)]
-    private float rotationSpeed;
-
-    void FixedUpdate()
-    {
-        transform.Rotate(new Vector3(0, -1, 0), rotationSpeed);
-    }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player Killed by camera");
-            // todo
+            other.gameObject.GetComponent<PlayerController>().PlayerBody.enabled = false;
+            fireRespawnEvent(other.gameObject);
         }
+        else if (other.gameObject.CompareTag("Ground"))
+        {
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    private void fireRespawnEvent(GameObject player)
+    {
+        player.GetComponent<PlayerController>().Transition<MovingState>();
+        PlayerEventInfo eventInfo = new PlayerEventInfo(player);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.RespawnEvent, eventInfo);
     }
 }

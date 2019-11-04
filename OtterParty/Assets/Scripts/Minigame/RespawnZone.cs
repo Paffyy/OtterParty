@@ -4,37 +4,12 @@ using UnityEngine;
 
 public class RespawnZone : MonoBehaviour
 {
-    [SerializeField]
-    [Range(0, 10)]
-    private int numberOfRespawns;
-    private Dictionary<GameObject, int> playerRespawns = new Dictionary<GameObject, int>();
-    [SerializeField]
-    private bool hasLimitedRespawns;
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<BoxCollider>().enabled = false;
-            if (!hasLimitedRespawns)
-            {
-                fireRespawnEvent(other.gameObject);
-            }
-            else if (!playerRespawns.ContainsKey(other.gameObject))
-            {
-                fireRespawnEvent(other.gameObject);
-                playerRespawns.Add(other.gameObject, 1);
-            }
-            else if (playerRespawns[other.gameObject] < numberOfRespawns)
-            {
-                fireRespawnEvent(other.gameObject);
-                playerRespawns[other.gameObject]++;
-            }
-            else
-            {
-                Debug.Log("Eliminated");
-                //eliminate
-            }
+            other.gameObject.GetComponent<PlayerController>().PlayerBody.enabled = false;
+            fireRespawnEvent(other.gameObject);
         }
     }
 
