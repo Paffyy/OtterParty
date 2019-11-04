@@ -16,7 +16,8 @@ public class EventHandler : MonoBehaviour
         UpdateScoreEvent,
         TransitionEvent,
         ReadyUpEvent,
-        StartReadyUpSequence
+        StartReadyUpSequence,
+        EndMinigameEvent
     }
 
     private Dictionary<EventType, List<EventListener>> eventListeners;

@@ -69,8 +69,8 @@ public class CheckPointListener : BaseListener
         }
         else
         {
-            //eliminate
-            Debug.Log(player + "eliminated");
+            EliminateEventInfo e = new EliminateEventInfo(player);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, e);
         }
     }
 
