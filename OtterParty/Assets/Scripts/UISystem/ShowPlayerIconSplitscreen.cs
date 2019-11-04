@@ -39,7 +39,7 @@ public class ShowPlayerIconSplitscreen : MonoBehaviour
         UpdatePlayerScoreEventInfo eventInfo = e as UpdatePlayerScoreEventInfo;
         if (eventInfo != null)
         {
-            Player p = GameController.Instance.Players.FirstOrDefault(x => x.PlayerObject == eventInfo.Player);
+            Player p = GameController.Instance.FindPlayerByGameObject(eventInfo.Player);
             playerScoreTexts[p.ID].gameObject.SetActive(true);
             playerScoreTexts[p.ID].text = eventInfo.Score.ToString(); // same animation as pointsystem
         }

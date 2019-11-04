@@ -13,7 +13,10 @@ public class EventHandler : MonoBehaviour
         FinaleWinEvent,
         RespawnEvent,
         CheckPointEvent,
-        UpdateScoreEvent
+        UpdateScoreEvent,
+        TransitionEvent,
+        ReadyUpEvent,
+        StartReadyUpSequence
     }
 
     private Dictionary<EventType, List<EventListener>> eventListeners;

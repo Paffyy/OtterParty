@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class MinigameController : MonoBehaviour
 {
+    #region Fields
     private GameModes gamemode;
     [SerializeField]
     private int mingameDuration;
@@ -36,19 +37,22 @@ public class MinigameController : MonoBehaviour
     private float leadMultiplier;
     [SerializeField]
     private GameObject countDownTimerUI;
+
     private RigidbodyConstraints playerConstraints;
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
-    public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
     private Canvas canvas;
 
     private PlayerInputManager playerInputManager;
-    //TODO Factorize 
     private int currentPoints = 1;
     private int currentReversePoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
     private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst, Finale };
-    // this
+
+    #endregion
+
+    public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
+
     #region Singleton
     private MinigameController() { }
     private static MinigameController instance;
@@ -63,6 +67,7 @@ public class MinigameController : MonoBehaviour
     }
     #endregion
 
+    #region Init
     private void Awake()
     {
         canvas = FindObjectOfType<Canvas>();
@@ -83,6 +88,38 @@ public class MinigameController : MonoBehaviour
             currentReversePoints = GameController.Instance.Players.Count;
         }
     }
+    private void InitPlayers()
+    {
+        foreach (var item in GameController.Instance.Players)
+        {
+            playersAlive.Add(item, true);
+        }
+        MinigamePointSystem.InitializePlayers(GameController.Instance.Players);
+    }
+    public void JoinPlayers()
+    {
+        foreach (var item in GameController.Instance.Players)
+        {
+            playerInputManager.JoinPlayer(item.ID, -1, null, item.Device);
+        }
+    }
+    private void OnPlayerJoined(PlayerInput playerInput)
+    {
+        Player player = GameController.Instance.FindPlayerByID(playerInput.playerIndex);
+        if (gameType == GameType.Finale)
+        {
+            float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
+            Vector3 leadVector = new Vector3(0, 0, playerScore / (GameController.Instance.Players.Count * GameController.Instance.Minigames.Count) * leadMultiplier);
+            checkPoints[playerInput.playerIndex].transform.position = checkPoints[playerInput.playerIndex].transform.position + leadVector;
+        }
+        playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
+        playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
+        player.PlayerObject = playerInput.gameObject;
+        player.PlayerObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[player.ID];
+    }
+    #endregion
+
+    #region Events
     private void RegisterToEliminateEvents()
     {
         if (EventHandler.Instance != null)
@@ -104,13 +141,16 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
-
+    private void StartMinigameMechanics()
+    {
+        EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
+    }
     private void EliminatePlayerEvent(BaseEventInfo e)
     {
         var eliminateEventInfo = e as EliminateEventInfo;
         if (eliminateEventInfo != null)
         {
-            var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == eliminateEventInfo.PlayerToEliminate);
+            var player = GameController.Instance?.FindPlayerByGameObject(eliminateEventInfo.PlayerToEliminate);
             if (player != null)
             {
                 EliminatePlayer(player,true);
@@ -123,7 +163,7 @@ public class MinigameController : MonoBehaviour
         var finishEventInfo = e as FinishedEventInfo;
         if (finishEventInfo != null)
         {
-            var player = GameController.Instance?.Players.FirstOrDefault(x => x.PlayerObject == finishEventInfo.PlayerWhoFinished);
+            var player = GameController.Instance?.FindPlayerByGameObject(finishEventInfo.PlayerWhoFinished);
             if (player != null)
             {
                 currentPoints = GameController.Instance.Players.Count;
@@ -132,16 +172,9 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
-
-    private void InitPlayers()
-    {
-        foreach (var item in GameController.Instance.Players)
-        {
-            playersAlive.Add(item, true);
-        }
-        MinigamePointSystem.InitializePlayers(GameController.Instance.Players);
-    }
-    public void EliminatePlayer(Player p, bool wasPlayerEliminated) // FFA
+    #endregion
+ 
+    public void EliminatePlayer(Player p, bool playerWasEliminated) // FFA
     {
         if (!playersAlive[p])
         {
@@ -152,43 +185,50 @@ public class MinigameController : MonoBehaviour
         {
             case GameType.LastManStanding:
             {
-                UpdatePointSystem(p,currentPoints);
-                currentPoints++;
+                UpdateAscendingPoints(p);
                 if (IsGameOver())
-                {
-                    Player lastPlayerAlive = playersAlive.FirstOrDefault(x => x.Value).Key;
-                    UpdatePointSystem(lastPlayerAlive,currentPoints);
-                    GameIsOver();
-                }
+                     AwardLastPlayerAlive();
                 break;
             }
             case GameType.FirstToGoal:
             {
-                UpdatePointSystem(p, currentReversePoints);
-                currentReversePoints--;
+                UpdateReversePoints(p);
                 if (IsGameOver(0))
                     GameIsOver();
                 break;
             }
             case GameType.BothLastAndFirst:
             {
-                if (wasPlayerEliminated)
-                {
-                    UpdatePointSystem(p, currentPoints);
-                    currentPoints++;
-                }
+                if (playerWasEliminated)
+                    UpdateAscendingPoints(p);
                 else
-                {
-                    UpdatePointSystem(p, currentPoints);
-                    currentReversePoints--;
-                }
-                if (IsGameOver(0))
-                    GameIsOver();
+                    UpdateReversePoints(p);
+                if (IsGameOver())
+                    AwardLastPlayerAlive();
                 break;
             }
             default:
                 break;
         }
+    }
+
+    private void UpdateAscendingPoints(Player p)
+    {
+        UpdatePointSystem(p, currentPoints);
+        currentPoints++;
+    }
+
+    private void UpdateReversePoints(Player p)
+    {
+        UpdatePointSystem(p, currentReversePoints);
+        currentReversePoints--;
+    }
+
+    private void AwardLastPlayerAlive()
+    {
+        Player lastPlayerAlive = playersAlive.FirstOrDefault(x => x.Value).Key;
+        UpdatePointSystem(lastPlayerAlive, currentPoints);
+        GameIsOver();
     }
 
     private void UpdatePointSystem(Player p, int points)
@@ -198,15 +238,6 @@ public class MinigameController : MonoBehaviour
         MinigamePointSystem.UpdateScore(playerPoints);
     }
 
-    private bool IsGameOver(int playerCountOffset = 1) // FFA
-    {
-        int temp = 0;
-        foreach (var item in playersAlive)
-        {
-            temp = item.Value ? temp : temp + 1;
-        }
-        return temp == GameController.Instance.Players.Count - playerCountOffset;
-    }
     public void StartMinigame()
     {
         StartCoroutine("StartCountDown");
@@ -224,31 +255,49 @@ public class MinigameController : MonoBehaviour
         StartMinigameTimer();
         StartMinigameMechanics();
     }
-    private void StartMinigameMechanics()
+ 
+
+    public void StartMinigameTimer()
     {
-        EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
-    }
-    public void JoinPlayers()
-    {
-        foreach (var item in GameController.Instance.Players)
+        StartCoroutine("MinigameTimer", mingameDuration);
+        if(countDownTimerUI != null)
         {
-            playerInputManager.JoinPlayer(item.ID, -1, null, item.Device);
+            countDownTimerUI.SetActive(true);
+            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(mingameDuration);
         }
     }
-    private void OnPlayerJoined(PlayerInput playerInput)
-    {
-        Player player = GameController.Instance.Players.FirstOrDefault(x => x.ID == playerInput.playerIndex);
-        if (gameType == GameType.Finale)
-        {
-            float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
-            Vector3 leadVector = new Vector3(0, 0, playerScore / (GameController.Instance.Players.Count * GameController.Instance.Minigames.Count) * leadMultiplier);
-            checkPoints[playerInput.playerIndex].transform.position = checkPoints[playerInput.playerIndex].transform.position + leadVector;
-        }
-        playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
-        playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
-        player.PlayerObject = playerInput.gameObject;
-        player.PlayerObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[player.ID];
+
+    IEnumerator MinigameTimer(int duration)
+    {   
+        yield return new WaitForSeconds(duration);
+        GameIsOver();
     }
+
+
+    public void GameIsOver() 
+    {
+        StopAllCoroutines();
+        ToggleActive(false);
+        ShowStandingsUI();
+        StartCoroutine("GoToNextScene");
+    }
+
+    private IEnumerator GoToNextScene()
+    {
+        yield return new WaitForSeconds(endOfMatchDelay);
+        GameController.Instance.StartNextMinigame();
+    }
+
+    private bool IsGameOver(int playerCountOffset = 1) // FFA
+    {
+        int temp = 0;
+        foreach (var item in playersAlive)
+        {
+            temp = item.Value ? temp : temp + 1;
+        }
+        return temp == playersAlive.Count - playerCountOffset;
+    }
+
     private void ToggleActive(bool toggle)
     {
         foreach (var item in GameController.Instance.Players)
@@ -265,34 +314,7 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
-    public void StartMinigameTimer()
-    {
-        StartCoroutine("MinigameTimer", mingameDuration);
-        if(countDownTimerUI != null)
-        {
-            countDownTimerUI.SetActive(true);
-            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(mingameDuration);
-        }
-    }
 
-    IEnumerator MinigameTimer(int duration)
-    {   
-        yield return new WaitForSeconds(duration);
-        GameIsOver();
-    }
-    public void GameIsOver() 
-    {
-        StopAllCoroutines();
-        ToggleActive(false);
-        ShowStandingsUI();
-        StartCoroutine("GoToNextScene");
-    }
-
-    private IEnumerator GoToNextScene()
-    {
-        yield return new WaitForSeconds(endOfMatchDelay);
-        GameController.Instance.StartNextMinigame();
-    }
     private void ShowStandingsUI()
     {
         if (gameType == GameType.Finale)
