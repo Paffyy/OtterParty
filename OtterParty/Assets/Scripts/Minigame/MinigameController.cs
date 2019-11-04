@@ -262,7 +262,6 @@ public class MinigameController : MonoBehaviour
         StartMinigameMechanics();
     }
  
-
     public void StartMinigameTimer()
     {
         StartCoroutine("MinigameTimer", mingameDuration);
@@ -278,7 +277,6 @@ public class MinigameController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         GameIsOver();
     }
-
 
     public void GameIsOver() 
     {

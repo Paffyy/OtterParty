@@ -31,6 +31,9 @@ public class PlayerController : StateMachine
     private BoxCollider bodyCollider;
     private Rigidbody playerBody;
     private Vector3 movement;
+    [SerializeField]
+    private Transform firePoint;
+    public Transform FirePoint { get { return firePoint; } }
 
     protected override void Awake()
     {

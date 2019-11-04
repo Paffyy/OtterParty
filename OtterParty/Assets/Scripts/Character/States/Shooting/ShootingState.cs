@@ -18,6 +18,8 @@ public class ShootingState : CharacterBaseState
     [SerializeField]
     [Range(5f, 15f)]
     private float selfKnockbackValue;
+    [SerializeField]
+    private GameObject projectile;
     public bool IsOffCooldown { get; set; } = true;
     private ParticleSystem projectileParticle;
 
@@ -65,13 +67,17 @@ public class ShootingState : CharacterBaseState
             FireProjectile();
             Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
             IsOffCooldown = false;
-            CheckCollision();
+           // CheckCollision();
         }
     }
 
     private void FireProjectile()
     {
-        projectileParticle.Emit(1);
+        if(owner.FirePoint != null)
+        {
+            var projectileClone = Instantiate(projectile, owner.FirePoint.position, owner.FirePoint.rotation);
+        }
+        //projectileParticle.Emit(1);
     }
 
     private void Movement(Vector2 inputDirection)
