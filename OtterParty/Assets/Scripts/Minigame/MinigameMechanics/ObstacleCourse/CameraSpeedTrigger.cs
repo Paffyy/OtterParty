@@ -7,12 +7,15 @@ public class CameraSpeedTrigger : MonoBehaviour
     [SerializeField]
     [Range(0f, 5f)]
     private float speedMultiplier;
+    [SerializeField]
+    private GameObject speedIncreaseNotification;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Killzone"))
         {
             GetComponentInParent<CameraMovement>().ApplySpeedMultplier(speedMultiplier);
+            speedIncreaseNotification.SetActive(true);
         }
     }
 }
