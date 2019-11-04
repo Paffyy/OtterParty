@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,6 +32,8 @@ public class GameController : MonoBehaviour
             return instance;
         }
     }
+
+
     #endregion
 
     private void Awake()
@@ -67,5 +71,9 @@ public class GameController : MonoBehaviour
     {
         PointSystem.InitializePlayers(Players);
     }
+
+    public Player FindPlayerByGameObject(GameObject playerObject) =>  Players.FirstOrDefault(x => x.PlayerObject == playerObject);
+
+    public Player FindPlayerByID(int playerIndex) => Players.FirstOrDefault(x => x.ID == playerIndex);
 }
 

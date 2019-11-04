@@ -28,7 +28,7 @@ public class PlayerWinUI : MonoBehaviour
         {
             if (GameController.Instance != null && MinigameController.Instance != null)
             {
-                var playerID = GameController.Instance.Players.FirstOrDefault(x => x.PlayerObject == finishedEventInfo.PlayerToEliminate).ID;
+                var playerID = GameController.Instance.FindPlayerByGameObject(finishedEventInfo.PlayerToEliminate).ID;
                 playerIconImage.sprite = sprites[playerID];
                 MinigameController.Instance.GameIsOver();
             }
