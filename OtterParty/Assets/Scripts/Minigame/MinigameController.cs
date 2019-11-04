@@ -141,6 +141,12 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
+
+    private void EndMinigameMechanics()
+    {
+        EventHandler.Instance.FireEvent(EventHandler.EventType.EndMinigameEvent, new EndMinigameEventInfo());
+    }
+
     private void StartMinigameMechanics()
     {
         EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
@@ -276,6 +282,7 @@ public class MinigameController : MonoBehaviour
 
     public void GameIsOver() 
     {
+        EndMinigameMechanics();
         StopAllCoroutines();
         ToggleActive(false);
         ShowStandingsUI();
