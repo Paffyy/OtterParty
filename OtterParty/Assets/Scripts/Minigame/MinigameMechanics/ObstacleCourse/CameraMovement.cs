@@ -23,15 +23,13 @@ public class CameraMovement : MonoBehaviour
         if (minigameStarted)
         {
             mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, endPosition.position, movingSpeed * Time.deltaTime);
+            Debug.Log(movingSpeed);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void ApplySpeedMultplier(float speedMultiplier)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Player killed");
-        }
+        movingSpeed *= speedMultiplier;
     }
 
     private void StartCameraMovement(BaseEventInfo e)

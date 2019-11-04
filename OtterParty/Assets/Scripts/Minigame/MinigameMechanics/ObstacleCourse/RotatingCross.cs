@@ -16,6 +16,17 @@ public class RotatingCross : MonoBehaviour
     private Material material;
     [SerializeField]
     private MeshRenderer meshOne;
+    private Vector3 rotation;
+
+    enum axisEnum
+    {
+        X,
+        Y,
+        Z
+    };
+
+    [SerializeField]
+    private axisEnum rotateOnAxis;
 
     void Start()
     {
@@ -23,10 +34,22 @@ public class RotatingCross : MonoBehaviour
         {
             meshOne.material = material;
         }
+        if (rotateOnAxis == axisEnum.X)
+        {
+            rotation = new Vector3(rotatingDirection, 0, 0);
+        }
+        else if (rotateOnAxis == axisEnum.Y)
+        {
+            rotation = new Vector3(0, rotatingDirection, 0);
+        }
+        else if (rotateOnAxis == axisEnum.Z)
+        {
+            rotation = new Vector3(0, 0, rotatingDirection);
+        }
     }
 
     void FixedUpdate()
     {
-        rotatingCross.Rotate(new Vector3(0, rotatingDirection, 0), rotationSpeed);
+        rotatingCross.Rotate(rotation, rotationSpeed);
     }
 }

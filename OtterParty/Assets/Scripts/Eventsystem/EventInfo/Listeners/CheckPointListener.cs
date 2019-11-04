@@ -20,6 +20,7 @@ public class CheckPointListener : BaseListener
         PlayerEventInfo eventInfo = e as PlayerEventInfo;
         if (eventInfo != null)
         {
+            eventInfo.playerObject.GetComponent<BoxCollider>().enabled = true;
             if (!playerCheckPoints.ContainsKey(eventInfo.playerObject))
             {
                 eventInfo.playerObject.transform.position = firstCheckPoint.position;

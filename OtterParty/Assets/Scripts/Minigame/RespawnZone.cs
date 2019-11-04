@@ -15,6 +15,7 @@ public class RespawnZone : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            other.gameObject.GetComponent<BoxCollider>().enabled = false;
             if (!hasLimitedRespawns)
             {
                 fireRespawnEvent(other.gameObject);

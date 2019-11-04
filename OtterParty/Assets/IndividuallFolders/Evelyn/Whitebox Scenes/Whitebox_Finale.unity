@@ -7953,7 +7953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfRespawns: 3
-  hasLimitedRespawns: 0
+  hasLimitedRespawns: 1
 --- !u!1001 &1478060448445636035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8119,6 +8119,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4539313662698275933, guid: 11fa3a2fb6e6d7841a29c2a69558f7d6,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11fa3a2fb6e6d7841a29c2a69558f7d6, type: 3}
