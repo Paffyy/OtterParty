@@ -10,7 +10,9 @@ using UnityEngine.UI;
 public class MinigameController : MonoBehaviour
 {
     #region Fields
-    private GameModes gamemode;
+
+    [Header("Values")]
+
     [SerializeField]
     private int mingameDuration;
     [SerializeField]
@@ -19,6 +21,13 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     [Range(1, 5f)]
     private int countDownTimer;
+    [SerializeField]
+    private GameType gameType;
+    [SerializeField]
+    [Range(1, 12f)]
+    private float leadMultiplier;
+   
+    [Header("References")]
     [SerializeField]
     private GameObject countDownUI;
     [SerializeField]
@@ -32,12 +41,9 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab;
     [SerializeField]
-    private GameType gameType;
-    [SerializeField]
-    private float leadMultiplier;
-    [SerializeField]
     private GameObject countDownTimerUI;
 
+    private GameModes gamemode;
     private RigidbodyConstraints playerConstraints;
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
     private List<Transform> checkPoints = new List<Transform>();
@@ -323,12 +329,8 @@ public class MinigameController : MonoBehaviour
     private void ShowStandingsUI()
     {
         if (gameType == GameType.Finale)
-        {
             winnerUI.SetActive(true);
-        }
         else
-        {
             Instantiate(showStandingsUI, canvas.transform);
-        }
     }
 }
