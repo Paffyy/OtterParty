@@ -44,14 +44,7 @@ public class ShowHeartScreenUI : MonoBehaviour
             {
                 var life = Instantiate(heart, heart.transform.parent);
                 var rectTransform = life.GetComponent<RectTransform>();
-                if(i == 0 || i == 2)
-                {
-                    rectTransform.position = new Vector3(rectTransform.position.x + offset, rectTransform.position.y, rectTransform.position.z);
-                }
-                else if (i == 1 || i == 3)
-                {
-                    rectTransform.position = new Vector3(rectTransform.position.x - offset, rectTransform.position.y, rectTransform.position.z);
-                }
+                rectTransform.position = i == 0 || i == 2 ? new Vector3(rectTransform.position.x + offset, rectTransform.position.y, rectTransform.position.z) : new Vector3(rectTransform.position.x - offset, rectTransform.position.y, rectTransform.position.z);
                 offset += offset;
                 currentPlayerHearts.Add(life);
             }
