@@ -11,6 +11,7 @@ public class ProjectileMove : MonoBehaviour
     private GameObject muzzlePrefab;
     [SerializeField]
     private GameObject hitPrefab;
+    public GameObject PlayerThatShot { get; set; }
 
     void Start()
     {
@@ -43,6 +44,11 @@ public class ProjectileMove : MonoBehaviour
     {
         speed = 0;
         ContactPoint contact = collision.contacts[0];
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
+        {
+            var e = new HitEventInfo(PlayerThatShot, collision.gameObject);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.HitEvent, e);
+        }
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, contact.normal);
         Vector3 position = contact.point;
         if(hitPrefab != null)

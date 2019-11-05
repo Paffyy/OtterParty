@@ -67,7 +67,6 @@ public class ShootingState : CharacterBaseState
             FireProjectile();
             Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
             IsOffCooldown = false;
-           // CheckCollision();
         }
     }
 
@@ -76,8 +75,8 @@ public class ShootingState : CharacterBaseState
         if(owner.FirePoint != null)
         {
             var projectileClone = Instantiate(projectile, owner.FirePoint.position, owner.FirePoint.rotation);
+            projectileClone.GetComponent<ProjectileMove>().PlayerThatShot = owner.gameObject;
         }
-        //projectileParticle.Emit(1);
     }
 
     private void Movement(Vector2 inputDirection)
