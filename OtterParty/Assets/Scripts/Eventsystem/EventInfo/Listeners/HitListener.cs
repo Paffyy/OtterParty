@@ -45,7 +45,7 @@ public class HitListener : BaseListener
         {
             playerLives.Add(playerHit, 1);
         }
-        else if(playerLives[playerHit] < MinigameController.Instance.MiniGameLives)
+        else if(playerLives[playerHit] < MinigameController.Instance.MiniGameLives - 1)
         {
             playerLives[playerHit]++;
         }
