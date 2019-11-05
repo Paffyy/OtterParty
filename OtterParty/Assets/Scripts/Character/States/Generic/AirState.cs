@@ -28,7 +28,7 @@ public class AirState : CharacterBaseState
 
     public override void Exit()
     {
-        owner.InputDirection = Vector2.zero;
+        //owner.InputDirection = Vector2.zero;
         owner.OnMoveAction -= Movement;
     }
 
