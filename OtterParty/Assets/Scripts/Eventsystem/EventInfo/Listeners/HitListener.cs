@@ -9,6 +9,7 @@ public class HitListener : BaseListener
     [SerializeField]
     [Range(1, 10)]
     private int numberOfLives;
+    public int NumberOfLives { get { return numberOfLives; } }
     private Dictionary<GameObject, int> playerLives = new Dictionary<GameObject, int>();
 
     public override void Register()
