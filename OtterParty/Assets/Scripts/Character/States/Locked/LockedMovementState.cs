@@ -10,7 +10,7 @@ public class LockedMovementState : CharacterBaseState
     [Range(2f, 2.8f)]
     private float speed;
     [SerializeField]
-    [Range(0.75f, 0.85f)]
+    [Range(0.5f, 0.85f)]
     private float variationPenalty;
     [SerializeField]
     [Range(2.4f, 6f)]
