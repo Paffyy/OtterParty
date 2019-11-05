@@ -56,12 +56,13 @@ public class CheckPointListener : BaseListener
 
     private void LimitedRespawn(GameObject player)
     {
+        EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateUIEvent, new UpdateUIEventInfo(player));
         if (!playerRespawns.ContainsKey(player))
         {
             playerRespawns.Add(player, 1);
             DetermineSpawnPoint(player);
         }
-        else if (playerRespawns[player] < numberOfRespawns)
+        else if (playerRespawns[player] < numberOfRespawns - 1)
         {
             playerRespawns[player]++;
             DetermineSpawnPoint(player);

@@ -15,6 +15,10 @@ public class PlayerLives : MonoBehaviour
     [SerializeField]
     private Image playerHeart;
 
+    void Start()
+    {
+    }
+
 
 
 }

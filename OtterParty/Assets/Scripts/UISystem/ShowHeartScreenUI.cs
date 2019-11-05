@@ -25,7 +25,7 @@ public class ShowHeartScreenUI : MonoBehaviour
         if (GameController.Instance != null && MinigameController.Instance != null)
         {
             InstantiateUI();
-            EventHandler.Instance.Register(EventHandler.EventType.HitEvent, UpdatePlayerLives);
+            EventHandler.Instance.Register(EventHandler.EventType.UpdateUIEvent, UpdatePlayerLives);
         }
     }
 
@@ -54,9 +54,8 @@ public class ShowHeartScreenUI : MonoBehaviour
 
     private void UpdatePlayerLives(BaseEventInfo e)
     {
-        Debug.Log("Updating player lives");
-        var hitEventInfo = e as HitEventInfo;
-        GameObject playerHit = hitEventInfo.ObjectHit;
+        var updateUIEventInfo = e as UpdateUIEventInfo;
+        GameObject playerHit = updateUIEventInfo.playerObject;
         Player player = GameController.Instance.FindPlayerByGameObject(playerHit);
         List<GameObject> listOfHearts = hearts[player.ID];
         int count = listOfHearts.Count;

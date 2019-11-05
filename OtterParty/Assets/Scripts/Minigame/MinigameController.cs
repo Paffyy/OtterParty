@@ -271,7 +271,7 @@ public class MinigameController : MonoBehaviour
         {
             Instantiate(splitscreenUI, canvas.transform);
         }
-        else if (gameType == GameType.LastManStanding)
+        else if (gameType == GameType.LastManStanding || gameType == GameType.BothLastAndFirst)
         {
             Instantiate(heartScreenUI, canvas.transform);
         }

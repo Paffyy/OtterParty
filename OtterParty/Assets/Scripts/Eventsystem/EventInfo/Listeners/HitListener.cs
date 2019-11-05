@@ -41,6 +41,7 @@ public class HitListener : BaseListener
 
     private void CheckPlayerLives(GameObject playerHit)
     {
+        EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateUIEvent, new UpdateUIEventInfo(playerHit));
         if (!playerLives.ContainsKey(playerHit))
         {
             playerLives.Add(playerHit, 1);
