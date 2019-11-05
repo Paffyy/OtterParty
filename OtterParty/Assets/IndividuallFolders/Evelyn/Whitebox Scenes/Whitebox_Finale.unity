@@ -3246,6 +3246,8 @@ MonoBehaviour:
   mingameDuration: 240
   endOfMatchDelay: 10
   countDownTimer: 3
+  gameType: 3
+  leadMultiplier: 12
   countDownUI: {fileID: 1906441892}
   showStandingsUI: {fileID: 7833761761695191566, guid: 3f487f8d5f53aef418060822f91e3d41,
     type: 3}
@@ -3255,8 +3257,6 @@ MonoBehaviour:
   countDownAnim: {fileID: 1906441894}
   playerPrefab: {fileID: 2401150614555520595, guid: 3cef13e2038ec9646907d57b1c61981c,
     type: 3}
-  gameType: 3
-  leadMultiplier: 12
   countDownTimerUI: {fileID: 0}
 --- !u!4 &872269785
 Transform:
@@ -4391,7 +4391,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 790a89cb15b65064fa0d0c4860320ceb, type: 2}
+  - {fileID: 2100000, guid: 8bc69d98c53b0364aaa66184bd132f52, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
