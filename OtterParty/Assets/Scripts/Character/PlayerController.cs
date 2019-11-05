@@ -34,6 +34,9 @@ public class PlayerController : StateMachine
     [SerializeField]
     private Transform firePoint;
     public Transform FirePoint { get { return firePoint; } }
+    [SerializeField]
+    private GameObject gun;
+    public GameObject PlayerGun { get { return gun; } }
 
     protected override void Awake()
     {

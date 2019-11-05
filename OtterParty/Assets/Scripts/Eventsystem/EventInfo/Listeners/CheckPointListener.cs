@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CheckPointListener : BaseListener
 {
-
     private Dictionary<GameObject, Transform> playerCheckPoints = new Dictionary<GameObject, Transform>();
     [SerializeField]
     private Transform firstCheckPoint;

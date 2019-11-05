@@ -8,7 +8,10 @@ public class ShootingTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerController>().Transition<ShootingState>();
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            player.Transition<ShootingState>();
+            player.PlayerGun.SetActive(true);
+            player.FirePoint.gameObject.SetActive(true);
         }
     }
 }
