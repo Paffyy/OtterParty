@@ -26,7 +26,10 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     [Range(1, 12f)]
     private float leadMultiplier;
-   
+    [SerializeField]
+    [Range(1, 5)]
+    private int miniGameLives;
+
     [Header("References")]
     [SerializeField]
     private GameObject countDownUI;
@@ -37,11 +40,17 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private GameObject splitscreenUI;
     [SerializeField]
+    private GameObject heartScreenUI;
+    [SerializeField]
     private Animator countDownAnim;
     [SerializeField]
     private GameObject playerPrefab;
     [SerializeField]
     private GameObject countDownTimerUI;
+    [SerializeField]
+    private bool hasLimitedLives;
+    public bool HasLimitedLives { get { return hasLimitedLives; } }
+    public int MiniGameLives { get { return miniGameLives; } }
 
     private GameModes gamemode;
     private RigidbodyConstraints playerConstraints;
@@ -261,6 +270,10 @@ public class MinigameController : MonoBehaviour
         if (gameType == GameType.Finale)
         {
             Instantiate(splitscreenUI, canvas.transform);
+        }
+        else if (gameType == GameType.LastManStanding)
+        {
+            Instantiate(heartScreenUI, canvas.transform);
         }
         yield return new WaitForSeconds(countDownTimer);
         ToggleActive(true);

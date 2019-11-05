@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class HitListener : BaseListener
 {
-    [SerializeField]
-    private bool hasLimitedLives;
-    [SerializeField]
-    [Range(1, 10)]
-    private int numberOfLives;
-    public int NumberOfLives { get { return numberOfLives; } }
     private Dictionary<GameObject, int> playerLives = new Dictionary<GameObject, int>();
 
     public override void Register()
     {
-       // EventHandler.Instance.Register(EventHandler.EventType.HitEvent, ApplyShootEffects);
+
         EventHandler.Instance.Register(EventHandler.EventType.HitEvent, PlayerGotHit);
     }
 
@@ -38,7 +32,7 @@ public class HitListener : BaseListener
         {
             GameObject playerThatShot = hitEventInfo.ObjectThatFired;
             GameObject playerThatGotHit = hitEventInfo.ObjectHit;
-            if (hasLimitedLives)
+            if (MinigameController.Instance.HasLimitedLives)
             {
                 CheckPlayerLives(playerThatGotHit);
             }
@@ -51,7 +45,7 @@ public class HitListener : BaseListener
         {
             playerLives.Add(playerHit, 1);
         }
-        else if(playerLives[playerHit] < numberOfLives)
+        else if(playerLives[playerHit] < MinigameController.Instance.MiniGameLives)
         {
             playerLives[playerHit]++;
         }

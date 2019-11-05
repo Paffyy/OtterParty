@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIListener : MonoBehaviour
 {
@@ -17,18 +18,20 @@ public class UIListener : MonoBehaviour
     private int xOffset;
     [SerializeField]
     private List<Transform> spritePositions;
-    
+
 
     void Start()
     {
-        numberOfLives = hitListener.NumberOfLives;
-        foreach (var item in GameController.Instance.Players)
+        if(GameController.Instance.Players != null)
         {
-            PlayerLives pl = Instantiate(playerLivesPrefab, transform);
-            pl.player = item;
-            pl.PlayerImage.sprite = playerSprites[item.ID];
-            pl.PlayerHeart.sprite = playerHearts[item.ID];
+            foreach (var item in GameController.Instance.Players)
+            {
+                PlayerLives pl = Instantiate(playerLivesPrefab, transform);
+                pl.player = item;
+                pl.PlayerHeart.sprite = playerHearts[item.ID];
+            }
         }
+
         EventHandler.Instance.Register(EventHandler.EventType.HitEvent, UpdateLives);
     }
 

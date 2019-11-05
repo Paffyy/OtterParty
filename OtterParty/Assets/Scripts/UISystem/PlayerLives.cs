@@ -6,20 +6,12 @@ using UnityEngine.UI;
 public class PlayerLives : MonoBehaviour
 {
     public Player player { get; set; }
-    public Image PlayerImage
-    {
-        get { return playerImage; }
-        set { playerImage = value; }
-    }
-
     public Image PlayerHeart
     {
         get { return playerHeart; }
         set { playerHeart = value; }
     }
 
-    [SerializeField]
-    private Image playerImage;
     [SerializeField]
     private Image playerHeart;
 
