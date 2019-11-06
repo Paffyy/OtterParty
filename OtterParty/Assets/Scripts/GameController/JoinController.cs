@@ -43,15 +43,22 @@ public class JoinController : MonoBehaviour
             if (playerCount == 2)
             {
                 readyUpUI.gameObject.SetActive(true);
+                EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, Transition);
                 //StartCoroutine("StartDelay");
             }
         }
     }
 
+
+
     private void EnableStartButton()
     {
         startButton.SetActive(true);
         startButton.GetComponent<Animator>().SetTrigger("Selected");
+    }
+    private void Transition(BaseEventInfo e)
+    {
+        StartCoroutine("StartGameWithDelay");
     }
 
     public void StartGame()
@@ -60,9 +67,15 @@ public class JoinController : MonoBehaviour
         GameController.Instance.StartNextMinigame();
     }
 
+    IEnumerator StartGameWithDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        StartGame();
+    }
+
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         EnableStartButton();
     }
 
