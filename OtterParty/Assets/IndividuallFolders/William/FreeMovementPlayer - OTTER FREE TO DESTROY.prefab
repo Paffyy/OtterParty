@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 178351344305148076}
   - component: {fileID: 1376724963269300871}
   - component: {fileID: 171907604841781704}
+  - component: {fileID: -5007810988881463371}
   m_Layer: 11
   m_Name: FreeMovementPlayer - OTTER FREE TO DESTROY
   m_TagString: Player
@@ -46,7 +47,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178351344305148079}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 6329158148709259305, guid: 17dcf5434c549634881d5bb3277019ae, type: 3}
 --- !u!23 &178351344305148066
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 675376610345470428413f3d56c04010, type: 2}
+  - {fileID: 2100000, guid: 17b6bca0e34084027af837a4b668f422, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -191,6 +192,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.029940335, z: 0.99999994}
   m_Center: {x: 0, y: -0.5157534, z: 0}
+--- !u!111 &-5007810988881463371
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178351344305148079}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 1827226128182048838, guid: 17dcf5434c549634881d5bb3277019ae,
+    type: 3}
+  m_Animations:
+  - {fileID: 1827226128182048838, guid: 17dcf5434c549634881d5bb3277019ae, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &7879037629143505210
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,10 +294,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 178351344305148064}
     m_Modifications:
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Name
-      value: BlobShadowProjector
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -323,6 +337,10 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Name
+      value: BlobShadowProjector
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
