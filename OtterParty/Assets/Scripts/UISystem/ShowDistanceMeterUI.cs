@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +26,16 @@ public class ShowDistanceMeterUI : MonoBehaviour
         if (GameController.Instance != null && MinigameController.Instance != null)
         {
             InstantiateUI();
-            //register?
+            EventHandler.Instance.FireEvent(EventHandler.EventType.InstantiatedUIEvent, new GameObjectEventInfo(gameObject));
+        }
+    }
+
+    public void UpdateValues(List<float> playerValues)
+    {
+        var players = GameController.Instance.Players;
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerImages[i].GetComponent<Slider>().value = playerValues[i];
         }
     }
 
@@ -35,6 +45,15 @@ public class ShowDistanceMeterUI : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             playerImages[i].gameObject.SetActive(true);
+        }
+    }
+
+    public void UpdateMaxDistance(float distance)
+    {
+        var players = GameController.Instance.Players;
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerImages[i].GetComponent<Slider>().maxValue = distance;
         }
     }
 }

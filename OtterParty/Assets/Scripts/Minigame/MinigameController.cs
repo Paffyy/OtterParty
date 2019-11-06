@@ -49,6 +49,7 @@ public class MinigameController : MonoBehaviour
     private bool hasLimitedLives;
     public bool HasLimitedLives { get { return hasLimitedLives; } }
     public int MiniGameLives { get { return miniGameLives; } }
+    public GameObject MiniGameUI { get { return miniGameUI; } }
 
     private GameModes gamemode;
     private RigidbodyConstraints playerConstraints;
@@ -267,7 +268,7 @@ public class MinigameController : MonoBehaviour
         countDownAnim.SetBool("IsCountingDown", true);
         if(miniGameUI != null)
         {
-            Instantiate(miniGameUI, canvas.transform);
+           Instantiate(miniGameUI, canvas.transform);
         }
         yield return new WaitForSeconds(countDownTimer);
         ToggleActive(true);

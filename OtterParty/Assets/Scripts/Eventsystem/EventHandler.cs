@@ -18,7 +18,9 @@ public class EventHandler : MonoBehaviour
         ReadyUpEvent,
         StartReadyUpSequence,
         EndMinigameEvent,
-        UpdateUIEvent
+        UpdateUIEvent,
+        SetDistanceEvent,
+        InstantiatedUIEvent
     }
 
     private Dictionary<EventType, List<EventListener>> eventListeners;
