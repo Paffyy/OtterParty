@@ -5472,15 +5472,18 @@ MonoBehaviour:
   countDownTimer: 3
   gameType: 1
   leadMultiplier: 0
+  miniGameLives: 0
   countDownUI: {fileID: 1105489819}
   showStandingsUI: {fileID: 7833761761695191566, guid: 3f487f8d5f53aef418060822f91e3d41,
     type: 3}
   winnerUI: {fileID: 0}
-  splitscreenUI: {fileID: 0}
+  miniGameUI: {fileID: 2074408022467168740, guid: 649f609af60d64449806f8c1423dcb6b,
+    type: 3}
   countDownAnim: {fileID: 45580971}
   playerPrefab: {fileID: 1865357004755966654, guid: 341485151c4574b47aa5f488ec695430,
     type: 3}
   countDownTimerUI: {fileID: 520816253}
+  hasLimitedLives: 0
 --- !u!4 &1607870356
 Transform:
   m_ObjectHideFlags: 0

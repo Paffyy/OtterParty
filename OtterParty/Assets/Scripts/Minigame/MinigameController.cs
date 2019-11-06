@@ -38,9 +38,7 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private GameObject winnerUI;
     [SerializeField]
-    private GameObject splitscreenUI;
-    [SerializeField]
-    private GameObject heartScreenUI;
+    private GameObject miniGameUI;
     [SerializeField]
     private Animator countDownAnim;
     [SerializeField]
@@ -267,13 +265,9 @@ public class MinigameController : MonoBehaviour
     IEnumerator StartCountDown() // TODO Display The CountDown UI
     {
         countDownAnim.SetBool("IsCountingDown", true);
-        if (gameType == GameType.Finale)
+        if(miniGameUI != null)
         {
-            Instantiate(splitscreenUI, canvas.transform);
-        }
-        else if (gameType == GameType.LastManStanding || gameType == GameType.BothLastAndFirst)
-        {
-            Instantiate(heartScreenUI, canvas.transform);
+            Instantiate(miniGameUI, canvas.transform);
         }
         yield return new WaitForSeconds(countDownTimer);
         ToggleActive(true);
