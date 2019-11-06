@@ -31,10 +31,10 @@ public class ShowHeartScreenUI : MonoBehaviour
 
     private void InstantiateUI()
     {
+        int width = 50;
         var players = GameController.Instance.Players;
         for (int i = 0; i < players.Count; i++)
         {
-            int offset = 30;
             var heart = playerHearts[i].gameObject;
             heart.SetActive(true);
             playerImages[i].gameObject.SetActive(true);
@@ -44,8 +44,8 @@ public class ShowHeartScreenUI : MonoBehaviour
             {
                 var life = Instantiate(heart, heart.transform.parent);
                 var rectTransform = life.GetComponent<RectTransform>();
+                var offset = x * width;
                 rectTransform.position = i == 0 || i == 2 ? new Vector3(rectTransform.position.x + offset, rectTransform.position.y, rectTransform.position.z) : new Vector3(rectTransform.position.x - offset, rectTransform.position.y, rectTransform.position.z);
-                offset += offset;
                 currentPlayerHearts.Add(life);
             }
             hearts.Add(i, currentPlayerHearts);
@@ -59,7 +59,7 @@ public class ShowHeartScreenUI : MonoBehaviour
         Player player = GameController.Instance.FindPlayerByGameObject(playerHit);
         List<GameObject> listOfHearts = hearts[player.ID];
         int count = listOfHearts.Count;
-        if(count > 0)
+        if (count > 0)
         {
             listOfHearts[count - 1].SetActive(false);
             listOfHearts.RemoveAt(count - 1);

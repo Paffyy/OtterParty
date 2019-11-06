@@ -44,6 +44,7 @@ public class DistanceHandler : MonoBehaviour
         foreach (var item in GameController.Instance.Players)
         {
             var temp = maxDistance - (endPos.position.z - item.PlayerObject.transform.position.z);
+            temp = Mathf.Clamp(temp, 0, maxDistance);
             playerValues.Add(temp);
         }
         meterUI.UpdateValues(playerValues);

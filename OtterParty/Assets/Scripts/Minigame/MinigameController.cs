@@ -46,6 +46,8 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private GameObject countDownTimerUI;
     [SerializeField]
+    private GameObject timeLeftText;
+    [SerializeField]
     private bool hasLimitedLives;
     public bool HasLimitedLives { get { return hasLimitedLives; } }
     public int MiniGameLives { get { return miniGameLives; } }
@@ -134,6 +136,7 @@ public class MinigameController : MonoBehaviour
     #endregion
 
     #region Events
+ 
     private void RegisterToEliminateEvents()
     {
         if (EventHandler.Instance != null)
@@ -220,12 +223,18 @@ public class MinigameController : MonoBehaviour
             case GameType.BothLastAndFirst:
             {
                 if (playerWasEliminated)
-                    UpdateAscendingPoints(p);
-                else
-                    UpdateReversePoints(p);
-                if (IsGameOver())
-                    AwardLastPlayerAlive();
-                break;
+                    {
+                        UpdateAscendingPoints(p);
+                        if (IsGameOver())
+                            AwardLastPlayerAlive();
+                    }
+                    else
+                    {
+                        UpdateReversePoints(p);
+                        if (IsGameOver(0))
+                            GameIsOver();
+                    }
+                    break;
             }
             default:
                 break;
@@ -244,10 +253,17 @@ public class MinigameController : MonoBehaviour
         currentReversePoints--;
     }
 
-    private void AwardLastPlayerAlive()
+    private void AwardLastPlayerAlive(bool reverseAdd = false)
     {
         Player lastPlayerAlive = playersAlive.FirstOrDefault(x => x.Value).Key;
-        UpdatePointSystem(lastPlayerAlive, currentPoints);
+        if (!reverseAdd)
+        {
+            UpdateAscendingPoints(lastPlayerAlive);
+        }
+        else
+        {
+            UpdateReversePoints(lastPlayerAlive);
+        }
         GameIsOver();
     }
 
@@ -281,6 +297,7 @@ public class MinigameController : MonoBehaviour
         StartCoroutine("MinigameTimer", mingameDuration);
         if(countDownTimerUI != null)
         {
+            timeLeftText.SetActive(true);
             countDownTimerUI.SetActive(true);
             countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(mingameDuration);
         }
