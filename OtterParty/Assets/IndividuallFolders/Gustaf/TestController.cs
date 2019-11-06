@@ -359,6 +359,44 @@ public class TestController : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""ReadyUP"",
+            ""id"": ""9918e93c-761c-4394-9a33-f638cf17a860"",
+            ""actions"": [
+                {
+                    ""name"": ""ReadyUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""8dc71a04-8f2a-4d9f-83a2-36e0b3a1a532"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0e3a27d0-b511-4d5c-bd0c-9797f0b3a333"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReadyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8260f46b-89f4-4fbf-a2d1-8d7e5d31adaf"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReadyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -378,6 +416,9 @@ public class TestController : IInputActionCollection, IDisposable
         m_OnlyController_Fire = m_OnlyController.FindAction("Fire", throwIfNotFound: true);
         m_OnlyController_LeftSpam = m_OnlyController.FindAction("LeftSpam", throwIfNotFound: true);
         m_OnlyController_RightSpam = m_OnlyController.FindAction("RightSpam", throwIfNotFound: true);
+        // ReadyUP
+        m_ReadyUP = asset.FindActionMap("ReadyUP", throwIfNotFound: true);
+        m_ReadyUP_ReadyUp = m_ReadyUP.FindAction("ReadyUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -561,6 +602,39 @@ public class TestController : IInputActionCollection, IDisposable
         }
     }
     public OnlyControllerActions @OnlyController => new OnlyControllerActions(this);
+
+    // ReadyUP
+    private readonly InputActionMap m_ReadyUP;
+    private IReadyUPActions m_ReadyUPActionsCallbackInterface;
+    private readonly InputAction m_ReadyUP_ReadyUp;
+    public struct ReadyUPActions
+    {
+        private TestController m_Wrapper;
+        public ReadyUPActions(TestController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ReadyUp => m_Wrapper.m_ReadyUP_ReadyUp;
+        public InputActionMap Get() { return m_Wrapper.m_ReadyUP; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ReadyUPActions set) { return set.Get(); }
+        public void SetCallbacks(IReadyUPActions instance)
+        {
+            if (m_Wrapper.m_ReadyUPActionsCallbackInterface != null)
+            {
+                ReadyUp.started -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnReadyUp;
+                ReadyUp.performed -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnReadyUp;
+                ReadyUp.canceled -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnReadyUp;
+            }
+            m_Wrapper.m_ReadyUPActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                ReadyUp.started += instance.OnReadyUp;
+                ReadyUp.performed += instance.OnReadyUp;
+                ReadyUp.canceled += instance.OnReadyUp;
+            }
+        }
+    }
+    public ReadyUPActions @ReadyUP => new ReadyUPActions(this);
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -577,5 +651,9 @@ public class TestController : IInputActionCollection, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnLeftSpam(InputAction.CallbackContext context);
         void OnRightSpam(InputAction.CallbackContext context);
+    }
+    public interface IReadyUPActions
+    {
+        void OnReadyUp(InputAction.CallbackContext context);
     }
 }

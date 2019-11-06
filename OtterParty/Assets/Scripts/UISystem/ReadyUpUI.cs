@@ -1,50 +1,66 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReadyUpUI : MonoBehaviour
 {
+    [SerializeField]
+    private List<Image> readyUpImages = new List<Image>();
+    [SerializeField]
+    private List<Image> backgrounds = new List<Image>();
     private Dictionary<Player, bool> playerReady = new Dictionary<Player, bool>();
     private void Start()
     {
         if (EventHandler.Instance != null)
         {
             EventHandler.Instance.Register(EventHandler.EventType.StartReadyUpSequence, InitializeReadyUpUI);
+            EventHandler.Instance.Register(EventHandler.EventType.ReadyUpEvent, ReadyUp);
         }
 
     }
     private void InitializeReadyUpUI(BaseEventInfo e)
     {
-        foreach (var item in GameController.Instance.Players)
+        for (int i = 0; i < GameController.Instance.Players.Count; i++)
         {
-            playerReady.Add(item, false);
+            playerReady.Add(GameController.Instance.Players[i], false);
+            backgrounds[i].gameObject.SetActive(true);
         }
         gameObject.SetActive(true);
-        EventHandler.Instance.Register(EventHandler.EventType.ReadyUpEvent, ReadyUp);
     }
-
+    public void PlayerJoined(Player p)
+    {
+        playerReady.Add(p, false);
+        backgrounds[p.ID].gameObject.SetActive(true);
+    }
     private void ReadyUp(BaseEventInfo e)
     {
         ReadyUpEventInfo readyUpInfo = e as ReadyUpEventInfo;
-        Player p = GameController.Instance.FindPlayerByGameObject(readyUpInfo.PlayerObject);
-        if (playerReady.ContainsKey(p))
+        if (readyUpInfo != null)
         {
-            playerReady[p] = !playerReady[p];
-            // Enable UI Toggle
-            if (IsAllPlayersReady())
+            Player p = GameController.Instance.FindPlayerByID(readyUpInfo.PlayerID);
+            if (playerReady.ContainsKey(p))
             {
-                //Transition to game / next
-                TransitionEventInfo tei = new TransitionEventInfo();
-                EventHandler.Instance.FireEvent(EventHandler.EventType.TransitionEvent, tei);
+                playerReady[p] = !playerReady[p];
+                readyUpImages[p.ID].gameObject.SetActive(playerReady[p]);
+  
+                if (IsAllPlayersReady())
+                {
+                    //Transition to game / next
+                    TransitionEventInfo tei = new TransitionEventInfo();
+                    EventHandler.Instance.FireEvent(EventHandler.EventType.TransitionEvent, tei);
+                    EventHandler.Instance.Unregister(EventHandler.EventType.ReadyUpEvent, ReadyUp);
+                }
             }
         }
+
     }
     private bool IsAllPlayersReady()
     {
         int temp = 0;
         foreach (var item in playerReady)
         {
-            temp = item.Value ? temp : temp + 1;
+            temp = item.Value ? temp + 1  : temp;
         }
         return temp == playerReady.Count;
     }

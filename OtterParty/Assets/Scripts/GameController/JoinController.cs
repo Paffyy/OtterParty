@@ -12,6 +12,8 @@ public class JoinController : MonoBehaviour
     private int joinDuration;
     [SerializeField]
     private GameObject startButton;
+    [SerializeField]
+    private ReadyUpUI readyUpUI;
 
     private List<GameObject> playerIndicators;
     private int playerCount = 0;
@@ -32,21 +34,31 @@ public class JoinController : MonoBehaviour
     {
         if (GameController.Instance != null)
         {
-            GameController.Instance.Players.Add(new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0],  GameController.Instance.PlayerMaterials[input.playerIndex]));
+            Player p = new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0], GameController.Instance.PlayerMaterials[input.playerIndex]);
+            GameController.Instance.Players.Add(p);
             input.gameObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[input.playerIndex];
             playerIndicators[input.playerIndex].SetActive(true);
             playerCount++;
+            readyUpUI.PlayerJoined(p);
             if (playerCount == 2)
             {
-                StartCoroutine("StartDelay");
+                readyUpUI.gameObject.SetActive(true);
+                EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, Transition);
+                //StartCoroutine("StartDelay");
             }
         }
     }
+
+
 
     private void EnableStartButton()
     {
         startButton.SetActive(true);
         startButton.GetComponent<Animator>().SetTrigger("Selected");
+    }
+    private void Transition(BaseEventInfo e)
+    {
+        StartCoroutine("StartGameWithDelay");
     }
 
     public void StartGame()
@@ -55,9 +67,15 @@ public class JoinController : MonoBehaviour
         GameController.Instance.StartNextMinigame();
     }
 
+    IEnumerator StartGameWithDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        StartGame();
+    }
+
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         EnableStartButton();
     }
 

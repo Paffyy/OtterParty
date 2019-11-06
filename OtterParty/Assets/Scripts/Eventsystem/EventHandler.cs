@@ -62,10 +62,10 @@ public class EventHandler : MonoBehaviour
     public void FireEvent(EventType type, BaseEventInfo e)
     {
         if (eventListeners == null || !eventListeners.ContainsKey(type) || eventListeners[type] == null)
-            return;
-        foreach (var item in eventListeners[type])
+        return;
+        for (int i = eventListeners[type].Count - 1; i >= 0; i--)
         {
-            item(e);
+            eventListeners[type][i](e);
         }
     }
 
