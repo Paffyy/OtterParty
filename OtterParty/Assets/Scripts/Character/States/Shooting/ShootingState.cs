@@ -74,7 +74,10 @@ public class ShootingState : CharacterBaseState
     {
         if(owner.FirePoint != null)
         {
-            var projectileClone = Instantiate(projectile, owner.FirePoint.position, owner.FirePoint.rotation);
+         //Player p = GameController.Instance.FindPlayerByGameObject(owner.gameObject);
+         //projectile.GetComponent<ProjectileMove>().SetColor(PlayerColors.Instance.Colors[p.ID]);
+        var projectileClone = Instantiate(projectile, owner.FirePoint.position, owner.FirePoint.rotation);
+        
             if (owner.PlayerGun != null)
             {
                 owner.PlayerGun.GetComponent<GunAnimation>().TriggerKnockBack();
