@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ReadyUpEventInfo : BaseEventInfo
 {
-    public GameObject PlayerObject { get; set; }
-    public ReadyUpEventInfo(GameObject playerObject)
+    public int PlayerID{ get; set; }
+    public ReadyUpEventInfo(int playerID)
     {
-        PlayerObject = playerObject;
+        PlayerID = playerID;
     }
 }

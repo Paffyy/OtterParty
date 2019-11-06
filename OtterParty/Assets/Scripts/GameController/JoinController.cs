@@ -12,6 +12,8 @@ public class JoinController : MonoBehaviour
     private int joinDuration;
     [SerializeField]
     private GameObject startButton;
+    [SerializeField]
+    private ReadyUpUI readyUpUI;
 
     private List<GameObject> playerIndicators;
     private int playerCount = 0;
@@ -32,13 +34,16 @@ public class JoinController : MonoBehaviour
     {
         if (GameController.Instance != null)
         {
-            GameController.Instance.Players.Add(new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0],  GameController.Instance.PlayerMaterials[input.playerIndex]));
+            Player p = new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0], GameController.Instance.PlayerMaterials[input.playerIndex]);
+            GameController.Instance.Players.Add(p);
             input.gameObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[input.playerIndex];
             playerIndicators[input.playerIndex].SetActive(true);
             playerCount++;
+            readyUpUI.PlayerJoined(p);
             if (playerCount == 2)
             {
-                StartCoroutine("StartDelay");
+                readyUpUI.gameObject.SetActive(true);
+                //StartCoroutine("StartDelay");
             }
         }
     }

@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 7821857298116126630}
   - component: {fileID: 9074309391487067533}
   - component: {fileID: 7824948626568769218}
+  - component: {fileID: -2720003438884174553}
   m_Layer: 11
   m_Name: JoinPlayerPrefab
   m_TagString: Player
@@ -195,6 +196,9 @@ MonoBehaviour:
   jumpHeight: 6
   maxSpeed: 10
   deadZoneValue: 0.2
+  bodyCollider: {fileID: 0}
+  firePoint: {fileID: 0}
+  gun: {fileID: 0}
 --- !u!54 &7821857298116126630
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -248,7 +252,7 @@ MonoBehaviour:
     m_ActionName: Gameplay/Fire[/XInputControllerWindows/rightTrigger,/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: a4a90b43-af69-4f6d-a3f4-452b1a5ab20b
+  m_DefaultActionMap: 9918e93c-761c-4394-9a33-f638cf17a860
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!65 &7824948626568769218
@@ -264,3 +268,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.029940335, z: 0.99999994}
   m_Center: {x: 0, y: -0.5157534, z: 0}
+--- !u!114 &-2720003438884174553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7821857298116126629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccbb46ad640be3f429cdeeff19de9663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
