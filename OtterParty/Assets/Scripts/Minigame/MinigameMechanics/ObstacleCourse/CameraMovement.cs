@@ -11,6 +11,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     [Range(1.0f, 8.0f)]
     private float movingSpeed;
+    [SerializeField]
     private bool miniGameActive;
 
     void Start()
