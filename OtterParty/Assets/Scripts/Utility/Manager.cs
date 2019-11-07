@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,6 +24,12 @@ public class Manager
     public Vector3 GetFacingDirection(Transform origin, Transform target)
     {
         return (origin.position - target.position).normalized;
+    }
+
+    public Vector3 GetRandomDirectionVector()
+    {
+        Vector3 vector = new Vector3(UnityEngine.Random.Range(0.0f,1),0, UnityEngine.Random.Range(0.0f, 1));
+        return vector.normalized;
     }
 
     public List<Collider> GetFrontConeHit(Vector3 facingDirection, Transform transform, LayerMask layerMask, float radius, float angle)
@@ -81,7 +88,7 @@ public class Manager
         List<Vector3> listOfRandomPoints = new List<Vector3>();
         for (int i = 0; i < count-1; i++)
         {
-            listOfRandomPoints.Add(new Vector3(Random.Range(-radius, +radius),0, Random.Range(-radius, +radius)) + position);
+            listOfRandomPoints.Add(new Vector3(UnityEngine.Random.Range(-radius, +radius),0, UnityEngine.Random.Range(-radius, +radius)) + position);
         }
         return listOfRandomPoints;
     }
@@ -90,7 +97,7 @@ public class Manager
         List<Vector3> listOfRandomPoints = new List<Vector3>();
         for (int i = 0; i < count - 1; i++)
         {
-            listOfRandomPoints.Add(new Vector3(Random.Range(-radius, +radius), Random.Range(-radius, +radius), Random.Range(-radius, +radius)) + (position * aimingOffset));
+            listOfRandomPoints.Add(new Vector3(UnityEngine.Random.Range(-radius, +radius), UnityEngine.Random.Range(-radius, +radius), UnityEngine.Random.Range(-radius, +radius)) + (position * aimingOffset));
         }
         return listOfRandomPoints;
     }
