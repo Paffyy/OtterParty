@@ -19,8 +19,6 @@ public class SymbolMiniGameController : MonoBehaviour
     [SerializeField]
     [Range(0.5f, 5f)]
     private float resetTime;
-    [SerializeField]
-    private Transform endPoint;
 
     void Start()
     {
@@ -32,9 +30,8 @@ public class SymbolMiniGameController : MonoBehaviour
                 platforms.Add(platform);
             }
         }
-        StartGame();
-       // EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
-         
+        EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
+        EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);  
     }
 
     private void AssignCurrentSymbol()
@@ -89,7 +86,7 @@ public class SymbolMiniGameController : MonoBehaviour
         }
     }
 
-    private void StartGame()
+    private void StartGame(BaseEventInfo e)
     {
         StartCoroutine("SymbolGameLoop");
     }
@@ -111,7 +108,7 @@ public class SymbolMiniGameController : MonoBehaviour
         StartCoroutine("SymbolGameLoop");
     }
 
-    private void StopGameLoop()
+    private void StopGame(BaseEventInfo e)
     {
         StopAllCoroutines();
     }

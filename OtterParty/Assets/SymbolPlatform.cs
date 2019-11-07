@@ -20,8 +20,8 @@ public class SymbolPlatform : MonoBehaviour
         startPos = transform.position;
         anim = GetComponent<Animator>();
         body = GetComponent<Rigidbody>();
+        body.constraints = RigidbodyConstraints.FreezeAll;
         mesh = GetComponent<MeshRenderer>();
-
     }
 
     public void SetSymbol(Material material)
@@ -32,12 +32,14 @@ public class SymbolPlatform : MonoBehaviour
 
     public void FallDown()
     {
+        body.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         body.useGravity = true;
         body.velocity += Vector3.down * fallSpeed;
     }
 
     public void ResetPlatform()
     {
+        body.constraints = RigidbodyConstraints.FreezeAll;
         body.velocity = Vector3.zero;
         body.useGravity = false;
         transform.position = startPos;

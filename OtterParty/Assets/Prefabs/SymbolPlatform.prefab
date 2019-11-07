@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1268697652980205813}
   - component: {fileID: 1268697652980205800}
   - component: {fileID: 6280583449483753524}
+  - component: {fileID: 5805650428273548234}
   m_Layer: 0
   m_Name: SymbolPlatform
   m_TagString: Untagged
@@ -92,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.2217706, z: 1}
+  m_Center: {x: 0, y: 0.1108853, z: 0}
 --- !u!114 &1268697652980205800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,3 +124,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!65 &5805650428273548234
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268697652980205811}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.99999994, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
