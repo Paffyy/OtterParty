@@ -264,7 +264,6 @@ public class MinigameController : MonoBehaviour
         {
             UpdateReversePoints(lastPlayerAlive);
         }
-        playersAlive[lastPlayerAlive] = false;
         GameIsOver();
     }
 
@@ -307,6 +306,8 @@ public class MinigameController : MonoBehaviour
     IEnumerator MinigameTimer(int duration)
     {   
         yield return new WaitForSeconds(duration);
+        if(gameType != GameType.PointsBased)
+            AwardLastStandingPlayers();
         GameIsOver();
     }
 
@@ -326,6 +327,17 @@ public class MinigameController : MonoBehaviour
         }
     }
 
+    private void AwardLastStandingPlayers()
+    {
+        foreach (var item in playersAlive)
+        {
+            if (item.Value)
+            {
+                UpdatePointSystem(item.Key, currentPoints);
+            }
+        }
+    }
+
     private IEnumerator DisplayPlayerScores()
     {
         ShowPlayerScores();
@@ -337,24 +349,12 @@ public class MinigameController : MonoBehaviour
 
     private void ConvertMinigamePointsToFinalePoints()
     {
-        var sorted = from playerScore
-                     in MinigamePointSystem.GetCurrentScore()
-                     orderby -playerScore.Value
-                     select playerScore;
-        int placementOrder = GameController.Instance.Players.Count;
-        foreach (var item in sorted.ToList())
-        {
-            MinigamePointSystem.GetCurrentScore()[item.Key] = placementOrder;
-            placementOrder--;
-        }
-        
+
     }
 
     private void ShowPlayerScores()
     {
-       var p = Instantiate(winnerUI, canvas.transform);
-        p.GetComponent<AddPointsToPlayer>().IsPointsBased = true;
-        Destroy(p, 3);
+        Instantiate(winnerUI, canvas.transform);
     }
 
     private IEnumerator GoToNextScene()
@@ -395,8 +395,6 @@ public class MinigameController : MonoBehaviour
         if (gameType == GameType.Finale)
             winnerUI.SetActive(true);
         else
-        {
-           Instantiate(showStandingsUI, canvas.transform);
-        }
+            Instantiate(showStandingsUI, canvas.transform);
     }
 }
