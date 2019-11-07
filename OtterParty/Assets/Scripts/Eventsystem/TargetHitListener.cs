@@ -18,7 +18,19 @@ public class TargetHitListener : BaseListener
         {
             GameObject playerThatShot = eventInfo.ObjectThatFired;
             GameObject hitObject = eventInfo.ObjectHit;
-            hitObject.SetActive(false);
+            if (!playerScore.ContainsKey(playerThatShot))
+            {
+                playerScore.Add(playerThatShot, 1);
+            }
+            else
+            {
+                playerScore[playerThatShot]++;
+            }
+            Player p = GameController.Instance.FindPlayerByGameObject(playerThatShot);
+            var points = new Dictionary<Player, int>();
+            points.Add(p, 1);
+            MinigameController.Instance.MinigamePointSystem.UpdateScore(points);
+            Destroy(hitObject);
             UpdatePlayerScoreEventInfo updateEventInfo = new UpdatePlayerScoreEventInfo() { Player = playerThatShot, Score = playerScore[playerThatShot] };
             EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateScoreEvent, updateEventInfo);
         }

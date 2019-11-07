@@ -149,7 +149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7807629209724785831}
-  - component: {fileID: 4289788359353562186}
+  - component: {fileID: 2405629939114390494}
   m_Layer: 0
   m_Name: MinigamePointsUI
   m_TagString: Untagged
@@ -177,7 +177,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4289788359353562186
+--- !u!114 &2405629939114390494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4908734659341361558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7fd379202991f4183aa327a9c53887, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d9af7c31ddc052468e2fd55e2e126b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   placementUpdateDelay: 2
@@ -202,6 +202,7 @@ MonoBehaviour:
   - {fileID: 2929671800882570777}
   playerScorePrefab: {fileID: 6555025434612593013, guid: 316f9768eacc7a14491508d5ef5d5994,
     type: 3}
+  isPointsBased: 1
 --- !u!1 &7095413990283523106
 GameObject:
   m_ObjectHideFlags: 0

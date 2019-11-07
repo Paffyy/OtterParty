@@ -264,6 +264,7 @@ public class MinigameController : MonoBehaviour
         {
             UpdateReversePoints(lastPlayerAlive);
         }
+        playersAlive[lastPlayerAlive] = false;
         GameIsOver();
     }
 
@@ -336,12 +337,24 @@ public class MinigameController : MonoBehaviour
 
     private void ConvertMinigamePointsToFinalePoints()
     {
-
+        var sorted = from playerScore
+                     in MinigamePointSystem.GetCurrentScore()
+                     orderby -playerScore.Value
+                     select playerScore;
+        int placementOrder = GameController.Instance.Players.Count;
+        foreach (var item in sorted.ToList())
+        {
+            MinigamePointSystem.GetCurrentScore()[item.Key] = placementOrder;
+            placementOrder--;
+        }
+        
     }
 
     private void ShowPlayerScores()
     {
-        Instantiate(winnerUI, canvas.transform);
+       var p = Instantiate(winnerUI, canvas.transform);
+        p.GetComponent<AddPointsToPlayer>().IsPointsBased = true;
+        Destroy(p, 3);
     }
 
     private IEnumerator GoToNextScene()
@@ -382,6 +395,8 @@ public class MinigameController : MonoBehaviour
         if (gameType == GameType.Finale)
             winnerUI.SetActive(true);
         else
-            Instantiate(showStandingsUI, canvas.transform);
+        {
+           Instantiate(showStandingsUI, canvas.transform);
+        }
     }
 }

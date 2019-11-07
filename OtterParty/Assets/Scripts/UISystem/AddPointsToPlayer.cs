@@ -19,6 +19,7 @@ public class AddPointsToPlayer : MonoBehaviour
     [SerializeField]
     private PlayerScore playerScorePrefab;
     private List<PlayerScore> playerScores = new List<PlayerScore>();
+    public bool IsPointsBased { get; set; }
 
     private void Start()
     {
@@ -39,7 +40,14 @@ public class AddPointsToPlayer : MonoBehaviour
                 ps.UpdatePoints(gameControllerPointsystem.GetCurrentScore()[item], minigameControllerPointSystem.GetCurrentScore()[item]);
             }
             UpdatePlayerPlacement();
-            GameController.Instance.PointSystem.UpdateScore(minigameControllerPointSystem.GetCurrentScore());
+            if (IsPointsBased)
+            {
+
+            }
+            else
+            {
+                GameController.Instance.PointSystem.UpdateScore(minigameControllerPointSystem.GetCurrentScore());
+            }
             StartCoroutine("UpdatePlacement");
         }
     }
@@ -52,7 +60,15 @@ public class AddPointsToPlayer : MonoBehaviour
 
     private void UpdatePlayerPlacement()
     {
-        var pointDictionary = GameController.Instance.PointSystem.GetCurrentScore();
+        Dictionary<Player, int> pointDictionary = new Dictionary<Player, int>();
+        if (IsPointsBased)
+        {
+            pointDictionary = MinigameController.Instance.MinigamePointSystem.GetCurrentScore();
+        }
+        else
+        {
+            pointDictionary = GameController.Instance.PointSystem.GetCurrentScore();
+        }
         var sorted = from playerScore
                      in pointDictionary
                      orderby - playerScore.Value

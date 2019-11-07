@@ -28,7 +28,7 @@ public class Manager
 
     public Vector3 GetRandomDirectionVector()
     {
-        Vector3 vector = new Vector3(UnityEngine.Random.Range(0.0f,1),0, UnityEngine.Random.Range(0.0f, 1));
+        Vector3 vector = new Vector3(UnityEngine.Random.Range(-1.0f,1),0, UnityEngine.Random.Range(-1.0f, 1));
         return vector.normalized;
     }
 
