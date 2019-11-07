@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class SymbolPlatformHandler : MonoBehaviour
 {
-    enum Symbol
+    [SerializeField]
+    private GameObject symbolPlatform;
+    [SerializeField]
+    private Material[] materials;
+    
+    enum platformID
     {
-        Cyan,
-        Orange,
-        Red
+        one,
+        two,
+        three
     };
 
     [SerializeField]
-    private Symbol symbol;
-    [SerializeField]
-    private Material[] materials;
-    [SerializeField]
-    private GameObject symbolPlatform;
+    private platformID ID;
+
+    public int PlatformID { get { return (int)ID; } }
+    public bool IsPlaced { get; set; }
 
     void Start()
     {
@@ -25,15 +29,15 @@ public class SymbolPlatformHandler : MonoBehaviour
 
     private void SetColor()
     {
-        switch (symbol)
+        switch (ID)
         {
-            case Symbol.Cyan:
+            case platformID.one:
                 symbolPlatform.GetComponent<MeshRenderer>().material = materials[0];
                 break;
-            case Symbol.Orange:
+            case platformID.two:
                 symbolPlatform.GetComponent<MeshRenderer>().material = materials[1];
                 break;
-            case Symbol.Red:
+            case platformID.three:
                 symbolPlatform.GetComponent<MeshRenderer>().material = materials[2];
                 break;
             default:
