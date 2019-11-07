@@ -12,12 +12,6 @@ public class ProjectileMove : MonoBehaviour
     private GameObject muzzlePrefab;
     [SerializeField]
     private GameObject hitPrefab;
-    [SerializeField]
-    private ParticleSystem beam;
-    [SerializeField]
-    private ParticleSystem projectile;
-    [SerializeField]
-    private TrailRenderer trail;
     public GameObject PlayerThatShot { get; set; }
 
     void Start()
@@ -45,37 +39,6 @@ public class ProjectileMove : MonoBehaviour
         {
             transform.position += transform.forward * (speed * Time.deltaTime);
         }
-    }
-
-    public void SetColor(Color playerColor)
-    {
-        var bm = beam.main;
-        bm.startColor = new ParticleSystem.MinMaxGradient(GetLighterColor(playerColor), playerColor);
-        var pm = projectile.main;
-        pm.startColor = playerColor;
-        Gradient grad = new Gradient();
-        var colorKey = new GradientColorKey[2];
-        var alphaKey = new GradientAlphaKey[2];
-        colorKey[0].color = playerColor;
-        colorKey[0].time = 0.0f;
-        colorKey[1].color = GetLighterColor(playerColor);
-        colorKey[1].time = 1f;
-        alphaKey[0].alpha = 1.0f;
-        alphaKey[0].time = 0.0f;
-        alphaKey[1].alpha = 0;
-        alphaKey[1].time = 1f;
-        grad.SetKeys(colorKey, alphaKey);
-        trail.colorGradient = grad;
-    }
-
-    private Color GetLighterColor(Color playerColor)
-    {
-        return Color.Lerp(Color.white, playerColor, 0.8f);
-    }
-
-    private Color GetDarkerColor(Color playerColor)
-    {
-        throw new NotImplementedException();
     }
 
     void OnCollisionEnter(Collision collision)

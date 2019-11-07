@@ -19,7 +19,8 @@ public class ShootingState : CharacterBaseState
     [Range(5f, 15f)]
     private float selfKnockbackValue;
     [SerializeField]
-    private GameObject projectile;
+    private GameObject[] projectiles;
+    private GameObject projectilePrefab;
     public bool IsOffCooldown { get; set; } = true;
     private ParticleSystem projectileParticle;
 
@@ -27,6 +28,7 @@ public class ShootingState : CharacterBaseState
     {
         projectileParticle = owner.GetComponent<ParticleSystem>();
         var main = projectileParticle.main;
+        projectilePrefab = projectiles[GameController.Instance.FindPlayerByGameObject(owner.gameObject).ID];
         float lifetime = projectileRange / main.startSpeed.constant;
         main.startLifetime = lifetime;
         owner.OnMoveAction += Movement;
@@ -74,10 +76,7 @@ public class ShootingState : CharacterBaseState
     {
         if(owner.FirePoint != null)
         {
-         //Player p = GameController.Instance.FindPlayerByGameObject(owner.gameObject);
-         //projectile.GetComponent<ProjectileMove>().SetColor(PlayerColors.Instance.Colors[p.ID]);
-        var projectileClone = Instantiate(projectile, owner.FirePoint.position, owner.FirePoint.rotation);
-        
+            var projectileClone = Instantiate(projectilePrefab, owner.FirePoint.position, owner.FirePoint.rotation);
             if (owner.PlayerGun != null)
             {
                 owner.PlayerGun.GetComponent<GunAnimation>().TriggerKnockBack();
