@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class MovingState : CharacterBaseState
 {
     [SerializeField]
-    [Range(1f, 10f)]
+    [Range(1f, 15f)]
     private float jumpHeight;
 
     public override void Enter()

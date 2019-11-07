@@ -63,7 +63,7 @@ public class MinigameController : MonoBehaviour
     private int currentPoints = 1;
     private int currentReversePoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
-    private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst, Finale };
+    private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst, Finale, PointsBased };
 
     #endregion
 
@@ -223,18 +223,18 @@ public class MinigameController : MonoBehaviour
             case GameType.BothLastAndFirst:
             {
                 if (playerWasEliminated)
-                    {
-                        UpdateAscendingPoints(p);
-                        if (IsGameOver())
-                            AwardLastPlayerAlive();
-                    }
-                    else
-                    {
-                        UpdateReversePoints(p);
-                        if (IsGameOver(0))
-                            GameIsOver();
-                    }
-                    break;
+                {
+                    UpdateAscendingPoints(p);
+                    if (IsGameOver())
+                        AwardLastPlayerAlive();
+                }
+                else
+                {
+                    UpdateReversePoints(p);
+                    if (IsGameOver(0))
+                        GameIsOver();
+                }
+                break;
             }
             default:
                 break;
@@ -314,8 +314,34 @@ public class MinigameController : MonoBehaviour
         EndMinigameMechanics();
         StopAllCoroutines();
         ToggleActive(false);
+        if (gameType == GameType.PointsBased)
+        {
+            StartCoroutine("DisplayPlayerScores");
+        }
+        else
+        {
+            ShowStandingsUI();
+            StartCoroutine("GoToNextScene");
+        }
+    }
+
+    private IEnumerator DisplayPlayerScores()
+    {
+        ShowPlayerScores();
+        yield return new WaitForSeconds(3);
+        ConvertMinigamePointsToFinalePoints();
         ShowStandingsUI();
         StartCoroutine("GoToNextScene");
+    }
+
+    private void ConvertMinigamePointsToFinalePoints()
+    {
+
+    }
+
+    private void ShowPlayerScores()
+    {
+        Instantiate(winnerUI, canvas.transform);
     }
 
     private IEnumerator GoToNextScene()
