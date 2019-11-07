@@ -307,6 +307,8 @@ public class MinigameController : MonoBehaviour
     IEnumerator MinigameTimer(int duration)
     {   
         yield return new WaitForSeconds(duration);
+        if (gameType != GameType.PointsBased)
+            AwardLastStandingPlayers();
         GameIsOver();
     }
 
@@ -333,6 +335,17 @@ public class MinigameController : MonoBehaviour
         ConvertMinigamePointsToFinalePoints();
         ShowStandingsUI();
         StartCoroutine("GoToNextScene");
+    }
+
+    private void AwardLastStandingPlayers()
+    {
+        foreach (var item in playersAlive)
+        {
+            if (item.Value)
+            {
+                UpdatePointSystem(item.Key, currentPoints);
+            }
+        }
     }
 
     private void ConvertMinigamePointsToFinalePoints()
