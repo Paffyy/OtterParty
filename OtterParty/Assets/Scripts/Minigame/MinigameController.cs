@@ -352,7 +352,7 @@ public class MinigameController : MonoBehaviour
 
     private void ShowPlayerScores()
     {
-       var p = Instantiate(winnerUI, canvas.transform);
+        var p = Instantiate(winnerUI, canvas.transform);
         p.GetComponent<AddPointsToPlayer>().IsPointsBased = true;
         Destroy(p, 3);
     }
