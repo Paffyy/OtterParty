@@ -5,10 +5,18 @@ using UnityEngine;
 public class TargetHitListener : BaseListener
 {
     private Dictionary<GameObject, int> playerScore = new Dictionary<GameObject, int>();
+    private bool gameIsActive;
 
     public override void Register()
     {
+        gameIsActive = true;
         EventHandler.Instance.Register(EventHandler.EventType.HitEvent, EnemyHit);
+        EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopAddingPoints);
+    }
+
+    private void StopAddingPoints(BaseEventInfo e)
+    {
+        gameIsActive = false;
     }
 
     private void EnemyHit(BaseEventInfo e)
@@ -18,20 +26,26 @@ public class TargetHitListener : BaseListener
         {
             GameObject playerThatShot = eventInfo.ObjectThatFired;
             GameObject hitObject = eventInfo.ObjectHit;
-            int pts = 1;
-            if (hitObject.GetComponent<PinataBehaviour>() != null)
+            if (gameIsActive)
             {
-                Debug.Log("Pinata");
-                pts = hitObject.GetComponent<PinataBehaviour>().Points;
+                int pts = 1;
+                if (hitObject.GetComponent<PinataBehaviour>() != null)
+                {
+                    pts = hitObject.GetComponent<PinataBehaviour>().Points;
+                }
+                else if (hitObject.GetComponent<MovingTarget>() != null)
+                {
+                    pts = hitObject.GetComponent<MovingTarget>().Points;
+                }
+                AssignPoints(playerThatShot, pts);
+                Player p = GameController.Instance.FindPlayerByGameObject(playerThatShot);
+                var points = new Dictionary<Player, int>();
+                points.Add(p, pts);
+                MinigameController.Instance.MinigamePointSystem.UpdateScore(points);
+                UpdatePlayerScoreEventInfo updateEventInfo = new UpdatePlayerScoreEventInfo() { Player = playerThatShot, Score = playerScore[playerThatShot] };
+                EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateScoreEvent, updateEventInfo);
             }
-            AssignPoints(playerThatShot, pts);
-            Player p = GameController.Instance.FindPlayerByGameObject(playerThatShot);
-            var points = new Dictionary<Player, int>();
-            points.Add(p, pts);
-            MinigameController.Instance.MinigamePointSystem.UpdateScore(points);
-            Destroy(hitObject);
-            UpdatePlayerScoreEventInfo updateEventInfo = new UpdatePlayerScoreEventInfo() { Player = playerThatShot, Score = playerScore[playerThatShot] };
-            EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateScoreEvent, updateEventInfo);
+            Destroy(hitObject);;
         }
     }
 
