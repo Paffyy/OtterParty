@@ -5,7 +5,7 @@ using UnityEngine;
 public class TargetSpawner : MonoBehaviour
 {
     [SerializeField]
-    private int spawnInterval;
+    private float spawnInterval;
     [SerializeField]
     private GameObject target;
     private List<Transform> spawnLocations = new List<Transform>();
@@ -18,6 +18,10 @@ public class TargetSpawner : MonoBehaviour
         }
     }
     void Start()
+    {
+        EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartLoop);
+    }   
+    private void StartLoop(BaseEventInfo e)
     {
         StartCoroutine("SpawnLoop");
     }

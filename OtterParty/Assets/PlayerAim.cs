@@ -19,13 +19,13 @@ public class PlayerAim : MonoBehaviour
     private GameObject particleObject;
     private GameObject projectilePrefab;
     public bool IsOffCooldown { get; set; } = true;
-
+    private bool isActive = true;
     void Start()
     {
         bounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         if (GameController.Instance != null)
         {
-            var playerID = GameController.Instance.FindPlayerByGameObject(gameObject).ID;
+            var playerID = GetComponent<PlayerInput>().playerIndex;
             projectilePrefab = projectiles[playerID];
             SetImage(playerCrosshairs[playerID]);
         }
@@ -34,6 +34,7 @@ public class PlayerAim : MonoBehaviour
             projectilePrefab = projectiles[0];
             SetImage(playerCrosshairs[0]);
         }
+        EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, SetInactive);
     }
 
     void Update()
@@ -51,6 +52,10 @@ public class PlayerAim : MonoBehaviour
         newPosition.y = Mathf.Clamp(newPosition.y, bounds.y + objectHeight, bounds.y * -1 - objectHeight);
         transform.position = newPosition;
     }
+    private void SetInactive(BaseEventInfo e)
+    {
+        isActive = true;
+    }
     private void OnMove(InputValue value)
     {
         var input = value.Get<Vector2>();
@@ -58,14 +63,15 @@ public class PlayerAim : MonoBehaviour
     }
     private void OnFire()
     {
-        if (IsOffCooldown)
+        if (IsOffCooldown && isActive)
         {
             var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(transform.position));
             if (Physics.Raycast(ray.origin, ray.direction, out var hit))
             {
                 var direction = hit.point - transform.position;
                 var rotation = Quaternion.Lerp(transform.rotation,Quaternion.LookRotation(direction),1);
-                Instantiate(projectilePrefab, transform.position, rotation);
+                var obj = Instantiate(projectilePrefab, transform.position, rotation);
+                obj.GetComponent<ProjectileMove>().PlayerThatShot = gameObject;
             }
             Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
             IsOffCooldown = false;
