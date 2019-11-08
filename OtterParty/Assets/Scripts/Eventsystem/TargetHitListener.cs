@@ -18,21 +18,32 @@ public class TargetHitListener : BaseListener
         {
             GameObject playerThatShot = eventInfo.ObjectThatFired;
             GameObject hitObject = eventInfo.ObjectHit;
-            if (!playerScore.ContainsKey(playerThatShot))
+            int pts = 1;
+            if (hitObject.GetComponent<PinataBehaviour>() != null)
             {
-                playerScore.Add(playerThatShot, 1);
+                Debug.Log("Pinata");
+                pts = hitObject.GetComponent<PinataBehaviour>().Points;
             }
-            else
-            {
-                playerScore[playerThatShot]++;
-            }
+            AssignPoints(playerThatShot, pts);
             Player p = GameController.Instance.FindPlayerByGameObject(playerThatShot);
             var points = new Dictionary<Player, int>();
-            points.Add(p, 1);
+            points.Add(p, pts);
             MinigameController.Instance.MinigamePointSystem.UpdateScore(points);
             Destroy(hitObject);
             UpdatePlayerScoreEventInfo updateEventInfo = new UpdatePlayerScoreEventInfo() { Player = playerThatShot, Score = playerScore[playerThatShot] };
             EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateScoreEvent, updateEventInfo);
+        }
+    }
+
+    private void AssignPoints(GameObject player, int points)
+    {
+        if (!playerScore.ContainsKey(player))
+        {
+            playerScore.Add(player, points);
+        }
+        else
+        {
+            playerScore[player] += points;
         }
     }
 }

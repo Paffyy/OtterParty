@@ -15,10 +15,13 @@ public class PinataBehaviour : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private bool isQuitting;
     private Animator anim;
+    private MeshRenderer mesh;
+    public int Points { get; set; }
     public Action OnDestroyed { get; internal set; }
 
     private void Awake()
     {
+        mesh = GetComponent<MeshRenderer>();
         anim = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -37,6 +40,12 @@ public class PinataBehaviour : MonoBehaviour
     void OnApplicationQuit()
     {
         isQuitting = true;
+    }
+
+    public void SetValue(Material mat, int pts)
+    {
+        mesh.material = mat;
+        Points = pts;
     }
 
     private void OnDestroy()

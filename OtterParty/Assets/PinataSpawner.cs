@@ -13,6 +13,15 @@ public class PinataSpawner : MonoBehaviour
     private float respawnInterval;
     [SerializeField]
     private int numberOfPinatasAliveAtOnce;
+    [SerializeField]
+    private Material specialPinataMaterial;
+    [SerializeField]
+    [Range(1, 5)]
+    private int pinataValue;
+    [SerializeField]
+    [Range(1, 5)]
+    private int specialPinataValue;
+
     private void Awake()
     {
         foreach (Transform item in gameObject.transform)
@@ -42,7 +51,9 @@ public class PinataSpawner : MonoBehaviour
     {
         int randomSpawnPointIndex = UnityEngine.Random.Range(0, pinataSpawnPoints.Count-1 );
         pinataPrefab.transform.position = pinataSpawnPoints[randomSpawnPointIndex].position;
+        int randomPinataValue = UnityEngine.Random.Range(0, 5);
         var pinata = Instantiate(pinataPrefab);
+        AssignPinataValue(randomPinataValue, pinata);
         pinata.GetComponent<PinataBehaviour>().OnDestroyed += () => 
         {
             if (alivePinatas.Contains(pinata))
@@ -51,5 +62,18 @@ public class PinataSpawner : MonoBehaviour
             }
         };
         alivePinatas.Add(pinata);
+    }
+
+    private void AssignPinataValue(int randomValue, GameObject pinataObj)
+    {
+        var pinataObject = pinataObj.GetComponent<PinataBehaviour>();
+        if(randomValue == 4)
+        {
+            pinataObject.SetValue(specialPinataMaterial, specialPinataValue);
+        } 
+        else
+        {
+            pinataObject.Points = pinataValue;
+        }
     }
 }
