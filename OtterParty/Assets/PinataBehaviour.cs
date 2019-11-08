@@ -14,10 +14,12 @@ public class PinataBehaviour : MonoBehaviour
     private float walkDistance;
     private NavMeshAgent navMeshAgent;
     private bool isQuitting;
+    private Animator anim;
     public Action OnDestroyed { get; internal set; }
 
     private void Awake()
     {
+        anim = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
     void Start()
