@@ -18,6 +18,7 @@ public class PinataBehaviour : MonoBehaviour
     private MeshRenderer mesh;
     public int Points { get; set; }
     public Action OnDestroyed { get; internal set; }
+    public GameObject ParticleObject { get { return particles; } }
 
     private void Awake()
     {
@@ -52,7 +53,6 @@ public class PinataBehaviour : MonoBehaviour
     {
         if (!isQuitting)
         {
-            Instantiate(particles, transform.position, transform.rotation);
             OnDestroyed?.Invoke();
         }
     }

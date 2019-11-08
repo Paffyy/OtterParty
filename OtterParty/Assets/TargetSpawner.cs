@@ -17,6 +17,7 @@ public class TargetSpawner : MonoBehaviour
     [SerializeField]
     [Range(1, 5)]
     private int defaultPoints;
+    private int playerCount;
 
     void Awake()
     {
@@ -27,10 +28,12 @@ public class TargetSpawner : MonoBehaviour
     }
     void Start()
     {
+        playerCount = GameController.Instance.Players.Count;
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartLoop);
     }   
     private void StartLoop(BaseEventInfo e)
     {
+        spawnInterval *= 1 - (1 - (1 / (float)playerCount));
         StartCoroutine("SpawnLoop");
     }
     IEnumerator SpawnLoop()

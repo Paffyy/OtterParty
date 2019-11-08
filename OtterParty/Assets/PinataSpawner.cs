@@ -21,6 +21,7 @@ public class PinataSpawner : MonoBehaviour
     [SerializeField]
     [Range(1, 5)]
     private int specialPinataValue;
+    private int playerCount;
 
     private void Awake()
     {
@@ -31,10 +32,13 @@ public class PinataSpawner : MonoBehaviour
     }
     private void Start()
     {
+        playerCount = GameController.Instance.Players.Count;
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartLoop);
     }
     public void StartLoop(BaseEventInfo e)
     {
+        respawnInterval *= 1 - (1 - (1 / (float)playerCount));
+        Debug.Log(respawnInterval);
         StartCoroutine("SpawnPinataLoop");
     }
     private IEnumerator SpawnPinataLoop()

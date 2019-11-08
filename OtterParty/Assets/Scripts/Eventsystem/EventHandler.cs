@@ -20,7 +20,8 @@ public class EventHandler : MonoBehaviour
         EndMinigameEvent,
         UpdateUIEvent,
         SetDistanceEvent,
-        InstantiatedUIEvent
+        InstantiatedUIEvent,
+        ParticleEvent
     }
 
     private Dictionary<EventType, List<EventListener>> eventListeners;

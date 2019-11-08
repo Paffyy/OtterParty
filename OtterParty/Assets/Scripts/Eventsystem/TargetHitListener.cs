@@ -22,10 +22,16 @@ public class TargetHitListener : BaseListener
     private void EnemyHit(BaseEventInfo e)
     {
         HitEventInfo eventInfo = e as HitEventInfo;
+        GameObject playerThatShot = eventInfo.ObjectThatFired;
+        GameObject hitObject = eventInfo.ObjectHit;
+        if(hitObject.GetComponent<PinataBehaviour>() != null)
+        {
+            Vector3 position = hitObject.transform.position;
+            Quaternion rotation = hitObject.transform.rotation;
+            EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, rotation, hitObject.GetComponent<PinataBehaviour>().ParticleObject));
+        }
         if (eventInfo != null && !eventInfo.ObjectHit.CompareTag("Player"))
         {
-            GameObject playerThatShot = eventInfo.ObjectThatFired;
-            GameObject hitObject = eventInfo.ObjectHit;
             if (gameIsActive)
             {
                 int pts = 1;
@@ -45,7 +51,7 @@ public class TargetHitListener : BaseListener
                 UpdatePlayerScoreEventInfo updateEventInfo = new UpdatePlayerScoreEventInfo() { Player = playerThatShot, Score = playerScore[playerThatShot] };
                 EventHandler.Instance.FireEvent(EventHandler.EventType.UpdateScoreEvent, updateEventInfo);
             }
-            Destroy(hitObject);;
+            Destroy(hitObject);
         }
     }
 
