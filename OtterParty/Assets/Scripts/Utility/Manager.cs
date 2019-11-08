@@ -26,6 +26,12 @@ public class Manager
         return (origin.position - target.position).normalized;
     }
 
+    public int GetRandomInt(int v, int count)
+    {
+        int randomInt = UnityEngine.Random.Range(v, count);
+        return randomInt;
+    }
+
     public Vector3 GetRandomDirectionVector()
     {
         Vector3 vector = new Vector3(UnityEngine.Random.Range(-1.0f,1),0, UnityEngine.Random.Range(-1.0f, 1));

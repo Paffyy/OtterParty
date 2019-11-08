@@ -23,4 +23,11 @@ public class Cooldown
             sender.IsOffCooldown = true;
         });
     }
+    public void StartNewCooldown(float duration, PlayerAim sender)
+    {
+        Task.Factory.StartNew(async () => {
+            await Task.Delay((int)(duration * 1000));
+            sender.IsOffCooldown = true;
+        });
+    }
 }
