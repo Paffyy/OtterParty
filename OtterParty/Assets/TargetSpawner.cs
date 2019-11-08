@@ -19,6 +19,10 @@ public class TargetSpawner : MonoBehaviour
     }
     void Start()
     {
+        EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartLoop);
+    }   
+    private void StartLoop(BaseEventInfo e)
+    {
         StartCoroutine("SpawnLoop");
     }
     IEnumerator SpawnLoop()

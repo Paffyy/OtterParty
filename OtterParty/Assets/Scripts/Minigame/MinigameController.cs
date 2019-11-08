@@ -48,6 +48,8 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private GameObject timeLeftText;
     [SerializeField]
+    private bool isOnUILayer;
+    [SerializeField]
     private bool hasLimitedLives;
     public bool HasLimitedLives { get { return hasLimitedLives; } }
     public int MiniGameLives { get { return miniGameLives; } }
@@ -89,7 +91,10 @@ public class MinigameController : MonoBehaviour
         canvas = FindObjectOfType<Canvas>();
         playerInputManager = GetComponent<PlayerInputManager>();
         playerInputManager.playerPrefab = playerPrefab;
-        playerConstraints = playerPrefab.GetComponentInChildren<Rigidbody>().constraints;
+        if (!isOnUILayer)
+        {
+            playerConstraints = playerPrefab.GetComponentInChildren<Rigidbody>().constraints;
+        }
         foreach (Transform item in gameObject.transform)
         {
             checkPoints.Add(item);
@@ -131,7 +136,10 @@ public class MinigameController : MonoBehaviour
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
         player.PlayerObject = playerInput.gameObject;
-        player.PlayerObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[player.ID];
+        if (!isOnUILayer)
+        {
+            player.PlayerObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[player.ID];
+        }
     }
     #endregion
 
@@ -387,19 +395,23 @@ public class MinigameController : MonoBehaviour
 
     private void ToggleActive(bool toggle)
     {
-        foreach (var item in GameController.Instance.Players)
+        if (!isOnUILayer)
         {
-            if (toggle)
+            foreach (var item in GameController.Instance.Players)
             {
-                item.PlayerObject.GetComponent<PlayerController>().IsActive = true;
-                item.PlayerObject.GetComponent<Rigidbody>().constraints = playerConstraints;
-            }
-            else
-            {
-                item.PlayerObject.GetComponent<PlayerController>().IsActive = false;
-                item.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                if (toggle)
+                {
+                    item.PlayerObject.GetComponent<PlayerController>().IsActive = true;
+                    item.PlayerObject.GetComponent<Rigidbody>().constraints = playerConstraints;
+                }
+                else
+                {
+                    item.PlayerObject.GetComponent<PlayerController>().IsActive = false;
+                    item.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
             }
         }
+   
     }
 
     private void ShowStandingsUI()
