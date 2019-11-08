@@ -6,6 +6,8 @@ public class SymbolMiniGameController : MonoBehaviour
 {
     [SerializeField]
     private Material[] materials;
+    //[SerializeField]
+    //private Sprite[] symbolSprites;
     [SerializeField]
     [Range(0.1f, 10f)]
     private float timeToFall;
