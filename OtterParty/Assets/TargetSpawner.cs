@@ -5,7 +5,7 @@ using UnityEngine;
 public class TargetSpawner : MonoBehaviour
 {
     [SerializeField]
-    private int spawnInterval;
+    private float spawnInterval;
     [SerializeField]
     private GameObject target;
     private List<Transform> spawnLocations = new List<Transform>();
