@@ -44,7 +44,6 @@ public class JoinController : MonoBehaviour
             {
                 readyUpUI.gameObject.SetActive(true);
                 EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, Transition);
-                //StartCoroutine("StartDelay");
             }
         }
     }

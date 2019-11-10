@@ -15,6 +15,11 @@ public class TargetSpawner : MonoBehaviour
     [Range(1, 5)]
     private int specialPoints;
     [SerializeField]
+    [Range(-5, -1)]
+    private int rottenChickenPoints;
+    [SerializeField]
+    private Sprite rottenChickenSprite;
+    [SerializeField]
     [Range(1, 5)]
     private int defaultPoints;
     private int playerCount;
@@ -28,7 +33,10 @@ public class TargetSpawner : MonoBehaviour
     }
     void Start()
     {
-        playerCount = GameController.Instance.Players.Count;
+        if (GameController.Instance != null)
+        {
+            playerCount = GameController.Instance.Players.Count;
+        }
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartLoop);
     }   
     private void StartLoop(BaseEventInfo e)
@@ -46,7 +54,7 @@ public class TargetSpawner : MonoBehaviour
     {
         int index = Manager.Instance.GetRandomInt(0, spawnLocations.Count);
         Transform t = spawnLocations[index];
-        int randomChickenValue = Random.Range(0, 5);
+        int randomChickenValue = Random.Range(0, 6);
         var obj = Instantiate(target,t.position,t.rotation);
         AssignChickenValue(randomChickenValue, obj);
         Destroy(obj, 10);
@@ -54,10 +62,14 @@ public class TargetSpawner : MonoBehaviour
 
     private void AssignChickenValue(int randomValue, GameObject chickenObj)
     {
-        var chicken = chickenObj.GetComponent<MovingTarget>();
+        var chicken = chickenObj.GetComponentInChildren<MovingTarget>();
         if (randomValue == 4)
         {
             chicken.SetValue(specialChicken, specialPoints);
+        }
+        else if (randomValue == 5)
+        {
+            chicken.SetValue(rottenChickenSprite, rottenChickenPoints);
         }
         else
         {

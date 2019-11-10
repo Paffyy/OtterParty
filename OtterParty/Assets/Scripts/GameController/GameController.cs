@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
             foreach (Transform item in parrent.transform)
             {
                 var minigame = item.gameObject.GetComponent<Minigame>();
-                if (Minigames != null)
+                if (Minigames != null && item.gameObject.activeInHierarchy)
                 {
                     Minigames.Add(minigame);
                 }

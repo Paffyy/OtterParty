@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3997991053540951227
+--- !u!1 &930372533230699573
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3997991053540951226}
-  - component: {fileID: 3997991053540951229}
+  - component: {fileID: 930372533230699572}
+  m_Layer: 0
+  m_Name: MovingTarget(Pivot)
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &930372533230699572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930372533230699573}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.04, y: 3.895, z: 4.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2970469043822983628}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2970469043116645894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2970469043116645895}
+  - component: {fileID: 2970469043116645888}
   m_Layer: 0
   m_Name: ChickenSprite
   m_TagString: Untagged
@@ -17,27 +48,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3997991053540951226
+--- !u!4 &2970469043116645895
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3997991053540951227}
+  m_GameObject: {fileID: 2970469043116645894}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 7.5844, y: 7.5844, z: 7.5844}
   m_Children: []
-  m_Father: {fileID: 3997991054310663025}
+  m_Father: {fileID: 2970469043822983628}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!212 &3997991053540951229
+--- !u!212 &2970469043116645888
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3997991053540951227}
+  m_GameObject: {fileID: 2970469043116645894}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -80,7 +111,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &3997991054310644874
+--- !u!1 &2970469043822954039
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,9 +119,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3997991054310663025}
-  - component: {fileID: 3997991054310644876}
-  - component: {fileID: 3997991054310644877}
+  - component: {fileID: 2970469043822983628}
+  - component: {fileID: 2970469043822954033}
+  - component: {fileID: 2970469043822954032}
   m_Layer: 0
   m_Name: MovingTarget
   m_TagString: Enemy
@@ -98,28 +129,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3997991054310663025
+--- !u!4 &2970469043822983628
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3997991054310644874}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -16.3, y: 5, z: 4.5}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_GameObject: {fileID: 2970469043822954039}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.105, z: 0.03999996}
+  m_LocalScale: {x: 0.2, y: 0.20000012, z: 0.20000012}
   m_Children:
-  - {fileID: 3997991053540951226}
-  m_Father: {fileID: 0}
+  - {fileID: 2970469043116645895}
+  m_Father: {fileID: 930372533230699572}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!64 &3997991054310644876
+--- !u!64 &2970469043822954033
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3997991054310644874}
+  m_GameObject: {fileID: 2970469043822954039}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -127,17 +158,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &3997991054310644877
+--- !u!114 &2970469043822954032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3997991054310644874}
+  m_GameObject: {fileID: 2970469043822954039}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9eee242a72174c459407d226bb4c9a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  sprite: {fileID: 3997991053540951229}
+  flipChance: 0.33
+  flipInterval: 0.5
+  sprite: {fileID: 2970469043116645888}
+  parent: {fileID: 930372533230699572}

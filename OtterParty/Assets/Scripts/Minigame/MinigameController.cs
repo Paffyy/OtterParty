@@ -24,7 +24,7 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private GameType gameType;
     [SerializeField]
-    [Range(1, 12f)]
+    [Range(20, 30f)]
     private float leadMultiplier;
     [SerializeField]
     [Range(1, 5)]
@@ -130,7 +130,10 @@ public class MinigameController : MonoBehaviour
         if (gameType == GameType.Finale)
         {
             float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
-            Vector3 leadVector = new Vector3(0, 0, playerScore / (GameController.Instance.Players.Count * GameController.Instance.Minigames.Count) * leadMultiplier);
+            float leadDistance = (playerScore / (GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1))) * leadMultiplier;
+            Debug.Log(leadDistance);
+            Mathf.Clamp(leadDistance, 0, leadMultiplier); // leadMultiplier is distance from checkpoint to end of running segment or less
+            Vector3 leadVector = new Vector3(0, 0, leadDistance);
             checkPoints[playerInput.playerIndex].transform.position = checkPoints[playerInput.playerIndex].transform.position + leadVector;
         }
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
