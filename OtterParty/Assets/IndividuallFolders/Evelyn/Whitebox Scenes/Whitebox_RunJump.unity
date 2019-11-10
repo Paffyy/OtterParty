@@ -1654,6 +1654,26 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 2958997671821599339, guid: 78d5d404317512d47849d7875f1eb8c4,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 21.015623
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958997671821599339, guid: 78d5d404317512d47849d7875f1eb8c4,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 10.0078125
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958997671821599339, guid: 78d5d404317512d47849d7875f1eb8c4,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 10.548157
+      objectReference: {fileID: 0}
+    - target: {fileID: 2958997671821599339, guid: 78d5d404317512d47849d7875f1eb8c4,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 2.3124287
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78d5d404317512d47849d7875f1eb8c4, type: 3}
 --- !u!1 &386309121
@@ -5283,7 +5303,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1438141778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 23.64}
+  m_LocalPosition: {x: 0, y: 0, z: 23.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1245908284}
@@ -5757,6 +5777,7 @@ MonoBehaviour:
     type: 3}
   countDownTimerUI: {fileID: 520816253}
   timeLeftText: {fileID: 1189115008}
+  isOnUILayer: 0
   hasLimitedLives: 0
 --- !u!4 &1607870356
 Transform:

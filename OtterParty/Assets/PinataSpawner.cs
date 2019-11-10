@@ -16,11 +16,16 @@ public class PinataSpawner : MonoBehaviour
     [SerializeField]
     private Material specialPinataMaterial;
     [SerializeField]
+    private Material decoyPinataMaterial;
+    [SerializeField]
     [Range(1, 5)]
     private int pinataValue;
     [SerializeField]
     [Range(1, 5)]
     private int specialPinataValue;
+    [SerializeField]
+    [Range(-1, -5)]
+    private int decoyPinataValue;
     private int playerCount;
 
     private void Awake()
@@ -74,7 +79,11 @@ public class PinataSpawner : MonoBehaviour
         if(randomValue == 4)
         {
             pinataObject.SetValue(specialPinataMaterial, specialPinataValue);
-        } 
+        }
+        else if (randomValue == 3)
+        {
+            pinataObject.SetValue(decoyPinataMaterial, decoyPinataValue);
+        }
         else
         {
             pinataObject.Points = pinataValue;
