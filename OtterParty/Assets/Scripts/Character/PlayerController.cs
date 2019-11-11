@@ -37,9 +37,11 @@ public class PlayerController : StateMachine
     [SerializeField]
     private GameObject gun;
     public GameObject PlayerGun { get { return gun; } }
+    private Animator anim;
 
     protected override void Awake()
     {
+        anim = GetComponent<Animator>();
         Parent = transform.parent;
         IsInLockedMovement = false;
         IsOnMovingPlatform = false;
@@ -55,6 +57,14 @@ public class PlayerController : StateMachine
 
     private void FixedUpdate()
     {
+        if(playerBody.velocity == Vector3.zero && anim != null)
+        {
+            anim.SetBool("IsWalking", false);
+        } else if (anim != null)
+        {
+            Debug.Log("Walking");
+            anim.SetBool("IsWalking", true);
+        }
         if (IsOnMovingPlatform) // velocity Movement
         {
             playerBody.velocity = movement;
@@ -101,6 +111,10 @@ public class PlayerController : StateMachine
     {
         if (IsGrounded)
         {
+            if(anim != null)
+            {
+                anim.SetBool("IsJumping", true);
+            }
             OnJumpAction?.Invoke();
         }
     }
@@ -120,6 +134,10 @@ public class PlayerController : StateMachine
     {
         if (other.gameObject.CompareTag("Ground"))
         {
+            if (anim != null)
+            {
+                anim.SetBool("IsJumping", false);
+            }
             IsGrounded = true;
         }
     }
