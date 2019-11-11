@@ -130,7 +130,7 @@ public class MinigameController : MonoBehaviour
         if (gameType == GameType.Finale)
         {
             float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
-            float leadDistance = (playerScore / (GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1))) * leadMultiplier;
+            float leadDistance = ((playerScore - (GameController.Instance.Minigames.Count - 1)) / (GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1))) * leadMultiplier;
             Debug.Log(leadDistance);
             Mathf.Clamp(leadDistance, 0, leadMultiplier); // leadMultiplier is distance from checkpoint to end of running segment or less
             Vector3 leadVector = new Vector3(0, 0, leadDistance);

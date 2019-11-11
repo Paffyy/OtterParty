@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class FreeMovementTrigger : MonoBehaviour
 {
+    private List<Collider> hasAlreadyEntered = new List<Collider>();
     private void OnTriggerEnter(Collider other)
     {
+        if (hasAlreadyEntered.Contains(other))
+        {
+            return;
+        }
+        hasAlreadyEntered.Add(other);
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            
+            var rgd = other.gameObject.GetComponent<Rigidbody>();
+            rgd.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             other.gameObject.GetComponent<PlayerController>().Transition<MovingState>();
+            rgd.velocity += new Vector3(0, 2, 4);
         }
     }
 }
