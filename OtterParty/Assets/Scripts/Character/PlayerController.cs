@@ -61,7 +61,7 @@ public class PlayerController : StateMachine
         }
         else if (IsInLockedMovement)
         {
-            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
+            playerBody.MovePosition(transform.position + movement * Time.deltaTime); 
         }
         else
         {
@@ -116,7 +116,7 @@ public class PlayerController : StateMachine
     {
         OnFireAction?.Invoke();
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) // replace with raycast
     {
         if (other.gameObject.CompareTag("Ground"))
         {
