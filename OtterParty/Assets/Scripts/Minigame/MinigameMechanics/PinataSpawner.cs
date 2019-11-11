@@ -10,7 +10,7 @@ public class PinataSpawner : MonoBehaviour
     [SerializeField]
     private GameObject pinataPrefab;
     [SerializeField]
-    private float respawnInterval;
+    private float respawnInterval = 1;
     [SerializeField]
     private int numberOfPinatasAliveAtOnce;
     [SerializeField]
@@ -26,7 +26,8 @@ public class PinataSpawner : MonoBehaviour
     [SerializeField]
     [Range(-1, -5)]
     private int decoyPinataValue;
-    private int playerCount;
+    [SerializeField]
+    private bool isDebugging;
 
     private void Awake()
     {
@@ -37,12 +38,15 @@ public class PinataSpawner : MonoBehaviour
     }
     private void Start()
     {
-        playerCount = GameController.Instance.Players.Count;
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartLoop);
+        if (isDebugging)
+        {
+            StartCoroutine("SpawnPinataLoop");
+        }
     }
     public void StartLoop(BaseEventInfo e)
     {
-        respawnInterval *= 1 - (1 - (1 / (float)playerCount));
+        respawnInterval *= 1 - (1 - (1 / (float)GameController.Instance.Players.Count));
         Debug.Log(respawnInterval);
         StartCoroutine("SpawnPinataLoop");
     }
