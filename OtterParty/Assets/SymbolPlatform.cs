@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SymbolPlatform : MonoBehaviour
 {
-    //[SerializeField]
-    //private SpriteRenderer spriteRen;
     private MeshRenderer mesh;
     private Animator anim;
     private Rigidbody body;
