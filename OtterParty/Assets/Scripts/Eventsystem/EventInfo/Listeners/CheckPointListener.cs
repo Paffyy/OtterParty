@@ -13,6 +13,9 @@ public class CheckPointListener : BaseListener
     private Dictionary<GameObject, int> playerRespawns = new Dictionary<GameObject, int>();
     [SerializeField]
     private bool hasLimitedRespawns;
+    [SerializeField]
+    private bool isCameraDependent;
+
 
     public override void Register()
     {
@@ -91,9 +94,19 @@ public class CheckPointListener : BaseListener
     private void SetPlayerCheckPoint(BaseEventInfo e)
     {
         CheckPointEventInfo eventInfo = e as CheckPointEventInfo;
-        if (eventInfo != null)
+        if(eventInfo != null)
         {
-            playerCheckPoints[eventInfo.playerObject] = eventInfo.checkPoint;
+            if (isCameraDependent)
+            {
+                foreach (var player in GameController.Instance.Players)
+                {
+                    playerCheckPoints[player.PlayerObject] = eventInfo.checkPoint;
+                }
+            }
+            else
+            {
+                playerCheckPoints[eventInfo.playerObject] = eventInfo.checkPoint;
+            }
         }
     }
 }
