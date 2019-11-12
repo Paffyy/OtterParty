@@ -16,6 +16,7 @@ public class SymbolMiniGameController : MonoBehaviour
     private float timeToFallMultiplier;
     private Material symbol;
     private List<SymbolPlatform> platforms = new List<SymbolPlatform>();
+    private List<GameObject> eliminatedPlayers = new List<GameObject>();
     [SerializeField]
     private SymbolPlatform currentSymbolPlatform;
     [SerializeField]
@@ -80,6 +81,17 @@ public class SymbolMiniGameController : MonoBehaviour
 
     private void ResetPlatforms()
     {
+        if(eliminatedPlayers.Count > 1)
+        {
+            MultipleEliminateEventInfo multipleEliminateEventInfo = new MultipleEliminateEventInfo(eliminatedPlayers);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.MultipleEliminateEvent, multipleEliminateEventInfo);
+        }
+        else if (eliminatedPlayers.Count == 1)
+        {
+            EliminateEventInfo eliminateEventInfo = new EliminateEventInfo(eliminatedPlayers[0]);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, eliminateEventInfo);
+        }
+        eliminatedPlayers.Clear();
         currentSymbolPlatform.ResetPlatform();
         foreach (var item in platforms)
         {
@@ -113,6 +125,17 @@ public class SymbolMiniGameController : MonoBehaviour
     private void StopGame(BaseEventInfo e)
     {
         StopAllCoroutines();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if (!eliminatedPlayers.Contains(other.gameObject))
+            {
+                eliminatedPlayers.Add(other.gameObject);
+            }
+        }
     }
 }
 

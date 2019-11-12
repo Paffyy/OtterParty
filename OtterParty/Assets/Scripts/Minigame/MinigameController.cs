@@ -157,6 +157,7 @@ public class MinigameController : MonoBehaviour
             {
                 case GameType.LastManStanding:
                     EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, EliminatePlayerEvent);
+                    EventHandler.Instance.Register(EventHandler.EventType.MultipleEliminateEvent, EliminateMultiplePlayers);
                     break;
                 case GameType.FirstToGoal:
                     EventHandler.Instance.Register(EventHandler.EventType.FinishLineEvent, GiveScoreEvent);
@@ -168,6 +169,24 @@ public class MinigameController : MonoBehaviour
                 default:
                     break;
             }
+        }
+    }
+
+    private void EliminateMultiplePlayers(BaseEventInfo e)
+    {
+        var eventInfo = e as MultipleEliminateEventInfo;
+        List<GameObject> playersToEliminate = eventInfo.EliminatedPlayers;
+        foreach (var player in playersToEliminate)
+        {
+            Player p = GameController.Instance?.FindPlayerByGameObject(player);
+            playersAlive[p] = false;
+            UpdatePointSystem(p, currentPoints);
+            player.SetActive(false);
+        }
+        currentPoints++;
+        if (IsGameOver(0))
+        {
+            GameIsOver();
         }
     }
 
