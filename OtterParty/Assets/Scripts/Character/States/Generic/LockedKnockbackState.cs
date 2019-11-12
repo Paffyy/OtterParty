@@ -13,6 +13,7 @@ public class LockedKnockbackState : CharacterBaseState
     public override void Enter()
     {
         //owner.InputDirection = Vector2.zero;
+        owner.IsInLockedMovement = true;
         shouldTransition = false;
         owner.GetComponent<Rigidbody>().velocity = -owner.transform.forward * Constants.Instance.DefaultKnockbackDistance;
         base.Enter();
@@ -30,5 +31,10 @@ public class LockedKnockbackState : CharacterBaseState
         {
             owner.Transition<LockedMovementState>();
         }
+    }
+
+    public override void Exit()
+    {
+        owner.IsInLockedMovement = false;
     }
 }

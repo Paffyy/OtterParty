@@ -12,6 +12,7 @@ public class LockedAirState : CharacterBaseState
 
     public override void Enter()
     {
+        owner.IsInLockedMovement = true;
         owner.IsGrounded = false;
         base.Enter();
     }
@@ -37,5 +38,6 @@ public class LockedAirState : CharacterBaseState
 
     public override void Exit()
     {
+        owner.IsInLockedMovement = false;
     }
 }

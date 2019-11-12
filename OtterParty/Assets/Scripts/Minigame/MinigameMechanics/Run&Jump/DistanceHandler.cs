@@ -13,11 +13,23 @@ public class DistanceHandler : MonoBehaviour
     [SerializeField]
     [Range(0.01f, 0.5f)]
     private float sliderUpdateFrequence;
+    private Dictionary<int, GameObject> playerMeters = new Dictionary<int, GameObject>();
+    [SerializeField]
+    private List<GameObject> meters = new List<GameObject>();
 
     void Start()
     {
         EventHandler.Instance.Register(EventHandler.EventType.InstantiatedUIEvent, SetMeter);
         maxDistance = endPos.position.z - startPos.position.z;
+        if (GameController.Instance != null)
+        {
+            foreach (var item in GameController.Instance.Players)
+            {
+
+                playerMeters.Add(item.ID, meters[item.ID]);
+                meters[item.ID].SetActive(true);
+            }
+        }
     }
 
     private void SetMeter(BaseEventInfo e)
@@ -45,6 +57,8 @@ public class DistanceHandler : MonoBehaviour
         {
             var temp = maxDistance - (endPos.position.z - item.PlayerObject.transform.position.z);
             temp = Mathf.Clamp(temp, 0, maxDistance);
+            var meter = playerMeters[item.ID];
+            meter.transform.localScale = new Vector3(meter.transform.localScale.x, meter.transform.localScale.y, -temp/10);
             playerValues.Add(temp);
         }
         meterUI.UpdateValues(playerValues);
