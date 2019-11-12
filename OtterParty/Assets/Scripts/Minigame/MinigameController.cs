@@ -141,7 +141,8 @@ public class MinigameController : MonoBehaviour
         player.PlayerObject = playerInput.gameObject;
         if (!isOnUILayer)
         {
-            player.PlayerObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[player.ID];
+            Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
+            player.PlayerObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
         }
     }
     #endregion

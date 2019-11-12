@@ -36,7 +36,8 @@ public class JoinController : MonoBehaviour
         {
             Player p = new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0], GameController.Instance.PlayerMaterials[input.playerIndex]);
             GameController.Instance.Players.Add(p);
-            input.gameObject.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerMaterials[input.playerIndex];
+            Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[input.playerIndex] };
+            input.gameObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
             playerIndicators[input.playerIndex].SetActive(true);
             playerCount++;
             readyUpUI.PlayerJoined(p);

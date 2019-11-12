@@ -61,6 +61,7 @@ public class LockedMovementState : CharacterBaseState
 
     public override void Exit()
     {
+        owner.IsInLockedMovement = false;
         owner.OnSpamAction -= SpamAction;
         owner.OnJumpAction -= JumpAction;
     }

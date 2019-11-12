@@ -38,6 +38,11 @@ public class PlayerController : StateMachine
     private GameObject gun;
     public GameObject PlayerGun { get { return gun; } }
     private Animator anim;
+    public Animator Anim { get { return anim; } }
+    public SkinnedMeshRenderer MeshRenderer { get { return meshRen; } }
+    [SerializeField]
+    private SkinnedMeshRenderer meshRen;
+    private bool hasReceivedInput;
 
     protected override void Awake()
     {
@@ -52,19 +57,21 @@ public class PlayerController : StateMachine
     private new void Update()
     {
         ApplyMovement();
+        if (hasReceivedInput || (IsInLockedMovement && playerBody.velocity != Vector3.zero))
+        {
+            if (anim != null)
+                anim.SetBool("IsWalking", true);
+        }
+        else
+        {
+            if (anim != null)
+                anim.SetBool("IsWalking", false);
+        }
         base.Update();
     }
 
     private void FixedUpdate()
     {
-        if(playerBody.velocity == Vector3.zero && anim != null)
-        {
-            anim.SetBool("IsWalking", false);
-        } else if (anim != null)
-        {
-            Debug.Log("Walking");
-            anim.SetBool("IsWalking", true);
-        }
         if (IsOnMovingPlatform) // velocity Movement
         {
             playerBody.velocity = movement;
@@ -85,21 +92,27 @@ public class PlayerController : StateMachine
     {
         if (InputDirection.sqrMagnitude > deadZoneValue)
         {
+            hasReceivedInput = true;
             movement = new Vector3(InputDirection.x, 0, InputDirection.y) * speed;
             transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
         }
         else
         {
+            hasReceivedInput = false;
             movement = Vector3.zero;
         }
     }
 
     public void Jump()
     {
+        if (anim != null)
+            anim.SetBool("IsJumping", true);
         playerBody.velocity += new Vector3(0, jumpHeight, 0);
     }
     public void Jump(float jumpHeightInput)
     {
+        if (anim != null)
+            anim.SetBool("IsJumping", true);
         playerBody.velocity += new Vector3(0, jumpHeightInput, 0);
     }
     private void OnMove(InputValue value)
@@ -111,10 +124,6 @@ public class PlayerController : StateMachine
     {
         if (IsGrounded)
         {
-            if(anim != null)
-            {
-                anim.SetBool("IsJumping", true);
-            }
             OnJumpAction?.Invoke();
         }
     }
@@ -135,9 +144,7 @@ public class PlayerController : StateMachine
         if (other.gameObject.CompareTag("Ground"))
         {
             if (anim != null)
-            {
                 anim.SetBool("IsJumping", false);
-            }
             IsGrounded = true;
         }
     }
