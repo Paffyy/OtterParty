@@ -219,8 +219,7 @@ public class MinigameController : MonoBehaviour
         {
             var player = GameController.Instance?.FindPlayerByGameObject(finishEventInfo.PlayerWhoFinished);
             if (player != null)
-            {
-                currentPoints = GameController.Instance.Players.Count;
+            { 
                 EliminatePlayer(player, false);
                 finishEventInfo.PlayerWhoFinished.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
