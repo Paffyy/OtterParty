@@ -82,10 +82,9 @@ public class PlayerController : StateMachine
         }
         else
         {
-            playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0);
             playerBody.MovePosition(transform.position + movement * Time.deltaTime);
         }
-        
+
     }
 
     private void ApplyMovement()
@@ -139,6 +138,7 @@ public class PlayerController : StateMachine
     {
         OnFireAction?.Invoke();
     }
+
     private void OnTriggerEnter(Collider other) // replace with raycast
     {
         if (other.gameObject.CompareTag("Ground"))
