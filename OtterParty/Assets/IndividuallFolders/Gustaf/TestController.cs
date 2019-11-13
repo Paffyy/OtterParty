@@ -65,6 +65,14 @@ public class TestController : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shove"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7e09ab9-5a67-4606-bf26-33e7dd4acb4a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -254,6 +262,28 @@ public class TestController : IInputActionCollection, IDisposable
                     ""action"": ""SwitchScene"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""39858804-b2d1-4a9d-b8d9-9b7300e72665"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31478f70-f702-4b1b-8a24-ae9ad37b3ac5"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -409,6 +439,7 @@ public class TestController : IInputActionCollection, IDisposable
         m_Gameplay_LeftSpam = m_Gameplay.FindAction("LeftSpam", throwIfNotFound: true);
         m_Gameplay_RightSpam = m_Gameplay.FindAction("RightSpam", throwIfNotFound: true);
         m_Gameplay_SwitchScene = m_Gameplay.FindAction("SwitchScene", throwIfNotFound: true);
+        m_Gameplay_Shove = m_Gameplay.FindAction("Shove", throwIfNotFound: true);
         // OnlyController
         m_OnlyController = asset.FindActionMap("OnlyController", throwIfNotFound: true);
         m_OnlyController_Move = m_OnlyController.FindAction("Move", throwIfNotFound: true);
@@ -474,6 +505,7 @@ public class TestController : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_LeftSpam;
     private readonly InputAction m_Gameplay_RightSpam;
     private readonly InputAction m_Gameplay_SwitchScene;
+    private readonly InputAction m_Gameplay_Shove;
     public struct GameplayActions
     {
         private TestController m_Wrapper;
@@ -484,6 +516,7 @@ public class TestController : IInputActionCollection, IDisposable
         public InputAction @LeftSpam => m_Wrapper.m_Gameplay_LeftSpam;
         public InputAction @RightSpam => m_Wrapper.m_Gameplay_RightSpam;
         public InputAction @SwitchScene => m_Wrapper.m_Gameplay_SwitchScene;
+        public InputAction @Shove => m_Wrapper.m_Gameplay_Shove;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -511,6 +544,9 @@ public class TestController : IInputActionCollection, IDisposable
                 SwitchScene.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchScene;
                 SwitchScene.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchScene;
                 SwitchScene.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSwitchScene;
+                Shove.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShove;
+                Shove.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShove;
+                Shove.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShove;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -533,6 +569,9 @@ public class TestController : IInputActionCollection, IDisposable
                 SwitchScene.started += instance.OnSwitchScene;
                 SwitchScene.performed += instance.OnSwitchScene;
                 SwitchScene.canceled += instance.OnSwitchScene;
+                Shove.started += instance.OnShove;
+                Shove.performed += instance.OnShove;
+                Shove.canceled += instance.OnShove;
             }
         }
     }
@@ -643,6 +682,7 @@ public class TestController : IInputActionCollection, IDisposable
         void OnLeftSpam(InputAction.CallbackContext context);
         void OnRightSpam(InputAction.CallbackContext context);
         void OnSwitchScene(InputAction.CallbackContext context);
+        void OnShove(InputAction.CallbackContext context);
     }
     public interface IOnlyControllerActions
     {

@@ -19,6 +19,7 @@ public class PlayerController : StateMachine
     public Vector2 InputDirection { get; set; }
     public Action OnJumpAction { get; set; }
     public Action OnFireAction { get; set; }
+    public Action OnShoveAction { get; set; }
     public Action<Vector2> OnMoveAction { get; set; }
     public Action<bool> OnSpamAction { get; set; }
     public bool IsGrounded { get; set; }
@@ -137,6 +138,11 @@ public class PlayerController : StateMachine
     private void OnFire()
     {
         OnFireAction?.Invoke();
+    }
+
+    private void OnShove()
+    {
+        OnShoveAction?.Invoke();
     }
 
     private void OnTriggerEnter(Collider other) // replace with raycast

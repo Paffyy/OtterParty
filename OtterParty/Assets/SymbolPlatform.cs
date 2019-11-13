@@ -5,6 +5,7 @@ using UnityEngine;
 public class SymbolPlatform : MonoBehaviour
 {
     private MeshRenderer mesh;
+    private SpriteRenderer spriteRen;
     private Animator anim;
     private Rigidbody body;
     private bool isFalling;
@@ -17,6 +18,7 @@ public class SymbolPlatform : MonoBehaviour
 
     void Start()
     {
+        spriteRen = GetComponentInChildren<SpriteRenderer>();
         startPos = transform.position;
         anim = GetComponent<Animator>();
         body = GetComponent<Rigidbody>();
@@ -24,10 +26,11 @@ public class SymbolPlatform : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
     }
 
-    public void SetSymbol(Material material)
+    public void SetSymbol(Sprite sprite)
     {
         HasSymbol = true;
-        mesh.material = material;
+        spriteRen.sprite = sprite;
+        //mesh.material = material;
     }
 
     public void FallDown()

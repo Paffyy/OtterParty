@@ -6,14 +6,15 @@ public class SymbolMiniGameController : MonoBehaviour
 {
     [SerializeField]
     private Material[] materials;
-    //[SerializeField]
-    //private Sprite[] symbolSprites;
+    [SerializeField]
+    private Sprite[] symbolSprites;
     [SerializeField]
     [Range(0.1f, 10f)]
     private float timeToFall;
     [SerializeField]
     [Range(0.1f, 5f)]
     private float timeToFallMultiplier;
+    private Sprite symbolSprite;
     private Material symbol;
     private List<SymbolPlatform> platforms = new List<SymbolPlatform>();
     private List<GameObject> eliminatedPlayers = new List<GameObject>();
@@ -39,23 +40,24 @@ public class SymbolMiniGameController : MonoBehaviour
 
     private void AssignCurrentSymbol()
     {
-        symbol = materials[RandomizeSymbol()];
-        currentSymbolPlatform.SetSymbol(symbol);
+        symbolSprite = symbolSprites[RandomizeSymbol()];
+        //symbol = materials[RandomizeSymbol()];
+        currentSymbolPlatform.SetSymbol(symbolSprite);
     }
 
     private void AssignPlatformSymbols()
     {
         SymbolPlatform platform = platforms[Random.Range(0, platforms.Count - 1)];
-        platform.SetSymbol(symbol);
+        platform.SetSymbol(symbolSprite);
         platform.IsSafe = true;
         platform.HasSymbol = true;
         foreach (var item in platforms)
         {
-            var newSymbol = materials[RandomizeSymbol()];
+            var newSymbol = symbolSprites[RandomizeSymbol()];
             if (!item.HasSymbol)
             {
                 item.SetSymbol(newSymbol);
-                if (newSymbol == symbol)
+                if (newSymbol == symbolSprite)
                 {
                     item.IsSafe = true;
                 }
@@ -65,7 +67,7 @@ public class SymbolMiniGameController : MonoBehaviour
 
     private int RandomizeSymbol()
     {
-        return Random.Range(0, materials.Length);
+        return Random.Range(0, symbolSprites.Length);
     }
 
     private void CheckPlatforms()

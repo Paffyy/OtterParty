@@ -19,6 +19,7 @@ public class MovingState : CharacterBaseState
         owner.OnJumpAction += JumpAction;
         base.Enter();
     }
+
     private void JumpAction()
     {
         owner.Jump(jumpHeight);

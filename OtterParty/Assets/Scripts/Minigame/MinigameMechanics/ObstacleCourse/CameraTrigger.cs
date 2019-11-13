@@ -8,6 +8,7 @@ public class CameraTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Camera hit player");
             other.gameObject.GetComponent<PlayerController>().PlayerBody.enabled = false;
             fireRespawnEvent(other.gameObject);
         }
