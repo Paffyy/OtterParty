@@ -22,7 +22,8 @@ public class EventHandler : MonoBehaviour
         SetDistanceEvent,
         InstantiatedUIEvent,
         ParticleEvent,
-        MultipleEliminateEvent
+        MultipleEliminateEvent,
+        SoundEvent
     }
 
     private Dictionary<EventType, List<EventListener>> eventListeners;
