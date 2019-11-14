@@ -12,7 +12,7 @@ public class CameraSpeedTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Killzone"))
+        if (other.gameObject.CompareTag("Camera"))
         {
             GetComponentInParent<CameraMovement>().ApplySpeedMultplier(speedMultiplier);
             speedIncreaseNotification.SetActive(true);

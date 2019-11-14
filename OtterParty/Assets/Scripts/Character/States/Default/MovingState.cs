@@ -45,8 +45,12 @@ public class MovingState : CharacterBaseState
                 {
                     if (item.CompareTag("Player") && item.gameObject != owner.gameObject)
                     {
-                        item.gameObject.transform.LookAt(owner.transform.position); 
-                        item.GetComponent<PlayerController>().Transition<KnockbackState>();
+                        var player = item.GetComponent<PlayerController>();
+                        if(player.PlayerState != PlayerController.CurrentPlayerState.KnockBackState)
+                        {
+                            item.gameObject.transform.LookAt(owner.transform.position);
+                            player.Transition<KnockbackState>();
+                        }
                     }
                 }
             }

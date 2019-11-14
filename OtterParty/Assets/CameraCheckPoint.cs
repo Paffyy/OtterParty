@@ -11,7 +11,6 @@ public class CameraCheckPoint : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Camera"))
         {
-            Debug.Log("Camera hit");
             CheckPointEventInfo eventInfo = new CheckPointEventInfo(other.gameObject, respawnLocation);
             EventHandler.Instance.FireEvent(EventHandler.EventType.CheckPointEvent, eventInfo);
         }
