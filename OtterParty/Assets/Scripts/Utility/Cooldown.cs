@@ -30,4 +30,18 @@ public class Cooldown
             sender.IsOffCooldown = true;
         });
     }
+    public void StartNewCooldown(float duration, KnockbackState sender)
+    {
+        Task.Factory.StartNew(async () => {
+            await Task.Delay((int)(duration * 1000));
+            sender.IsKnockedBacked = true;
+        });
+    }
+    public void StartNewCooldown(float duration, MovingState sender)
+    {
+        Task.Factory.StartNew(async () => {
+            await Task.Delay((int)(duration * 1000));
+            sender.IsShoveOffCooldown = true;
+        });
+    }
 }
