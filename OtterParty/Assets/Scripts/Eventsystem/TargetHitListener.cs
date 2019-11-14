@@ -30,6 +30,12 @@ public class TargetHitListener : BaseListener
             Quaternion rotation = hitObject.transform.rotation;
             EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, rotation, hitObject.GetComponent<PinataBehaviour>().ParticleObject));
         }
+        else if (hitObject.GetComponent<MovingTarget>() != null)
+        {
+            Vector3 position = hitObject.transform.position;
+            EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, Quaternion.identity, hitObject.GetComponent<MovingTarget>().ParticleObject));
+            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound));
+        }
         if (eventInfo != null && !eventInfo.ObjectHit.CompareTag("Player"))
         {
             if (gameIsActive)

@@ -6,7 +6,12 @@ public class MovingTarget : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-
+    [SerializeField]
+    private GameObject particles;
+    public GameObject ParticleObject { get { return particles; } }
+    [SerializeField]
+    private AudioClip hitSound;
+    public AudioClip HitSound { get { return hitSound; } }
     public int Points { get; set; }
 
     [SerializeField]
@@ -16,6 +21,12 @@ public class MovingTarget : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
     }
+
+    private void OnDestroy()
+    {
+        
+    }
+
     public void SetValue(Sprite spriteValue, int pointValue)
     {
         sprite.sprite = spriteValue;
