@@ -37,6 +37,7 @@ public class MovingState : CharacterBaseState
             IsShoveOffCooldown = false;
             Cooldown.Instance.StartNewCooldown(shoveCooldown, this);
             var colliders = Manager.Instance.GetFrontConeHit(owner.transform.forward, owner.transform, shoveTargetsMasks, radius, angle);
+            owner.Anim.SetTrigger("Shove");
             if (colliders != null)
             {
                 foreach (var item in colliders)
