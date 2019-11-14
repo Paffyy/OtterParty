@@ -87,7 +87,7 @@ public class PinataSpawner : MonoBehaviour
         else if (randomValue == 3)
         {
             pinataObject.SetValue(decoyPinataMaterial, decoyPinataValue);
-            Destroy(pinataObject, 5);
+            Destroy(pinataObject.gameObject, 5);
         }
         else
         {
