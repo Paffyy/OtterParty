@@ -7,8 +7,7 @@ public class MovingTarget : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField]
-    private GameObject particles;
-    public GameObject ParticleObject { get { return particles; } }
+    private List<GameObject> particles;
     [SerializeField]
     private AudioClip hitSound;
     public AudioClip HitSound { get { return hitSound; } }
@@ -31,5 +30,10 @@ public class MovingTarget : MonoBehaviour
     {
         sprite.sprite = spriteValue;
         Points = pointValue;
+    }
+
+    public GameObject GetPlayerParticle(int index)
+    {
+        return particles[index];
     }
 }
