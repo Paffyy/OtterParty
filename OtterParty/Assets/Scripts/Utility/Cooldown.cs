@@ -44,4 +44,11 @@ public class Cooldown
             sender.IsShoveOffCooldown = true;
         });
     }
+    public void StartNewCooldown(float duration, OnMovingPlatformState sender)
+    {
+        Task.Factory.StartNew(async () => {
+            await Task.Delay((int)(duration * 1000));
+            sender.IsShoveOffCooldown = true;
+        });
+    }
 }

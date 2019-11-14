@@ -13,20 +13,28 @@ public class KnockbackState : CharacterBaseState
     [Range(1, 10)]
     private float knockbackMagnitude;
     public bool IsKnockedBacked { get; set; }
+    private PlayerController.CurrentPlayerState previousState;
+
     public override void Enter()
     {
+        previousState = owner.PlayerState;
+        owner.PlayerState = PlayerController.CurrentPlayerState.KnockBackState;
         IsKnockedBacked = false;
         owner.InputDirection = Vector2.zero;
         owner.GetComponent<Rigidbody>().velocity = -owner.transform.forward * knockbackMagnitude;
         base.Enter();
         Cooldown.Instance.StartNewCooldown(stunDuration, this);
     }
+
     public override void HandleUpdate()
     {
         base.HandleUpdate();
         if (IsKnockedBacked)
         {
-            owner.Transition<MovingState>();
+            if (previousState == PlayerController.CurrentPlayerState.OnMovingPlatformState)
+                owner.Transition<OnMovingPlatformState>();
+            else
+                owner.Transition<MovingState>();
         }
     }
 }

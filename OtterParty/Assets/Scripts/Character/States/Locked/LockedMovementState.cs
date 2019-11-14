@@ -25,6 +25,7 @@ public class LockedMovementState : CharacterBaseState
 
     public override void Enter()
     {
+        owner.PlayerState = PlayerController.CurrentPlayerState.LockedMovementState;
         owner.IsInLockedMovement = true;
         playerBody = owner.GetComponent<Rigidbody>();
         owner.OnSpamAction += SpamAction;

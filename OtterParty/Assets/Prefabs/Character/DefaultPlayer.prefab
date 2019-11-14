@@ -786,7 +786,7 @@ BoxCollider:
   m_GameObject: {fileID: 2445563581527691152}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.029940335, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: 0}
@@ -868,7 +868,11 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   gun: {fileID: 0}
   meshRen: {fileID: 4588421591307708379}
-  groundCheckDistance: 0.02
+  groundCheckDistance: 0.1
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  velocityThreshold: 0.1
 --- !u!1 &2608037990014428836
 GameObject:
   m_ObjectHideFlags: 0

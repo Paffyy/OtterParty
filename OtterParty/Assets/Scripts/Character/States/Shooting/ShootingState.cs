@@ -26,6 +26,7 @@ public class ShootingState : CharacterBaseState
 
     public override void Enter()
     {
+        owner.PlayerState = PlayerController.CurrentPlayerState.ShootingState;
         projectileParticle = owner.GetComponent<ParticleSystem>();
         var main = projectileParticle.main;
         projectilePrefab = projectiles[GameController.Instance.FindPlayerByGameObject(owner.gameObject).ID];

@@ -22,6 +22,7 @@ public class MovingState : CharacterBaseState
     public bool IsShoveOffCooldown { get; set; } = true;
     public override void Enter()
     {
+        owner.PlayerState = PlayerController.CurrentPlayerState.MovingState;
         Rigidbody playerBody = owner.GetComponent<Rigidbody>();
         playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0);
         owner.OnMoveAction += Movement;
@@ -32,7 +33,7 @@ public class MovingState : CharacterBaseState
 
     private void ShoveAction()
     {
-        if (IsShoveOffCooldown) //&& owner.IsActive )
+        if (IsShoveOffCooldown && owner.IsActive)
         {
             IsShoveOffCooldown = false;
             Cooldown.Instance.StartNewCooldown(shoveCooldown, this);

@@ -22,7 +22,6 @@ public class PlayerController : StateMachine
     public Action OnShoveAction { get; set; }
     public Action<Vector2> OnMoveAction { get; set; }
     public Action<bool> OnSpamAction { get; set; }
-    public bool IsGrounded { get; set; }
     public bool IsOnMovingPlatform { get; set; }
     public bool IsInLockedMovement { get; set; }
     public bool IsActive { get; set; }
@@ -44,6 +43,26 @@ public class PlayerController : StateMachine
     [SerializeField]
     private SkinnedMeshRenderer meshRen;
     private bool hasReceivedInput;
+    [SerializeField]
+    private float groundCheckDistance;
+    [SerializeField]
+    private LayerMask collisionMask;
+    [SerializeField]
+    private float velocityThreshold;
+
+    public CurrentPlayerState PlayerState { get; set; }
+
+    public enum CurrentPlayerState
+    {
+        MovingState,
+        OnMovingPlatformState,
+        KnockBackState,
+        AirState,
+        LockedMovementState,
+        LockedAirState,
+        ShootingState,
+        LockedKnockBackState
+    }
 
     protected override void Awake()
     {
@@ -85,7 +104,10 @@ public class PlayerController : StateMachine
         {
             playerBody.MovePosition(transform.position + movement * Time.deltaTime);
         }
-
+        if(playerBody.velocity.magnitude < velocityThreshold)
+        {
+            playerBody.velocity = Vector3.zero;
+        }
     }
 
     private void ApplyMovement()
@@ -106,13 +128,13 @@ public class PlayerController : StateMachine
     public void Jump()
     {
         if (anim != null)
-            anim.SetBool("IsJumping", true);
+            anim.SetTrigger("Jump");
         playerBody.velocity += new Vector3(0, jumpHeight, 0);
     }
     public void Jump(float jumpHeightInput)
     {
         if (anim != null)
-            anim.SetBool("IsJumping", true);
+            anim.SetTrigger("Jump");
         playerBody.velocity += new Vector3(0, jumpHeightInput, 0);
     }
     private void OnMove(InputValue value)
@@ -122,7 +144,7 @@ public class PlayerController : StateMachine
     }
     private void OnJump()
     {
-        if (IsGrounded)
+        if (IsGrounded())
         {
             OnJumpAction?.Invoke();
         }
@@ -145,13 +167,29 @@ public class PlayerController : StateMachine
         OnShoveAction?.Invoke();
     }
 
-    private void OnTriggerEnter(Collider other) // replace with raycast
+    public bool IsGrounded()
     {
-        if (other.gameObject.CompareTag("Ground"))
+        var coll = Physics.OverlapBox(transform.position + new Vector3(0, bodyCollider.size.y / 2, 0) + Vector3.down * groundCheckDistance, new Vector3(bodyCollider.size.x / 2.5f, bodyCollider.bounds.size.y / 2, bodyCollider.size.z/2.5f), transform.rotation, collisionMask);
+        if (coll != null)
         {
-            if (anim != null)
-                anim.SetBool("IsJumping", false);
-            IsGrounded = true;
+            foreach (var item in coll)
+            {
+                if (item.gameObject.CompareTag("Ground"))
+                {
+                    return true;
+                }
+            }
         }
+        return false;
     }
+
+    //private void OnTriggerEnter(Collider other) // replace with raycast
+    //{
+    //    if (other.gameObject.CompareTag("Ground"))
+    //    {
+    //        if (anim != null)
+    //            anim.SetBool("IsJumping", false);
+    //        IsGrounded = true;
+    //    }
+    //}
 }

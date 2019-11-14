@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class CameraTrigger : MonoBehaviour
 {
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Camera hit player");
             other.gameObject.GetComponent<PlayerController>().PlayerBody.enabled = false;
             fireRespawnEvent(other.gameObject);
-        }
-        else if (other.gameObject.CompareTag("Ground"))
-        {
-            other.gameObject.SetActive(false);
         }
     }
 

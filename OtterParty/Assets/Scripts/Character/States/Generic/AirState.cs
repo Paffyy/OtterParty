@@ -8,14 +8,14 @@ public class AirState : CharacterBaseState
 
     public override void Enter()
     {
+        owner.PlayerState = PlayerController.CurrentPlayerState.AirState;
         owner.OnMoveAction += Movement;
-        owner.IsGrounded = false;
         base.Enter();
     }
 
     public override void HandleUpdate()
     {
-        if (owner.IsGrounded)
+        if (owner.IsGrounded())
         {
             owner.Transition<MovingState>();
         }

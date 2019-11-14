@@ -12,14 +12,14 @@ public class LockedAirState : CharacterBaseState
 
     public override void Enter()
     {
+        owner.PlayerState = PlayerController.CurrentPlayerState.LockedAirState;
         owner.IsInLockedMovement = true;
-        owner.IsGrounded = false;
         base.Enter();
     }
 
     public override void HandleUpdate()
     {
-        if (owner.IsGrounded)
+        if (owner.IsGrounded())
         {
             owner.Transition<LockedMovementState>();
         }

@@ -12,6 +12,7 @@ public class LockedKnockbackState : CharacterBaseState
     private bool shouldTransition;
     public override void Enter()
     {
+        owner.PlayerState = PlayerController.CurrentPlayerState.LockedKnockBackState;
         //owner.InputDirection = Vector2.zero;
         owner.IsInLockedMovement = true;
         shouldTransition = false;
