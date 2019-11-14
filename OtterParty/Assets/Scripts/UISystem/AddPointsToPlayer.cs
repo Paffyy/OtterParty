@@ -29,7 +29,15 @@ public class AddPointsToPlayer : MonoBehaviour
     {
         if (GameController.Instance != null && MinigameController.Instance != null)
         {
-            var gameControllerPointsystem = GameController.Instance.PointSystem;
+            PointSystem gameControllerPointsystem = new PointSystem();
+            if (IsPointsBased)
+            {
+                gameControllerPointsystem.InitializePlayers(GameController.Instance.Players);
+            }
+            else
+            {
+                gameControllerPointsystem = GameController.Instance.PointSystem;
+            }
             var minigameControllerPointSystem = MinigameController.Instance.MinigamePointSystem;
             foreach (var item in GameController.Instance.Players)
             {
