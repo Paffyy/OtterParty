@@ -31,6 +31,7 @@ public class ProjectileMove : MonoBehaviour
                 Destroy(muzzleClone, psChild.main.duration);
             }
         }
+        Destroy(gameObject, 10f);
     }
 
     void FixedUpdate()
