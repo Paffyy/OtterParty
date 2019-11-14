@@ -23,9 +23,14 @@ public class ShootingState : CharacterBaseState
     private GameObject projectilePrefab;
     public bool IsOffCooldown { get; set; } = true;
     private ParticleSystem projectileParticle;
+    [SerializeField]
+    private RuntimeAnimatorController playerGunAnimations;
 
     public override void Enter()
     {
+        if(owner.Anim != null)
+              owner.Anim.runtimeAnimatorController = playerGunAnimations;
+        owner.PlayerGun.SetActive(true);
         owner.PlayerState = PlayerController.CurrentPlayerState.ShootingState;
         projectileParticle = owner.GetComponent<ParticleSystem>();
         var main = projectileParticle.main;
