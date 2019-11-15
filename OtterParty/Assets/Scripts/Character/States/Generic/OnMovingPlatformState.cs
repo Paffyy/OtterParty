@@ -52,10 +52,11 @@ public class OnMovingPlatformState : CharacterBaseState
             {
                 foreach (var item in colliders)
                 {
-                    if (item.CompareTag("Player") && item.gameObject != owner.gameObject)
+                    var player = item.GetComponent<PlayerController>();
+                    if (player.PlayerState != PlayerController.CurrentPlayerState.KnockBackState)
                     {
                         item.gameObject.transform.LookAt(owner.transform.position);
-                        item.GetComponent<PlayerController>().Transition<KnockbackState>();
+                        player.Transition<KnockbackState>();
                     }
                 }
             }
