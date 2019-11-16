@@ -49,19 +49,19 @@ public class SymbolPlatform : MonoBehaviour
         HasSymbol = false;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.transform.parent = gameObject.transform;
-        } 
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        other.gameObject.transform.parent = gameObject.transform;
+    //    } 
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.transform.parent = null;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        other.gameObject.transform.parent = null;
+    //    }
+    //}
 }
