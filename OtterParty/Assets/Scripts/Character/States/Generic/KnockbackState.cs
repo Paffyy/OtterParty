@@ -7,7 +7,7 @@ using UnityEngine;
 public class KnockbackState : CharacterBaseState
 {
     [SerializeField]
-    [Range(0.5f, 2.0f)]
+    [Range(0.1f, 2.0f)]
     private float stunDuration;
     [SerializeField]
     [Range(1, 10)]

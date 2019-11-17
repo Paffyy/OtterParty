@@ -42,7 +42,7 @@ public class OnMovingPlatformState : CharacterBaseState
 
     private void ShoveAction()
     {
-        if (IsShoveOffCooldown && owner.IsActive)
+        if (IsShoveOffCooldown) //&& owner.IsActive)
         {
             IsShoveOffCooldown = false;
             Cooldown.Instance.StartNewCooldown(shoveCooldown, this);
@@ -52,11 +52,14 @@ public class OnMovingPlatformState : CharacterBaseState
             {
                 foreach (var item in colliders)
                 {
-                    var player = item.GetComponent<PlayerController>();
-                    if (player.PlayerState != PlayerController.CurrentPlayerState.KnockBackState)
+                    if(item.CompareTag("Player") && item.gameObject != owner.gameObject)
                     {
-                        item.gameObject.transform.LookAt(owner.transform.position);
-                        player.Transition<KnockbackState>();
+                        var player = item.GetComponent<PlayerController>();
+                        if (player.PlayerState != PlayerController.CurrentPlayerState.KnockBackState)
+                        {
+                            item.gameObject.transform.LookAt(new Vector3(owner.transform.position.x, item.gameObject.transform.position.y, owner.transform.position.z));
+                            player.Transition<KnockbackState>();
+                        }
                     }
                 }
             }
