@@ -11,6 +11,10 @@ public class CameraTrigger : MonoBehaviour
             other.gameObject.GetComponent<PlayerController>().BodyCollider.enabled = false;
             fireRespawnEvent(other.gameObject);
         }
+        else if (other.gameObject.CompareTag("Ground"))
+        {
+            other.gameObject.SetActive(false);
+        }
     }
 
     private void fireRespawnEvent(GameObject player)
