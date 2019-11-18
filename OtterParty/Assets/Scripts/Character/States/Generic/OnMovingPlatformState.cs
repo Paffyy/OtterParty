@@ -42,7 +42,7 @@ public class OnMovingPlatformState : CharacterBaseState
 
     private void ShoveAction()
     {
-        if (IsShoveOffCooldown) //&& owner.IsActive)
+        if (IsShoveOffCooldown && owner.IsActive)
         {
             IsShoveOffCooldown = false;
             Cooldown.Instance.StartNewCooldown(shoveCooldown, this);

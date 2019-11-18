@@ -33,7 +33,7 @@ public class MovingState : CharacterBaseState
 
     private void ShoveAction()
     {
-        if (IsShoveOffCooldown) //&& owner.isactive)
+        if (IsShoveOffCooldown && owner.IsActive)
         {
             IsShoveOffCooldown = false;
             Cooldown.Instance.StartNewCooldown(shoveCooldown, this);

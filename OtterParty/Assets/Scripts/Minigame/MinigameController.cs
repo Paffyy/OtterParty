@@ -184,9 +184,13 @@ public class MinigameController : MonoBehaviour
             player.SetActive(false);
         }
         currentPoints++;
-        if (IsGameOver() || IsGameOver(0))
+        if (IsGameOver(0) )
         {
             GameIsOver();
+        }
+        else if(IsGameOver())
+        {
+            AwardLastPlayerAlive(true);
         }
     }
 
