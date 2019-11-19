@@ -143,6 +143,7 @@ public class MinigameController : MonoBehaviour
         {
             Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
             player.PlayerObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
+            //player.PlayerObject.GetComponent<PlayerController>().Hat = GameController.Instance.PlayerHats[player.HatIndex];
         }
     }
     #endregion
@@ -439,7 +440,6 @@ public class MinigameController : MonoBehaviour
         }
    
     }
-
     private void ShowStandingsUI()
     {
         if (gameType == GameType.Finale)
