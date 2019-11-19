@@ -14,6 +14,15 @@ public class GameController : MonoBehaviour
     private int nextMinigameIndex = 0;
     [SerializeField]
     private List<Material> playerMaterials;
+    [SerializeField]
+    private List<GameObject> playerHats;
+
+    public List<GameObject> PlayerHats
+    {
+        get { return playerHats; }
+        set { playerHats = value; }
+    }
+
     public List<Material> PlayerMaterials
     {
         get { return playerMaterials; }
