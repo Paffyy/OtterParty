@@ -14,20 +14,10 @@ public class ReadyUpUI : MonoBehaviour
     {
         if (EventHandler.Instance != null)
         {
-            EventHandler.Instance.Register(EventHandler.EventType.StartReadyUpSequence, InitializeReadyUpUI);
             EventHandler.Instance.Register(EventHandler.EventType.ReadyUpEvent, ReadyUp);
         }
+    }
 
-    }
-    private void InitializeReadyUpUI(BaseEventInfo e)
-    {
-        for (int i = 0; i < GameController.Instance.Players.Count; i++)
-        {
-            playerReady.Add(GameController.Instance.Players[i], false);
-            backgrounds[i].gameObject.SetActive(true);
-        }
-        gameObject.SetActive(true);
-    }
     public void PlayerJoined(Player p)
     {
         playerReady.Add(p, false);
@@ -44,9 +34,8 @@ public class ReadyUpUI : MonoBehaviour
                 playerReady[p] = !playerReady[p];
                 readyUpImages[p.ID].gameObject.SetActive(playerReady[p]);
   
-                if (IsAllPlayersReady())
+                if (IsAllPlayersReady() && playerReady.Count > 1)
                 {
-                    //Transition to game / next
                     TransitionEventInfo tei = new TransitionEventInfo();
                     EventHandler.Instance.FireEvent(EventHandler.EventType.TransitionEvent, tei);
                     EventHandler.Instance.Unregister(EventHandler.EventType.ReadyUpEvent, ReadyUp);

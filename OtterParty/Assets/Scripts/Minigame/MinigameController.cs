@@ -139,11 +139,13 @@ public class MinigameController : MonoBehaviour
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
         player.PlayerObject = playerInput.gameObject;
-        if (!isOnUILayer)
+
+        if (!isOnUILayer) // ChickenShootout
         {
             Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
             player.PlayerObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
-            //player.PlayerObject.GetComponent<PlayerController>().Hat = GameController.Instance.PlayerHats[player.HatIndex];
+            var hatTransform = playerInput.GetComponent<PlayerController>().HatPlaceHolder;
+            Instantiate(GameController.Instance.PlayerHats[player.HatIndex], hatTransform.position, hatTransform.rotation, hatTransform);
         }
     }
     #endregion

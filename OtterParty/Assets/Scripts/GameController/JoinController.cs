@@ -29,6 +29,14 @@ public class JoinController : MonoBehaviour
             playerIndicators.Add(item.gameObject);
             item.gameObject.SetActive(false);
         }
+
+    }
+    void Start()
+    {
+        if (EventHandler.Instance != null)
+        {
+            EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, Transition);
+        }
     }
     private void OnPlayerJoined(PlayerInput input)
     {
@@ -36,16 +44,13 @@ public class JoinController : MonoBehaviour
         {
             Player p = new Player((int)input.playerIndex, "Player_" + input.playerIndex, input.devices[0], GameController.Instance.PlayerMaterials[input.playerIndex]);
             GameController.Instance.Players.Add(p);
+            p.PlayerObject = input.gameObject;
             Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[input.playerIndex] };
             input.gameObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
             playerIndicators[input.playerIndex].SetActive(true);
             playerCount++;
             readyUpUI.PlayerJoined(p);
             readyUpUI.gameObject.SetActive(true);
-            if (playerCount == 2)
-            {
-                EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, Transition);
-            }
         }
     }
 

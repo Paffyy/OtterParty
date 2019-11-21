@@ -40,9 +40,9 @@ public class ItemSelection : MonoBehaviour
         {
             selectedHat = GameController.Instance.PlayerHats[0].GetComponent<PlayerHat>();
             centerSprite.sprite = selectedHat.HatSprite;
-            hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
             centerHatIndex = 0;
-            if(GameController.Instance.PlayerHats.Count > 1)
+            SetPlayerHat();
+            if (GameController.Instance.PlayerHats.Count > 1)
             {
                 rightSprite.sprite = GameController.Instance.PlayerHats[1].GetComponent<PlayerHat>().HatSprite;
             }
@@ -57,8 +57,7 @@ public class ItemSelection : MonoBehaviour
             Destroy(hat);
             rightSprite.sprite = selectedHat.HatSprite;
             centerHatIndex--;
-            selectedHat = GameController.Instance.PlayerHats[centerHatIndex].GetComponent<PlayerHat>();
-            hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
+            SetPlayerHat();
             centerSprite.sprite = selectedHat.HatSprite;
             if (centerHatIndex - 1 >= 0)
             {
@@ -71,6 +70,17 @@ public class ItemSelection : MonoBehaviour
         }
     }
 
+    private void SetPlayerHat()
+    {
+        selectedHat = GameController.Instance.PlayerHats[centerHatIndex].GetComponent<PlayerHat>();
+        var playerVM = GameController.Instance.FindPlayerByGameObject(player.gameObject);
+        if (playerVM != null)
+        {
+            playerVM.HatIndex = centerHatIndex;
+        }
+        hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
+    }
+
     private void OnShiftRight()
     {
         if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count && !hatSelected)
@@ -79,8 +89,7 @@ public class ItemSelection : MonoBehaviour
             Destroy(hat);
             leftSprite.sprite = selectedHat.HatSprite;
             centerHatIndex++;
-            selectedHat = GameController.Instance.PlayerHats[centerHatIndex].GetComponent<PlayerHat>();
-            hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
+            SetPlayerHat();
             centerSprite.sprite = selectedHat.HatSprite;
             if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
             {
@@ -99,7 +108,6 @@ public class ItemSelection : MonoBehaviour
         {
             hatSelected = true;
             selectedHat.IsAvailable = false;
-            player.Hat = selectedHat;
             var id = GetComponent<PlayerInput>().playerIndex;
             ReadyUpEventInfo e = new ReadyUpEventInfo(id);
             EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
@@ -112,11 +120,8 @@ public class ItemSelection : MonoBehaviour
 
     private void OnCancelReadyUp()
     {
-        Debug.Log(hatSelected);
-        Debug.Log(gameHasStarted);
         if (hatSelected && !gameHasStarted)
         {
-            player.Hat = null;
             hatSelected = false;
             selectedHat.IsAvailable = true;
             var id = GetComponent<PlayerInput>().playerIndex;
