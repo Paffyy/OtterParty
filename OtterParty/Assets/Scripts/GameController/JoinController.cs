@@ -41,15 +41,14 @@ public class JoinController : MonoBehaviour
             playerIndicators[input.playerIndex].SetActive(true);
             playerCount++;
             readyUpUI.PlayerJoined(p);
+            readyUpUI.gameObject.SetActive(true);
+
             if (playerCount == 2)
             {
-                readyUpUI.gameObject.SetActive(true);
                 EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, Transition);
             }
         }
     }
-
-
 
     private void EnableStartButton()
     {

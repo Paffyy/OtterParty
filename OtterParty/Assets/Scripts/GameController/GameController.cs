@@ -15,13 +15,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private List<Material> playerMaterials;
     [SerializeField]
-    private List<GameObject> playerHats;
-
-    public List<GameObject> PlayerHats
-    {
-        get { return playerHats; }
-        set { playerHats = value; }
-    }
+    private List<PlayerHat> playerHats;
+    public List<PlayerHat> PlayerHats { get { return playerHats; } set { playerHats = value; } }
 
     public List<Material> PlayerMaterials
     {

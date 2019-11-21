@@ -41,7 +41,7 @@ public class PlayerController : StateMachine
     private Animator anim;
     public Animator Anim { get { return anim; } }
     public SkinnedMeshRenderer MeshRenderer { get { return meshRen; } }
-    public GameObject Hat { get { return hatPlaceHolder; } set { hatPlaceHolder = value; } }
+    public Transform Hat { get { return hatPlaceHolder; } set { hatPlaceHolder = value; } }
     [SerializeField]
     private SkinnedMeshRenderer meshRen;
     private bool hasReceivedInput;
@@ -52,7 +52,7 @@ public class PlayerController : StateMachine
     [SerializeField]
     private float velocityThreshold;
     [SerializeField]
-    private GameObject hatPlaceHolder;
+    private Transform hatPlaceHolder;
 
 
     public CurrentPlayerState PlayerState { get; set; }
