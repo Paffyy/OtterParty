@@ -42,7 +42,6 @@ public class JoinController : MonoBehaviour
             playerCount++;
             readyUpUI.PlayerJoined(p);
             readyUpUI.gameObject.SetActive(true);
-
             if (playerCount == 2)
             {
                 EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, Transition);

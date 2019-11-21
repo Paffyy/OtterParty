@@ -112,6 +112,8 @@ public class ItemSelection : MonoBehaviour
 
     private void OnCancelReadyUp()
     {
+        Debug.Log(hatSelected);
+        Debug.Log(gameHasStarted);
         if (hatSelected && !gameHasStarted)
         {
             player.Hat = null;
