@@ -52,7 +52,6 @@ public class ItemSelection : MonoBehaviour
             selectedHat = GameController.Instance.PlayerHats[centerHatIndex].GetComponent<PlayerHat>();
             hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
             centerSprite.sprite = selectedHat.HatSprite;
-            //show hat on player
             if (centerHatIndex - 1 >= 0)
             {
                 leftSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().HatSprite;
@@ -75,7 +74,6 @@ public class ItemSelection : MonoBehaviour
             selectedHat = GameController.Instance.PlayerHats[centerHatIndex].GetComponent<PlayerHat>();
             hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
             centerSprite.sprite = selectedHat.HatSprite;
-            //show hat on player
             if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
             {
                 rightSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>().HatSprite;
@@ -89,7 +87,6 @@ public class ItemSelection : MonoBehaviour
 
     private void OnReadyUp()
     {
-        Debug.Log(selectedHat.IsAvailable);
         if (selectedHat.IsAvailable && !hatSelected)
         {
             hatSelected = true;
@@ -99,19 +96,16 @@ public class ItemSelection : MonoBehaviour
             ReadyUpEventInfo e = new ReadyUpEventInfo(id);
             EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
         }
-        else
+        else if(!hatSelected)
         {
             hatTakenMessage.SetActive(true);
         }
-
     }
 
     private void OnCancelReadyUp()
     {
-        Debug.Log("B pressed");
         if (hatSelected)
         {
-            Debug.Log("Cancelled");
             player.Hat = null;
             hatSelected = false;
             selectedHat.IsAvailable = true;
