@@ -11,6 +11,8 @@ public class ItemSelection : MonoBehaviour
     private SpriteRenderer leftSprite;
     [SerializeField]
     private SpriteRenderer rightSprite;
+    [SerializeField]
+    private GameObject hatTakenMessage;
     private PlayerController player;
     private int centerHatIndex;
     private PlayerHat selectedHat;
@@ -28,13 +30,13 @@ public class ItemSelection : MonoBehaviour
     {
         if(GameController.Instance.PlayerHats.Count > 0)
         {
-            selectedHat = GameController.Instance.PlayerHats[0];
+            selectedHat = GameController.Instance.PlayerHats[0].GetComponent<PlayerHat>();
             centerSprite.sprite = selectedHat.HatSprite;
-            hat = Instantiate(selectedHat.gameObject, player.Hat.position, player.Hat.rotation, player.Hat);
+            hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
             centerHatIndex = 0;
             if(GameController.Instance.PlayerHats.Count > 1)
             {
-                rightSprite.sprite = GameController.Instance.PlayerHats[1].HatSprite;
+                rightSprite.sprite = GameController.Instance.PlayerHats[1].GetComponent<PlayerHat>().HatSprite;
             }
         }
     }
@@ -43,16 +45,17 @@ public class ItemSelection : MonoBehaviour
     {
         if (centerHatIndex - 1 >= 0 && !hatSelected)
         {
+            hatTakenMessage.SetActive(false);
             Destroy(hat);
             rightSprite.sprite = selectedHat.HatSprite;
             centerHatIndex--;
-            selectedHat = GameController.Instance.PlayerHats[centerHatIndex];
-            hat = Instantiate(selectedHat.gameObject, player.Hat.position, player.Hat.rotation, player.Hat);
+            selectedHat = GameController.Instance.PlayerHats[centerHatIndex].GetComponent<PlayerHat>();
+            hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
             centerSprite.sprite = selectedHat.HatSprite;
             //show hat on player
             if (centerHatIndex - 1 >= 0)
             {
-                leftSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex - 1].HatSprite;
+                leftSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().HatSprite;
             }
             else
             {
@@ -65,16 +68,17 @@ public class ItemSelection : MonoBehaviour
     {
         if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count && !hatSelected)
         {
+            hatTakenMessage.SetActive(false);
             Destroy(hat);
             leftSprite.sprite = selectedHat.HatSprite;
             centerHatIndex++;
-            selectedHat = GameController.Instance.PlayerHats[centerHatIndex];
-            hat = Instantiate(selectedHat.gameObject, player.Hat.position, player.Hat.rotation, player.Hat);
+            selectedHat = GameController.Instance.PlayerHats[centerHatIndex].GetComponent<PlayerHat>();
+            hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
             centerSprite.sprite = selectedHat.HatSprite;
             //show hat on player
             if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
             {
-                rightSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex + 1].HatSprite;
+                rightSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>().HatSprite;
             }
             else
             {
@@ -90,13 +94,14 @@ public class ItemSelection : MonoBehaviour
         {
             hatSelected = true;
             selectedHat.IsAvailable = false;
+            player.Hat = selectedHat;
             var id = GetComponent<PlayerInput>().playerIndex;
             ReadyUpEventInfo e = new ReadyUpEventInfo(id);
             EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
         }
         else
         {
-            // inform that hat is not available
+            hatTakenMessage.SetActive(true);
         }
 
     }
@@ -107,6 +112,7 @@ public class ItemSelection : MonoBehaviour
         if (hatSelected)
         {
             Debug.Log("Cancelled");
+            player.Hat = null;
             hatSelected = false;
             selectedHat.IsAvailable = true;
             var id = GetComponent<PlayerInput>().playerIndex;

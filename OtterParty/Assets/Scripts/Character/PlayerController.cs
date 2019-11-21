@@ -41,7 +41,7 @@ public class PlayerController : StateMachine
     private Animator anim;
     public Animator Anim { get { return anim; } }
     public SkinnedMeshRenderer MeshRenderer { get { return meshRen; } }
-    public Transform Hat { get { return hatPlaceHolder; } set { hatPlaceHolder = value; } }
+    public Transform HatPlaceHolder { get { return hatPlaceHolder; } set { hatPlaceHolder = value; } }
     [SerializeField]
     private SkinnedMeshRenderer meshRen;
     private bool hasReceivedInput;
@@ -53,6 +53,7 @@ public class PlayerController : StateMachine
     private float velocityThreshold;
     [SerializeField]
     private Transform hatPlaceHolder;
+    public PlayerHat Hat { get; set; }
 
 
     public CurrentPlayerState PlayerState { get; set; }
@@ -76,6 +77,12 @@ public class PlayerController : StateMachine
         IsInLockedMovement = false;
         IsOnMovingPlatform = false;
         playerBody = GetComponent<Rigidbody>();
+        Debug.Log(Hat);
+        if (Hat != null)
+        {
+            Debug.Log("asd");
+            Instantiate(Hat.gameObject, hatPlaceHolder.position, hatPlaceHolder.rotation, hatPlaceHolder);
+        }
         base.Awake();
     }
 

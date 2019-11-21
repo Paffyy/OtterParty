@@ -15,8 +15,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private List<Material> playerMaterials;
     [SerializeField]
-    private List<PlayerHat> playerHats;
-    public List<PlayerHat> PlayerHats { get { return playerHats; } set { playerHats = value; } }
+    private List<GameObject> playerHats;
+    public List<GameObject> PlayerHats { get { return playerHats; } set { playerHats = value; } }
 
     public List<Material> PlayerMaterials
     {
@@ -54,6 +54,10 @@ public class GameController : MonoBehaviour
                     Minigames.Add(minigame);
                 }
             }
+        }
+        foreach (var item in playerHats)
+        {
+            item.GetComponent<PlayerHat>().IsAvailable = true;
         }
     }
     public void StartNextMinigame()
