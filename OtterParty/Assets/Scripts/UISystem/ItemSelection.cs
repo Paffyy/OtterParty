@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,12 +19,19 @@ public class ItemSelection : MonoBehaviour
     private PlayerHat selectedHat;
     private bool hatSelected;
     private GameObject hat;
+    private bool gameHasStarted;
 
     void Start()
     {
+        EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, CheckReadyUp);
         hatSelected = false;
         player = GetComponent<PlayerController>();
         SetDefaultItems();
+    }
+
+    private void CheckReadyUp(BaseEventInfo e)
+    {
+        gameHasStarted = true;
     }
 
     private void SetDefaultItems()
@@ -104,7 +112,7 @@ public class ItemSelection : MonoBehaviour
 
     private void OnCancelReadyUp()
     {
-        if (hatSelected)
+        if (hatSelected && !gameHasStarted)
         {
             player.Hat = null;
             hatSelected = false;
