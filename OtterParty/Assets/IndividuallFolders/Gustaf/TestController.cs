@@ -401,6 +401,30 @@ public class TestController : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ShiftLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""dec33edc-ac95-4671-8b94-ce5d3a722efd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ShiftRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""881dd64e-4b0d-4c4a-8e50-05c742f70d1f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""CancelReadyUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4679d20-083d-450d-b0b7-ea1751dd89af"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -423,6 +447,72 @@ public class TestController : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ReadyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76d7595c-c474-4d2f-9e33-84323da81785"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23b6c3c9-0ff2-4bb8-8655-01e0ec4cb29f"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f1802e9-757c-4566-ac98-3372695e3799"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69d8d3df-0f17-4a6c-bf07-a588fe7e0bd2"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0881bc92-05ac-4582-b3e3-0f9defda089b"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelReadyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46ca92a5-64bb-4244-85bc-7e96e782caff"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelReadyUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -450,6 +540,9 @@ public class TestController : IInputActionCollection, IDisposable
         // ReadyUP
         m_ReadyUP = asset.FindActionMap("ReadyUP", throwIfNotFound: true);
         m_ReadyUP_ReadyUp = m_ReadyUP.FindAction("ReadyUp", throwIfNotFound: true);
+        m_ReadyUP_ShiftLeft = m_ReadyUP.FindAction("ShiftLeft", throwIfNotFound: true);
+        m_ReadyUP_ShiftRight = m_ReadyUP.FindAction("ShiftRight", throwIfNotFound: true);
+        m_ReadyUP_CancelReadyUp = m_ReadyUP.FindAction("CancelReadyUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -646,11 +739,17 @@ public class TestController : IInputActionCollection, IDisposable
     private readonly InputActionMap m_ReadyUP;
     private IReadyUPActions m_ReadyUPActionsCallbackInterface;
     private readonly InputAction m_ReadyUP_ReadyUp;
+    private readonly InputAction m_ReadyUP_ShiftLeft;
+    private readonly InputAction m_ReadyUP_ShiftRight;
+    private readonly InputAction m_ReadyUP_CancelReadyUp;
     public struct ReadyUPActions
     {
         private TestController m_Wrapper;
         public ReadyUPActions(TestController wrapper) { m_Wrapper = wrapper; }
         public InputAction @ReadyUp => m_Wrapper.m_ReadyUP_ReadyUp;
+        public InputAction @ShiftLeft => m_Wrapper.m_ReadyUP_ShiftLeft;
+        public InputAction @ShiftRight => m_Wrapper.m_ReadyUP_ShiftRight;
+        public InputAction @CancelReadyUp => m_Wrapper.m_ReadyUP_CancelReadyUp;
         public InputActionMap Get() { return m_Wrapper.m_ReadyUP; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -663,6 +762,15 @@ public class TestController : IInputActionCollection, IDisposable
                 ReadyUp.started -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnReadyUp;
                 ReadyUp.performed -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnReadyUp;
                 ReadyUp.canceled -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnReadyUp;
+                ShiftLeft.started -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnShiftLeft;
+                ShiftLeft.performed -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnShiftLeft;
+                ShiftLeft.canceled -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnShiftLeft;
+                ShiftRight.started -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnShiftRight;
+                ShiftRight.performed -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnShiftRight;
+                ShiftRight.canceled -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnShiftRight;
+                CancelReadyUp.started -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnCancelReadyUp;
+                CancelReadyUp.performed -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnCancelReadyUp;
+                CancelReadyUp.canceled -= m_Wrapper.m_ReadyUPActionsCallbackInterface.OnCancelReadyUp;
             }
             m_Wrapper.m_ReadyUPActionsCallbackInterface = instance;
             if (instance != null)
@@ -670,6 +778,15 @@ public class TestController : IInputActionCollection, IDisposable
                 ReadyUp.started += instance.OnReadyUp;
                 ReadyUp.performed += instance.OnReadyUp;
                 ReadyUp.canceled += instance.OnReadyUp;
+                ShiftLeft.started += instance.OnShiftLeft;
+                ShiftLeft.performed += instance.OnShiftLeft;
+                ShiftLeft.canceled += instance.OnShiftLeft;
+                ShiftRight.started += instance.OnShiftRight;
+                ShiftRight.performed += instance.OnShiftRight;
+                ShiftRight.canceled += instance.OnShiftRight;
+                CancelReadyUp.started += instance.OnCancelReadyUp;
+                CancelReadyUp.performed += instance.OnCancelReadyUp;
+                CancelReadyUp.canceled += instance.OnCancelReadyUp;
             }
         }
     }
@@ -695,5 +812,8 @@ public class TestController : IInputActionCollection, IDisposable
     public interface IReadyUPActions
     {
         void OnReadyUp(InputAction.CallbackContext context);
+        void OnShiftLeft(InputAction.CallbackContext context);
+        void OnShiftRight(InputAction.CallbackContext context);
+        void OnCancelReadyUp(InputAction.CallbackContext context);
     }
 }
