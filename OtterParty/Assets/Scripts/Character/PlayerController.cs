@@ -188,14 +188,4 @@ public class PlayerController : StateMachine
         }
         return false;
     }
-
-    //private void OnTriggerEnter(Collider other) // replace with raycast
-    //{
-    //    if (other.gameObject.CompareTag("Ground"))
-    //    {
-    //        if (anim != null)
-    //            anim.SetBool("IsJumping", false);
-    //        IsGrounded = true;
-    //    }
-    //}
 }
