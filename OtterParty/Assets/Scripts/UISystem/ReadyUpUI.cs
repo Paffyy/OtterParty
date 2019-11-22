@@ -42,7 +42,6 @@ public class ReadyUpUI : MonoBehaviour
                 }
             }
         }
-
     }
     private bool IsAllPlayersReady()
     {
