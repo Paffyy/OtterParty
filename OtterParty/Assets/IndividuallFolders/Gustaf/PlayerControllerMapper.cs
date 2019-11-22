@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/IndividuallFolders/Gustaf/TestController.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/IndividuallFolders/Gustaf/PlayerControllerMapper.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class TestController : IInputActionCollection, IDisposable
+public class PlayerControllerMapper : IInputActionCollection, IDisposable
 {
     private InputActionAsset asset;
-    public TestController()
+    public PlayerControllerMapper()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""TestController"",
+    ""name"": ""PlayerControllerMapper"",
     ""maps"": [
         {
             ""name"": ""Gameplay"",
@@ -601,8 +601,8 @@ public class TestController : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Shove;
     public struct GameplayActions
     {
-        private TestController m_Wrapper;
-        public GameplayActions(TestController wrapper) { m_Wrapper = wrapper; }
+        private PlayerControllerMapper m_Wrapper;
+        public GameplayActions(PlayerControllerMapper wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
@@ -680,8 +680,8 @@ public class TestController : IInputActionCollection, IDisposable
     private readonly InputAction m_OnlyController_RightSpam;
     public struct OnlyControllerActions
     {
-        private TestController m_Wrapper;
-        public OnlyControllerActions(TestController wrapper) { m_Wrapper = wrapper; }
+        private PlayerControllerMapper m_Wrapper;
+        public OnlyControllerActions(PlayerControllerMapper wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_OnlyController_Move;
         public InputAction @Jump => m_Wrapper.m_OnlyController_Jump;
         public InputAction @Fire => m_Wrapper.m_OnlyController_Fire;
@@ -744,8 +744,8 @@ public class TestController : IInputActionCollection, IDisposable
     private readonly InputAction m_ReadyUP_CancelReadyUp;
     public struct ReadyUPActions
     {
-        private TestController m_Wrapper;
-        public ReadyUPActions(TestController wrapper) { m_Wrapper = wrapper; }
+        private PlayerControllerMapper m_Wrapper;
+        public ReadyUPActions(PlayerControllerMapper wrapper) { m_Wrapper = wrapper; }
         public InputAction @ReadyUp => m_Wrapper.m_ReadyUP_ReadyUp;
         public InputAction @ShiftLeft => m_Wrapper.m_ReadyUP_ShiftLeft;
         public InputAction @ShiftRight => m_Wrapper.m_ReadyUP_ShiftRight;
