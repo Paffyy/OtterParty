@@ -13,6 +13,12 @@ public class ItemSelection : MonoBehaviour
     [SerializeField]
     private SpriteRenderer rightSprite;
     [SerializeField]
+    private MeshFilter centerPos;
+    [SerializeField]
+    private MeshFilter leftPos;
+    [SerializeField]
+    private MeshFilter rightPos;
+    [SerializeField]
     private GameObject hatTakenMessage;
     private PlayerController player;
     private int centerHatIndex;
@@ -39,33 +45,14 @@ public class ItemSelection : MonoBehaviour
         if(GameController.Instance.PlayerHats.Count > 0)
         {
             selectedHat = GameController.Instance.PlayerHats[0].GetComponent<PlayerHat>();
-            centerSprite.sprite = selectedHat.HatSprite;
+            //centerSprite.sprite = selectedHat.HatSprite;
+            centerPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
             centerHatIndex = 0;
             SetPlayerHat();
             if (GameController.Instance.PlayerHats.Count > 1)
             {
-                rightSprite.sprite = GameController.Instance.PlayerHats[1].GetComponent<PlayerHat>().HatSprite;
-            }
-        }
-    }
-
-    private void OnShiftLeft()
-    {
-        if (centerHatIndex - 1 >= 0 && !hatSelected)
-        {
-            hatTakenMessage.SetActive(false);
-            Destroy(hat);
-            rightSprite.sprite = selectedHat.HatSprite;
-            centerHatIndex--;
-            SetPlayerHat();
-            centerSprite.sprite = selectedHat.HatSprite;
-            if (centerHatIndex - 1 >= 0)
-            {
-                leftSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().HatSprite;
-            }
-            else
-            {
-                leftSprite.sprite = null;
+                rightPos.mesh = GameController.Instance.PlayerHats[1].GetComponent<MeshFilter>().sharedMesh;
+                //rightSprite.sprite = GameController.Instance.PlayerHats[1].GetComponent<PlayerHat>().HatSprite;
             }
         }
     }
@@ -78,7 +65,33 @@ public class ItemSelection : MonoBehaviour
         {
             playerVM.HatIndex = centerHatIndex;
         }
-        hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, player.HatPlaceHolder.rotation, player.HatPlaceHolder);
+        hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position + selectedHat.HatOffset, selectedHat.transform.rotation, player.HatPlaceHolder);
+        //hat.GetComponent<PlayerHat>().SetPlayerMaterial(playerVM.ID);
+    }
+
+    private void OnShiftLeft()
+    {
+        if (centerHatIndex - 1 >= 0 && !hatSelected)
+        {
+            hatTakenMessage.SetActive(false);
+            Destroy(hat);
+            rightPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            //rightSprite.sprite = selectedHat.HatSprite;
+            centerHatIndex--;
+            SetPlayerHat();
+            //centerSprite.sprite = selectedHat.HatSprite;
+            centerPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            if (centerHatIndex - 1 >= 0)
+            {
+               // leftSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().HatSprite;
+               leftPos.mesh = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<MeshFilter>().sharedMesh;
+            }
+            else
+            {
+                //  leftSprite.sprite = null;
+                leftPos.mesh = null;
+            }
+        }
     }
 
     private void OnShiftRight()
@@ -87,17 +100,20 @@ public class ItemSelection : MonoBehaviour
         {
             hatTakenMessage.SetActive(false);
             Destroy(hat);
-            leftSprite.sprite = selectedHat.HatSprite;
+            leftPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            //leftSprite.sprite = selectedHat.HatSprite;
             centerHatIndex++;
             SetPlayerHat();
-            centerSprite.sprite = selectedHat.HatSprite;
+            // centerSprite.sprite = selectedHat.HatSprite;
+            centerPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
             if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
             {
-                rightSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>().HatSprite;
+               // rightSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>().HatSprite;
+                rightPos.mesh = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<MeshFilter>().sharedMesh;
             }
             else
             {
-                rightSprite.sprite = null;
+                rightPos.mesh = null;
             }
         }
     }
