@@ -11,6 +11,10 @@ public class MinigameController : MonoBehaviour
 {
     #region Fields
 
+    [Header("Debugging")]
+    [SerializeField]
+    private bool ToggleDebugging;
+
     [Header("Values")]
 
     [SerializeField]
@@ -108,6 +112,13 @@ public class MinigameController : MonoBehaviour
             RegisterToEliminateEvents();
             currentReversePoints = GameController.Instance.Players.Count;
         }
+        else
+        {
+            if (ToggleDebugging)
+            {
+                EnableTesting();
+            }
+        }
     }
     private void InitPlayers()
     {
@@ -126,28 +137,31 @@ public class MinigameController : MonoBehaviour
     }
     private void OnPlayerJoined(PlayerInput playerInput)
     {
-        Player player = GameController.Instance.FindPlayerByID(playerInput.playerIndex);
-        if (gameType == GameType.Finale)
-        {
-            float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
-            float leadDistance = ((playerScore - (GameController.Instance.Minigames.Count - 1)) / (GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1))) * leadMultiplier;
-            leadDistance = Mathf.Clamp(leadDistance, 0, leadMultiplier); // leadMultiplier is distance from checkpoint to end of running segment or less
-            Debug.Log(leadDistance);
-            Vector3 leadVector = new Vector3(0, 0, leadDistance);
-            checkPoints[playerInput.playerIndex].transform.position = checkPoints[playerInput.playerIndex].transform.position + leadVector;
-        }
         playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
-        player.PlayerObject = playerInput.gameObject;
 
-        if (!isOnUILayer) // ChickenShootout
+        if (!ToggleDebugging)
         {
-            Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
-            player.PlayerObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
-            var hat = GameController.Instance.PlayerHats[player.HatIndex];
-            var hatTransform = playerInput.GetComponent<PlayerController>().HatPlaceHolder;
-            var hatClone = Instantiate(hat, hatTransform.position + hat.GetComponent<PlayerHat>().HatOffset, hat.transform.rotation, hatTransform);
-           // hat.GetComponent<PlayerHat>().SetPlayerMaterial(player.ID);
+            Player player = GameController.Instance.FindPlayerByID(playerInput.playerIndex);
+            if (gameType == GameType.Finale)
+            {
+                float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
+                float leadDistance = ((playerScore - (GameController.Instance.Minigames.Count - 1)) / (GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1))) * leadMultiplier;
+                leadDistance = Mathf.Clamp(leadDistance, 0, leadMultiplier); // leadMultiplier is distance from checkpoint to end of running segment or less
+                Debug.Log(leadDistance);
+                Vector3 leadVector = new Vector3(0, 0, leadDistance);
+                checkPoints[playerInput.playerIndex].transform.position = checkPoints[playerInput.playerIndex].transform.position + leadVector;
+            }
+            player.PlayerObject = playerInput.gameObject;
+            if (!isOnUILayer) // ChickenShootout
+            {
+                Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
+                player.PlayerObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
+                var hat = GameController.Instance.PlayerHats[player.HatIndex];
+                var hatTransform = playerInput.GetComponent<PlayerController>().HatPlaceHolder;
+                var hatClone = Instantiate(hat, hatTransform.position + hat.GetComponent<PlayerHat>().HatOffset, hat.transform.rotation, hatTransform);
+                // hat.GetComponent<PlayerHat>().SetPlayerMaterial(player.ID);
+            }
         }
     }
     #endregion
@@ -452,5 +466,11 @@ public class MinigameController : MonoBehaviour
         {
            Instantiate(showStandingsUI, canvas.transform);
         }
+    }
+    private void EnableTesting()
+    {
+        canvas.gameObject.SetActive(false);
+        playerInputManager.JoinPlayer();
+        EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
     }
 }

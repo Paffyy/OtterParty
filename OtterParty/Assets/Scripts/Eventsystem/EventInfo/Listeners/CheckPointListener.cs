@@ -100,9 +100,12 @@ public class CheckPointListener : BaseListener
         {
             if (isCameraDependent)
             {
-                foreach (var player in GameController.Instance.Players)
+                if (GameController.Instance != null)
                 {
-                    playerCheckPoints[player.PlayerObject] = eventInfo.checkPoint;
+                    foreach (var player in GameController.Instance.Players)
+                    {
+                        playerCheckPoints[player.PlayerObject] = eventInfo.checkPoint;
+                    }
                 }
             }
             else
