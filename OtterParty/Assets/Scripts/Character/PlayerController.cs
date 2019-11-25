@@ -16,6 +16,9 @@ public class PlayerController : StateMachine
     [SerializeField]
     [Range(0.1f, 0.3f)]
     private float deadZoneValue;
+    [SerializeField]
+    [Range(2f, 7f)]
+    private float fallMultiplier;
     public Vector2 InputDirection { get; set; }
     public Action OnJumpAction { get; set; }
     public Action OnFireAction { get; set; }
@@ -26,9 +29,9 @@ public class PlayerController : StateMachine
     public bool IsInLockedMovement { get; set; }
     public bool IsActive { get; set; }
     public Transform Parent { get; set; }
-    public BoxCollider BodyCollider { get { return bodyCollider; } }
+    public CapsuleCollider BodyCollider { get { return bodyCollider; } }
     [SerializeField]
-    private BoxCollider bodyCollider;
+    private CapsuleCollider bodyCollider;
     private Rigidbody playerBody;
     public Rigidbody PlayerBody { get { return playerBody; } }
     private Vector3 movement;
@@ -76,12 +79,21 @@ public class PlayerController : StateMachine
         IsInLockedMovement = false;
         IsOnMovingPlatform = false;
         playerBody = GetComponent<Rigidbody>();
-  
+
         base.Awake();
     }
 
     private new void Update()
     {
+        if (playerBody.velocity.y < 1.5f)
+        {
+            playerBody.velocity += Vector3.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        else
+        {
+            playerBody.velocity += Vector3.up * Physics2D.gravity.y * (fallMultiplier / 1.5f - 1) * Time.deltaTime;
+        }
+
         ApplyMovement();
         if (hasReceivedInput || (IsInLockedMovement && playerBody.velocity != Vector3.zero))
         {
@@ -104,13 +116,13 @@ public class PlayerController : StateMachine
         }
         else if (IsInLockedMovement)
         {
-            playerBody.MovePosition(transform.position + movement * Time.deltaTime); 
+            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
         }
         else
         {
             playerBody.MovePosition(transform.position + movement * Time.deltaTime);
         }
-        if(playerBody.velocity.magnitude < velocityThreshold)
+        if (playerBody.velocity.magnitude < velocityThreshold)
         {
             playerBody.velocity = Vector3.zero;
         }
@@ -133,14 +145,14 @@ public class PlayerController : StateMachine
 
     public void Jump()
     {
-        if (anim != null)
-            anim.SetTrigger("Jump");
+        //if (anim != null)
+        //    anim.SetTrigger("Jump");
         playerBody.velocity += new Vector3(0, jumpHeight, 0);
     }
     public void Jump(float jumpHeightInput)
     {
-        if (anim != null)
-            anim.SetTrigger("Jump");
+        //if (anim != null)
+        //    anim.SetTrigger("Jump");
         playerBody.velocity += new Vector3(0, jumpHeightInput, 0);
     }
     private void OnMove(InputValue value)
@@ -175,17 +187,25 @@ public class PlayerController : StateMachine
 
     public bool IsGrounded()
     {
-        var coll = Physics.OverlapBox(transform.position + new Vector3(0, bodyCollider.size.y / 2, 0) + Vector3.down * groundCheckDistance, new Vector3(bodyCollider.size.x / 2.5f, bodyCollider.bounds.size.y / 2, bodyCollider.size.z/2.5f), transform.rotation, collisionMask);
-        if (coll != null)
+        var point1 = transform.position + new Vector3(0, bodyCollider.height - bodyCollider.radius, 0);
+        var point2 = transform.position + new Vector3(0, bodyCollider.radius, 0);
+        Physics.CheckSphere(transform.position + new Vector3(0, bodyCollider.radius - 2 * groundCheckDistance, 0), bodyCollider.radius - groundCheckDistance, collisionMask);
+        if (Physics.CheckSphere(transform.position + new Vector3(0, bodyCollider.radius - 2 * groundCheckDistance, 0), bodyCollider.radius - groundCheckDistance, collisionMask))
         {
-            foreach (var item in coll)
-            {
-                if (item.gameObject.CompareTag("Ground"))
-                {
-                    return true;
-                }
-            }
+            return true;
         }
         return false;
+        //var coll = Physics.OverlapBox(transform.position + new Vector3(0, bodyCollider.size.y / 2, 0) + Vector3.down * groundCheckDistance, new Vector3(bodyCollider.size.x / 2.5f, bodyCollider.bounds.size.y / 2, bodyCollider.size.z/2.5f), transform.rotation, collisionMask);
+        //if (coll != null)
+        //{
+        //    foreach (var item in coll)
+        //    {
+        //        if (item.gameObject.CompareTag("Ground"))
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //}
+        //return false;
     }
 }

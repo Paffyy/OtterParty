@@ -717,6 +717,7 @@ GameObject:
   - component: {fileID: 8529150095733756685}
   - component: {fileID: 8529150095733756682}
   - component: {fileID: 8529150095733756684}
+  - component: {fileID: 5530481413943549751}
   m_Layer: 11
   m_Name: DefaultPlayer
   m_TagString: Player
@@ -786,7 +787,7 @@ BoxCollider:
   m_GameObject: {fileID: 2445563581527691152}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.029940335, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: 0}
@@ -799,7 +800,7 @@ BoxCollider:
   m_GameObject: {fileID: 2445563581527691152}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.2517571, y: 2.9153671, z: 1}
   m_Center: {x: -0.0032970905, y: 1.4787374, z: 0}
@@ -864,7 +865,8 @@ MonoBehaviour:
   jumpHeight: 6
   maxSpeed: 10
   deadZoneValue: 0.2
-  bodyCollider: {fileID: 8529150095733756685}
+  fallMultiplier: 2.5
+  bodyCollider: {fileID: 5530481413943549751}
   firePoint: {fileID: 0}
   gun: {fileID: 0}
   meshRen: {fileID: 4588421591307708379}
@@ -874,6 +876,20 @@ MonoBehaviour:
     m_Bits: 16384
   velocityThreshold: 0.1
   hatPlaceHolder: {fileID: 5979298869397281873}
+--- !u!136 &5530481413943549751
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2445563581527691152}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6392946
+  m_Height: 2.937922
+  m_Direction: 1
+  m_Center: {x: -0.007507324, y: 1.4772272, z: 0.120348215}
 --- !u!1 &2608037990014428836
 GameObject:
   m_ObjectHideFlags: 0
