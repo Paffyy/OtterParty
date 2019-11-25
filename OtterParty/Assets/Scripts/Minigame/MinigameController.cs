@@ -157,17 +157,19 @@ public class MinigameController : MonoBehaviour
             {
                 Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
                 player.PlayerObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
-                var hat = GameController.Instance.PlayerHats[player.HatIndex];
+                var hat = GameController.Instance.PlayerHats[player.HatIndex].GetComponent<PlayerHat>();
                 var hatTransform = playerInput.GetComponent<PlayerController>().HatPlaceHolder;
-                var hatClone = Instantiate(hat, hatTransform.position + hat.GetComponent<PlayerHat>().HatOffset, hat.transform.rotation, hatTransform);
-                // hat.GetComponent<PlayerHat>().SetPlayerMaterial(player.ID);
+                var hatClone = Instantiate(hat.gameObject, hatTransform.position, hat.transform.rotation, hatTransform);
+                hatClone.transform.localPosition = hat.HatOffset;
+                hatClone.transform.localEulerAngles = hat.HatRotation;
+                hatClone.GetComponent<PlayerHat>().SetPlayerMaterial(player.ID);
             }
         }
     }
     #endregion
 
     #region Events
- 
+
     private void RegisterToEliminateEvents()
     {
         if (EventHandler.Instance != null)
@@ -242,14 +244,14 @@ public class MinigameController : MonoBehaviour
         {
             var player = GameController.Instance?.FindPlayerByGameObject(finishEventInfo.PlayerWhoFinished);
             if (player != null)
-            { 
+            {
                 EliminatePlayer(player, false);
                 finishEventInfo.PlayerWhoFinished.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
         }
     }
     #endregion
- 
+
     public void EliminatePlayer(Player p, bool playerWasEliminated) // FFA
     {
         if (!playersAlive[p])
@@ -345,7 +347,7 @@ public class MinigameController : MonoBehaviour
         StartMinigameTimer();
         StartMinigameMechanics();
     }
- 
+
     public void StartMinigameTimer()
     {
         StartCoroutine("MinigameTimer", mingameDuration);
@@ -358,14 +360,14 @@ public class MinigameController : MonoBehaviour
     }
 
     IEnumerator MinigameTimer(int duration)
-    {   
+    {
         yield return new WaitForSeconds(duration);
         if (gameType != GameType.PointsBased)
             AwardLastStandingPlayers();
         GameIsOver();
     }
 
-    public void GameIsOver() 
+    public void GameIsOver()
     {
         EndMinigameMechanics();
         StopAllCoroutines();
@@ -456,7 +458,7 @@ public class MinigameController : MonoBehaviour
                 }
             }
         }
-   
+
     }
     private void ShowStandingsUI()
     {

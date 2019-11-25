@@ -18,7 +18,11 @@ public class PlayerHat : MonoBehaviour
     private MeshRenderer meshRen;
     [SerializeField]
     private Vector3 hatRotation;
+    [SerializeField]
+    private Vector3 thumbnailScale;
 
+    public Vector3 ThumnailScale { get { return thumbnailScale; } }
+    public List<Material> HatMaterials { get { return hatMaterials; } }
     public Vector3 HatRotation { get { return hatRotation; } }
     public Vector3 HatOffset { get { return hatOffset; } }
     public int HatIndex { get { return hatIndex; } }

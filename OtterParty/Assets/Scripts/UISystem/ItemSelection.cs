@@ -7,17 +7,11 @@ using UnityEngine.InputSystem;
 public class ItemSelection : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer centerSprite;
+    private GameObject centerPos;
     [SerializeField]
-    private SpriteRenderer leftSprite;
+    private GameObject leftPos;
     [SerializeField]
-    private SpriteRenderer rightSprite;
-    [SerializeField]
-    private MeshFilter centerPos;
-    [SerializeField]
-    private MeshFilter leftPos;
-    [SerializeField]
-    private MeshFilter rightPos;
+    private GameObject rightPos;
     [SerializeField]
     private GameObject hatTakenMessage;
     private PlayerController player;
@@ -26,9 +20,11 @@ public class ItemSelection : MonoBehaviour
     private bool hatSelected;
     private GameObject hat;
     private bool gameHasStarted;
+    private float scaleOffset;
 
     void Start()
     {
+        scaleOffset = 0.7f;
         EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, CheckReadyUp);
         hatSelected = false;
         player = GetComponent<PlayerController>();
@@ -42,17 +38,19 @@ public class ItemSelection : MonoBehaviour
 
     private void SetDefaultItems()
     {
-        if(GameController.Instance.PlayerHats.Count > 0)
+        if (GameController.Instance.PlayerHats.Count > 0)
         {
-            selectedHat = GameController.Instance.PlayerHats[0].GetComponent<PlayerHat>();
-            //centerSprite.sprite = selectedHat.HatSprite;
-            centerPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            selectedHat = GameController.Instance.PlayerHats[0].GetComponent<PlayerHat>();       
+            centerPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            centerPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+            centerPos.transform.localScale = 1 * selectedHat.ThumnailScale;
             centerHatIndex = 0;
             SetPlayerHat();
             if (GameController.Instance.PlayerHats.Count > 1)
             {
-                rightPos.mesh = GameController.Instance.PlayerHats[1].GetComponent<MeshFilter>().sharedMesh;
-                //rightSprite.sprite = GameController.Instance.PlayerHats[1].GetComponent<PlayerHat>().HatSprite;
+                rightPos.GetComponent<MeshFilter>().mesh = GameController.Instance.PlayerHats[1].GetComponent<MeshFilter>().sharedMesh;
+                rightPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+                rightPos.transform.localScale = scaleOffset * selectedHat.ThumnailScale;
             }
         }
     }
@@ -65,8 +63,10 @@ public class ItemSelection : MonoBehaviour
         {
             playerVM.HatIndex = centerHatIndex;
         }
-        hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position + selectedHat.HatOffset, selectedHat.transform.rotation, player.HatPlaceHolder);
-        //hat.GetComponent<PlayerHat>().SetPlayerMaterial(playerVM.ID);
+        hat = Instantiate(selectedHat.gameObject, player.HatPlaceHolder.position, selectedHat.transform.rotation, player.HatPlaceHolder);
+        hat.transform.localPosition = selectedHat.HatOffset;
+        hat.transform.localEulerAngles = selectedHat.HatRotation;
+        hat.GetComponent<PlayerHat>().SetPlayerMaterial(playerVM.ID);
     }
 
     private void OnShiftLeft()
@@ -75,21 +75,23 @@ public class ItemSelection : MonoBehaviour
         {
             hatTakenMessage.SetActive(false);
             Destroy(hat);
-            rightPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
-            //rightSprite.sprite = selectedHat.HatSprite;
+            rightPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            rightPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+            rightPos.transform.localScale = scaleOffset * selectedHat.ThumnailScale;
             centerHatIndex--;
             SetPlayerHat();
-            //centerSprite.sprite = selectedHat.HatSprite;
-            centerPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            centerPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            centerPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+            centerPos.transform.localScale = 1 * selectedHat.ThumnailScale;
             if (centerHatIndex - 1 >= 0)
             {
-               // leftSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().HatSprite;
-               leftPos.mesh = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<MeshFilter>().sharedMesh;
+               leftPos.GetComponent<MeshFilter>().mesh = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<MeshFilter>().sharedMesh;
+                leftPos.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+               leftPos.transform.localScale = scaleOffset * GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().ThumnailScale;
             }
             else
             {
-                //  leftSprite.sprite = null;
-                leftPos.mesh = null;
+                leftPos.GetComponent<MeshFilter>().mesh = null;
             }
         }
     }
@@ -100,20 +102,23 @@ public class ItemSelection : MonoBehaviour
         {
             hatTakenMessage.SetActive(false);
             Destroy(hat);
-            leftPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
-            //leftSprite.sprite = selectedHat.HatSprite;
+            leftPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            leftPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+            leftPos.transform.localScale = scaleOffset * selectedHat.ThumnailScale;
             centerHatIndex++;
             SetPlayerHat();
-            // centerSprite.sprite = selectedHat.HatSprite;
-            centerPos.mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            centerPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+            centerPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+            centerPos.transform.localScale = 1 * selectedHat.ThumnailScale;
             if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
             {
-               // rightSprite.sprite = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>().HatSprite;
-                rightPos.mesh = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<MeshFilter>().sharedMesh;
+                rightPos.GetComponent<MeshFilter>().mesh = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<MeshFilter>().sharedMesh;
+                rightPos.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>().HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+                rightPos.transform.localScale = scaleOffset * GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>().ThumnailScale;
             }
             else
             {
-                rightPos.mesh = null;
+                rightPos.GetComponent<MeshFilter>().mesh = null;
             }
         }
     }
