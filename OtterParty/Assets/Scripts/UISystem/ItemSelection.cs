@@ -69,6 +69,13 @@ public class ItemSelection : MonoBehaviour
         hat.GetComponent<PlayerHat>().SetPlayerMaterial(playerVM.ID);
     }
 
+    private void SetCenterPosItem()
+    {
+        centerPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
+        centerPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+        centerPos.transform.localScale = 1 * selectedHat.ThumnailScale;
+    }
+
     private void OnShiftLeft()
     {
         if (centerHatIndex - 1 >= 0 && !hatSelected)
@@ -80,13 +87,11 @@ public class ItemSelection : MonoBehaviour
             rightPos.transform.localScale = scaleOffset * selectedHat.ThumnailScale;
             centerHatIndex--;
             SetPlayerHat();
-            centerPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
-            centerPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
-            centerPos.transform.localScale = 1 * selectedHat.ThumnailScale;
+            SetCenterPosItem();
             if (centerHatIndex - 1 >= 0)
             {
                leftPos.GetComponent<MeshFilter>().mesh = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<MeshFilter>().sharedMesh;
-                leftPos.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
+               leftPos.GetComponent<MeshRenderer>().material = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
                leftPos.transform.localScale = scaleOffset * GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>().ThumnailScale;
             }
             else
@@ -107,9 +112,7 @@ public class ItemSelection : MonoBehaviour
             leftPos.transform.localScale = scaleOffset * selectedHat.ThumnailScale;
             centerHatIndex++;
             SetPlayerHat();
-            centerPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
-            centerPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
-            centerPos.transform.localScale = 1 * selectedHat.ThumnailScale;
+            SetCenterPosItem();
             if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
             {
                 rightPos.GetComponent<MeshFilter>().mesh = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<MeshFilter>().sharedMesh;
