@@ -144,10 +144,12 @@ public class MinigameController : MonoBehaviour
         {
             Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
             player.PlayerObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
-            var hat = GameController.Instance.PlayerHats[player.HatIndex];
+            var hat = GameController.Instance.PlayerHats[player.HatIndex].GetComponent<PlayerHat>();
             var hatTransform = playerInput.GetComponent<PlayerController>().HatPlaceHolder;
-            var hatClone = Instantiate(hat, hatTransform.position + hat.GetComponent<PlayerHat>().HatOffset, hat.transform.rotation, hatTransform);
-           // hat.GetComponent<PlayerHat>().SetPlayerMaterial(player.ID);
+            var hatClone = Instantiate(hat.gameObject, hatTransform.position, hat.transform.rotation, hatTransform);
+            hatClone.transform.localPosition = hat.HatOffset;
+            hatClone.transform.localEulerAngles = hat.HatRotation;
+            hatClone.GetComponent<PlayerHat>().SetPlayerMaterial(player.ID);
         }
     }
     #endregion
