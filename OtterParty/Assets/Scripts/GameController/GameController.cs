@@ -79,9 +79,7 @@ public class GameController : MonoBehaviour
     {
         PointSystem.InitializePlayers(Players);
     }
-
     public Player FindPlayerByGameObject(GameObject playerObject) =>  Players.FirstOrDefault(x => x.PlayerObject == playerObject);
-
     public Player FindPlayerByID(int playerIndex) => Players.FirstOrDefault(x => x.ID == playerIndex);
-}
 
+}
