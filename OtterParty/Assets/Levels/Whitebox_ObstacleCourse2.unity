@@ -15082,13 +15082,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38d4c2cacbc61da4e97acd81f5cfb823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToggleDebugging: 0
+  toggleDebugging: 0
   mingameDuration: 180
   endOfMatchDelay: 6
   countDownTimer: 3
   gameType: 2
   leadMultiplier: 0
   miniGameLives: 2
+  isOnUILayer: 0
+  hasLimitedLives: 1
   countDownUI: {fileID: 19484181}
   showStandingsUI: {fileID: 7833761761695191566, guid: 3f487f8d5f53aef418060822f91e3d41,
     type: 3}
@@ -15100,8 +15102,6 @@ MonoBehaviour:
     type: 3}
   countDownTimerUI: {fileID: 0}
   timeLeftText: {fileID: 0}
-  isOnUILayer: 0
-  hasLimitedLives: 1
 --- !u!4 &1357455732
 Transform:
   m_ObjectHideFlags: 0
@@ -20567,6 +20567,36 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1a2bf57253b8f8744bac2454d886fa41, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85075476c6eda1a4c885806f62779870, type: 3}
+--- !u!1 &2001998948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2001998949}
+  m_Layer: 0
+  m_Name: Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2001998949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001998948}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3350697, y: 87.199005, z: 372.6845}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2024959384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4821075332150959073, guid: 9dcf9951ac534ea4fbcd1816a7f7dba1,
