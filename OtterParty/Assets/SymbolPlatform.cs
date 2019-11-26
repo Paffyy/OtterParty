@@ -30,7 +30,6 @@ public class SymbolPlatform : MonoBehaviour
     {
         HasSymbol = true;
         spriteRen.sprite = sprite;
-        //mesh.material = material;
     }
 
     public void FallDown()
@@ -48,20 +47,4 @@ public class SymbolPlatform : MonoBehaviour
         transform.position = startPos;
         HasSymbol = false;
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        other.gameObject.transform.parent = gameObject.transform;
-    //    } 
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Player"))
-    //    {
-    //        other.gameObject.transform.parent = null;
-    //    }
-    //}
 }

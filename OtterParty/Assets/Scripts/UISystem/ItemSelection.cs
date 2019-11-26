@@ -7,12 +7,6 @@ using UnityEngine.InputSystem;
 public class ItemSelection : MonoBehaviour
 {
     [SerializeField]
-    private GameObject centerPos;
-    [SerializeField]
-    private GameObject leftPos;
-    [SerializeField]
-    private GameObject rightPos;
-    [SerializeField]
     private SpriteRenderer centerSprite;
     [SerializeField]
     private SpriteRenderer leftSprite;
