@@ -13,7 +13,7 @@ public class MinigameController : MonoBehaviour
 
     [Header("Debugging")]
     [SerializeField]
-    private bool ToggleDebugging;
+    private bool toggleDebugging;
 
     [Header("Values")]
 
@@ -33,6 +33,10 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     [Range(1, 5)]
     private int miniGameLives;
+    [SerializeField]
+    private bool isOnUILayer;
+    [SerializeField]
+    private bool hasLimitedLives;
 
     [Header("References")]
     [SerializeField]
@@ -51,10 +55,7 @@ public class MinigameController : MonoBehaviour
     private GameObject countDownTimerUI;
     [SerializeField]
     private GameObject timeLeftText;
-    [SerializeField]
-    private bool isOnUILayer;
-    [SerializeField]
-    private bool hasLimitedLives;
+ 
     public bool HasLimitedLives { get { return hasLimitedLives; } }
     public int MiniGameLives { get { return miniGameLives; } }
     public GameObject MiniGameUI { get { return miniGameUI; } }
@@ -62,7 +63,7 @@ public class MinigameController : MonoBehaviour
     private GameModes gamemode;
     private RigidbodyConstraints playerConstraints;
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
-    private List<Transform> checkPoints = new List<Transform>();
+    private List<Transform> spawnPoints = new List<Transform>();
     private Canvas canvas;
 
     private PlayerInputManager playerInputManager;
@@ -71,11 +72,11 @@ public class MinigameController : MonoBehaviour
     private enum GameModes { FFA, AllvsOne, Team, Points };
     private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst, Finale, PointsBased };
 
-    #endregion
-
     public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
 
-    #region Singleton
+    #endregion
+
+    #region Singleton Implementation
     private MinigameController() { }
     private static MinigameController instance;
     public static MinigameController Instance
@@ -101,7 +102,7 @@ public class MinigameController : MonoBehaviour
         }
         foreach (Transform item in gameObject.transform)
         {
-            checkPoints.Add(item);
+            spawnPoints.Add(item);
         }
     }
     private void Start()
@@ -114,7 +115,7 @@ public class MinigameController : MonoBehaviour
         }
         else
         {
-            if (ToggleDebugging)
+            if (toggleDebugging)
             {
                 EnableTesting();
             }
@@ -135,24 +136,27 @@ public class MinigameController : MonoBehaviour
             playerInputManager.JoinPlayer(item.ID, -1, null, item.Device);
         }
     }
+
     private void OnPlayerJoined(PlayerInput playerInput)
     {
-        playerInput.gameObject.transform.position = checkPoints[playerInput.playerIndex].transform.position;
-        playerInput.gameObject.transform.rotation = checkPoints[playerInput.playerIndex].transform.rotation;
+        playerInput.gameObject.transform.position = spawnPoints[playerInput.playerIndex].transform.position;
+        playerInput.gameObject.transform.rotation = spawnPoints[playerInput.playerIndex].transform.rotation;
 
-        if (!ToggleDebugging)
+        if (!toggleDebugging)
         {
             Player player = GameController.Instance.FindPlayerByID(playerInput.playerIndex);
             if (gameType == GameType.Finale)
             {
                 float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
-                float leadDistance = ((playerScore - (GameController.Instance.Minigames.Count - 1)) / (GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1))) * leadMultiplier;
-                leadDistance = Mathf.Clamp(leadDistance, 0, leadMultiplier); // leadMultiplier is distance from checkpoint to end of running segment or less
+                float normalizedPlayerScore = playerScore - GameController.Instance.Minigames.Count - 1;
+                float normalizedScoreMultiplier = GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1);
+                float leadDistance = (normalizedPlayerScore / normalizedScoreMultiplier) * leadMultiplier;
+                leadDistance = Mathf.Clamp(leadDistance, 0, leadMultiplier);
                 Vector3 leadVector = new Vector3(0, 0, leadDistance);
-                checkPoints[playerInput.playerIndex].transform.position = checkPoints[playerInput.playerIndex].transform.position + leadVector;
+                spawnPoints[playerInput.playerIndex].transform.position = spawnPoints[playerInput.playerIndex].transform.position + leadVector;
             }
             player.PlayerObject = playerInput.gameObject;
-            if (!isOnUILayer) // ChickenShootout
+            if (!isOnUILayer) // Exception where the character has no mesh
             {
                 Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
                 player.PlayerObject.GetComponent<PlayerController>().MeshRenderer.materials = mats;
@@ -165,6 +169,7 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
+
     #endregion
 
     #region Events
@@ -206,7 +211,7 @@ public class MinigameController : MonoBehaviour
         currentPoints++;
         if (IsGameOver(0) )
         {
-            GameIsOver();
+            EndMinigame();
         }
         else if(IsGameOver())
         {
@@ -251,12 +256,10 @@ public class MinigameController : MonoBehaviour
     }
     #endregion
 
-    public void EliminatePlayer(Player p, bool playerWasEliminated) // FFA
+    public void EliminatePlayer(Player p, bool playerWasEliminated)
     {
         if (!playersAlive[p])
-        {
             return;
-        }
         playersAlive[p] = false;
         switch (gameType)
         {
@@ -271,7 +274,7 @@ public class MinigameController : MonoBehaviour
             {
                 UpdateReversePoints(p);
                 if (IsGameOver(0))
-                    GameIsOver();
+                    EndMinigame();
                 break;
             }
             case GameType.BothLastAndFirst:
@@ -286,7 +289,7 @@ public class MinigameController : MonoBehaviour
                 {
                     UpdateReversePoints(p);
                     if (IsGameOver(0))
-                        GameIsOver();
+                        EndMinigame();
                 }
                 break;
             }
@@ -319,7 +322,7 @@ public class MinigameController : MonoBehaviour
             UpdateReversePoints(lastPlayerAlive);
         }
         playersAlive[lastPlayerAlive] = false;
-        GameIsOver();
+        EndMinigame();
     }
 
     private void UpdatePointSystem(Player p, int points)
@@ -334,7 +337,7 @@ public class MinigameController : MonoBehaviour
         StartCoroutine("StartCountDown");
         ToggleActive(false);
     }
-    IEnumerator StartCountDown() // TODO Display The CountDown UI
+    IEnumerator StartCountDown()
     {
         countDownAnim.SetBool("IsCountingDown", true);
         if(miniGameUI != null)
@@ -363,10 +366,10 @@ public class MinigameController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         if (gameType != GameType.PointsBased)
             AwardLastStandingPlayers();
-        GameIsOver();
+        EndMinigame();
     }
 
-    public void GameIsOver()
+    public void EndMinigame()
     {
         EndMinigameMechanics();
         StopAllCoroutines();
@@ -406,13 +409,22 @@ public class MinigameController : MonoBehaviour
     {
         var sorted = from playerScore
                      in MinigamePointSystem.GetCurrentScore()
-                     orderby -playerScore.Value
+                     orderby playerScore.Value
                      select playerScore;
-        int placementOrder = GameController.Instance.Players.Count;
+        int placementOrder = 0;
+        int previousScore = int.MinValue;
         foreach (var item in sorted.ToList())
         {
-            MinigamePointSystem.GetCurrentScore()[item.Key] = placementOrder;
-            placementOrder--;
+            if (item.Value == previousScore)
+            {
+                MinigamePointSystem.GetCurrentScore()[item.Key] = placementOrder - 1;
+            }
+            else
+            {
+                MinigamePointSystem.GetCurrentScore()[item.Key] = placementOrder;
+            }
+            placementOrder++;
+            previousScore = item.Value;
         }
     }
 
@@ -464,9 +476,7 @@ public class MinigameController : MonoBehaviour
         if (gameType == GameType.Finale)
             winnerUI.SetActive(true);
         else
-        {
            Instantiate(showStandingsUI, canvas.transform);
-        }
     }
     private void EnableTesting()
     {

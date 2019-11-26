@@ -28,6 +28,7 @@ public class PointSystem
             }
         }
     }
+    //Implemented in MinigameController
     public Dictionary<Player, float> GetFinalGameAdvantage()
     {
         Dictionary<Player, float> temp = new Dictionary<Player, float>();
