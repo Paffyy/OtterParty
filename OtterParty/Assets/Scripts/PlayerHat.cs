@@ -19,6 +19,8 @@ public class PlayerHat : MonoBehaviour
     private Vector3 hatRotation;
     [SerializeField]
     private Vector3 thumbnailScale;
+    [SerializeField]
+    private List<Sprite> hatSprites;
 
     public Vector3 ThumnailScale { get { return thumbnailScale; } }
     public List<Material> HatMaterials { get { return hatMaterials; } }
@@ -30,12 +32,15 @@ public class PlayerHat : MonoBehaviour
     public Sprite HatSprite { get { return hatSprite; } }
     public Sprite UnavailableHatSprite { get { return unavailableHatSprite; } }
 
-    public void Start()
+    public Sprite GetHatSprite(int index)
     {
-        CurrentSprite = hatSprite;
+        if (IsAvailable)
+            return hatSprites[index];
+        else
+            return unavailableHatSprite;
     }
 
-    public void SetPlayerMaterial(int index)
+    public void SetHatMaterial(int index)
     {
         meshRen.material = hatMaterials[index];
     }
