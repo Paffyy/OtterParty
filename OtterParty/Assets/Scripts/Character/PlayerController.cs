@@ -94,7 +94,7 @@ public class PlayerController : StateMachine
             playerBody.velocity += Vector3.up * Physics2D.gravity.y * (fallMultiplier / 1.5f - 1) * Time.deltaTime;
         }
         ApplyMovement();
-        if (hasReceivedInput || (IsInLockedMovement && playerBody.velocity != Vector3.zero))
+        if (hasReceivedInput || (IsInLockedMovement && playerBody.velocity.z > 0.1f))
         {
             if (anim != null)
                 anim.SetBool("IsWalking", true);

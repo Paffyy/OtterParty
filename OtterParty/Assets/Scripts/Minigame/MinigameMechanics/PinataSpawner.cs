@@ -47,7 +47,6 @@ public class PinataSpawner : MonoBehaviour
     public void StartLoop(BaseEventInfo e)
     {
         respawnInterval *= 1 - (1 - (1 / (float)GameController.Instance.Players.Count));
-        Debug.Log(respawnInterval);
         StartCoroutine("SpawnPinataLoop");
     }
     private IEnumerator SpawnPinataLoop()
