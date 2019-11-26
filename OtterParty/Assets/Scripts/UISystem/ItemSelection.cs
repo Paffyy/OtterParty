@@ -13,6 +13,12 @@ public class ItemSelection : MonoBehaviour
     [SerializeField]
     private GameObject rightPos;
     [SerializeField]
+    private SpriteRenderer centerSprite;
+    [SerializeField]
+    private SpriteRenderer leftSprite;
+    [SerializeField]
+    private SpriteRenderer rightSprite;
+    [SerializeField]
     private GameObject hatTakenMessage;
     private PlayerController player;
     private int centerHatIndex;
@@ -40,14 +46,17 @@ public class ItemSelection : MonoBehaviour
     {
         if (GameController.Instance.PlayerHats.Count > 0)
         {
-            selectedHat = GameController.Instance.PlayerHats[0].GetComponent<PlayerHat>();       
+            selectedHat = GameController.Instance.PlayerHats[0].GetComponent<PlayerHat>();
+            //centerSprite.sprite = selectedHat.CurrentSprite;
             centerPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
             centerPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
             centerPos.transform.localScale = 1 * selectedHat.ThumnailScale;
+
             centerHatIndex = 0;
             SetPlayerHat();
             if (GameController.Instance.PlayerHats.Count > 1)
             {
+                //rightSprite.sprite = GameController.Instance.PlayerHats[1].GetComponent<PlayerHat>().CurrentSprite;
                 rightPos.GetComponent<MeshFilter>().mesh = GameController.Instance.PlayerHats[1].GetComponent<MeshFilter>().sharedMesh;
                 rightPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
                 rightPos.transform.localScale = scaleOffset * selectedHat.ThumnailScale;
@@ -74,6 +83,7 @@ public class ItemSelection : MonoBehaviour
         centerPos.GetComponent<MeshFilter>().mesh = selectedHat.gameObject.GetComponent<MeshFilter>().sharedMesh;
         centerPos.GetComponent<MeshRenderer>().material = selectedHat.HatMaterials[GameController.Instance.FindPlayerByGameObject(gameObject).ID];
         centerPos.transform.localScale = 1 * selectedHat.ThumnailScale;
+        //centerSprite.sprite = selectedHat.CurrentSprite;
     }
 
     private void OnShiftLeft()

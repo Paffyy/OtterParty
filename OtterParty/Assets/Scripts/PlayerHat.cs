@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerHat : MonoBehaviour
 {
-    [SerializeField]
     private Sprite hatSprite;
     [SerializeField]
     private Sprite unavailableHatSprite;
@@ -27,11 +26,25 @@ public class PlayerHat : MonoBehaviour
     public Vector3 HatOffset { get { return hatOffset; } }
     public int HatIndex { get { return hatIndex; } }
     public bool IsAvailable { get; set; } = true;
+    public Sprite CurrentSprite { get; set; }
     public Sprite HatSprite { get { return hatSprite; } }
     public Sprite UnavailableHatSprite { get { return unavailableHatSprite; } }
+
+    public void Start()
+    {
+        CurrentSprite = hatSprite;
+    }
 
     public void SetPlayerMaterial(int index)
     {
         meshRen.material = hatMaterials[index];
+    }
+
+    public void SetAvailable(bool isAvailable)
+    {
+        if (isAvailable)
+            CurrentSprite = hatSprite;
+        else
+            CurrentSprite = unavailableHatSprite;
     }
 }
