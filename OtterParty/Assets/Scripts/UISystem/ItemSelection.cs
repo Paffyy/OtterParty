@@ -28,12 +28,10 @@ public class ItemSelection : MonoBehaviour
     private bool hatSelected;
     private GameObject hat;
     private bool gameHasStarted;
-    private float scaleOffset;
     private int playerIndex;
 
     void Start()
     {
-        scaleOffset = 0.7f;
         EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, CheckReadyUp);
         hatSelected = false;
         player = GetComponent<PlayerController>();
@@ -48,15 +46,39 @@ public class ItemSelection : MonoBehaviour
 
     private void UpdateHatSprites()
     {
+        UpdateCenterHat();
+        UpdateRightHat();
+        UpdateLeftHat();
+    }
+
+    private void UpdateCenterHat()
+    {
         if (centerHat != null)
         {
-            centerSprite.sprite = centerHat.GetHatSprite(playerIndex);
+            if (!centerHat.IsAvailable && centerHat.SelectedByPlayerIndex != playerIndex)
+            {
+                centerSprite.sprite = centerHat.GetHatSprite(playerIndex);
+                hatTakenMessage.SetActive(true);
+            }
+            else
+            {
+                centerSprite.sprite = centerHat.GetHatSprite(playerIndex);
+                hatTakenMessage.SetActive(false);
+            }
         }
+    }
+
+    private void UpdateRightHat()
+    {
         if (rightHat != null)
         {
             rightSprite.sprite = rightHat.GetHatSprite(playerIndex);
         }
-        if(leftHat != null)
+    }
+    
+    private void UpdateLeftHat()
+    {
+        if (leftHat != null)
         {
             leftSprite.sprite = leftHat.GetHatSprite(playerIndex);
         }
@@ -72,7 +94,7 @@ public class ItemSelection : MonoBehaviour
         if (GameController.Instance.PlayerHats.Count > 0)
         {
             centerHat = GameController.Instance.PlayerHats[0].GetComponent<PlayerHat>();
-            centerSprite.sprite = centerHat.GetHatSprite(playerIndex);
+            SetCenterPosItem();
             centerHatIndex = 0;
             SetPlayerHat();
             if (GameController.Instance.PlayerHats.Count > 1)
@@ -100,6 +122,14 @@ public class ItemSelection : MonoBehaviour
     private void SetCenterPosItem()
     {
         centerSprite.sprite = centerHat.GetHatSprite(playerIndex);
+        if(!centerHat.IsAvailable && centerHat.SelectedByPlayerIndex != playerIndex)
+        {
+            hatTakenMessage.SetActive(true);
+        }
+        else
+        {
+            hatTakenMessage.SetActive(false);
+        }
     }
 
     private void SetRightPosItem(bool hasItem)
@@ -135,7 +165,7 @@ public class ItemSelection : MonoBehaviour
             hatTakenMessage.SetActive(false);
             Destroy(hat);
             rightHat = centerHat;
-            rightSprite.sprite = rightHat.GetHatSprite(playerIndex);
+            SetRightPosItem(true);
             centerHatIndex--;
             SetPlayerHat();
             SetCenterPosItem();
@@ -158,7 +188,7 @@ public class ItemSelection : MonoBehaviour
             hatTakenMessage.SetActive(false);
             Destroy(hat);
             leftHat = centerHat;
-            leftSprite.sprite = leftHat.GetHatSprite(playerIndex);
+            SetLeftPosItem(true);
             centerHatIndex++;
             SetPlayerHat();
             SetCenterPosItem();
@@ -180,9 +210,8 @@ public class ItemSelection : MonoBehaviour
         {
             hatSelected = true;
             centerHat.IsAvailable = false;
-            var id = GetComponent<PlayerInput>().playerIndex;
-            ReadyUpEventInfo e = new ReadyUpEventInfo(id);
-            EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
+            centerHat.SelectedByPlayerIndex = playerIndex;
+            SendReadyUpEvent();
         }
         else if(!hatSelected)
         {
@@ -196,9 +225,14 @@ public class ItemSelection : MonoBehaviour
         {
             hatSelected = false;
             centerHat.IsAvailable = true;
-            var id = GetComponent<PlayerInput>().playerIndex;
-            ReadyUpEventInfo e = new ReadyUpEventInfo(id);
-            EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
+            SendReadyUpEvent();
         }
+    }
+
+    private void SendReadyUpEvent()
+    {
+        var id = GetComponent<PlayerInput>().playerIndex;
+        ReadyUpEventInfo e = new ReadyUpEventInfo(id);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
     }
 }
