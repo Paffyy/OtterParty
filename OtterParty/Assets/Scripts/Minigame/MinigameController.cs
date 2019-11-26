@@ -165,7 +165,7 @@ public class MinigameController : MonoBehaviour
                 var hatClone = Instantiate(hat.gameObject, hatTransform.position, hat.transform.rotation, hatTransform);
                 hatClone.transform.localPosition = hat.HatOffset;
                 hatClone.transform.localEulerAngles = hat.HatRotation;
-                hatClone.GetComponent<PlayerHat>().SetPlayerMaterial(player.ID);
+                hatClone.GetComponent<PlayerHat>().SetHatMaterial(player.ID);
             }
         }
     }

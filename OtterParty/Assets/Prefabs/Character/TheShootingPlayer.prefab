@@ -137,7 +137,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &5998368792125311048
 MonoBehaviour:
@@ -198,12 +198,12 @@ MonoBehaviour:
   jumpHeight: 6
   maxSpeed: 10
   deadZoneValue: 0.2
-  fallMultiplier: 0
+  fallMultiplier: 2.5
   bodyCollider: {fileID: -2832937372261627636}
   firePoint: {fileID: 5404694256065570500}
   gun: {fileID: 7893688201495563376}
   meshRen: {fileID: 1931627870308334745}
-  groundCheckDistance: 0
+  groundCheckDistance: 0.1
   collisionMask:
     serializedVersion: 2
     m_Bits: 0
@@ -7825,21 +7825,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7222303632930702211}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: f55d59d1515c1544e9eae24b89ebfabd,
-        type: 3}
-      propertyPath: m_Name
-      value: gunre
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: f55d59d1515c1544e9eae24b89ebfabd,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1313520008821544944, guid: f55d59d1515c1544e9eae24b89ebfabd,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: -3862147023334189440, guid: f55d59d1515c1544e9eae24b89ebfabd,
         type: 3}
       propertyPath: m_Layer
@@ -7914,6 +7899,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.8103075
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f55d59d1515c1544e9eae24b89ebfabd,
+        type: 3}
+      propertyPath: m_Name
+      value: gunre
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f55d59d1515c1544e9eae24b89ebfabd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313520008821544944, guid: f55d59d1515c1544e9eae24b89ebfabd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -1743236146080356793, guid: f55d59d1515c1544e9eae24b89ebfabd,
         type: 3}
