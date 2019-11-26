@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +26,6 @@ public class EventHandler : MonoBehaviour
         MultipleEliminateEvent,
         SoundEvent
     }
-
     private Dictionary<EventType, List<EventListener>> eventListeners;
     private static EventHandler instance;
     public static EventHandler Instance

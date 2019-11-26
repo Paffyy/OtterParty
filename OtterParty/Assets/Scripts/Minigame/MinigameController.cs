@@ -139,23 +139,20 @@ public class MinigameController : MonoBehaviour
 
     private void OnPlayerJoined(PlayerInput playerInput)
     {
-        playerInput.gameObject.transform.position = spawnPoints[playerInput.playerIndex].transform.position;
-        playerInput.gameObject.transform.rotation = spawnPoints[playerInput.playerIndex].transform.rotation;
-
         if (!toggleDebugging)
         {
             Player player = GameController.Instance.FindPlayerByID(playerInput.playerIndex);
+            player.PlayerObject = playerInput.gameObject;
             if (gameType == GameType.Finale)
             {
                 float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
-                float normalizedPlayerScore = playerScore - GameController.Instance.Minigames.Count - 1;
+                float normalizedPlayerScore = playerScore - (GameController.Instance.Minigames.Count - 1);
                 float normalizedScoreMultiplier = GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1);
                 float leadDistance = (normalizedPlayerScore / normalizedScoreMultiplier) * leadMultiplier;
                 leadDistance = Mathf.Clamp(leadDistance, 0, leadMultiplier);
                 Vector3 leadVector = new Vector3(0, 0, leadDistance);
                 spawnPoints[playerInput.playerIndex].transform.position = spawnPoints[playerInput.playerIndex].transform.position + leadVector;
             }
-            player.PlayerObject = playerInput.gameObject;
             if (!isOnUILayer) // Exception where the character has no mesh
             {
                 Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };
@@ -168,8 +165,9 @@ public class MinigameController : MonoBehaviour
                 hatClone.GetComponent<PlayerHat>().SetHatMaterial(player.ID);
             }
         }
+        playerInput.gameObject.transform.position = spawnPoints[playerInput.playerIndex].transform.position;
+        playerInput.gameObject.transform.rotation = spawnPoints[playerInput.playerIndex].transform.rotation;
     }
-
     #endregion
 
     #region Events
@@ -411,20 +409,20 @@ public class MinigameController : MonoBehaviour
                      in MinigamePointSystem.GetCurrentScore()
                      orderby playerScore.Value
                      select playerScore;
-        int placementOrder = 0;
-        int previousScore = int.MinValue;
+        int placementOrder = 1;
+        KeyValuePair<Player,int> previousScore = new KeyValuePair<Player, int>(new Player(),int.MinValue);
         foreach (var item in sorted.ToList())
         {
-            if (item.Value == previousScore)
+            if (item.Value == previousScore.Value)
             {
-                MinigamePointSystem.GetCurrentScore()[item.Key] = placementOrder - 1;
+                MinigamePointSystem.GetCurrentScore()[item.Key] = MinigamePointSystem.GetCurrentScore()[previousScore.Key];
             }
             else
             {
                 MinigamePointSystem.GetCurrentScore()[item.Key] = placementOrder;
             }
             placementOrder++;
-            previousScore = item.Value;
+            previousScore = item;
         }
     }
 

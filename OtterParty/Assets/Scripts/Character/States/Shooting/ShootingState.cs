@@ -25,6 +25,8 @@ public class ShootingState : CharacterBaseState
     private ParticleSystem projectileParticle;
     [SerializeField]
     private RuntimeAnimatorController playerGunAnimations;
+    [SerializeField]
+    private AudioClip shotgunSoundEffect;
 
     public override void Enter()
     {
@@ -72,7 +74,12 @@ public class ShootingState : CharacterBaseState
     {
         if (owner.IsActive && IsOffCooldown)
         {
+            if (EventHandler.Instance != null)
+            {
+                EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(shotgunSoundEffect));
+            }
             FireProjectile();
+            
             Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
             IsOffCooldown = false;
         }
