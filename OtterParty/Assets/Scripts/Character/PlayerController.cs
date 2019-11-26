@@ -93,7 +93,6 @@ public class PlayerController : StateMachine
         {
             playerBody.velocity += Vector3.up * Physics2D.gravity.y * (fallMultiplier / 1.5f - 1) * Time.deltaTime;
         }
-
         ApplyMovement();
         if (hasReceivedInput || (IsInLockedMovement && playerBody.velocity != Vector3.zero))
         {
@@ -145,14 +144,14 @@ public class PlayerController : StateMachine
 
     public void Jump()
     {
-        //if (anim != null)
-        //    anim.SetTrigger("Jump");
+        if (anim != null)
+            anim.SetTrigger("Jump");
         playerBody.velocity += new Vector3(0, jumpHeight, 0);
     }
     public void Jump(float jumpHeightInput)
     {
-        //if (anim != null)
-        //    anim.SetTrigger("Jump");
+        if (anim != null)
+            anim.SetTrigger("Jump");
         playerBody.velocity += new Vector3(0, jumpHeightInput, 0);
     }
     private void OnMove(InputValue value)
@@ -195,17 +194,5 @@ public class PlayerController : StateMachine
             return true;
         }
         return false;
-        //var coll = Physics.OverlapBox(transform.position + new Vector3(0, bodyCollider.size.y / 2, 0) + Vector3.down * groundCheckDistance, new Vector3(bodyCollider.size.x / 2.5f, bodyCollider.bounds.size.y / 2, bodyCollider.size.z/2.5f), transform.rotation, collisionMask);
-        //if (coll != null)
-        //{
-        //    foreach (var item in coll)
-        //    {
-        //        if (item.gameObject.CompareTag("Ground"))
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //}
-        //return false;
     }
 }

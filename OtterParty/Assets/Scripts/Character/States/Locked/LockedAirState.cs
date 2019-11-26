@@ -25,17 +25,6 @@ public class LockedAirState : CharacterBaseState
         }
     }
 
-    private void CheckCollision()
-    {
-        float distance = owner.GetComponent<MeshFilter>().mesh.bounds.extents.y + skinWidth;
-        Debug.Log(distance);
-        Physics.Raycast(owner.transform.position, Vector3.down, out RaycastHit hit, distance, collisionMask);
-        if(hit.collider != null)
-        {
-            owner.Transition<LockedMovementState>();
-        }
-    }
-
     public override void Exit()
     {
         owner.IsInLockedMovement = false;

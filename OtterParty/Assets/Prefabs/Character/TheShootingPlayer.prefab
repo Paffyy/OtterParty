@@ -72,12 +72,11 @@ GameObject:
   - component: {fileID: 3659428366686742209}
   - component: {fileID: 6648128302090111931}
   - component: {fileID: 5998368792125311049}
-  - component: {fileID: 5998368792125311051}
-  - component: {fileID: 5998368792125311055}
   - component: {fileID: 5998368792125311048}
   - component: {fileID: 5998368792125311054}
   - component: {fileID: 6177449885933473436}
   - component: {fileID: 3533978036180665693}
+  - component: {fileID: -2832937372261627636}
   m_Layer: 11
   m_Name: TheShootingPlayer
   m_TagString: Player
@@ -140,32 +139,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &5998368792125311051
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329817680834925778}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.99999994, y: 0.029940335, z: 0.99999994}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &5998368792125311055
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329817680834925778}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.2517571, y: 2.9153671, z: 1}
-  m_Center: {x: -0.0032970905, y: 1.4787374, z: 0}
 --- !u!114 &5998368792125311048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +198,8 @@ MonoBehaviour:
   jumpHeight: 6
   maxSpeed: 10
   deadZoneValue: 0.2
-  bodyCollider: {fileID: 5998368792125311055}
+  fallMultiplier: 0
+  bodyCollider: {fileID: -2832937372261627636}
   firePoint: {fileID: 5404694256065570500}
   gun: {fileID: 7893688201495563376}
   meshRen: {fileID: 1931627870308334745}
@@ -4956,6 +4930,20 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!136 &-2832937372261627636
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329817680834925778}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6392946
+  m_Height: 2.937922
+  m_Direction: 1
+  m_Center: {x: -0.007507324, y: 1.4772272, z: 0.120348215}
 --- !u!1 &587569363597208167
 GameObject:
   m_ObjectHideFlags: 0
