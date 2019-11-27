@@ -36,7 +36,14 @@ public class ShootingState : CharacterBaseState
         owner.PlayerState = PlayerController.CurrentPlayerState.ShootingState;
         projectileParticle = owner.GetComponent<ParticleSystem>();
         var main = projectileParticle.main;
-        projectilePrefab = projectiles[GameController.Instance.FindPlayerByGameObject(owner.gameObject).ID];
+        if (GameController.Instance != null)
+        {
+            projectilePrefab = projectiles[GameController.Instance.FindPlayerByGameObject(owner.gameObject).ID];
+        }
+        else
+        {
+            projectilePrefab = projectiles[0];
+        }
         float lifetime = projectileRange / main.startSpeed.constant;
         main.startLifetime = lifetime;
         owner.OnMoveAction += Movement;

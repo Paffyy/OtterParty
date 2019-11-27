@@ -480,6 +480,7 @@ public class MinigameController : MonoBehaviour
     {
         canvas.gameObject.SetActive(false);
         playerInputManager.JoinPlayer();
+        FindObjectOfType<PlayerController>().IsActive = true;
         EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
     }
 }
