@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7332929586826672676}
   - component: {fileID: 7332929586826672678}
   - component: {fileID: 7332929586826672679}
-  - component: {fileID: 2047236033691401874}
   - component: {fileID: 8807792221188913947}
+  - component: {fileID: 9052644798091295651}
   m_Layer: 9
   m_Name: Pinata 1
   m_TagString: Enemy
@@ -120,20 +120,6 @@ MonoBehaviour:
   particles: {fileID: 914983765205473485, guid: 7fa8fdce908a2e74f83e61b6664f3eab,
     type: 3}
   walkDistance: 7
---- !u!64 &2047236033691401874
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7332929586826672680}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4068373912626513877, guid: 19c8085a98f53c64a8ebee83865ae8d0, type: 3}
 --- !u!95 &8807792221188913947
 Animator:
   serializedVersion: 3
@@ -153,3 +139,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &9052644798091295651
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7332929586826672680}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.580379, y: 1.7865939, z: 1.8336166}
+  m_Center: {x: 0.000000014901161, y: 0.89329696, z: 0}
