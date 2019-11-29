@@ -83,7 +83,7 @@ public class ShootingState : CharacterBaseState
         {
             if (EventHandler.Instance != null)
             {
-                EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(shotgunSoundEffect));
+                EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(shotgunSoundEffect, 0.5f));
             }
             FireProjectile();
             

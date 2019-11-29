@@ -34,7 +34,7 @@ public class TargetHitListener : BaseListener
         {
             Vector3 position = hitObject.transform.position;
             EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, Quaternion.identity, hitObject.GetComponent<MovingTarget>().GetPlayerParticle(GameController.Instance.FindPlayerByGameObject(playerThatShot).ID)));
-            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound));
+            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound, 0.5f));
         }
         if (eventInfo != null && !eventInfo.ObjectHit.CompareTag("Player"))
         {
