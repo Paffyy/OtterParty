@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class ProjectileMove : MonoBehaviour
 {
-    [SerializeField]
-    [Range(1f, 40f)]
-    private float speed;
-    [SerializeField]
-    private GameObject muzzlePrefab;
-    [SerializeField]
-    private GameObject hitPrefab;
+    [SerializeField] [Range(1f, 40f)] private float speed;
+    [SerializeField] private GameObject muzzlePrefab;
+    [SerializeField] private GameObject hitPrefab;
     public GameObject PlayerThatShot { get; set; }
 
     void Start()
