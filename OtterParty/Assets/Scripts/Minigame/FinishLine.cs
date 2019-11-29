@@ -17,7 +17,7 @@ public class FinishLine : MonoBehaviour
                 triggeredObjects.Add(other.gameObject);
                 FinishedEventInfo eventInfo = new FinishedEventInfo(other.gameObject);
                 EventHandler.Instance.FireEvent(EventHandler.EventType.FinishLineEvent, eventInfo);
-                EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(finishedSoundEffect));
+                EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(finishedSoundEffect, 0.5f));
             }
         }
     }

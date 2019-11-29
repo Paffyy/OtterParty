@@ -28,13 +28,15 @@ public class TargetHitListener : BaseListener
         {
             Vector3 position = hitObject.transform.position;
             Quaternion rotation = hitObject.transform.rotation;
-            EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, rotation, hitObject.GetComponent<PinataBehaviour>().ParticleObject));
+            GameObject deathParticles = hitObject.GetComponent<PinataBehaviour>().ParticleObjects[GameController.Instance.FindPlayerByGameObject(playerThatShot).ID];
+            TransformEventInfo tei = new TransformEventInfo(position, rotation, deathParticles);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, tei);
         }
         else if (hitObject.GetComponent<MovingTarget>() != null)
         {
             Vector3 position = hitObject.transform.position;
             EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, Quaternion.identity, hitObject.GetComponent<MovingTarget>().GetPlayerParticle(GameController.Instance.FindPlayerByGameObject(playerThatShot).ID)));
-            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound));
+            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound, 0.5f));
         }
         if (eventInfo != null && !eventInfo.ObjectHit.CompareTag("Player"))
         {

@@ -85,6 +85,32 @@ public class PlayerController : StateMachine
 
     private new void Update()
     {
+        AdjustJumpBehaviour();
+        ApplyMovement();
+        HandleWalkingAnimation();
+        base.Update();
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private void MovePlayer()
+    {
+        if (IsOnMovingPlatform)
+        {
+            playerBody.velocity = movement;
+        }
+        else
+        {
+            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
+        }
+        CheckIfNoMovement();
+    }
+
+    private void AdjustJumpBehaviour()
+    {
         if (playerBody.velocity.y < 1.5f)
         {
             playerBody.velocity += Vector3.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -93,7 +119,18 @@ public class PlayerController : StateMachine
         {
             playerBody.velocity += Vector3.up * Physics2D.gravity.y * (fallMultiplier / 1.5f - 1) * Time.deltaTime;
         }
-        ApplyMovement();
+    }
+
+    private void CheckIfNoMovement()
+    {
+        if (playerBody.velocity.magnitude < velocityThreshold)
+        {
+            playerBody.velocity = Vector3.zero;
+        }
+    }
+
+    private void HandleWalkingAnimation()
+    {
         if (hasReceivedInput || (IsInLockedMovement && playerBody.velocity.z > 0.1f))
         {
             if (anim != null)
@@ -103,27 +140,6 @@ public class PlayerController : StateMachine
         {
             if (anim != null)
                 anim.SetBool("IsWalking", false);
-        }
-        base.Update();
-    }
-
-    private void FixedUpdate()
-    {
-        if (IsOnMovingPlatform) // velocity Movement
-        {
-            playerBody.velocity = movement;
-        }
-        else if (IsInLockedMovement)
-        {
-            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
-        }
-        else
-        {
-            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
-        }
-        if (playerBody.velocity.magnitude < velocityThreshold)
-        {
-            playerBody.velocity = Vector3.zero;
         }
     }
 

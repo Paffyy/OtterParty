@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7332929586826672680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.176265, y: 14.65, z: -5.082797}
+  m_LocalPosition: {x: 11.416736, y: 15.46, z: 7.0527034}
   m_LocalScale: {x: 1.8, y: 1.8159999, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -117,8 +117,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   standStillDuration: 1
-  particles: {fileID: 914983765205473485, guid: 7fa8fdce908a2e74f83e61b6664f3eab,
-    type: 3}
+  particles:
+  - {fileID: 914983765205473485, guid: 6c8ae995e60d0b54c967af2c97555d34, type: 3}
+  - {fileID: 914983765205473485, guid: 48540d8f20b275a4c8be94c0e6fd5c1c, type: 3}
+  - {fileID: 914983765205473485, guid: 11dcdcef8667da745bab483034b0206c, type: 3}
+  - {fileID: 914983765205473485, guid: 4b0574ae032de30448c9b7d9b95e2d62, type: 3}
   walkDistance: 7
 --- !u!95 &8807792221188913947
 Animator:
