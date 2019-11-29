@@ -9,7 +9,7 @@ public class PinataBehaviour : MonoBehaviour
     [SerializeField]
     private float standStillDuration;
     [SerializeField]
-    private GameObject particles;
+    private List<GameObject> particles;
     [SerializeField]
     private float walkDistance;
     private NavMeshAgent navMeshAgent;
@@ -18,7 +18,7 @@ public class PinataBehaviour : MonoBehaviour
     private MeshRenderer mesh;
     public int Points { get; set; }
     public Action OnDestroyed { get; internal set; }
-    public GameObject ParticleObject { get { return particles; } }
+    public List<GameObject> ParticleObjects { get { return particles; } }
 
     private void Awake()
     {
