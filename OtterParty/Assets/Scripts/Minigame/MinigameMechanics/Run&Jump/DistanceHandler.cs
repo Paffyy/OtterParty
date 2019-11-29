@@ -25,7 +25,6 @@ public class DistanceHandler : MonoBehaviour
         {
             foreach (var item in GameController.Instance.Players)
             {
-
                 playerMeters.Add(item.ID, meters[item.ID]);
                 meters[item.ID].SetActive(true);
             }
