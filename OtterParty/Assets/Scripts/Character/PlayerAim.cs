@@ -6,18 +6,13 @@ using UnityEngine.UI;
 
 public class PlayerAim : MonoBehaviour
 {
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float cooldownDuration;
-    [SerializeField]
-    private Sprite[] playerCrosshairs;
-    [SerializeField]
-    private GameObject[] projectiles;
+    [SerializeField] private float speed;
+    [SerializeField] private float cooldownDuration;
+    [SerializeField] private Sprite[] playerCrosshairs;
+    [SerializeField] private GameObject[] hitEffects;
+    private GameObject hitEffect;
     private Vector2 inputDirection;
     private Vector2 bounds;
-    private GameObject particleObject;
-    private GameObject projectilePrefab;
     public bool IsOffCooldown { get; set; } = true;
     private bool isActive = true;
     void Start()
@@ -26,23 +21,22 @@ public class PlayerAim : MonoBehaviour
         if (GameController.Instance != null)
         {
             var playerID = GetComponent<PlayerInput>().playerIndex;
-            projectilePrefab = projectiles[playerID];
             SetImage(playerCrosshairs[playerID]);
+            hitEffect = hitEffects[playerID];
         }
         else
         {
-            projectilePrefab = projectiles[0];
             SetImage(playerCrosshairs[0]);
+            hitEffect = hitEffects[0];
         }
+
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, SetInactive);
     }
-
     void Update()
     {
         Vector3 direction = inputDirection * speed * Time.deltaTime;
         transform.position += direction;
     }
-
     void LateUpdate()
     {
         var newPosition = transform.position;
@@ -61,6 +55,23 @@ public class PlayerAim : MonoBehaviour
         var input = value.Get<Vector2>();
         inputDirection = input;
     }
+    //private void OnFire()
+    //{
+    //    if (IsOffCooldown && isActive)
+    //    {
+    //        var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(transform.position));
+    //        if (Physics.Raycast(ray.origin, ray.direction, out var hit))
+    //        {
+    //            var direction = hit.point - transform.position;
+    //            var rotation = Quaternion.Lerp(transform.rotation,Quaternion.LookRotation(direction),1);
+    //            var obj = Instantiate(projectilePrefab, transform.position, rotation);
+    //            obj.GetComponent<ProjectileMove>().PlayerThatShot = gameObject;
+    //        }
+    //        Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
+    //        IsOffCooldown = false;
+    //    }
+    //}
+
     private void OnFire()
     {
         if (IsOffCooldown && isActive)
@@ -68,15 +79,29 @@ public class PlayerAim : MonoBehaviour
             var ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(transform.position));
             if (Physics.Raycast(ray.origin, ray.direction, out var hit))
             {
-                var direction = hit.point - transform.position;
-                var rotation = Quaternion.Lerp(transform.rotation,Quaternion.LookRotation(direction),1);
-                var obj = Instantiate(projectilePrefab, transform.position, rotation);
-                obj.GetComponent<ProjectileMove>().PlayerThatShot = gameObject;
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    var e = new HitEventInfo(gameObject, hit.collider.gameObject);
+                    EventHandler.Instance.FireEvent(EventHandler.EventType.HitEvent, e);
+                }
+                if (hitEffect != null)
+                {
+                    var hitClone = Instantiate(hitEffect, hit.point, Quaternion.identity);
+                    var psHit = hitClone.GetComponent<ParticleSystem>();
+                    if (psHit != null)
+                    {
+                        Destroy(hitClone, psHit.main.duration);
+                    }
+                    else
+                    {
+                        var psChild = hitClone.transform.GetChild(0).GetComponent<ParticleSystem>();
+                        Destroy(hitClone, psChild.main.duration);
+                    }
+                }
             }
             Cooldown.Instance.StartNewCooldown(cooldownDuration, this);
             IsOffCooldown = false;
         }
-
     }
 
     public void SetImage(Sprite spr)
