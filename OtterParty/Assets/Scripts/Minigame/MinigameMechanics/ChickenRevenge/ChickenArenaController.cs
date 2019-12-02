@@ -16,15 +16,16 @@ public class ChickenArenaController : MonoBehaviour
     [SerializeField]
     [Range(1, 10)]
     private int chargePointsMultiplier;
-    private int chargePointIndex;
     private ChickenBoss chickenBoss;
     private Transform currentChargePoint;
     private List<Transform> allChargePoints = new List<Transform>();
+    private bool gameHasStarted;
 
     void Start()
     {
-        chargePointIndex = 0;
+        gameHasStarted = false;
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
+        EventHandler.Instance.Register(EventHandler.EventType.StartNextRoundEvent, StartNextRound);
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
         foreach (Transform item in gameObject.transform)
         {
@@ -34,13 +35,15 @@ public class ChickenArenaController : MonoBehaviour
         StartGame(new StartMinigameEventInfo());
     }
 
-    void Update()
+    private void StartNextRound(BaseEventInfo e)
     {
+        Debug.Log("new round");
+        StartCoroutine("ChickenChargeGameLoop");
     }
 
     private void StartGame(BaseEventInfo e)
     {
-        GameObject chicken = Instantiate(chickenBossPrefab);
+        GameObject chicken = Instantiate(chickenBossPrefab, allChargePoints[0].position, Quaternion.identity);
         chickenBoss = chicken.GetComponent<ChickenBoss>();
         StartCoroutine("ChickenChargeGameLoop");
     }
@@ -63,14 +66,10 @@ public class ChickenArenaController : MonoBehaviour
 
     IEnumerator ChickenChargeGameLoop()
     {
-        IncreaseDifficulty();
+        gameHasStarted = true;
         yield return new WaitForSeconds(timeBetweenRounds);
-        StartCoroutine("ChickenCharge");
-    }
-
-    IEnumerator ChickenCharge()
-    {
-        yield return new WaitForSeconds(timeBetweenCharges);
+        chickenBoss.SetNextChargePoints(RandomizeChargePoints(), timeBetweenCharges);
+        IncreaseDifficulty();
     }
 
     private void IncreaseDifficulty()

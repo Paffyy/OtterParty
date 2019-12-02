@@ -11,13 +11,15 @@ public class ChickenBoss : MonoBehaviour
     private int pointsIndex;
     private bool hasReachedChargePoint;
     private List<Transform> chargePoints = new List<Transform>();
-    private float timeBetweenCharge;
+    private float waitTime;
+    private float currentWaitTime;
     public bool IsCharging { get; set; }
     public bool IsReady { get; set; }
 
     void Start()
     {
         chickenBody = GetComponent<Rigidbody>();
+   
        //spawn in animation
     }
 
@@ -25,13 +27,38 @@ public class ChickenBoss : MonoBehaviour
     {
         if (IsCharging)
         {
-
+            //Debug.Log(chargePoints[pointsIndex].position);
+            //chickenBody.MovePosition(transform.position + chargePoints[pointsIndex].position * chargeSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, chargePoints[pointsIndex].position, chargeSpeed * Time.deltaTime);
+        }
+        if(IsCharging && Vector3.Distance(transform.position, chargePoints[pointsIndex].position) < 0.2f)
+        {
+            Debug.Log("in distance");
+            if (currentWaitTime <= 0)
+            {
+                if(pointsIndex < chargePoints.Count)
+                {
+                    pointsIndex++;
+                }
+                else
+                {
+                    EventHandler.Instance.FireEvent(EventHandler.EventType.StartNextRoundEvent, new StartMinigameEventInfo());
+                    pointsIndex = 0;
+                }
+                currentWaitTime = waitTime;
+            }
+            else
+            {
+                currentWaitTime -= Time.deltaTime;
+            }
         }
     }
 
-    public void SetNextChargePoints(List<Transform> newChargePoints)
+    public void SetNextChargePoints(List<Transform> newChargePoints, float timeBetweenCharges)
     {
+        waitTime = timeBetweenCharges;
         chargePoints = newChargePoints;
+        IsCharging = true;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -24,7 +24,8 @@ public class EventHandler : MonoBehaviour
         InstantiatedUIEvent,
         ParticleEvent,
         MultipleEliminateEvent,
-        SoundEvent
+        SoundEvent,
+        StartNextRoundEvent
     }
     private Dictionary<EventType, List<EventListener>> eventListeners;
     private static EventHandler instance;
