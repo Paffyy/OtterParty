@@ -25,33 +25,52 @@ public class ChickenBoss : MonoBehaviour
 
     void FixedUpdate()
     {
+        Charge();
+        CheckDistanceToTarget();
+    }
+
+    private void Charge()
+    {
         if (IsCharging)
         {
-            //Debug.Log(chargePoints[pointsIndex].position);
             //chickenBody.MovePosition(transform.position + chargePoints[pointsIndex].position * chargeSpeed * Time.deltaTime);
             transform.position = Vector3.MoveTowards(transform.position, chargePoints[pointsIndex].position, chargeSpeed * Time.deltaTime);
         }
-        if(IsCharging && Vector3.Distance(transform.position, chargePoints[pointsIndex].position) < 0.2f)
+    }
+
+    private void CheckDistanceToTarget()
+    {
+        if (IsCharging && Vector3.Distance(transform.position, chargePoints[pointsIndex].position) < 0.2f)
         {
-            Debug.Log("in distance");
-            if (currentWaitTime <= 0)
-            {
-                if(pointsIndex < chargePoints.Count)
-                {
-                    pointsIndex++;
-                }
-                else
-                {
-                    EventHandler.Instance.FireEvent(EventHandler.EventType.StartNextRoundEvent, new StartMinigameEventInfo());
-                    pointsIndex = 0;
-                }
-                currentWaitTime = waitTime;
-            }
-            else
-            {
-                currentWaitTime -= Time.deltaTime;
-            }
+            CheckTimeToNextCharge();
         }
+    }
+
+    private void CheckTimeToNextCharge()
+    {
+        if (currentWaitTime <= 0)
+        {
+            CheckNextChargeTarget();
+        }
+        else
+        {
+            currentWaitTime -= Time.deltaTime;
+        }
+    }
+
+    private void CheckNextChargeTarget()
+    {
+        if (pointsIndex < chargePoints.Count)
+        {
+            pointsIndex++;
+        }
+        else
+        {
+            IsCharging = false;
+            EventHandler.Instance.FireEvent(EventHandler.EventType.StartNextRoundEvent, new StartMinigameEventInfo());
+            pointsIndex = 0;
+        }
+        currentWaitTime = waitTime;
     }
 
     public void SetNextChargePoints(List<Transform> newChargePoints, float timeBetweenCharges)

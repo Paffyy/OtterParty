@@ -37,7 +37,6 @@ public class ChickenArenaController : MonoBehaviour
 
     private void StartNextRound(BaseEventInfo e)
     {
-        Debug.Log("new round");
         StartCoroutine("ChickenChargeGameLoop");
     }
 
