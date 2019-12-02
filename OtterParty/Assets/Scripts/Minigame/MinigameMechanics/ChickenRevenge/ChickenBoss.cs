@@ -5,14 +5,13 @@ using UnityEngine.AI;
 
 public class ChickenBoss : MonoBehaviour
 {
-    private Rigidbody chickenBody;
     [SerializeField]
     private float chargeSpeed;
     private int pointsIndex;
-    private bool hasReachedChargePoint;
     private List<Transform> chargePoints = new List<Transform>();
     private float waitTime;
     private float currentWaitTime;
+    private Rigidbody chickenBody;
     public bool IsCharging { get; set; }
     public bool IsReady { get; set; }
 
