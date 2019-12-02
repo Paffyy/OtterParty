@@ -1,26 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ChickenBoss : MonoBehaviour
 {
     private Rigidbody chickenBody;
+    [SerializeField]
+    private float chargeSpeed;
+    private int pointsIndex;
+    private bool hasReachedChargePoint;
+    private List<Transform> chargePoints = new List<Transform>();
+    private float timeBetweenCharge;
+    public bool IsCharging { get; set; }
+    public bool IsReady { get; set; }
+
     void Start()
     {
         chickenBody = GetComponent<Rigidbody>();
        //spawn in animation
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        
+        if (IsCharging)
+        {
+
+        }
     }
 
-    public void ChargeToTarget(List<Vector3> chargePositions, float timeBetweenCharges)
+    public void SetNextChargePoints(List<Transform> newChargePoints)
     {
-        foreach (Vector3 position in chargePositions)
+        chargePoints = newChargePoints;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
         {
-           // chickenBody.MovePosition()
+            // might change to limited amounts of lives instead of instant elimination
+            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(other.gameObject));
         }
     }
 }
