@@ -44,6 +44,7 @@ public class ChickenArenaController : MonoBehaviour
     {
         GameObject chicken = Instantiate(chickenBossPrefab, allChargePoints[0].position, Quaternion.identity);
         chickenBoss = chicken.GetComponent<ChickenBoss>();
+        chicken.transform.position = allChargePoints[0].position;
         StartCoroutine("ChickenChargeGameLoop");
     }
 
