@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class ChickenBoss : MonoBehaviour
 {
-    [SerializeField]
-    private float chargeSpeed;
     private int pointsIndex;
     private List<Transform> chargePoints;
     private NavMeshAgent agent;
@@ -16,10 +14,15 @@ public class ChickenBoss : MonoBehaviour
     private bool shouldRotate;
     [SerializeField]
     private float maxSpeed;
+    [SerializeField]
+    [Range(1, 10)]
+    private float chargeSpeedMultiplier;
+    private float defaultChargeSpeed;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        defaultChargeSpeed = agent.speed;
         chickenBody = GetComponent<Rigidbody>();
        //spawn in animation
     }
@@ -84,6 +87,8 @@ public class ChickenBoss : MonoBehaviour
     {
         if (pointsIndex < chargePoints.Count - 1)
         {
+            agent.speed *= chargeSpeedMultiplier;
+            Debug.Log(agent.speed);
             pointsIndex++;
             shouldRotate = true;
         }
@@ -96,6 +101,7 @@ public class ChickenBoss : MonoBehaviour
 
     public void SetNextChargePoints(List<Transform> newChargePoints, float timeBetweenCharges)
     {
+        agent.speed = defaultChargeSpeed;
         waitTimeBetweenCharges = timeBetweenCharges;
         chargePoints = newChargePoints;
         SetDestination();
@@ -105,10 +111,14 @@ public class ChickenBoss : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            // might change to limited amounts of lives instead of instant elimination
-            other.gameObject.transform.LookAt(new Vector3(transform.position.x, other.gameObject.transform.position.y, transform.position.z));
-            other.gameObject.GetComponent<PlayerController>().Transition<KnockbackState>();
-            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(other.gameObject));
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            if (player.IsVulnerable)
+            {
+                player.SetInvulnerable();
+                other.gameObject.transform.LookAt(new Vector3(transform.position.x, other.gameObject.transform.position.y, transform.position.z));
+                player.Transition<ImprovedKnockBackState>();
+                EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(other.gameObject));
+            }
         }
     }
 }

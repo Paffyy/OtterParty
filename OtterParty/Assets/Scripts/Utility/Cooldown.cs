@@ -37,6 +37,23 @@ public class Cooldown
             sender.IsKnockedBacked = true;
         });
     }
+
+    public void StartNewCooldown(float duration, ImprovedKnockBackState sender)
+    {
+        Task.Factory.StartNew(async () => {
+            await Task.Delay((int)(duration * 1000));
+            sender.IsKnockedBacked = true;
+        });
+    }
+
+    public void StartNewCooldown(float duration, PlayerController sender)
+    {
+        Task.Factory.StartNew(async () => {
+            await Task.Delay((int)(duration * 1000));
+            sender.IsVulnerable = true;
+        });
+    }
+
     public void StartNewCooldown(float duration, MovingState sender)
     {
         Task.Factory.StartNew(async () => {
