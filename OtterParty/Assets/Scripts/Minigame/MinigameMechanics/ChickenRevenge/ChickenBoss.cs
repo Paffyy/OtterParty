@@ -106,6 +106,8 @@ public class ChickenBoss : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             // might change to limited amounts of lives instead of instant elimination
+            other.gameObject.transform.LookAt(new Vector3(transform.position.x, other.gameObject.transform.position.y, transform.position.z));
+            other.gameObject.GetComponent<PlayerController>().Transition<KnockbackState>();
             EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(other.gameObject));
         }
     }

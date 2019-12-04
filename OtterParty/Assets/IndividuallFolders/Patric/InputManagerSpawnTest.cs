@@ -10,6 +10,8 @@ public class InputManagerSpawnTest : MonoBehaviour
     private GameObject prefab;
     private bool joined;
     private List<Player> players;
+    [SerializeField]
+    private Transform spawnPoint;
     void Awake()
     {
         pim = GetComponent<PlayerInputManager>();
@@ -43,6 +45,7 @@ public class InputManagerSpawnTest : MonoBehaviour
         if (!joined)
         {
             var gObject = obj.gameObject;
+            gObject.transform.position = spawnPoint.position;
             var p = new Player()
             {
                 ID = obj.playerIndex,

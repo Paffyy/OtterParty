@@ -10,7 +10,7 @@ public class KnockbackState : CharacterBaseState
     [Range(0.1f, 2.0f)]
     private float stunDuration;
     [SerializeField]
-    [Range(1, 10)]
+    [Range(1, 100)]
     private float knockbackMagnitude;
     public bool IsKnockedBacked { get; set; }
     private PlayerController.CurrentPlayerState previousState;

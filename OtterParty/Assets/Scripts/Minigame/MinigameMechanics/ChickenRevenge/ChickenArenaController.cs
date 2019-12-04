@@ -32,7 +32,6 @@ public class ChickenArenaController : MonoBehaviour
             allChargePoints.Add(item);
         }
         currentChargePoint = allChargePoints[0];
-        StartGame(new StartMinigameEventInfo());
     }
 
     private void StartNextRound(BaseEventInfo e)
