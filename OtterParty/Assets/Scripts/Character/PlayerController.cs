@@ -19,6 +19,9 @@ public class PlayerController : StateMachine
     [SerializeField]
     [Range(2f, 7f)]
     private float fallMultiplier;
+    [SerializeField]
+    [Range(0.5f, 5f)]
+    private float invulnerabilityTimer;
     public Vector2 InputDirection { get; set; }
     public Action OnJumpAction { get; set; }
     public Action OnFireAction { get; set; }
@@ -56,6 +59,7 @@ public class PlayerController : StateMachine
     [SerializeField]
     private Transform hatPlaceHolder;
     public Transform HatPlaceHolder { get { return hatPlaceHolder; } set { hatPlaceHolder = value; } }
+    public bool IsVulnerable { get; set; }
 
 
     public CurrentPlayerState PlayerState { get; set; }
@@ -78,8 +82,8 @@ public class PlayerController : StateMachine
         Parent = transform.parent;
         IsInLockedMovement = false;
         IsOnMovingPlatform = false;
+        IsVulnerable = true;
         playerBody = GetComponent<Rigidbody>();
-
         base.Awake();
     }
 
@@ -198,6 +202,11 @@ public class PlayerController : StateMachine
     private void OnShove()
     {
         OnShoveAction?.Invoke();
+    }
+
+    public void SetInvulnerable()
+    {
+        Cooldown.Instance.StartNewCooldown(invulnerabilityTimer, this);
     }
 
     public bool IsGrounded()
