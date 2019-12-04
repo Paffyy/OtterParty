@@ -39,7 +39,6 @@ public class ChickenArenaController : MonoBehaviour
 
     private void StartGame(BaseEventInfo e)
     {
-        Debug.Log("Started");
         GameObject chicken = Instantiate(chickenBossPrefab, allChargePoints[0].position, Quaternion.identity);
         chickenBoss = chicken.GetComponent<ChickenBoss>();
         chicken.transform.position = allChargePoints[0].position;
