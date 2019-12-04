@@ -19,11 +19,9 @@ public class ChickenArenaController : MonoBehaviour
     private ChickenBoss chickenBoss;
     private Transform currentChargePoint;
     private List<Transform> allChargePoints = new List<Transform>();
-    private bool gameHasStarted;
 
     void Start()
     {
-        gameHasStarted = false;
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
         EventHandler.Instance.Register(EventHandler.EventType.StartNextRoundEvent, StartNextRound);
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
@@ -41,6 +39,7 @@ public class ChickenArenaController : MonoBehaviour
 
     private void StartGame(BaseEventInfo e)
     {
+        Debug.Log("Started");
         GameObject chicken = Instantiate(chickenBossPrefab, allChargePoints[0].position, Quaternion.identity);
         chickenBoss = chicken.GetComponent<ChickenBoss>();
         chicken.transform.position = allChargePoints[0].position;
@@ -65,7 +64,6 @@ public class ChickenArenaController : MonoBehaviour
 
     IEnumerator ChickenChargeGameLoop()
     {
-        gameHasStarted = true;
         yield return new WaitForSeconds(timeBetweenRounds);
         chickenBoss.SetNextChargePoints(RandomizeChargePoints(), timeBetweenCharges);
         IncreaseDifficulty();
