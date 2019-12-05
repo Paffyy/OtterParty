@@ -110,10 +110,9 @@ public class ChickenBoss : MonoBehaviour
             PlayerController player = other.gameObject.GetComponent<PlayerController>();
             if (player.IsVulnerable)
             {
-                player.SetInvulnerable();
                 other.gameObject.transform.LookAt(new Vector3(transform.position.x, other.gameObject.transform.position.y, transform.position.z));
                 player.Transition<ImprovedKnockBackState>();
-                //   EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(other.gameObject));
+                EventHandler.Instance.FireEvent(EventHandler.EventType.HitEvent, new HitEventInfo(null, other.gameObject));
             }
         }
     }

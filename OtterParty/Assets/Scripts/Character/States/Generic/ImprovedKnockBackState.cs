@@ -19,7 +19,6 @@ public class ImprovedKnockBackState : CharacterBaseState
 
     public override void Enter()
     {
-        owner.IsVulnerable = false;
         previousState = owner.PlayerState;
         owner.PlayerState = PlayerController.CurrentPlayerState.KnockBackState;
         IsKnockedBacked = false;

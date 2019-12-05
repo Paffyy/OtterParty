@@ -240,6 +240,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5053053338242302284, guid: 12320efa1f46f134f9c8592add566986,
         type: 3}
+      propertyPath: gunMesh.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053053338242302284, guid: 12320efa1f46f134f9c8592add566986,
+        type: 3}
       propertyPath: hatPlaceHolder
       value: 
       objectReference: {fileID: 6031995103511078057}
@@ -253,6 +258,16 @@ PrefabInstance:
       propertyPath: fallMultiplier
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5053053338242302284, guid: 12320efa1f46f134f9c8592add566986,
+        type: 3}
+      propertyPath: gunMesh.Array.data[0]
+      value: 
+      objectReference: {fileID: 6842275768699532923}
+    - target: {fileID: 5053053338242302284, guid: 12320efa1f46f134f9c8592add566986,
+        type: 3}
+      propertyPath: gunMesh.Array.data[1]
+      value: 
+      objectReference: {fileID: 2924164191139622667}
     - target: {fileID: 5053053338242302281, guid: 12320efa1f46f134f9c8592add566986,
         type: 3}
       propertyPath: m_Enabled
@@ -310,6 +325,18 @@ Transform:
 --- !u!4 &8977670388709246317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8738649194862461064, guid: 12320efa1f46f134f9c8592add566986,
+    type: 3}
+  m_PrefabInstance: {fileID: 419675357705733605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6842275768699532923 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6568035018425250718, guid: 12320efa1f46f134f9c8592add566986,
+    type: 3}
+  m_PrefabInstance: {fileID: 419675357705733605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2924164191139622667 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3262377810345487086, guid: 12320efa1f46f134f9c8592add566986,
     type: 3}
   m_PrefabInstance: {fileID: 419675357705733605}
   m_PrefabAsset: {fileID: 0}
