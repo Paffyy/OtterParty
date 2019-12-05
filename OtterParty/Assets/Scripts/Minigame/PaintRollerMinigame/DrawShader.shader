@@ -52,7 +52,8 @@
                 fixed4 textureMap = tex2D(_MainTex, i.uv);
 				float brush = pow(saturate(1 - distance(i.uv, _Coordinates.xy)), _BrushSize);
 				fixed4 drawColor = _Color * (brush * _Strength);
-                return saturate(textureMap + drawColor);
+				fixed4 eraseColor = fixed4(1,1,1,1) * (brush * (_Strength / 4));
+                return saturate(saturate(textureMap - eraseColor) + drawColor);
             }
             ENDCG
         }

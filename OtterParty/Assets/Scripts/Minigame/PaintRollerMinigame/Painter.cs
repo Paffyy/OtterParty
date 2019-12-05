@@ -5,19 +5,27 @@ using UnityEngine.Experimental.Rendering;
 
 public class Painter : MonoBehaviour
 {
-    private RenderTexture splatMap;
     [SerializeField] private MeshRenderer floor;
     [SerializeField] private Material[] playerMaterials;
+    [SerializeField] private int brushSize = 1;
+
     private int selectedMaterialIndex = 0;
+    private RenderTexture splatMap;
+
 
 
     void Start()
     {
+      
         splatMap = new RenderTexture(2024, 2024, 0, RenderTextureFormat.ARGBFloat);
         RenderTexture.active = splatMap;
         GL.Clear(true, true, Color.black);
         RenderTexture.active = null;
         floor.material.SetTexture("_SplatMap", splatMap);
+        foreach (var item in playerMaterials)
+        {
+            item.SetInt("_BrushSize", 1000 / brushSize);
+        }
       
     }
     void Update()
@@ -46,12 +54,19 @@ public class Painter : MonoBehaviour
         {
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             {
-                playerMaterials[selectedMaterialIndex].SetVector("_Coordinates", new Vector4(hit.textureCoord.x, hit.textureCoord.y));
-                RenderTexture temp = RenderTexture.GetTemporary(splatMap.width, splatMap.height, 0, RenderTextureFormat.ARGBFloat);
-                Graphics.Blit(splatMap, temp);
-                Graphics.Blit(temp, splatMap, playerMaterials[selectedMaterialIndex]);
-                RenderTexture.ReleaseTemporary(temp);
+                Paint(hit);
             }
+        }
+    }
+    private void Paint(RaycastHit hit)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            playerMaterials[selectedMaterialIndex].SetVector("_Coordinates", new Vector4(hit.textureCoord.x, hit.textureCoord.y));
+            RenderTexture temp = RenderTexture.GetTemporary(splatMap.width, splatMap.height, 0, RenderTextureFormat.ARGBFloat);
+            Graphics.Blit(splatMap, temp);
+            Graphics.Blit(temp, splatMap, playerMaterials[selectedMaterialIndex]);
+            RenderTexture.ReleaseTemporary(temp);
         }
     }
 }
