@@ -8,7 +8,6 @@ public class ChickenBoss : MonoBehaviour
     private int pointsIndex;
     private List<Transform> chargePoints;
     private NavMeshAgent agent;
-    private Rigidbody chickenBody;
     private System.Action onWaitUntilNext;
     private float waitTimeBetweenCharges;
     private bool shouldRotate;
@@ -24,24 +23,21 @@ public class ChickenBoss : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         defaultChargeSpeed = agent.speed;
         chickenBody = GetComponent<Rigidbody>();
-       //spawn in animation
+        //spawn in animation
     }
 
 
     void FixedUpdate()
     {
-        if(agent.velocity.magnitude > maxSpeed)
+        if (agent.velocity.magnitude > maxSpeed)
         {
             agent.velocity = agent.velocity.normalized * maxSpeed;
         }
         if (!IsCharging())
         {
+            agent.velocity = Vector3.zero;
             onWaitUntilNext?.Invoke();
         }
-        //if (shouldRotate)
-        //{
-        //    RotateTowardsTarget();
-        //}
     }
 
     private void RotateTowardsTarget()
@@ -58,6 +54,7 @@ public class ChickenBoss : MonoBehaviour
     private void SetDestination()
     {
         agent.SetDestination(chargePoints[pointsIndex].position);
+        agent.isStopped = false;
         onWaitUntilNext += NextCharge;
     }
 
@@ -75,9 +72,10 @@ public class ChickenBoss : MonoBehaviour
     IEnumerator WaitUntilNextCharge()
     {
         CheckNextChargeTarget();
+        agent.isStopped = true;
         yield return new WaitForSeconds(waitTimeBetweenCharges);
         shouldRotate = false;
-        if(pointsIndex != 0)
+        if (pointsIndex != 0)
         {
             SetDestination();
         }
@@ -88,8 +86,8 @@ public class ChickenBoss : MonoBehaviour
         if (pointsIndex < chargePoints.Count - 1)
         {
             agent.speed *= chargeSpeedMultiplier;
-            Debug.Log(agent.speed);
             pointsIndex++;
+
             shouldRotate = true;
         }
         else
@@ -117,7 +115,7 @@ public class ChickenBoss : MonoBehaviour
                 player.SetInvulnerable();
                 other.gameObject.transform.LookAt(new Vector3(transform.position.x, other.gameObject.transform.position.y, transform.position.z));
                 player.Transition<ImprovedKnockBackState>();
-                EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(other.gameObject));
+                //   EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(other.gameObject));
             }
         }
     }

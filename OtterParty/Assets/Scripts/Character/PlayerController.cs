@@ -206,7 +206,15 @@ public class PlayerController : StateMachine
 
     public void SetInvulnerable()
     {
+        StartCoroutine("StartHitAnimation");
         Cooldown.Instance.StartNewCooldown(invulnerabilityTimer, this);
+    }
+
+    IEnumerator StartHitAnimation()
+    {
+        anim.SetBool("IsInvulnerable", true);
+        yield return new WaitForSeconds(invulnerabilityTimer);
+        anim.SetBool("IsInvulnerable", false);
     }
 
     public bool IsGrounded()

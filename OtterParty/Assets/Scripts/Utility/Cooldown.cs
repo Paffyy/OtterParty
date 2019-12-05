@@ -50,6 +50,7 @@ public class Cooldown
     {
         Task.Factory.StartNew(async () => {
             await Task.Delay((int)(duration * 1000));
+
             sender.IsVulnerable = true;
         });
     }
