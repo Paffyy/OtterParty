@@ -12,15 +12,9 @@ public class Painter : MonoBehaviour
     private int selectedMaterialIndex = 0;
     private RenderTexture splatMap;
 
-
-
     void Start()
     {
-      
-        splatMap = new RenderTexture(2024, 2024, 0, RenderTextureFormat.ARGBFloat);
-        RenderTexture.active = splatMap;
-        GL.Clear(true, true, Color.black);
-        RenderTexture.active = null;
+        splatMap = floor.material.GetTexture("_SplatMap") as RenderTexture;
         floor.material.SetTexture("_SplatMap", splatMap);
         foreach (var item in playerMaterials)
         {
@@ -51,8 +45,9 @@ public class Painter : MonoBehaviour
             selectedMaterialIndex = 4;
         }
         if (Input.GetKey(KeyCode.Mouse0))
-        {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+        { 
+            var ray = new Ray(transform.position, Vector3.down);
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Paint(hit);
             }

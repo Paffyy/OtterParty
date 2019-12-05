@@ -10,11 +10,17 @@ public class CalculatePixelsScript : MonoBehaviour
     private Texture2D tex2d;
     private float[] colors = new float[4];
     private int pixelCount;
-    void Start()
+    private RenderTexture splatMap;
+    void Awake()
     {
+        splatMap = new RenderTexture(2024, 2024, 0, RenderTextureFormat.ARGBFloat);
+        RenderTexture.active = splatMap;
+        GL.Clear(true, true, Color.black);
+        RenderTexture.active = null;
+        GetComponent<MeshRenderer>().material.SetTexture("_SplatMap", splatMap);
         tex2d = new Texture2D(2024, 2024);
-
     }
+
 
     // Update is called once per frame
     void Update()
