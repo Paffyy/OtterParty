@@ -22,10 +22,8 @@ public class ChickenBoss : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         defaultChargeSpeed = agent.speed;
-        chickenBody = GetComponent<Rigidbody>();
         //spawn in animation
     }
-
 
     void FixedUpdate()
     {

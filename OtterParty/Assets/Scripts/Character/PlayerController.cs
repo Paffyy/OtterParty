@@ -212,10 +212,19 @@ public class PlayerController : StateMachine
 
     IEnumerator StartHitAnimation()
     {
-        anim.SetBool("IsInvulnerable", true);
-        yield return new WaitForSeconds(invulnerabilityTimer);
-        anim.SetBool("IsInvulnerable", false);
+        float elapsedTime = 0f;
+        while (elapsedTime < invulnerabilityTimer)
+        {
+            meshRen.enabled = false;
+            yield return new WaitForSeconds(0.075f);
+            meshRen.enabled = true;
+            yield return new WaitForSeconds(0.075f);
+            elapsedTime += 0.15f;
+        }
+        meshRen.enabled = true;
     }
+
+
 
     public bool IsGrounded()
     {
