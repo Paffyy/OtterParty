@@ -199,6 +199,7 @@ MonoBehaviour:
   maxSpeed: 10
   deadZoneValue: 0.2
   fallMultiplier: 2.5
+  invulnerabilityTimer: 2
   bodyCollider: {fileID: -2832937372261627636}
   firePoint: {fileID: 5404694256065570500}
   gun: {fileID: 7893688201495563376}
@@ -209,6 +210,9 @@ MonoBehaviour:
     m_Bits: 0
   velocityThreshold: 0
   hatPlaceHolder: {fileID: 7427002082749093956}
+  gunMesh:
+  - {fileID: 5246104126102458324}
+  - {fileID: 4516536145476982436}
 --- !u!199 &6177449885933473436
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -7825,6 +7829,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7222303632930702211}
     m_Modifications:
+    - target: {fileID: -927199367670048503, guid: f55d59d1515c1544e9eae24b89ebfabd,
+        type: 3}
+      propertyPath: m_Name
+      value: gunre
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f55d59d1515c1544e9eae24b89ebfabd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1313520008821544944, guid: f55d59d1515c1544e9eae24b89ebfabd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: -3862147023334189440, guid: f55d59d1515c1544e9eae24b89ebfabd,
         type: 3}
       propertyPath: m_Layer
@@ -7900,21 +7919,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.8103075
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: f55d59d1515c1544e9eae24b89ebfabd,
-        type: 3}
-      propertyPath: m_Name
-      value: gunre
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: f55d59d1515c1544e9eae24b89ebfabd,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1313520008821544944, guid: f55d59d1515c1544e9eae24b89ebfabd,
-        type: 3}
-      propertyPath: m_Layer
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: -1743236146080356793, guid: f55d59d1515c1544e9eae24b89ebfabd,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -7943,9 +7947,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6441047175934537955}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &5246104126102458324 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1274190694806732599, guid: f55d59d1515c1544e9eae24b89ebfabd,
+    type: 3}
+  m_PrefabInstance: {fileID: 6441047175934537955}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1370739127876134499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3862147023334189440, guid: f55d59d1515c1544e9eae24b89ebfabd,
+    type: 3}
+  m_PrefabInstance: {fileID: 6441047175934537955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4516536145476982436 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1743236146080356793, guid: f55d59d1515c1544e9eae24b89ebfabd,
     type: 3}
   m_PrefabInstance: {fileID: 6441047175934537955}
   m_PrefabAsset: {fileID: 0}
