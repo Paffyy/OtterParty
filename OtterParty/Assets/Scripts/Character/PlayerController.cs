@@ -60,6 +60,9 @@ public class PlayerController : StateMachine
     private Transform hatPlaceHolder;
     public Transform HatPlaceHolder { get { return hatPlaceHolder; } set { hatPlaceHolder = value; } }
     public bool IsVulnerable { get; set; }
+    private MeshRenderer hatMesh;
+    [SerializeField]
+    private List<MeshRenderer> gunMesh;
 
 
     public CurrentPlayerState PlayerState { get; set; }
@@ -206,7 +209,64 @@ public class PlayerController : StateMachine
 
     public void SetInvulnerable()
     {
+        IsVulnerable = false;
+        StartCoroutine("StartHitAnimation");
         Cooldown.Instance.StartNewCooldown(invulnerabilityTimer, this);
+    }
+
+    IEnumerator StartHitAnimation()
+    {
+        hatMesh = hatPlaceHolder.GetComponentInChildren<MeshRenderer>();
+        float elapsedTime = 0f;
+        while (elapsedTime < invulnerabilityTimer)
+        {
+            SetMeshVisibility(false);
+            yield return new WaitForSeconds(0.075f);
+            SetMeshVisibility(true);
+            yield return new WaitForSeconds(0.075f);
+            elapsedTime += 0.15f;
+        }
+        SetMeshVisibility(true);
+    }
+
+    private void SetMeshVisibility(bool shouldBeVisible)
+    {
+        meshRen.enabled = shouldBeVisible;
+        SetHatMeshVisibility(shouldBeVisible);
+        SetGunMeshVisibility(shouldBeVisible);
+    }
+    private void SetGunMeshVisibility(bool shouldBeVisible)
+    {
+        if (!shouldBeVisible)
+        {
+            foreach (MeshRenderer mesh in gunMesh)
+            {
+                if (mesh != null)
+                    mesh.enabled = false;
+            }
+        }
+        else
+        {
+            foreach (MeshRenderer mesh in gunMesh)
+            {
+                if (mesh != null)
+                    mesh.enabled = true;
+            }
+        }
+    }
+
+    private void SetHatMeshVisibility(bool shouldBeVisibile)
+    {
+        if (!shouldBeVisibile)
+        {
+            if (hatMesh != null)
+                hatMesh.enabled = false;
+        }
+        else
+        {
+            if (hatMesh != null)
+                hatMesh.enabled = true;
+        }
     }
 
     public bool IsGrounded()

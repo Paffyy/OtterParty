@@ -34,7 +34,11 @@ public class HitListener : BaseListener
             GameObject playerThatGotHit = hitEventInfo.ObjectHit;
             if (MinigameController.Instance.HasLimitedLives)
             {
-                CheckPlayerLives(playerThatGotHit);
+                if (playerThatGotHit.GetComponent<PlayerController>().IsVulnerable)
+                {
+                    playerThatGotHit.GetComponent<PlayerController>().SetInvulnerable();
+                    CheckPlayerLives(playerThatGotHit);
+                }
             }
         }
     }

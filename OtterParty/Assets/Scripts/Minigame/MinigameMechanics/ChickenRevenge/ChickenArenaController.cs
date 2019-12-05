@@ -20,17 +20,21 @@ public class ChickenArenaController : MonoBehaviour
     private Transform currentChargePoint;
     private List<Transform> allChargePoints = new List<Transform>();
 
-    void Start()
+
+    void Awake()
     {
-        EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
-        EventHandler.Instance.Register(EventHandler.EventType.StartNextRoundEvent, StartNextRound);
-        EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
         foreach (Transform item in gameObject.transform)
         {
             allChargePoints.Add(item);
         }
         currentChargePoint = allChargePoints[0];
-        StartGame(new StartMinigameEventInfo());
+        EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
+    }
+    void Start()
+    {
+        EventHandler.Instance.Register(EventHandler.EventType.StartNextRoundEvent, StartNextRound);
+        EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
+       // StartGame(new StartMinigameEventInfo());
     }
 
     private void StartNextRound(BaseEventInfo e)
