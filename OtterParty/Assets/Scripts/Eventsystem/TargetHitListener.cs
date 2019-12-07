@@ -26,17 +26,11 @@ public class TargetHitListener : BaseListener
         GameObject hitObject = eventInfo.ObjectHit;
         if(hitObject.GetComponent<PinataBehaviour>() != null)
         {
-            Vector3 position = hitObject.transform.position;
-            Quaternion rotation = hitObject.transform.rotation;
-            GameObject deathParticles = hitObject.GetComponent<PinataBehaviour>().ParticleObjects[GameController.Instance.FindPlayerByGameObject(playerThatShot).ID];
-            TransformEventInfo tei = new TransformEventInfo(position, rotation, deathParticles);
-            EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, tei);
+            HandlePinataHitEvent(hitObject, playerThatShot);
         }
         else if (hitObject.GetComponent<MovingTarget>() != null)
         {
-            Vector3 position = hitObject.transform.position;
-            EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, Quaternion.identity, hitObject.GetComponent<MovingTarget>().GetPlayerParticle(GameController.Instance.FindPlayerByGameObject(playerThatShot).ID)));
-            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound, 0.5f));
+            HandleChickenShootingGalleryHitEvent(hitObject, playerThatShot);
         }
         if (eventInfo != null && !eventInfo.ObjectHit.CompareTag("Player"))
         {
@@ -61,6 +55,22 @@ public class TargetHitListener : BaseListener
             }
             Destroy(hitObject);
         }
+    }
+
+    private void HandlePinataHitEvent(GameObject hitObject, GameObject playerThatShot)
+    {
+        Vector3 position = hitObject.transform.position;
+        Quaternion rotation = hitObject.transform.rotation;
+        GameObject deathParticles = hitObject.GetComponent<PinataBehaviour>().ParticleObjects[GameController.Instance.FindPlayerByGameObject(playerThatShot).ID];
+        TransformEventInfo tei = new TransformEventInfo(position, rotation, deathParticles);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, tei);
+    }
+
+    private void HandleChickenShootingGalleryHitEvent(GameObject hitObject, GameObject playerThatShot)
+    {
+        Vector3 position = hitObject.transform.position;
+        EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, Quaternion.identity, hitObject.GetComponent<MovingTarget>().GetPlayerParticle(GameController.Instance.FindPlayerByGameObject(playerThatShot).ID)));
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound, 0.5f));
     }
 
     private void AssignPoints(GameObject player, int points)

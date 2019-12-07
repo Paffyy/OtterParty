@@ -44,6 +44,12 @@ public class PlayerController : StateMachine
     [SerializeField]
     private GameObject gun;
     public GameObject PlayerGun { get { return gun; } }
+    [SerializeField]
+    private Transform paintPoint;
+    public Transform PaintPoint { get { return paintPoint; } }
+    [SerializeField]
+    private GameObject paintTool;
+    public GameObject PlayerPaintTool { get { return paintTool; } }
     private Animator anim;
     public Animator Anim { get { return anim; } }
     public SkinnedMeshRenderer MeshRenderer { get { return meshRen; } }
@@ -76,7 +82,8 @@ public class PlayerController : StateMachine
         LockedMovementState,
         LockedAirState,
         ShootingState,
-        LockedKnockBackState
+        LockedKnockBackState,
+        PaintingState
     }
 
     protected override void Awake()
