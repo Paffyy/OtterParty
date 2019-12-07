@@ -44,18 +44,25 @@ public class Painter : MonoBehaviour
         {
             selectedMaterialIndex = 4;
         }
+        //if (Input.GetKey(KeyCode.Mouse0))
+        //{ 
+        //    var ray = new Ray(transform.position, Vector3.down);
+        //    if (Physics.Raycast(ray, out RaycastHit hit))
+        //    {
+        //        Paint(hit);
+        //    }
+        //}
         if (Input.GetKey(KeyCode.Mouse0))
-        { 
-            var ray = new Ray(transform.position, Vector3.down);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
             {
-                Paint(hit);
+                Paint(hit, 3);
             }
         }
     }
-    private void Paint(RaycastHit hit)
+    private void Paint(RaycastHit hit, int intensity = 5)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < intensity; i++)
         {
             playerMaterials[selectedMaterialIndex].SetVector("_Coordinates", new Vector4(hit.textureCoord.x, hit.textureCoord.y));
             RenderTexture temp = RenderTexture.GetTemporary(splatMap.width, splatMap.height, 0, RenderTextureFormat.ARGBFloat);

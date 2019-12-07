@@ -203,57 +203,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 74.929, y: 0, z: 0}
---- !u!1 &758108357
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 758108359}
-  - component: {fileID: 758108358}
-  m_Layer: 0
-  m_Name: Painter (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &758108358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 758108357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9a8883772a6c724a8f523fd1805ca97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floor: {fileID: 990442247}
-  playerMaterials:
-  - {fileID: 2100000, guid: c479c2179340c59459d664a8e40f01ea, type: 2}
-  - {fileID: 2100000, guid: bc5ebf3745b6aba4e8d078359ff7576c, type: 2}
-  - {fileID: 2100000, guid: c479c2179340c59459d664a8e40f01ea, type: 2}
-  - {fileID: 2100000, guid: f7e1e02ac6f46e346a742e3cd12f4298, type: 2}
-  - {fileID: 2100000, guid: 30f0ac93e62297a459bbd6e93610a38f, type: 2}
-  brushSize: 5
---- !u!4 &758108359
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 758108357}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.8, y: 40.9, z: 6.77}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &990442245
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,57 +309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e4379d6073346f479466bd8bcddfb1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1218672269
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1218672271}
-  - component: {fileID: 1218672270}
-  m_Layer: 0
-  m_Name: Painter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1218672270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218672269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9a8883772a6c724a8f523fd1805ca97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floor: {fileID: 990442247}
-  playerMaterials:
-  - {fileID: 2100000, guid: e5703124776697f4884a6b1ca9501413, type: 2}
-  - {fileID: 2100000, guid: bc5ebf3745b6aba4e8d078359ff7576c, type: 2}
-  - {fileID: 2100000, guid: c479c2179340c59459d664a8e40f01ea, type: 2}
-  - {fileID: 2100000, guid: f7e1e02ac6f46e346a742e3cd12f4298, type: 2}
-  - {fileID: 2100000, guid: 30f0ac93e62297a459bbd6e93610a38f, type: 2}
-  brushSize: 5
---- !u!4 &1218672271
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218672269}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.8, y: 40.9, z: 14.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1660887253
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,12 +340,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floor: {fileID: 990442247}
   playerMaterials:
-  - {fileID: 2100000, guid: bc5ebf3745b6aba4e8d078359ff7576c, type: 2}
+  - {fileID: 2100000, guid: e5703124776697f4884a6b1ca9501413, type: 2}
   - {fileID: 2100000, guid: bc5ebf3745b6aba4e8d078359ff7576c, type: 2}
   - {fileID: 2100000, guid: c479c2179340c59459d664a8e40f01ea, type: 2}
   - {fileID: 2100000, guid: f7e1e02ac6f46e346a742e3cd12f4298, type: 2}
   - {fileID: 2100000, guid: 30f0ac93e62297a459bbd6e93610a38f, type: 2}
-  brushSize: 5
+  brushSize: 15
 --- !u!4 &1660887255
 Transform:
   m_ObjectHideFlags: 0
