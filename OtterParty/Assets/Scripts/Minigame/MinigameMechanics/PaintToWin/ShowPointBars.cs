@@ -23,7 +23,6 @@ public class ShowPointBars : UIPlayerScore
                 playerBar.SpeedMultiplier = countingSpeedMultiplier;
                 playerBar.StartCountingPoints();
             }
-
         }
     }
 

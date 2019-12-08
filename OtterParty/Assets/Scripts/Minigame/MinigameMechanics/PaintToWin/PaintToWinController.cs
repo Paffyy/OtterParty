@@ -25,12 +25,23 @@ public class PaintToWinController : MonoBehaviour
 
     private void StopGame(BaseEventInfo e)
     {
-        var pointSystem = MinigameController.Instance.MinigamePointSystem;
         var playerPercentages = paintFloor.GetComponent<CalculatePixelsScript>().GetPlayerPercentage();
-        pointSystem.InitializePlayers(GameController.Instance.Players);
-        foreach (var item in pointSystem.GetCurrentScore())
+        var playerScores = new Dictionary<Player, float>();
+        foreach (var item in GameController.Instance.Players)
         {
-
+            playerScores.Add(item, playerPercentages[item.ID]);
+        }
+        var sorted = from playerScore
+                     in playerScores
+                     orderby playerScore.Value
+                     select playerScore;
+        int placementsScore = 0;
+        var pointSystem = MinigameController.Instance.MinigamePointSystem;
+        pointSystem.InitializePlayers(GameController.Instance.Players);
+        foreach (var item in sorted.ToList())
+        {
+            pointSystem.GetCurrentScore()[item.Key] = placementsScore;
+            placementsScore++;
         }
         MinigameController.Instance.PlayerPercentageScore = paintFloor.GetComponent<CalculatePixelsScript>().GetPlayerPercentage();
     }
