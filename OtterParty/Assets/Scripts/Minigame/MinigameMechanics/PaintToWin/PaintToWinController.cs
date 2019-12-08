@@ -11,7 +11,6 @@ public class PaintToWinController : MonoBehaviour
 
     void Start()
     {
-
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
     }
@@ -20,7 +19,17 @@ public class PaintToWinController : MonoBehaviour
 
     private void StartGame(BaseEventInfo e)
     {
-        
+        if (GameController.Instance != null)
+        {
+            foreach (var item in GameController.Instance.Players)
+            {
+                item.PlayerObject.GetComponent<PlayerController>().PaintPoint.GetComponent<Painter>().Floor = paintFloor.GetComponent<MeshRenderer>();
+            }
+        }
+        else
+        {
+            FindObjectOfType<Painter>().Floor = paintFloor.GetComponent<MeshRenderer>();
+        }
     }
 
     private void StopGame(BaseEventInfo e)
@@ -37,7 +46,6 @@ public class PaintToWinController : MonoBehaviour
                      select playerScore;
         int placementsScore = 0;
         var pointSystem = MinigameController.Instance.MinigamePointSystem;
-        pointSystem.InitializePlayers(GameController.Instance.Players);
         foreach (var item in sorted.ToList())
         {
             pointSystem.GetCurrentScore()[item.Key] = placementsScore;

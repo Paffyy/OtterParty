@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 805734279}
+  - component: {fileID: 5007108091600908380}
   m_Layer: 11
   m_Name: PaintPoint
   m_TagString: Untagged
@@ -24,12 +25,32 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805734278}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.51, y: 0, z: 0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1694881665}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5007108091600908380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805734278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9a8883772a6c724a8f523fd1805ca97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floor: {fileID: 0}
+  playerMaterials:
+  - {fileID: 2100000, guid: e5703124776697f4884a6b1ca9501413, type: 2}
+  - {fileID: 2100000, guid: bc5ebf3745b6aba4e8d078359ff7576c, type: 2}
+  - {fileID: 2100000, guid: c479c2179340c59459d664a8e40f01ea, type: 2}
+  - {fileID: 2100000, guid: f7e1e02ac6f46e346a742e3cd12f4298, type: 2}
+  brushSize: 6
+  player: {fileID: 6365021908532629371}
 --- !u!1 &1160813750
 GameObject:
   m_ObjectHideFlags: 0

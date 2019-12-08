@@ -22,6 +22,7 @@ public class PlayerSliders : MonoBehaviour
 
     void Start()
     {
+        currentPercentage = 0;
         scoreSlider.maxValue = 100;
         scoreSlider.value = 0;
     }
@@ -29,7 +30,7 @@ public class PlayerSliders : MonoBehaviour
     void Update()
     {
         if (startCounting)
-        {
+        { 
             currentPercentage += Time.deltaTime * SpeedMultiplier;
             currentPercentage = Mathf.Clamp(currentPercentage, 0, Percentage);
             scoreSlider.value = currentPercentage;
