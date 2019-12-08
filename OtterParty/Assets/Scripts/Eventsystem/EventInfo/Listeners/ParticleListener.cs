@@ -18,11 +18,14 @@ public class ParticleListener : MonoBehaviour
             Vector3 objectPosition = te.objectTransformPosition;
             Quaternion objectRotation = te.objectTransformRotation;
             GameObject particleObject = te.objectParticleSystem;
-            var particles = Instantiate(particleObject, objectPosition, objectRotation);
-            var ps = particles.GetComponent<ParticleSystem>();
-            if(ps != null)
+            if(particleObject != null)
             {
-                Destroy(ps, ps.main.duration);
+                var particles = Instantiate(particleObject, objectPosition, objectRotation);
+                var ps = particles.GetComponent<ParticleSystem>();
+                if (ps != null)
+                {
+                    Destroy(ps, ps.main.duration);
+                }
             }
         }
 

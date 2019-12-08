@@ -7,18 +7,18 @@ public class TargetSpawner : MonoBehaviour
     [SerializeField]
     private float spawnInterval;
     [SerializeField]
-    private GameObject target;
+    private GameObject defaultTarget;
+    [SerializeField]
+    private GameObject bonusTarget;
+    [SerializeField]
+    private GameObject decoyTarget;
     private List<Transform> spawnLocations = new List<Transform>();
     [SerializeField]
-    private Sprite specialChicken;
-    [SerializeField]
     [Range(1, 5)]
-    private int specialPoints;
+    private int bonusTargetPoints;
     [SerializeField]
     [Range(-5, -1)]
-    private int rottenChickenPoints;
-    [SerializeField]
-    private Sprite rottenChickenSprite;
+    private int decoyTargetPoints;
     [SerializeField]
     [Range(1, 5)]
     private int defaultPoints;
@@ -54,26 +54,31 @@ public class TargetSpawner : MonoBehaviour
     {
         int index = Manager.Instance.GetRandomInt(0, spawnLocations.Count);
         Transform t = spawnLocations[index];
-        int randomChickenValue = Random.Range(0, 6);
-        var obj = Instantiate(target,t.position,t.rotation);
-        AssignChickenValue(randomChickenValue, obj);
-        Destroy(obj, 10);
+        int randomTargetValue = Random.Range(0, 6);
+        RandomizeTarget(randomTargetValue, t);
     }
 
-    private void AssignChickenValue(int randomValue, GameObject chickenObj)
+    private void RandomizeTarget(int randomValue, Transform spawnLocation)
     {
-        var chicken = chickenObj.GetComponentInChildren<MovingTarget>();
+        GameObject target;
         if (randomValue == 4)
         {
-            chicken.SetValue(specialChicken, specialPoints);
+            target = Instantiate(bonusTarget, spawnLocation.position, bonusTarget.transform.rotation);
+            target.GetComponentInChildren<MovingTarget>().SetValue(bonusTargetPoints);
         }
         else if (randomValue == 5)
         {
-            chicken.SetValue(rottenChickenSprite, rottenChickenPoints);
+            target = Instantiate(decoyTarget, spawnLocation.position, decoyTarget.transform.rotation);
+            target.GetComponentInChildren<MovingTarget>().SetValue(decoyTargetPoints);
         }
         else
         {
-            chicken.Points = defaultPoints;
+            target = Instantiate(defaultTarget, spawnLocation.position, defaultTarget.transform.rotation);
+            target.GetComponent<MovingTarget>().SetValue(defaultPoints);
+        }
+        if(target != null)
+        {
+            Destroy(target, 10);
         }
     }
 }
