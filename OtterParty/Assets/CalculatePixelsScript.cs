@@ -46,6 +46,24 @@ public class CalculatePixelsScript : MonoBehaviour
         }
     }
 
+    public List<float> GetPlayerPercentage()
+    {
+        List<float> playerPercentages = new List<float>();
+        SetPixels();
+        Color[] pixels = tex2d.GetPixels();
+        pixelCount = pixels.Length;
+        foreach (var item in pixels)
+        {
+            AddToColors(item);
+        }
+        foreach (var item in colors)
+        {
+            float a = (item / pixelCount) * 100;
+            playerPercentages.Add(a);
+        }
+        return playerPercentages;
+    }
+
     private void AddToColors(Color item)
     {
         for (int i = 0; i < colors.Length; i++)

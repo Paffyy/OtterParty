@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddPointsToPlayer : MonoBehaviour
+public class AddPointsToPlayer : UIPlayerScore
 {
-    [SerializeField]
-    [Range(1,4)]
-    private int placementUpdateDelay;
     [Header("Refrences")]
     [SerializeField]
     private List<Sprite> playerSprites;
@@ -19,13 +16,8 @@ public class AddPointsToPlayer : MonoBehaviour
     [SerializeField]
     private PlayerScore playerScorePrefab;
     private List<PlayerScore> playerScores = new List<PlayerScore>();
-    public bool IsPointsBased { get; set; }
 
-    private void Start()
-    {
-        StartPointsUI();
-    }
-    private void StartPointsUI()
+    public override void InitPointsUI()
     {
         if (GameController.Instance != null && MinigameController.Instance != null)
         {
@@ -47,12 +39,8 @@ public class AddPointsToPlayer : MonoBehaviour
                 ps.PlayerImage.sprite = playerSprites[item.ID];
                 ps.UpdatePoints(gameControllerPointsystem.GetCurrentScore()[item], minigameControllerPointSystem.GetCurrentScore()[item]);
             }
-            UpdatePlayerPlacement();
-            if (IsPointsBased)
-            {
-
-            }
-            else
+            UpdatePlacements();
+            if (!IsPointsBased)
             {
                 GameController.Instance.PointSystem.UpdateScore(minigameControllerPointSystem.GetCurrentScore());
             }
@@ -60,13 +48,7 @@ public class AddPointsToPlayer : MonoBehaviour
         }
     }
 
-    IEnumerator UpdatePlacement()
-    {
-        yield return new WaitForSeconds(placementUpdateDelay);
-        UpdatePlayerPlacement();
-    }
-
-    private void UpdatePlayerPlacement()
+    public override void UpdatePlacements()
     {
         Dictionary<Player, int> pointDictionary = new Dictionary<Player, int>();
         if (IsPointsBased)
@@ -77,12 +59,8 @@ public class AddPointsToPlayer : MonoBehaviour
         {
             pointDictionary = GameController.Instance.PointSystem.GetCurrentScore();
         }
-        var sorted = from playerScore
-                     in pointDictionary
-                     orderby - playerScore.Value
-                     select playerScore;
         int placementOrder = 0;
-        foreach (var item in sorted.ToList())
+        foreach (var item in SortByAscending(pointDictionary))
         {
             PlayerScore ps = playerScores.FirstOrDefault(x => x.Player == item.Key);
             ps.GetComponent<RectTransform>().anchoredPosition = placements[placementOrder].anchoredPosition;
