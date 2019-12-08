@@ -63,6 +63,7 @@ public class MinigameController : MonoBehaviour
     private GameModes gamemode;
     private RigidbodyConstraints playerConstraints;
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
+
     private List<Transform> spawnPoints = new List<Transform>();
     private Canvas canvas;
 
@@ -72,6 +73,7 @@ public class MinigameController : MonoBehaviour
     private enum GameModes { FFA, AllvsOne, Team, Points };
     private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst, Finale, PointsBased };
 
+    public List<float> PlayerPercentageScore { get; set; } = new List<float>();
     public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
 
     #endregion
@@ -386,7 +388,7 @@ public class MinigameController : MonoBehaviour
     private IEnumerator DisplayPlayerScores()
     {
         ShowPlayerScores();
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(4);
         ConvertMinigamePointsToFinalePoints();
         ShowStandingsUI();
         StartCoroutine("GoToNextScene");
@@ -429,8 +431,8 @@ public class MinigameController : MonoBehaviour
     private void ShowPlayerScores()
     {
         var p = Instantiate(winnerUI, canvas.transform);
-        p.GetComponent<AddPointsToPlayer>().IsPointsBased = true;
-        Destroy(p, 3);
+        p.GetComponent<UIPlayerScore>().IsPointsBased = true;
+        Destroy(p, 4);
     }
 
     private IEnumerator GoToNextScene()
