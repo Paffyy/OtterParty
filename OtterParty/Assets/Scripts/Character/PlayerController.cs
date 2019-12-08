@@ -213,7 +213,25 @@ public class PlayerController : StateMachine
     {
         OnShoveAction?.Invoke();
     }
+    private void OnReadyUp()
+    {
+        ReadyUp();
+    }
+    private void OnCancelReadyUp()
+    {
+        ReadyUp();
+    }
+    private void ReadyUp()
+    {
+        if (EventHandler.Instance != null)
+        {
+            var id = GetComponent<PlayerInput>().playerIndex;
+            ReadyUpEventInfo e = new ReadyUpEventInfo(id);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
+        }
+    }
 
+  
     public void SetInvulnerable()
     {
         IsVulnerable = false;

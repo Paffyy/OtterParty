@@ -55,7 +55,9 @@ public class MinigameController : MonoBehaviour
     private GameObject countDownTimerUI;
     [SerializeField]
     private GameObject timeLeftText;
- 
+    [SerializeField]
+    private ReadyUpUI readyUpUI;
+
     public bool HasLimitedLives { get { return hasLimitedLives; } }
     public int MiniGameLives { get { return miniGameLives; } }
     public GameObject MiniGameUI { get { return miniGameUI; } }
@@ -145,6 +147,7 @@ public class MinigameController : MonoBehaviour
         {
             Player player = GameController.Instance.FindPlayerByID(playerInput.playerIndex);
             player.PlayerObject = playerInput.gameObject;
+           
             if (gameType == GameType.Finale)
             {
                 float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
@@ -166,6 +169,8 @@ public class MinigameController : MonoBehaviour
                 hatClone.transform.localEulerAngles = hat.HatRotation;
                 hatClone.GetComponent<PlayerHat>().SetHatMaterial(player.ID);
             }
+            readyUpUI.PlayerJoined(player);
+            readyUpUI.gameObject.SetActive(true);
         }
         playerInput.gameObject.transform.position = spawnPoints[playerInput.playerIndex].transform.position;
         playerInput.gameObject.transform.rotation = spawnPoints[playerInput.playerIndex].transform.rotation;
@@ -451,7 +456,7 @@ public class MinigameController : MonoBehaviour
         return temp == playersAlive.Count - playerCountOffset;
     }
 
-    private void ToggleActive(bool toggle)
+    public void ToggleActive(bool toggle)
     {
         if (!isOnUILayer)
         {

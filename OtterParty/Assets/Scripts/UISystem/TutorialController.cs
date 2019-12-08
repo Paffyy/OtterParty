@@ -7,41 +7,35 @@ using UnityEngine.UI;
 public class TutorialController : MonoBehaviour
 {
     [SerializeField]
-    private float tutorialDuration; // Todo replace with aiming controller
-    [SerializeField]
-    private TextMeshProUGUI tutorialDurationText;
-    [SerializeField]
     private bool isTestingUI;
-
     private void Start()
     {
-        tutorialDurationText.text = tutorialDuration.ToString();
+        if (EventHandler.Instance != null)
+        {
+            EventHandler.Instance.Register(EventHandler.EventType.TransitionEvent, Transition);
+        }
         if (MinigameController.Instance != null && GameController.Instance != null || isTestingUI)
         {
-            StartCoroutine("StartMinigame");
+            MinigameController.Instance.JoinPlayers();
+            MinigameController.Instance.ToggleActive(false);
         }
         else
         {
             gameObject.SetActive(false);
         }
     }
-
-    IEnumerator StartMinigame()
+    private void Transition(BaseEventInfo e)
     {
-        yield return new WaitForSeconds(tutorialDuration);
-        if (MinigameController.Instance != null && GameController.Instance != null)
-        {
-            MinigameController.Instance.JoinPlayers();
-            MinigameController.Instance.StartMinigame();
-        }
-        gameObject.SetActive(false);
+        StartCoroutine("StartGameWithDelay");
     }
-    private void FixedUpdate()
+    IEnumerator StartGameWithDelay()
     {
-        if (tutorialDurationText != null)
-        {
-            tutorialDuration -= Time.deltaTime;
-            tutorialDurationText.text = tutorialDuration.ToString("0");
-        }
+        yield return new WaitForSeconds(1f);
+        StartGame();
+    }
+    public void StartGame()
+    {
+        MinigameController.Instance.StartMinigame();
+        gameObject.SetActive(false);
     }
 }

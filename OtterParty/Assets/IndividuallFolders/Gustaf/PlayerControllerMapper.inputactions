@@ -1,5 +1,5 @@
 {
-    "name": "TestController",
+    "name": "PlayerControllerMapper",
     "maps": [
         {
             "name": "Gameplay",
@@ -9,6 +9,14 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "919c46cf-20fe-4691-a2f3-c04063ef6e82",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "CancelReadyUp",
+                    "type": "Button",
+                    "id": "1dd6374a-7f32-43e2-9d41-86f804fd5029",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -57,6 +65,14 @@
                     "name": "Shove",
                     "type": "Button",
                     "id": "f7e09ab9-5a67-4606-bf26-33e7dd4acb4a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ReadyUp",
+                    "type": "Button",
+                    "id": "1d05a755-839f-4732-8e7f-41c6967bdea3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -269,6 +285,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Shove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "daaa0806-ca81-4876-824f-445d404b4bed",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReadyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15beed30-a76b-444c-a88e-caabdaac3eff",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReadyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97fc5fe9-d2b2-4e47-92f8-00203c1cfe8f",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelReadyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f8826967-8979-4c63-a239-db9e0856fb79",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelReadyUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

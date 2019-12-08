@@ -88,6 +88,7 @@ public class JoinController : MonoBehaviour
     //    GameController.Instance.InitPointSystem();
     //    GameController.Instance.StartNextMinigame();
     //}
+
     private void Update()
     {
 

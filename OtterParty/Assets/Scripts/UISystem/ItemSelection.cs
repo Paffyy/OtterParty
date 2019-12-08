@@ -205,7 +205,6 @@ public class ItemSelection : MonoBehaviour
             hatSelected = true;
             centerHat.IsAvailable = false;
             centerHat.SelectedByPlayerIndex = playerIndex;
-            SendReadyUpEvent();
         }
         else if(!hatSelected)
         {
@@ -219,14 +218,7 @@ public class ItemSelection : MonoBehaviour
         {
             hatSelected = false;
             centerHat.IsAvailable = true;
-            SendReadyUpEvent();
         }
     }
 
-    private void SendReadyUpEvent()
-    {
-        var id = GetComponent<PlayerInput>().playerIndex;
-        ReadyUpEventInfo e = new ReadyUpEventInfo(id);
-        EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
-    }
 }

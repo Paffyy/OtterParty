@@ -27,6 +27,14 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""CancelReadyUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""1dd6374a-7f32-43e2-9d41-86f804fd5029"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""8d150e76-8206-47c6-bc44-3c50ab271bd3"",
@@ -70,6 +78,14 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                     ""name"": ""Shove"",
                     ""type"": ""Button"",
                     ""id"": ""f7e09ab9-5a67-4606-bf26-33e7dd4acb4a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ReadyUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""1d05a755-839f-4732-8e7f-41c6967bdea3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -282,6 +298,50 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""daaa0806-ca81-4876-824f-445d404b4bed"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReadyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15beed30-a76b-444c-a88e-caabdaac3eff"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReadyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97fc5fe9-d2b2-4e47-92f8-00203c1cfe8f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelReadyUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8826967-8979-4c63-a239-db9e0856fb79"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CancelReadyUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -524,12 +584,14 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
+        m_Gameplay_CancelReadyUp = m_Gameplay.FindAction("CancelReadyUp", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
         m_Gameplay_LeftSpam = m_Gameplay.FindAction("LeftSpam", throwIfNotFound: true);
         m_Gameplay_RightSpam = m_Gameplay.FindAction("RightSpam", throwIfNotFound: true);
         m_Gameplay_SwitchScene = m_Gameplay.FindAction("SwitchScene", throwIfNotFound: true);
         m_Gameplay_Shove = m_Gameplay.FindAction("Shove", throwIfNotFound: true);
+        m_Gameplay_ReadyUp = m_Gameplay.FindAction("ReadyUp", throwIfNotFound: true);
         // OnlyController
         m_OnlyController = asset.FindActionMap("OnlyController", throwIfNotFound: true);
         m_OnlyController_Move = m_OnlyController.FindAction("Move", throwIfNotFound: true);
@@ -593,23 +655,27 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Move;
+    private readonly InputAction m_Gameplay_CancelReadyUp;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Fire;
     private readonly InputAction m_Gameplay_LeftSpam;
     private readonly InputAction m_Gameplay_RightSpam;
     private readonly InputAction m_Gameplay_SwitchScene;
     private readonly InputAction m_Gameplay_Shove;
+    private readonly InputAction m_Gameplay_ReadyUp;
     public struct GameplayActions
     {
         private PlayerControllerMapper m_Wrapper;
         public GameplayActions(PlayerControllerMapper wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
+        public InputAction @CancelReadyUp => m_Wrapper.m_Gameplay_CancelReadyUp;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
         public InputAction @LeftSpam => m_Wrapper.m_Gameplay_LeftSpam;
         public InputAction @RightSpam => m_Wrapper.m_Gameplay_RightSpam;
         public InputAction @SwitchScene => m_Wrapper.m_Gameplay_SwitchScene;
         public InputAction @Shove => m_Wrapper.m_Gameplay_Shove;
+        public InputAction @ReadyUp => m_Wrapper.m_Gameplay_ReadyUp;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -622,6 +688,9 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                 Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                CancelReadyUp.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCancelReadyUp;
+                CancelReadyUp.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCancelReadyUp;
+                CancelReadyUp.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCancelReadyUp;
                 Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
@@ -640,6 +709,9 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                 Shove.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShove;
                 Shove.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShove;
                 Shove.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShove;
+                ReadyUp.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReadyUp;
+                ReadyUp.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReadyUp;
+                ReadyUp.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnReadyUp;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -647,6 +719,9 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                 Move.started += instance.OnMove;
                 Move.performed += instance.OnMove;
                 Move.canceled += instance.OnMove;
+                CancelReadyUp.started += instance.OnCancelReadyUp;
+                CancelReadyUp.performed += instance.OnCancelReadyUp;
+                CancelReadyUp.canceled += instance.OnCancelReadyUp;
                 Jump.started += instance.OnJump;
                 Jump.performed += instance.OnJump;
                 Jump.canceled += instance.OnJump;
@@ -665,6 +740,9 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                 Shove.started += instance.OnShove;
                 Shove.performed += instance.OnShove;
                 Shove.canceled += instance.OnShove;
+                ReadyUp.started += instance.OnReadyUp;
+                ReadyUp.performed += instance.OnReadyUp;
+                ReadyUp.canceled += instance.OnReadyUp;
             }
         }
     }
@@ -794,12 +872,14 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnCancelReadyUp(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnLeftSpam(InputAction.CallbackContext context);
         void OnRightSpam(InputAction.CallbackContext context);
         void OnSwitchScene(InputAction.CallbackContext context);
         void OnShove(InputAction.CallbackContext context);
+        void OnReadyUp(InputAction.CallbackContext context);
     }
     public interface IOnlyControllerActions
     {
