@@ -48,8 +48,11 @@ public class SoundListener : BaseListener
         {
             primaryAudioSource.volume = primaryAudioSourceVolume;
         }
-        primaryAudioSource.clip = eventInfo.SoundClip;
-        primaryAudioSource.Play();
+        if(eventInfo.SoundClip != null)
+        {
+            primaryAudioSource.clip = eventInfo.SoundClip;
+            primaryAudioSource.Play();
+        }
     }
 
     private void UseSecondaryAudioSource(SoundEventInfo eventInfo)
@@ -62,7 +65,10 @@ public class SoundListener : BaseListener
         {
             secondaryAudioSource.volume = secondaryAudioSourceVolume;
         }
-        secondaryAudioSource.clip = eventInfo.SoundClip;
-        secondaryAudioSource.Play();
+        if (eventInfo.SoundClip != null)
+        {
+            secondaryAudioSource.clip = eventInfo.SoundClip;
+            secondaryAudioSource.Play();
+        }
     }
 }

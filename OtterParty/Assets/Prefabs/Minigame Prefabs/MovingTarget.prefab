@@ -91,6 +91,8 @@ GameObject:
   - component: {fileID: 3997991054310663025}
   - component: {fileID: 3997991054310644876}
   - component: {fileID: 3997991054310644877}
+  - component: {fileID: 2192025412728851106}
+  - component: {fileID: 1546792877010431049}
   m_Layer: 0
   m_Name: MovingTarget
   m_TagString: Enemy
@@ -126,7 +128,7 @@ MeshCollider:
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -3118216428764295730, guid: 264852b014a38d345a24ab2a1756d474, type: 3}
 --- !u!114 &3997991054310644877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,3 +149,49 @@ MonoBehaviour:
   - {fileID: 5875811665020514504, guid: 1757d716edd043242bac5b4e343ce9a5, type: 3}
   hitSound: {fileID: 8300000, guid: 5403fa463c7050940af78439829f7678, type: 3}
   sprite: {fileID: 3997991053540951229}
+--- !u!23 &2192025412728851106
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997991054310644874}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ab83b6cb15b472c46b8bfd07c6a3086f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1546792877010431049
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3997991054310644874}
+  m_Mesh: {fileID: -3118216428764295730, guid: 264852b014a38d345a24ab2a1756d474, type: 3}

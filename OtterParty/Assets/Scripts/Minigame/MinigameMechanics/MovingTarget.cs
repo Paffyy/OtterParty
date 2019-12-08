@@ -13,9 +13,6 @@ public class MovingTarget : MonoBehaviour
     public AudioClip HitSound { get { return hitSound; } }
     public int Points { get; set; }
 
-    [SerializeField]
-    private SpriteRenderer sprite;
-
     private void FixedUpdate()
     {
         transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
@@ -26,14 +23,21 @@ public class MovingTarget : MonoBehaviour
         
     }
 
-    public void SetValue(Sprite spriteValue, int pointValue)
+    public void SetValue(int pointValue)
     {
-        sprite.sprite = spriteValue;
         Points = pointValue;
     }
 
     public GameObject GetPlayerParticle(int index)
     {
-        return particles[index];
+        if(particles.Count - 1 >= index)
+        {
+            return particles[index];
+        }
+        else
+        {
+            return null;
+        }
+
     }
 }
