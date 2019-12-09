@@ -15,8 +15,6 @@ public class PaintToWinController : MonoBehaviour
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
     }
 
-
-
     private void StartGame(BaseEventInfo e)
     {
         if (GameController.Instance != null)
@@ -52,10 +50,5 @@ public class PaintToWinController : MonoBehaviour
             placementsScore++;
         }
         MinigameController.Instance.PlayerPercentageScore = paintFloor.GetComponent<CalculatePixelsScript>().GetPlayerPercentage();
-    }
-
-    void Update()
-    {
-        
     }
 }
