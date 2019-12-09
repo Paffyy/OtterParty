@@ -18,7 +18,15 @@ public class Painter : MonoBehaviour
 
     void Start()
     {
-        selectedMaterialIndex = GameController.Instance.FindPlayerByGameObject(player).ID;
+        if (GameController.Instance != null)
+        {
+            selectedMaterialIndex = GameController.Instance.FindPlayerByGameObject(player).ID;
+
+        }
+        else
+        {
+            selectedMaterialIndex = 0;
+        }
         floor = FindObjectOfType<CalculatePixelsScript>().gameObject.GetComponent<MeshRenderer>();
         splatMap = floor.material.GetTexture("_SplatMap") as RenderTexture;
         floor.material.SetTexture("_SplatMap", splatMap);
