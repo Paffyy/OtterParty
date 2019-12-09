@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CalculatePixelsScript : MonoBehaviour
 {
-    // Start is called before the first frame update
     private RenderTexture splatMapTexture;
     private Texture2D tex2d;
     private float[] colors = new float[4];
@@ -19,31 +18,6 @@ public class CalculatePixelsScript : MonoBehaviour
         RenderTexture.active = null;
         GetComponent<MeshRenderer>().material.SetTexture("_SplatMap", splatMap);
         tex2d = new Texture2D(2024, 2024);
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SetPixels();
-            Color[] pixels = tex2d.GetPixels();
-            pixelCount = pixels.Length;
-            foreach (var item in pixels)
-            {
-                AddToColors(item);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            var temp = "";
-            foreach (var item in colors)
-            {
-                temp += item / pixelCount + " - ";
-            }
-            Debug.Log(temp);
-        }
     }
 
     public List<float> GetPlayerPercentage()
