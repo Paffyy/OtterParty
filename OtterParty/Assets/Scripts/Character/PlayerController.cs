@@ -69,6 +69,8 @@ public class PlayerController : StateMachine
     private MeshRenderer hatMesh;
     [SerializeField]
     private List<MeshRenderer> gunMesh;
+    [SerializeField]
+    private bool isJoinPlayer;
 
 
     public CurrentPlayerState PlayerState { get; set; }
@@ -223,7 +225,7 @@ public class PlayerController : StateMachine
     }
     private void ReadyUp()
     {
-        if (EventHandler.Instance != null)
+        if (EventHandler.Instance != null && !isJoinPlayer)
         {
             var id = GetComponent<PlayerInput>().playerIndex;
             ReadyUpEventInfo e = new ReadyUpEventInfo(id);

@@ -729,9 +729,12 @@ MonoBehaviour:
   maxSpeed: 10
   deadZoneValue: 0.2
   fallMultiplier: 0
+  invulnerabilityTimer: 0
   bodyCollider: {fileID: 5633368576090669896}
   firePoint: {fileID: 0}
   gun: {fileID: 0}
+  paintPoint: {fileID: 0}
+  paintTool: {fileID: 0}
   meshRen: {fileID: 566687388515465118}
   groundCheckDistance: 0
   collisionMask:
@@ -739,6 +742,8 @@ MonoBehaviour:
     m_Bits: 0
   velocityThreshold: 0
   hatPlaceHolder: {fileID: 94227118960475288}
+  gunMesh: []
+  isJoinPlayer: 1
 --- !u!114 &50195945711604592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,9 +756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e68505600a89094db3f379f337f8caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerPos: {fileID: 1569416321233692460}
-  leftPos: {fileID: 8035929152759254922}
-  rightPos: {fileID: 8168553324898816826}
   centerSprite: {fileID: 8098343792569776898}
   leftSprite: {fileID: 5221865599075722149}
   rightSprite: {fileID: 6270270414888164568}
@@ -3462,16 +3464,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 123515892915555733, guid: 986088242d7bcbc49b69bbe2bc307318,
-        type: 3}
-      propertyPath: m_Name
-      value: LeftPos
-      objectReference: {fileID: 0}
-    - target: {fileID: 2265042368176394533, guid: 986088242d7bcbc49b69bbe2bc307318,
-        type: 3}
-      propertyPath: m_Name
-      value: RightPos
-      objectReference: {fileID: 0}
     - target: {fileID: 6525659043228235067, guid: 986088242d7bcbc49b69bbe2bc307318,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -3541,6 +3533,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.56999993
+      objectReference: {fileID: 0}
+    - target: {fileID: 123515892915555733, guid: 986088242d7bcbc49b69bbe2bc307318,
+        type: 3}
+      propertyPath: m_Name
+      value: LeftPos
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265042368176394533, guid: 986088242d7bcbc49b69bbe2bc307318,
+        type: 3}
+      propertyPath: m_Name
+      value: RightPos
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 986088242d7bcbc49b69bbe2bc307318, type: 3}

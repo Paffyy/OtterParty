@@ -860,7 +860,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aac9904c44e1f9c4bb49d2fdd4eee607, type: 2}
   - {fileID: 11400000, guid: 437da289c78133542bef608254c20ba7, type: 2}
   - {fileID: 11400000, guid: af224436fd5851b4dbe598f3221593f2, type: 2}
-  - {fileID: 11400000, guid: c074f496887210b4c892b4d8a41ee03b, type: 2}
+  - {fileID: 11400000, guid: 30a0071c469d8c6498dec463be4f30ac, type: 2}
   speed: 8
   jumpHeight: 6
   maxSpeed: 10
@@ -870,6 +870,8 @@ MonoBehaviour:
   bodyCollider: {fileID: 5530481413943549751}
   firePoint: {fileID: 0}
   gun: {fileID: 0}
+  paintPoint: {fileID: 0}
+  paintTool: {fileID: 0}
   meshRen: {fileID: 4588421591307708379}
   groundCheckDistance: 0.1
   collisionMask:
@@ -877,6 +879,7 @@ MonoBehaviour:
     m_Bits: 16384
   velocityThreshold: 0.1
   hatPlaceHolder: {fileID: 5979298869397281873}
+  gunMesh: []
 --- !u!136 &5530481413943549751
 CapsuleCollider:
   m_ObjectHideFlags: 0

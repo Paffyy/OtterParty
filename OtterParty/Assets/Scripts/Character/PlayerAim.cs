@@ -104,6 +104,20 @@ public class PlayerAim : MonoBehaviour
         }
     }
 
+    private void OnReadyUp()
+    {
+        ReadyUp();
+    }
+    private void ReadyUp()
+    {
+        if (EventHandler.Instance != null)
+        {
+            var id = GetComponent<PlayerInput>().playerIndex;
+            ReadyUpEventInfo e = new ReadyUpEventInfo(id);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.ReadyUpEvent, e);
+        }
+    }
+
     public void SetImage(Sprite spr)
     {
         GetComponent<SpriteRenderer>().sprite = spr;
