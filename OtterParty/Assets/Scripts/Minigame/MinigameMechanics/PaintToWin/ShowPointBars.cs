@@ -19,6 +19,7 @@ public class ShowPointBars : UIPlayerScore
             foreach (var item in GameController.Instance.Players)
             {
                 var playerBar = playerBars[item.ID].GetComponent<PlayerSliders>();
+                playerBar.gameObject.SetActive(true);
                 playerBar.Percentage = MinigameController.Instance.PlayerPercentageScore[item.ID];
                 playerBar.SpeedMultiplier = countingSpeedMultiplier;
                 playerBar.StartCountingPoints();
