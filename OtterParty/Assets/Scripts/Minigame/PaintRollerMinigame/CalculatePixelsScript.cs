@@ -69,4 +69,8 @@ public class CalculatePixelsScript : MonoBehaviour
         tex2d.ReadPixels(new Rect(0, 0, splatMapTexture.width, splatMapTexture.height), 0, 0);
         tex2d.Apply();
     }
+    private void OnGUI()
+    {
+        GUI.DrawTexture(new Rect(0, 0, 256, 256), splatMap, ScaleMode.ScaleToFit, false, 1);
+    }
 }
