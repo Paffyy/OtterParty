@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 990442247}
   - component: {fileID: 990442246}
   - component: {fileID: 990442250}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 990442245}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e4379d6073346f479466bd8bcddfb1d, type: 3}
+  m_Script: {fileID: 11500000, guid: e5a171d52dec1a248b84b1503943f743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1660887253
@@ -346,6 +346,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f7e1e02ac6f46e346a742e3cd12f4298, type: 2}
   - {fileID: 2100000, guid: 30f0ac93e62297a459bbd6e93610a38f, type: 2}
   brushSize: 15
+  player: {fileID: 0}
+  paintingFloorMask:
+    serializedVersion: 2
+    m_Bits: 65536
 --- !u!4 &1660887255
 Transform:
   m_ObjectHideFlags: 0
