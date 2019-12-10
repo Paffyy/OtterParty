@@ -56,7 +56,14 @@ public class HitListener : BaseListener
         }
         else
         {
-            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(playerHit));
+            if(MinigameController.Instance.CurrentGameType != MinigameController.GameType.PointsAndLives)
+            {
+                EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, new EliminateEventInfo(playerHit));
+            }
+            else
+            {
+                playerHit.SetActive(false);
+            }
         }
     }
 }

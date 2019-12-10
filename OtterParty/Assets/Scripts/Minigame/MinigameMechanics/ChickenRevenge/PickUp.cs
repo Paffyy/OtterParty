@@ -14,6 +14,7 @@ public class PickUp : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             FirePickUpEvent(other.gameObject);
+            gameObject.SetActive(false);
         }
     }
 

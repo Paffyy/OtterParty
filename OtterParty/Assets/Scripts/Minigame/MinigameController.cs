@@ -57,7 +57,7 @@ public class MinigameController : MonoBehaviour
     private GameObject timeLeftText;
     [SerializeField]
     private ReadyUpUI readyUpUI;
-
+    public GameType CurrentGameType { get { return gameType; } }
     public bool HasLimitedLives { get { return hasLimitedLives; } }
     public int MiniGameLives { get { return miniGameLives; } }
     public GameObject MiniGameUI { get { return miniGameUI; } }
@@ -73,7 +73,7 @@ public class MinigameController : MonoBehaviour
     private int currentPoints = 1;
     private int currentReversePoints = 1;
     private enum GameModes { FFA, AllvsOne, Team, Points };
-    private enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst, Finale, PointsBased };
+    public enum GameType { LastManStanding, FirstToGoal, BothLastAndFirst, Finale, PointsBased, PointsAndLives };
 
     public List<float> PlayerPercentageScore { get; set; } = new List<float>();
     public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
