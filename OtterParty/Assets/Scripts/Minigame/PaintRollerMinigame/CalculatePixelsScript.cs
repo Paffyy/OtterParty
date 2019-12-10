@@ -26,13 +26,15 @@ public class CalculatePixelsScript : MonoBehaviour
         SetPixels();
         Color[] pixels = tex2d.GetPixels();
         pixelCount = pixels.Length;
+        colors = new float[4];
         foreach (var item in pixels)
         {
             AddToColors(item);
         }
         foreach (var item in colors)
         {
-            float a = (item / pixelCount) * 100;
+            float a = (float)(item / pixelCount) * 100;
+            Debug.Log(a);
             playerPercentages.Add(a);
         }
         return playerPercentages;
@@ -68,9 +70,10 @@ public class CalculatePixelsScript : MonoBehaviour
         RenderTexture.active = splatMapTexture;
         tex2d.ReadPixels(new Rect(0, 0, splatMapTexture.width, splatMapTexture.height), 0, 0);
         tex2d.Apply();
+        RenderTexture.active = null;
     }
     private void OnGUI()
     {
-        GUI.DrawTexture(new Rect(0, 0, 256, 256), splatMap, ScaleMode.ScaleToFit, false, 1);
+        GUI.DrawTexture(new Rect(0, 0, 156 , 156), splatMap, ScaleMode.ScaleToFit, false, 1);
     }
 }
