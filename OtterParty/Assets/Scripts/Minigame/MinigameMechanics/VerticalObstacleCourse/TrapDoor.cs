@@ -6,10 +6,11 @@ public class TrapDoor : MonoBehaviour
 {
     [SerializeField]
     [Range(0.1f, 5f)]
-    private float trapDoorUpTime;
+    private float trapDoorResetTime;
     [SerializeField]
     [Range(0.1f, 5f)]
-    private float trapDoorDownTime;
+    private float startDelay;
+
     private Animator anim;
 
     void Start()
@@ -20,15 +21,20 @@ public class TrapDoor : MonoBehaviour
     }
     private void StartMechanics(BaseEventInfo e)
     {
+
         StartCoroutine("ToggleTrapDoor");
+    }
+
+    IEnumerator ActivateTrapDoor()
+    {
+        anim.SetTrigger("ActivateTrapDoor");
+        yield return new WaitForSeconds(trapDoorResetTime);
+        StartCoroutine("ActivateTrapDoor");
     }
 
     IEnumerator ToggleTrapDoor()
     {
-        anim.SetTrigger("ActivateTrapDoor");
-        yield return new WaitForSeconds(trapDoorDownTime);
-        anim.SetTrigger("ResetTrapDoor");
-        yield return new WaitForSeconds(trapDoorUpTime);
-        StartCoroutine("ToggleTrapDoor");
+        yield return new WaitForSeconds(startDelay);
+        StartCoroutine("ActivateTrapDoor");
     }
 }

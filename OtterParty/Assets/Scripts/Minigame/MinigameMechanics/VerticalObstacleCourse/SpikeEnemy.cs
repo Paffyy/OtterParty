@@ -12,6 +12,9 @@ public class SpikeEnemy : MonoBehaviour
     [SerializeField]
     [Range(0.1f, 5f)]
     private float spikesResetTime;
+    [SerializeField]
+    [Range(0.1f, 5f)]
+    private float startDelay;
 
 
 
@@ -23,7 +26,14 @@ public class SpikeEnemy : MonoBehaviour
 
     private void StartMechanics(BaseEventInfo e)
     {
+        StartCoroutine("ActivateSpikes");
+    }
+
+    IEnumerator ActivateSpikes()
+    {
+        yield return new WaitForSeconds(startDelay);
         StartCoroutine("ToggleSpikes");
+
     }
 
     IEnumerator ToggleSpikes()
