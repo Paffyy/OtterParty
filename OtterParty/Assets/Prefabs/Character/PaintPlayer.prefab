@@ -49,7 +49,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: bc5ebf3745b6aba4e8d078359ff7576c, type: 2}
   - {fileID: 2100000, guid: c479c2179340c59459d664a8e40f01ea, type: 2}
   - {fileID: 2100000, guid: f7e1e02ac6f46e346a742e3cd12f4298, type: 2}
-  brushSize: 6
+  brushSize: 10
   player: {fileID: 6365021908532629371}
   paintingFloorMask:
     serializedVersion: 2
@@ -3332,6 +3332,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4036821062809047096}
     m_Modifications:
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Name
+      value: BlobShadowProjector
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3387,14 +3395,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.7000018
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Name
-      value: BlobShadowProjector
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Layer
-      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
