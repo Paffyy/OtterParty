@@ -19,7 +19,13 @@ public class CalculatePixelsScript : MonoBehaviour
         GetComponent<MeshRenderer>().material.SetTexture("_SplatMap", splatMap);
         tex2d = new Texture2D(2024, 2024);
     }
-
+    //private void Update()
+    //{
+    //    if(Input.GetKeyUp(KeyCode.G))
+    //    {
+    //        GetPlayerPercentage();
+    //    }
+    //}
     public List<float> GetPlayerPercentage()
     {
         List<float> playerPercentages = new List<float>();

@@ -49,6 +49,6 @@ public class PaintToWinController : MonoBehaviour
             pointSystem.GetCurrentScore()[item.Key] = placementsScore;
             placementsScore++;
         }
-        MinigameController.Instance.PlayerPercentageScore = paintFloor.GetComponent<CalculatePixelsScript>().GetPlayerPercentage();
+        MinigameController.Instance.PlayerPercentageScore = playerPercentages;
     }
 }
