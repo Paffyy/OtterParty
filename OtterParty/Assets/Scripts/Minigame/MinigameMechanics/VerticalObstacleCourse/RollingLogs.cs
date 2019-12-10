@@ -18,7 +18,7 @@ public class RollingLogs : MonoBehaviour
     void Start()
     {
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartMechanics);
-        StartMechanics(new StartMinigameEventInfo()); //Debug testing
+       // StartMechanics(new StartMinigameEventInfo()); //Debug testing
     }
 
     private void StartMechanics(BaseEventInfo e)

@@ -17,7 +17,7 @@ public class TrapDoor : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartMechanics);
-        StartMechanics(new StartMinigameEventInfo()); //Debug testing
+       // StartMechanics(new StartMinigameEventInfo()); //Debug testing
     }
     private void StartMechanics(BaseEventInfo e)
     {
