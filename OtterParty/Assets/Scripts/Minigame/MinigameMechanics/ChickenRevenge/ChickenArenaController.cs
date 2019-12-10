@@ -16,6 +16,13 @@ public class ChickenArenaController : MonoBehaviour
     [SerializeField]
     [Range(1, 10)]
     private int chargePointsMultiplier;
+    [SerializeField]
+    [Range(0.1f, 5.0f)]
+    private float pickUpSpawnInterval;
+    [SerializeField]
+    private GameObject defaultPickUp;
+    [SerializeField]
+    private GameObject spawnArea;
     private ChickenBoss chickenBoss;
     private Transform currentChargePoint;
     private List<Transform> allChargePoints = new List<Transform>();
@@ -34,7 +41,7 @@ public class ChickenArenaController : MonoBehaviour
     {
         EventHandler.Instance.Register(EventHandler.EventType.StartNextRoundEvent, StartNextRound);
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
-       // StartGame(new StartMinigameEventInfo());
+        //StartGame(new StartMinigameEventInfo()); //debug
     }
 
     private void StartNextRound(BaseEventInfo e)
@@ -48,6 +55,7 @@ public class ChickenArenaController : MonoBehaviour
         chickenBoss = chicken.GetComponent<ChickenBoss>();
         chicken.transform.position = allChargePoints[0].position;
         StartCoroutine("ChickenChargeGameLoop");
+        StartCoroutine("SpawnPickUps");
     }
 
     private List<Transform> RandomizeChargePoints()
@@ -71,6 +79,29 @@ public class ChickenArenaController : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenRounds);
         chickenBoss.SetNextChargePoints(RandomizeChargePoints(), timeBetweenCharges);
         IncreaseDifficulty();
+    }
+    IEnumerator SpawnPickUps()
+    {
+        SpawnPickUp();
+        yield return new WaitForSeconds(pickUpSpawnInterval);
+        StartCoroutine("SpawnPickUps");
+    }
+
+    private void SpawnPickUp()
+    {
+        GameObject pickUp = Instantiate(defaultPickUp, GenerateRandomSpawnPosition(defaultPickUp), Quaternion.identity);
+    }
+
+    private Vector3 GenerateRandomSpawnPosition(GameObject pickUp)
+    {
+        MeshRenderer mesh = spawnArea.GetComponent<MeshRenderer>();
+        float xBounds = mesh.bounds.size.x / 2;
+        float zBounds = mesh.bounds.size.z / 2;
+        Vector3 center = mesh.bounds.center;
+        MeshRenderer pickUpMesh = pickUp.GetComponent<MeshRenderer>();
+        float pickUpOffset = (pickUpMesh.bounds.size.y / -2) + pickUpMesh.GetComponent<MeshRenderer>().bounds.center.y;
+        Vector3 spawnPos = new Vector3(center.x + Random.Range(-xBounds, xBounds), spawnArea.transform.position.y + pickUpOffset, center.z + Random.Range(-zBounds, zBounds));
+        return spawnPos;
     }
 
     private void IncreaseDifficulty()
