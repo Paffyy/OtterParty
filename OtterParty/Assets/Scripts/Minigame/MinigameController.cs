@@ -200,6 +200,8 @@ public class MinigameController : MonoBehaviour
             Player p = GameController.Instance?.FindPlayerByGameObject(player);
             playersAlive[p] = false;
             UpdatePointSystem(p, currentPoints);
+            var deathEffect = Instantiate(GameController.Instance.PlayerDeathEffects[p.ID], p.PlayerObject.transform.position, p.PlayerObject.transform.rotation);
+            Destroy(deathEffect.gameObject, 2);
             player.SetActive(false);
         }
         currentPoints++;
@@ -231,7 +233,9 @@ public class MinigameController : MonoBehaviour
             if (player != null)
             {
                 EliminatePlayer(player,true);
-                eliminateEventInfo.PlayerToEliminate.SetActive(false);
+                var deathEffect = Instantiate(GameController.Instance.PlayerDeathEffects[player.ID], player.PlayerObject.transform.position, player.PlayerObject.transform.rotation);
+                Destroy(deathEffect.gameObject, 1);
+                player.PlayerObject.SetActive(false);
             }
         }
     }
@@ -296,6 +300,7 @@ public class MinigameController : MonoBehaviour
     {
         UpdatePointSystem(p, currentPoints);
         currentPoints++;
+
     }
 
     private void UpdateReversePoints(Player p)
