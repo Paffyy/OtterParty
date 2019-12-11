@@ -16,7 +16,11 @@ public class GameController : MonoBehaviour
     private List<Material> playerMaterials;
     [SerializeField]
     private List<GameObject> playerHats;
+    [SerializeField]
+    private List<GameObject> playerDeathEffects;
     public List<GameObject> PlayerHats { get { return playerHats; } set { playerHats = value; } }
+    public List<GameObject> PlayerDeathEffects { get { return playerDeathEffects; } set { playerDeathEffects = value; } }
+
 
     public List<Material> PlayerMaterials
     {
