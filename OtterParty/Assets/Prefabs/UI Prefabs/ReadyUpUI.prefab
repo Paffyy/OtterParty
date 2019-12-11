@@ -829,6 +829,7 @@ GameObject:
   - component: {fileID: 7771651373142983204}
   - component: {fileID: 4794330234019773434}
   - component: {fileID: 9103533083625655959}
+  - component: {fileID: 8473001209159237057}
   m_Layer: 5
   m_Name: p1 (1)
   m_TagString: Untagged
@@ -891,6 +892,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8473001209159237057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3081522426352125806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292d06e37b0b00646ab2500cc9a80a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spritesToLoop:
+  - {fileID: 21300000, guid: fef5f4cca847c0c48a046cb580ec56c9, type: 3}
+  - {fileID: 21300000, guid: 07be95f78957f1f4ab650c7232767556, type: 3}
+  interval: 0.8
 --- !u!1 &4342036606772620512
 GameObject:
   m_ObjectHideFlags: 0
