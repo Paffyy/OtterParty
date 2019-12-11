@@ -6,9 +6,10 @@ using UnityEngine;
 public class SpinningRubberDuckyController : MonoBehaviour
 {
     [SerializeField] Transform rotatingObject;
-    [SerializeField] float rotationModifier;
+    [SerializeField] float rotationOverTimeModifier;
     public bool GameStarted { get; set; }
-    private void Start()
+
+    private void Awake()
     {
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, SetGameStarted);
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, SetGameEnded);
@@ -27,10 +28,10 @@ public class SpinningRubberDuckyController : MonoBehaviour
 
     void Update()
     {
-        if (GameStarted || true)
+        if (GameStarted)
         {
-            rotatingObject.Rotate(new Vector3(0, 10, 0) * rotationModifier * Time.deltaTime);
-            rotationModifier += Time.deltaTime / 5;
+            rotatingObject.Rotate(new Vector3(0, 10, 0) * rotationOverTimeModifier * Time.deltaTime);
+            rotationOverTimeModifier += Time.deltaTime / 5;
         }
     }
 

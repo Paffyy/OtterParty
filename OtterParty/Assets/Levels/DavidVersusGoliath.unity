@@ -407,7 +407,7 @@ Transform:
   - {fileID: 700362868}
   - {fileID: 392648824}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &145111961
 GameObject:
@@ -1008,7 +1008,7 @@ RectTransform:
   - {fileID: 632626821}
   - {fileID: 1962154233}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1739,7 +1739,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &504899874
 GameObject:
@@ -1754,7 +1754,7 @@ GameObject:
   - component: {fileID: 504899878}
   - component: {fileID: 504899877}
   m_Layer: 0
-  m_Name: RubberDuckyController
+  m_Name: KingOfTheLogController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1772,7 +1772,7 @@ Transform:
   m_LocalScale: {x: 14.519384, y: 3.8561692, z: 9.778637}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &504899876
 MonoBehaviour:
@@ -1787,7 +1787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotatingObject: {fileID: 1959216151}
-  rotationModifier: 2
+  rotationOverTimeModifier: 2.5
 --- !u!65 &504899877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1799,8 +1799,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.78206867, y: 1, z: 1}
-  m_Center: {x: -0.020590123, y: 0, z: 0}
+  m_Size: {x: 0.8658638, y: 1.6361868, z: 1.0614178}
+  m_Center: {x: -0.039752368, y: 0.29412553, z: -0.04855308}
 --- !u!54 &504899878
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2350,6 +2350,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Medium_log
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069326490331171016, guid: ed89f0c6937c12b488b34c0636e445aa,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069326490331171016, guid: ed89f0c6937c12b488b34c0636e445aa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4074731955500628699, guid: ed89f0c6937c12b488b34c0636e445aa,
         type: 3}
@@ -4168,7 +4178,7 @@ PrefabInstance:
     - target: {fileID: 3253218232674305507, guid: 0c77bcff903e818478f476d1f832469b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3253218232674305507, guid: 0c77bcff903e818478f476d1f832469b,
         type: 3}
@@ -5741,7 +5751,7 @@ PrefabInstance:
     - target: {fileID: 3253218232674305507, guid: 0c77bcff903e818478f476d1f832469b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 3253218232674305507, guid: 0c77bcff903e818478f476d1f832469b,
         type: 3}
