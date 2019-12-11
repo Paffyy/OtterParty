@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreeMovementTrigger : MonoBehaviour
+public class LockedMovementTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
@@ -10,10 +10,8 @@ public class FreeMovementTrigger : MonoBehaviour
         {
             PlayerController p = other.gameObject.GetComponent<PlayerController>();
             var rgd = other.gameObject.GetComponent<Rigidbody>();
-            rgd.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            if(p.PlayerGun != null)
-                p.PlayerGun.SetActive(false);
-            p.Transition<MovingState>();
+            rgd.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX;
+            p.Transition<LockedMovementState>();
         }
     }
 }

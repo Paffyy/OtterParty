@@ -147,17 +147,6 @@ public class MinigameController : MonoBehaviour
         {
             Player player = GameController.Instance.FindPlayerByID(playerInput.playerIndex);
             player.PlayerObject = playerInput.gameObject;
-           
-            if (gameType == GameType.Finale)
-            {
-                float playerScore = GameController.Instance.PointSystem.GetCurrentScore().FirstOrDefault(x => x.Key == player).Value;
-                float normalizedPlayerScore = playerScore - (GameController.Instance.Minigames.Count - 1);
-                float normalizedScoreMultiplier = GameController.Instance.Players.Count * (GameController.Instance.Minigames.Count - 1);
-                float leadDistance = (normalizedPlayerScore / normalizedScoreMultiplier) * leadMultiplier;
-                leadDistance = Mathf.Clamp(leadDistance, 0, leadMultiplier);
-                Vector3 leadVector = new Vector3(0, 0, leadDistance);
-                spawnPoints[playerInput.playerIndex].transform.position = spawnPoints[playerInput.playerIndex].transform.position + leadVector;
-            }
             if (!isOnUILayer) // Exception where the character has no mesh
             {
                 Material[] mats = new Material[] { GameController.Instance.PlayerMaterials[player.ID] };

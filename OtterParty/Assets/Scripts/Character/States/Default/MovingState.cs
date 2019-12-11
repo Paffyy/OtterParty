@@ -19,10 +19,14 @@ public class MovingState : CharacterBaseState
     [SerializeField]
     [Range(1f, 15f)]
     private float jumpHeight;
+    [SerializeField]
+    private RuntimeAnimatorController defaultAnimations;
     public bool IsShoveOffCooldown { get; set; } = true;
     public override void Enter()
     {
         owner.PlayerState = PlayerController.CurrentPlayerState.MovingState;
+        if (owner.Anim != null)
+            owner.Anim.runtimeAnimatorController = defaultAnimations;
         Rigidbody playerBody = owner.GetComponent<Rigidbody>();
         playerBody.velocity = new Vector3(0, playerBody.velocity.y, 0);
         owner.OnMoveAction += Movement;
