@@ -30,6 +30,7 @@ public class SpinningRubberDuckyController : MonoBehaviour
         if (GameStarted || true)
         {
             rotatingObject.Rotate(new Vector3(0, 10, 0) * rotationModifier * Time.deltaTime);
+            rotationModifier += Time.deltaTime / 5;
         }
     }
 
