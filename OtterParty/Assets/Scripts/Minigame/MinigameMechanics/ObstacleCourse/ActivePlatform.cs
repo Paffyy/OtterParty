@@ -6,7 +6,7 @@ public class ActivePlatform : MonoBehaviour
 {
     [SerializeField]
     private Transform parent;
-    protected void OnTriggerEnter(Collider other)
+    protected void OnCollisionEnter(Collision other)
     {
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
         if(player != null)
@@ -16,7 +16,7 @@ public class ActivePlatform : MonoBehaviour
         }
     }
 
-    protected void OnTriggerExit(Collider other)
+    protected void OnCollisionExit(Collision other)
     {
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
         if (player != null)

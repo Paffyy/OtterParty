@@ -21,10 +21,10 @@ public class LaneHandler : MonoBehaviour
             PlayerController p = other.gameObject.GetComponent<PlayerController>();
             var rgd = other.gameObject.GetComponent<Rigidbody>();
             p.Transition<LockedMovementState>();
+            rgd.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX;
             other.gameObject.transform.position = lanePosition.position;
             other.gameObject.transform.rotation = lanePosition.rotation;
-            rgd.velocity = Vector3.zero;
-            rgd.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX;
+            p.InputDirection = Vector2.zero;
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SymbolMiniGameController : MonoBehaviour
+public class FinaleSymbolController : MonoBehaviour
 {
     [SerializeField]
     private Sprite[] symbolSprites;
@@ -14,7 +14,6 @@ public class SymbolMiniGameController : MonoBehaviour
     private float timeToFallMultiplier;
     private Sprite symbolSprite;
     private List<SymbolPlatform> platforms = new List<SymbolPlatform>();
-    private List<GameObject> eliminatedPlayers = new List<GameObject>();
     [SerializeField]
     private SymbolPlatform currentSymbolPlatform;
     [SerializeField]
@@ -26,13 +25,13 @@ public class SymbolMiniGameController : MonoBehaviour
         foreach (Transform item in transform)
         {
             var platform = item.gameObject.GetComponent<SymbolPlatform>();
-            if(platform != null)
+            if (platform != null)
             {
                 platforms.Add(platform);
             }
         }
         EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
-        EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);  
+        EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
     }
 
     private void AssignCurrentSymbol()
@@ -57,7 +56,7 @@ public class SymbolMiniGameController : MonoBehaviour
                 {
                     item.IsSafe = true;
                 }
-            }        
+            }
         }
     }
 
@@ -79,17 +78,6 @@ public class SymbolMiniGameController : MonoBehaviour
 
     private void ResetPlatforms()
     {
-        if(eliminatedPlayers.Count > 1)
-        {
-            MultipleEliminateEventInfo multipleEliminateEventInfo = new MultipleEliminateEventInfo(eliminatedPlayers);
-            EventHandler.Instance.FireEvent(EventHandler.EventType.MultipleEliminateEvent, multipleEliminateEventInfo);
-        }
-        else if (eliminatedPlayers.Count == 1)
-        {
-            EliminateEventInfo eliminateEventInfo = new EliminateEventInfo(eliminatedPlayers[0]);
-            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, eliminateEventInfo);
-        }
-        eliminatedPlayers.Clear();
         currentSymbolPlatform.ResetPlatform();
         foreach (var item in platforms)
         {
@@ -124,16 +112,4 @@ public class SymbolMiniGameController : MonoBehaviour
     {
         StopAllCoroutines();
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            if (!eliminatedPlayers.Contains(other.gameObject))
-            {
-                eliminatedPlayers.Add(other.gameObject);
-            }
-        }
-    }
 }
-
