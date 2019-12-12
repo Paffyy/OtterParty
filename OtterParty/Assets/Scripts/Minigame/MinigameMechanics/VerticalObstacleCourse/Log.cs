@@ -7,6 +7,8 @@ public class Log : MonoBehaviour
     private float speed;
     private bool logActive;
     private Rigidbody logBody;
+    [SerializeField]
+    private Vector3 logDirection;
 
     void Start()
     {
@@ -18,7 +20,7 @@ public class Log : MonoBehaviour
     {
         if (logActive)
         {
-            logBody.velocity = new Vector3(1, -0.2f, 0) * speed;
+            logBody.velocity = logDirection * speed;
         }
     }
 
