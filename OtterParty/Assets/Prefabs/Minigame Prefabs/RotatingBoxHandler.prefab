@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 4469685640347208751}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 14.284768, y: 14.284768, z: 14.284768}
+  m_LocalScale: {x: 12.368609, y: 12.368609, z: 12.368609}
   m_Children: []
   m_Father: {fileID: 4469685641025245327}
   m_RootOrder: 0
@@ -91,7 +91,7 @@ BoxCollider:
   m_GameObject: {fileID: 4469685640347208751}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.0581968, y: 1.0795206, z: 1.0623493}
   m_Center: {x: 0.007689537, y: 0.008298503, z: 0.0020637019}
@@ -212,7 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a55397f665ca7c48bb6f44294d5028b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 1
+  rotationSpeed: 0.9
   rotatingBox: {fileID: 4469685641025245327}
-  material: {fileID: 0}
+  material: {fileID: -9033468472196382676, guid: ba84317f84d832047b66fbc164ff23e1,
+    type: 3}
   mesh: {fileID: 4469685640347208744}

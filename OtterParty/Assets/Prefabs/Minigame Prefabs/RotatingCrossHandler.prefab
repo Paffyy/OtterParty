@@ -45,13 +45,14 @@ GameObject:
   - component: {fileID: 8887040813526377481}
   - component: {fileID: 2268162109987892854}
   - component: {fileID: 1493670769116719062}
+  - component: {fileID: 7577243587836940727}
   m_Layer: 14
   m_Name: Cube (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &759948244652588837
 Transform:
   m_ObjectHideFlags: 0
@@ -126,6 +127,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4068373912626513877, guid: 935c827e8d31ef5478c30a65297d1e09, type: 3}
+--- !u!114 &7577243587836940727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536442895926946011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98551ab8b0a9e2409e9f5c6794316a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 2384971305790461186}
 --- !u!1 &2115376534414030738
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7327506630302183067
 Transform:
   m_ObjectHideFlags: 0
@@ -279,8 +293,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 0.75
   rotatingCross: {fileID: 2384971305790461186}
-  rotatingDirection: 1
-  material: {fileID: 2100000, guid: 876e7b28c4454c14b920e19944bcc91f, type: 2}
+  rotatingDirection: -1
+  material: {fileID: 2100000, guid: 6e57288f1bdd8344fb3a2e2525f9c95d, type: 2}
   meshOne: {fileID: 2268162109987892854}
   rotateOnAxis: 1
 --- !u!1 &2384971305790461187
@@ -325,7 +339,7 @@ BoxCollider:
   m_GameObject: {fileID: 5924753393228003802}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.12804452, y: 0.05900498, z: 1.1750082}
   m_Center: {x: 0.000000048428785, y: 0.13076435, z: 0}
@@ -338,7 +352,7 @@ BoxCollider:
   m_GameObject: {fileID: 5924753393660861781}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.12804449, y: 0.05900498, z: 1.1750079}
   m_Center: {x: 0.000000048428774, y: 0.13076435, z: 0}
@@ -351,7 +365,7 @@ BoxCollider:
   m_GameObject: {fileID: 5924753394377972669}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.12804452, y: 0.05900498, z: 1.1750082}
   m_Center: {x: 0.000000048428785, y: 0.13076435, z: 0.00000011920929}
