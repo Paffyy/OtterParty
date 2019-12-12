@@ -18,7 +18,7 @@ public class MinigameController : MonoBehaviour
     [Header("Values")]
 
     [SerializeField]
-    private int mingameDuration;
+    private int minigameDuration;
     [SerializeField]
     [Range(1,10.0f)]
     private int endOfMatchDelay;
@@ -68,7 +68,7 @@ public class MinigameController : MonoBehaviour
 
     private List<Transform> spawnPoints = new List<Transform>();
     private Canvas canvas;
-
+    private List<Player> finalePlayerPlacements = new List<Player>(); 
     private PlayerInputManager playerInputManager;
     private int currentPoints = 1;
     private int currentReversePoints = 1;
@@ -77,7 +77,7 @@ public class MinigameController : MonoBehaviour
 
     public List<float> PlayerPercentageScore { get; set; } = new List<float>();
     public PointSystem MinigamePointSystem { get; set; } = new PointSystem();
-
+    
     #endregion
 
     #region Singleton Implementation
@@ -182,6 +182,9 @@ public class MinigameController : MonoBehaviour
                 case GameType.FirstToGoal:
                     EventHandler.Instance.Register(EventHandler.EventType.FinishLineEvent, GiveScoreEvent);
                     break;
+                case GameType.Finale:
+                    EventHandler.Instance.Register(EventHandler.EventType.FinishLineEvent, PlayerHasMadeItToGoal);
+                    break;
                 case GameType.BothLastAndFirst:
                     EventHandler.Instance.Register(EventHandler.EventType.EliminateEvent, EliminatePlayerEvent);
                     EventHandler.Instance.Register(EventHandler.EventType.FinishLineEvent, GiveScoreEvent);
@@ -191,6 +194,8 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
+
+
 
     private void EliminateMultiplePlayers(BaseEventInfo e)
     {
@@ -225,6 +230,7 @@ public class MinigameController : MonoBehaviour
     {
         EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
     }
+
     private void EliminatePlayerEvent(BaseEventInfo e)
     {
         var eliminateEventInfo = e as EliminateEventInfo;
@@ -352,15 +358,47 @@ public class MinigameController : MonoBehaviour
 
     public void StartMinigameTimer()
     {
-        StartCoroutine("MinigameTimer", mingameDuration);
+        StartCoroutine("MinigameTimer", minigameDuration);
         if(countDownTimerUI != null)
         {
             timeLeftText.SetActive(true);
             countDownTimerUI.SetActive(true);
-            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(mingameDuration);
+            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(minigameDuration);
         }
     }
+    private void PlayerHasMadeItToGoal(BaseEventInfo e)
+    {
+        if (!timeLeftText.activeSelf)
+        {
+            StartDNFTimer();
+        }
+        FinishedEventInfo fei = e as FinishedEventInfo;
+        var player = GameController.Instance.FindPlayerByGameObject(fei.PlayerWhoFinished);
+        player.PlayerObject.SetActive(false);
+        playersAlive[player] = false;
+        finalePlayerPlacements.Add(player);
+        if (IsGameOver(0))
+        {
+            EndMinigame();
+        }
+    }
+    public void StartDNFTimer()
+    {
+        StopCoroutine("MinigameTimer");
+        StartCoroutine("MinigameTimer", 15); //TODO [15] dnf timer shoulde move to a field
+        if (countDownTimerUI != null)
+        {
+            timeLeftText.SetActive(true);
+            countDownTimerUI.SetActive(true);
+            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(15);
+        }
 
+    }
+    IEnumerator DNFTimer(int duration)
+    {
+        yield return new WaitForSeconds(duration);
+        EndMinigame();
+    }
     IEnumerator MinigameTimer(int duration)
     {
         yield return new WaitForSeconds(duration);
@@ -377,6 +415,10 @@ public class MinigameController : MonoBehaviour
         if (gameType == GameType.PointsBased)
         {
             StartCoroutine("DisplayPlayerScores");
+        }
+        else if (gameType == GameType.Finale)
+        {
+
         }
         else
         {
@@ -469,7 +511,6 @@ public class MinigameController : MonoBehaviour
                 }
             }
         }
-
     }
     private void ShowStandingsUI()
     {
