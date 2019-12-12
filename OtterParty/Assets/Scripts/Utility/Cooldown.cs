@@ -46,6 +46,14 @@ public class Cooldown
         });
     }
 
+    public void StartNewCooldown(float duration, ItemSelection sender)
+    {
+        Task.Factory.StartNew(async () => {
+            await Task.Delay((int)(duration * 1000));
+            sender.ShiftOnCooldown = false;
+        });
+    }
+
     public void StartNewCooldown(float duration, PlayerController sender)
     {
         Task.Factory.StartNew(async () => {

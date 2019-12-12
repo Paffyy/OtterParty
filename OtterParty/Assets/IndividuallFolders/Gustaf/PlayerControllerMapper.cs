@@ -534,6 +534,17 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""159d8143-672e-4308-a613-48619b113069"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""7f1802e9-757c-4566-ac98-3372695e3799"",
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
@@ -547,6 +558,17 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""69d8d3df-0f17-4a6c-bf07-a588fe7e0bd2"",
                     ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba541692-e54f-416c-b993-8e4abe3797fe"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
