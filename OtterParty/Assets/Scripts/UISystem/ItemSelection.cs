@@ -23,6 +23,7 @@ public class ItemSelection : MonoBehaviour
     private GameObject hat;
     private bool gameHasStarted;
     private int playerIndex;
+    public bool ShiftOnCooldown { get; set; }
 
     void Start()
     {
@@ -154,46 +155,56 @@ public class ItemSelection : MonoBehaviour
 
     private void OnShiftLeft()
     {
-        if (centerHatIndex - 1 >= 0 && !hatSelected)
+        if (!ShiftOnCooldown)
         {
-            hatTakenMessage.SetActive(false);
-            Destroy(hat);
-            rightHat = centerHat;
-            SetRightPosItem(true);
-            centerHatIndex--;
-            SetPlayerHat();
-            SetCenterPosItem();
-            if (centerHatIndex - 1 >= 0)
+            ShiftOnCooldown = true;
+            Cooldown.Instance.StartNewCooldown(0.2f, this);
+            if (centerHatIndex - 1 >= 0 && !hatSelected)
             {
-               leftHat = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>();
-               SetLeftPosItem(true);
-            }
-            else
-            {
-               SetLeftPosItem(false);
+                hatTakenMessage.SetActive(false);
+                Destroy(hat);
+                rightHat = centerHat;
+                SetRightPosItem(true);
+                centerHatIndex--;
+                SetPlayerHat();
+                SetCenterPosItem();
+                if (centerHatIndex - 1 >= 0)
+                {
+                    leftHat = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>();
+                    SetLeftPosItem(true);
+                }
+                else
+                {
+                    SetLeftPosItem(false);
+                }
             }
         }
     }
 
     private void OnShiftRight()
     {
-        if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count && !hatSelected)
+        if (!ShiftOnCooldown)
         {
-            hatTakenMessage.SetActive(false);
-            Destroy(hat);
-            leftHat = centerHat;
-            SetLeftPosItem(true);
-            centerHatIndex++;
-            SetPlayerHat();
-            SetCenterPosItem();
-            if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
+            ShiftOnCooldown = true;
+            Cooldown.Instance.StartNewCooldown(0.2f, this);
+            if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count && !hatSelected)
             {
-                rightHat = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>();
-                SetRightPosItem(true);
-            }
-            else
-            {
-                SetRightPosItem(false);
+                hatTakenMessage.SetActive(false);
+                Destroy(hat);
+                leftHat = centerHat;
+                SetLeftPosItem(true);
+                centerHatIndex++;
+                SetPlayerHat();
+                SetCenterPosItem();
+                if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
+                {
+                    rightHat = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>();
+                    SetRightPosItem(true);
+                }
+                else
+                {
+                    SetRightPosItem(false);
+                }
             }
         }
     }
