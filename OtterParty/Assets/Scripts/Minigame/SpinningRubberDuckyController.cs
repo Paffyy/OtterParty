@@ -37,10 +37,13 @@ public class SpinningRubberDuckyController : MonoBehaviour
 
     private void OnTriggerExit(Collider other) // playarea
     {
-        if (other.CompareTag("Player"))
+        if (GameStarted)
         {
-            EliminateEventInfo e = new EliminateEventInfo(other.gameObject);
-            EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, e);
+            if (other.CompareTag("Player"))
+            {
+                EliminateEventInfo e = new EliminateEventInfo(other.gameObject);
+                EventHandler.Instance.FireEvent(EventHandler.EventType.EliminateEvent, e);
+            }
         }
     }
 }

@@ -116,6 +116,7 @@ public class MinigameController : MonoBehaviour
             InitPlayers();
             RegisterToEliminateEvents();
             currentReversePoints = GameController.Instance.Players.Count;
+            toggleDebugging = false;
         }
         else
         {
