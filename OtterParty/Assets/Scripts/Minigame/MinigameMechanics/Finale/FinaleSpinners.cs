@@ -7,7 +7,6 @@ public class FinaleSpinners : MonoBehaviour
     [SerializeField] Transform rotatingObject;
     [SerializeField] [Range(-1, 1)] int rotatingDirection;
     [SerializeField] float rotatingSpeed;
-    [SerializeField] float rotationOverTimeModifier;
     public bool GameStarted { get; set; }
 
     void Start()
@@ -30,8 +29,7 @@ public class FinaleSpinners : MonoBehaviour
     {
         if (GameStarted)
         {
-            rotatingObject.Rotate(new Vector3(0, rotatingSpeed, 0) * rotationOverTimeModifier * rotatingDirection * Time.deltaTime);
-            rotationOverTimeModifier += Time.deltaTime / 5;
+            rotatingObject.Rotate(new Vector3(0, rotatingSpeed, 0) * rotatingDirection * Time.deltaTime);
         }
     }
 }

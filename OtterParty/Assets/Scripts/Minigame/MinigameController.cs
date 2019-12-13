@@ -57,6 +57,8 @@ public class MinigameController : MonoBehaviour
     private GameObject timeLeftText;
     [SerializeField]
     private ReadyUpUI readyUpUI;
+    [SerializeField]
+    private int didNotFinishTimer;
     public GameType CurrentGameType { get { return gameType; } }
     public bool HasLimitedLives { get { return hasLimitedLives; } }
     public int MiniGameLives { get { return miniGameLives; } }
@@ -194,8 +196,6 @@ public class MinigameController : MonoBehaviour
             }
         }
     }
-
-
 
     private void EliminateMultiplePlayers(BaseEventInfo e)
     {
@@ -359,7 +359,7 @@ public class MinigameController : MonoBehaviour
     public void StartMinigameTimer()
     {
         StartCoroutine("MinigameTimer", minigameDuration);
-        if(countDownTimerUI != null)
+        if(countDownTimerUI != null && CurrentGameType != GameType.Finale)
         {
             timeLeftText.SetActive(true);
             countDownTimerUI.SetActive(true);
@@ -385,7 +385,7 @@ public class MinigameController : MonoBehaviour
     public void StartDNFTimer()
     {
         StopCoroutine("MinigameTimer");
-        StartCoroutine("MinigameTimer", 15); //TODO [15] dnf timer shoulde move to a field
+        StartCoroutine("MinigameTimer", didNotFinishTimer);
         if (countDownTimerUI != null)
         {
             timeLeftText.SetActive(true);

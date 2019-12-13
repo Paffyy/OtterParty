@@ -15,11 +15,6 @@ public class FinaleGameController : MonoBehaviour
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
     }
 
-    void Update()
-    {
-
-    }
-
     private void StopGame(BaseEventInfo e)
     {
         StopAllCoroutines();

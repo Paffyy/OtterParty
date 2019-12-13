@@ -15,7 +15,7 @@ public class FinaleSymbolController : MonoBehaviour
     private Sprite symbolSprite;
     private List<SymbolPlatform> platforms = new List<SymbolPlatform>();
     [SerializeField]
-    private SymbolPlatform currentSymbolPlatform;
+    private List<SymbolPlatform> currentSymbolPlatforms;
     [SerializeField]
     [Range(0.5f, 5f)]
     private float resetTime;
@@ -37,7 +37,10 @@ public class FinaleSymbolController : MonoBehaviour
     private void AssignCurrentSymbol()
     {
         symbolSprite = symbolSprites[RandomizeSymbol()];
-        currentSymbolPlatform.SetSymbol(symbolSprite);
+        foreach (var symbolPlatform in currentSymbolPlatforms)
+        {
+            symbolPlatform.SetSymbol(symbolSprite);
+        }
     }
 
     private void AssignPlatformSymbols()
@@ -78,7 +81,10 @@ public class FinaleSymbolController : MonoBehaviour
 
     private void ResetPlatforms()
     {
-        currentSymbolPlatform.ResetPlatform();
+        foreach (var symbolPlatform in currentSymbolPlatforms)
+        {
+            symbolPlatform.ResetPlatform();
+        }
         foreach (var item in platforms)
         {
             item.ResetPlatform();
