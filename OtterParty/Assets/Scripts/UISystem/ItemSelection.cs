@@ -34,7 +34,7 @@ public class ItemSelection : MonoBehaviour
         SetDefaultItems();
     }
 
-     void Update()
+    void Update()
     {
         UpdateHatSprites();
     }
@@ -70,7 +70,7 @@ public class ItemSelection : MonoBehaviour
             rightSprite.sprite = rightHat.GetHatSprite(playerIndex);
         }
     }
-    
+
     private void UpdateLeftHat()
     {
         if (leftHat != null)
@@ -117,7 +117,7 @@ public class ItemSelection : MonoBehaviour
     private void SetCenterPosItem()
     {
         centerSprite.sprite = centerHat.GetHatSprite(playerIndex);
-        if(!centerHat.IsAvailable && centerHat.SelectedByPlayerIndex != playerIndex)
+        if (!centerHat.IsAvailable && centerHat.SelectedByPlayerIndex != playerIndex)
         {
             hatTakenMessage.SetActive(true);
         }
@@ -155,56 +155,47 @@ public class ItemSelection : MonoBehaviour
 
     private void OnShiftLeft()
     {
-        if (!ShiftOnCooldown)
+        if (centerHatIndex - 1 >= 0 && !hatSelected)
         {
-            ShiftOnCooldown = true;
-            Cooldown.Instance.StartNewCooldown(0.2f, this);
-            if (centerHatIndex - 1 >= 0 && !hatSelected)
+            hatTakenMessage.SetActive(false);
+            Destroy(hat);
+            rightHat = centerHat;
+            SetRightPosItem(true);
+            centerHatIndex--;
+            SetPlayerHat();
+            SetCenterPosItem();
+            if (centerHatIndex - 1 >= 0)
             {
-                hatTakenMessage.SetActive(false);
-                Destroy(hat);
-                rightHat = centerHat;
-                SetRightPosItem(true);
-                centerHatIndex--;
-                SetPlayerHat();
-                SetCenterPosItem();
-                if (centerHatIndex - 1 >= 0)
-                {
-                    leftHat = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>();
-                    SetLeftPosItem(true);
-                }
-                else
-                {
-                    SetLeftPosItem(false);
-                }
+                leftHat = GameController.Instance.PlayerHats[centerHatIndex - 1].GetComponent<PlayerHat>();
+                SetLeftPosItem(true);
+            }
+            else
+            {
+                SetLeftPosItem(false);
             }
         }
     }
 
     private void OnShiftRight()
     {
-        if (!ShiftOnCooldown)
+
+        if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count && !hatSelected)
         {
-            ShiftOnCooldown = true;
-            Cooldown.Instance.StartNewCooldown(0.2f, this);
-            if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count && !hatSelected)
+            hatTakenMessage.SetActive(false);
+            Destroy(hat);
+            leftHat = centerHat;
+            SetLeftPosItem(true);
+            centerHatIndex++;
+            SetPlayerHat();
+            SetCenterPosItem();
+            if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
             {
-                hatTakenMessage.SetActive(false);
-                Destroy(hat);
-                leftHat = centerHat;
-                SetLeftPosItem(true);
-                centerHatIndex++;
-                SetPlayerHat();
-                SetCenterPosItem();
-                if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count)
-                {
-                    rightHat = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>();
-                    SetRightPosItem(true);
-                }
-                else
-                {
-                    SetRightPosItem(false);
-                }
+                rightHat = GameController.Instance.PlayerHats[centerHatIndex + 1].GetComponent<PlayerHat>();
+                SetRightPosItem(true);
+            }
+            else
+            {
+                SetRightPosItem(false);
             }
         }
     }
@@ -218,7 +209,7 @@ public class ItemSelection : MonoBehaviour
             centerHat.SelectedByPlayerIndex = playerIndex;
             SendReadyUpEvent();
         }
-        else if(!hatSelected)
+        else if (!hatSelected)
         {
             hatTakenMessage.SetActive(true);
         }
