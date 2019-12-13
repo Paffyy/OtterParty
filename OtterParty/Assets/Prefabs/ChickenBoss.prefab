@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3417591463354312903}
   - component: {fileID: 7297052689580158512}
   - component: {fileID: 1406882493992244428}
+  - component: {fileID: 7049330383438108823}
   m_Layer: 0
   m_Name: ChickenBoss
   m_TagString: Untagged
@@ -148,3 +149,22 @@ CapsuleCollider:
   m_Height: 0.47972655
   m_Direction: 1
   m_Center: {x: 0, y: -0.052457478, z: 0}
+--- !u!95 &7049330383438108823
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800064646704986883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: f9ead92a82ed7cf44acd5f65f08851b8, type: 3}
+  m_Controller: {fileID: 9100000, guid: efcf80d2f906d974eb7e5e2b2c79cba8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
