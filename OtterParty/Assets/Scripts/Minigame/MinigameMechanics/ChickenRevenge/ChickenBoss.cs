@@ -17,16 +17,19 @@ public class ChickenBoss : MonoBehaviour
     [Range(1, 10)]
     private float chargeSpeedMultiplier;
     private float defaultChargeSpeed;
+    private Animator anim;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         defaultChargeSpeed = agent.speed;
+        anim = GetComponent<Animator>();
         //spawn in animation
     }
 
     void FixedUpdate()
     {
+        anim.SetBool("IsRunning", true);
         if (agent.velocity.magnitude > maxSpeed)
         {
             agent.velocity = agent.velocity.normalized * maxSpeed;
@@ -34,6 +37,7 @@ public class ChickenBoss : MonoBehaviour
         if (!IsCharging())
         {
             agent.velocity = Vector3.zero;
+            anim.SetBool("IsRunning", false);
             onWaitUntilNext?.Invoke();
         }
     }
