@@ -8398,7 +8398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleDebugging: 0
-  mingameDuration: 35
+  minigameDuration: 0
   endOfMatchDelay: 6
   countDownTimer: 3
   gameType: 5
@@ -8419,6 +8419,7 @@ MonoBehaviour:
   countDownTimerUI: {fileID: 2065327111}
   timeLeftText: {fileID: 1210908019}
   readyUpUI: {fileID: 470526221}
+  didNotFinishTimer: 0
 --- !u!4 &571418403
 Transform:
   m_ObjectHideFlags: 0
@@ -20590,7 +20591,7 @@ MonoBehaviour:
   timeBetweenCharges: 0.2
   numberOfChargePoints: 1
   chargePointsMultiplier: 1
-  pickUpSpawnInterval: 2
+  pickUpSpawnInterval: 1
   defaultPickUp: {fileID: 5544241133503314344, guid: b4837f906695df9479e8110ddac84337,
     type: 3}
   spawnArea: {fileID: 1043144095}
