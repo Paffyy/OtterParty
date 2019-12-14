@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.48396134, g: 0.5757402, b: 0.68019885, a: 1}
+  m_IndirectSpecularColor: {r: 0.4839558, g: 0.5757368, b: 0.6801966, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3786,7 +3786,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fe336cf2112babf4cb525f81db6f8896, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 50a97d9b3ec58d444a99638971865bbc, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -10603,7 +10603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleDebugging: 0
-  mingameDuration: 40
+  minigameDuration: 0
   endOfMatchDelay: 6
   countDownTimer: 3
   gameType: 4
@@ -10624,6 +10624,7 @@ MonoBehaviour:
   countDownTimerUI: {fileID: 1430437365}
   timeLeftText: {fileID: 1298070393}
   readyUpUI: {fileID: 519729280}
+  didNotFinishTimer: 0
 --- !u!4 &1489273743
 Transform:
   m_ObjectHideFlags: 0
