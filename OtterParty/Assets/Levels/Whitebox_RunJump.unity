@@ -6101,9 +6101,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b5fa8efe8828a374e8818ce89a5be78a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 52b3e191cbe1df84fb9b0333c5bfe2fe, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.467
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -24949,7 +24949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleDebugging: 0
-  mingameDuration: 60
+  minigameDuration: 0
   endOfMatchDelay: 6
   countDownTimer: 3
   gameType: 1
@@ -24969,6 +24969,7 @@ MonoBehaviour:
   countDownTimerUI: {fileID: 520816253}
   timeLeftText: {fileID: 1189115008}
   readyUpUI: {fileID: 1006023800}
+  didNotFinishTimer: 0
 --- !u!4 &1607870356
 Transform:
   m_ObjectHideFlags: 0
