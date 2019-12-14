@@ -713,8 +713,6 @@ GameObject:
   - component: {fileID: 1705521506622242179}
   - component: {fileID: 8728320257348161785}
   - component: {fileID: 8529150095733756683}
-  - component: {fileID: 8529150095733756681}
-  - component: {fileID: 8529150095733756685}
   - component: {fileID: 8529150095733756682}
   - component: {fileID: 8529150095733756684}
   - component: {fileID: 5530481413943549751}
@@ -734,7 +732,7 @@ Transform:
   m_GameObject: {fileID: 2445563581527691152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4, y: 1.8036714, z: -4.59}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4729010451482005715}
   - {fileID: 7510086833023670584}
@@ -778,32 +776,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &8529150095733756681
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2445563581527691152}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.99999994, y: 0.029940335, z: 0.99999994}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &8529150095733756685
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2445563581527691152}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1.2517571, y: 2.9153671, z: 1}
-  m_Center: {x: -0.0032970905, y: 1.4787374, z: 0}
 --- !u!114 &8529150095733756682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,6 +852,7 @@ MonoBehaviour:
   velocityThreshold: 0.1
   hatPlaceHolder: {fileID: 5979298869397281873}
   gunMesh: []
+  isJoinPlayer: 0
 --- !u!136 &5530481413943549751
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3060,14 +3033,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4729010451482005715}
     m_Modifications:
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Name
-      value: BlobShadowProjector
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3123,6 +3088,14 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.7000018
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Name
+      value: BlobShadowProjector
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}

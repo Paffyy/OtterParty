@@ -89,7 +89,7 @@ public class ChickenArenaController : MonoBehaviour
 
     private void SpawnPickUp()
     {
-        GameObject pickUp = Instantiate(defaultPickUp, GenerateRandomSpawnPosition(defaultPickUp), Quaternion.identity);
+        GameObject pickUp = Instantiate(defaultPickUp, GenerateRandomSpawnPosition(defaultPickUp), defaultPickUp.transform.rotation);
     }
 
     private Vector3 GenerateRandomSpawnPosition(GameObject pickUp)
