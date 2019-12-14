@@ -29,13 +29,16 @@ public class ChickenBoss : MonoBehaviour
 
     void FixedUpdate()
     {
-        anim.SetBool("IsRunning", true);
         if (agent.velocity.magnitude > maxSpeed)
         {
             agent.velocity = agent.velocity.normalized * maxSpeed;
         }
         if (!IsCharging())
         {
+            if (shouldRotate)
+            {
+                RotateTowardsTarget();
+            }
             agent.velocity = Vector3.zero;
             anim.SetBool("IsRunning", false);
             onWaitUntilNext?.Invoke();
@@ -46,17 +49,14 @@ public class ChickenBoss : MonoBehaviour
     {
         Vector3 direction = (chargePoints[pointsIndex].position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 4f);
-        if (transform.rotation == lookRotation)
-        {
-            shouldRotate = false;
-        }
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 6f);
     }
 
     private void SetDestination()
     {
         agent.SetDestination(chargePoints[pointsIndex].position);
         agent.isStopped = false;
+        anim.SetBool("IsRunning", true);
         onWaitUntilNext += NextCharge;
     }
 
@@ -76,7 +76,6 @@ public class ChickenBoss : MonoBehaviour
         CheckNextChargeTarget();
         agent.isStopped = true;
         yield return new WaitForSeconds(waitTimeBetweenCharges);
-        shouldRotate = false;
         if (pointsIndex != 0)
         {
             SetDestination();
@@ -89,7 +88,6 @@ public class ChickenBoss : MonoBehaviour
         {
             agent.speed *= chargeSpeedMultiplier;
             pointsIndex++;
-
             shouldRotate = true;
         }
         else
