@@ -21,7 +21,6 @@ public class GameController : MonoBehaviour
     public List<GameObject> PlayerHats { get { return playerHats; } set { playerHats = value; } }
     public List<GameObject> PlayerDeathEffects { get { return playerDeathEffects; } set { playerDeathEffects = value; } }
 
-
     public List<Material> PlayerMaterials
     {
         get { return playerMaterials; }
