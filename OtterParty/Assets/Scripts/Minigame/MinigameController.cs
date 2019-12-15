@@ -70,7 +70,6 @@ public class MinigameController : MonoBehaviour
 
     private List<Transform> spawnPoints = new List<Transform>();
     private Canvas canvas;
-    private List<Player> finalePlayerPlacements = new List<Player>(); 
     private PlayerInputManager playerInputManager;
     private int currentPoints = 1;
     private int currentReversePoints = 1;
@@ -376,7 +375,8 @@ public class MinigameController : MonoBehaviour
         var player = GameController.Instance.FindPlayerByGameObject(fei.PlayerWhoFinished);
         player.PlayerObject.SetActive(false);
         playersAlive[player] = false;
-        finalePlayerPlacements.Add(player);
+        UpdatePointSystem(player, currentPoints);
+        currentPoints++;
         if (IsGameOver(0))
         {
             EndMinigame();
@@ -422,17 +422,16 @@ public class MinigameController : MonoBehaviour
             {
                 if (item.Value)
                 {
-                    finalePlayerPlacements.Add(item.Key);
+                    UpdatePointSystem(item.Key, currentPoints);
                 }
             }
-            //First player who reached goal -> finalePlayerPlacements[0]
-            //Set something in gamecontroller so staging area knows
-            //Transition to Staging
+            GameController.Instance.PointSystem = MinigamePointSystem;
+            StartCoroutine("GoToNextScene", 3);
         }
         else
         {
             ShowStandingsUI();
-            StartCoroutine("GoToNextScene");
+            StartCoroutine("GoToNextScene", endOfMatchDelay);
         }
     }
 
@@ -442,7 +441,7 @@ public class MinigameController : MonoBehaviour
         yield return new WaitForSeconds(4);
         ConvertMinigamePointsToFinalePoints();
         ShowStandingsUI();
-        StartCoroutine("GoToNextScene");
+        StartCoroutine("GoToNextScene", endOfMatchDelay);
     }
 
     private void AwardLastStandingPlayers()
@@ -486,9 +485,9 @@ public class MinigameController : MonoBehaviour
         Destroy(p, 4);
     }
 
-    private IEnumerator GoToNextScene()
+    private IEnumerator GoToNextScene(float duration)
     {
-        yield return new WaitForSeconds(endOfMatchDelay);
+        yield return new WaitForSeconds(duration);
         GameController.Instance.StartNextMinigame();
     }
 
