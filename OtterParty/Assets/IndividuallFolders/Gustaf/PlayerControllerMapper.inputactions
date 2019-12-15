@@ -586,6 +586,115 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Credits",
+            "id": "84162e61-b732-496d-87c5-373c86eb9b46",
+            "actions": [
+                {
+                    "name": "Leave",
+                    "type": "Button",
+                    "id": "feda2942-4ebc-4e35-82b3-e15e463f471d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ShiftRight",
+                    "type": "Button",
+                    "id": "7ac7ad93-bfc1-4915-b9e4-70c49eaddf9d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ShiftLeft",
+                    "type": "Button",
+                    "id": "785dc203-9aff-43d9-90cc-37a76846bce5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "04cda2e5-64b1-45b4-a867-a6ad56241886",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Leave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9e0d9deb-47e9-4021-838b-36621a83b22e",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShiftLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26a41b98-ca62-4f91-8b11-4a204409c930",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShiftLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc99f540-248a-422a-b6a9-a294c3ef2166",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShiftLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59597690-9b7a-4110-be20-ae9ce83c3aa4",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShiftRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "094d6a34-b3f3-4ab2-8e3f-7860f2315de8",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShiftRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d257a0a-09ce-4b35-bdc8-4f15d3592a5c",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShiftRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

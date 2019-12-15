@@ -418,7 +418,16 @@ public class MinigameController : MonoBehaviour
         }
         else if (gameType == GameType.Finale)
         {
-
+            foreach (var item in playersAlive)
+            {
+                if (item.Value)
+                {
+                    finalePlayerPlacements.Add(item.Key);
+                }
+            }
+            //First player who reached goal -> finalePlayerPlacements[0]
+            //Set something in gamecontroller so staging area knows
+            //Transition to Staging
         }
         else
         {

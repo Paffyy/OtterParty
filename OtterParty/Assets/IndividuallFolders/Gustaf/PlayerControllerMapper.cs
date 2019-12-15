@@ -599,6 +599,115 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Credits"",
+            ""id"": ""84162e61-b732-496d-87c5-373c86eb9b46"",
+            ""actions"": [
+                {
+                    ""name"": ""Leave"",
+                    ""type"": ""Button"",
+                    ""id"": ""feda2942-4ebc-4e35-82b3-e15e463f471d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ShiftRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ac7ad93-bfc1-4915-b9e4-70c49eaddf9d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ShiftLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""785dc203-9aff-43d9-90cc-37a76846bce5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""04cda2e5-64b1-45b4-a867-a6ad56241886"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Leave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9e0d9deb-47e9-4021-838b-36621a83b22e"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""26a41b98-ca62-4f91-8b11-4a204409c930"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc99f540-248a-422a-b6a9-a294c3ef2166"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59597690-9b7a-4110-be20-ae9ce83c3aa4"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""094d6a34-b3f3-4ab2-8e3f-7860f2315de8"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d257a0a-09ce-4b35-bdc8-4f15d3592a5c"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -627,6 +736,11 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
         m_ReadyUP_ShiftLeft = m_ReadyUP.FindAction("ShiftLeft", throwIfNotFound: true);
         m_ReadyUP_ShiftRight = m_ReadyUP.FindAction("ShiftRight", throwIfNotFound: true);
         m_ReadyUP_CancelReadyUp = m_ReadyUP.FindAction("CancelReadyUp", throwIfNotFound: true);
+        // Credits
+        m_Credits = asset.FindActionMap("Credits", throwIfNotFound: true);
+        m_Credits_Leave = m_Credits.FindAction("Leave", throwIfNotFound: true);
+        m_Credits_ShiftRight = m_Credits.FindAction("ShiftRight", throwIfNotFound: true);
+        m_Credits_ShiftLeft = m_Credits.FindAction("ShiftLeft", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -891,6 +1005,55 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
         }
     }
     public ReadyUPActions @ReadyUP => new ReadyUPActions(this);
+
+    // Credits
+    private readonly InputActionMap m_Credits;
+    private ICreditsActions m_CreditsActionsCallbackInterface;
+    private readonly InputAction m_Credits_Leave;
+    private readonly InputAction m_Credits_ShiftRight;
+    private readonly InputAction m_Credits_ShiftLeft;
+    public struct CreditsActions
+    {
+        private PlayerControllerMapper m_Wrapper;
+        public CreditsActions(PlayerControllerMapper wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Leave => m_Wrapper.m_Credits_Leave;
+        public InputAction @ShiftRight => m_Wrapper.m_Credits_ShiftRight;
+        public InputAction @ShiftLeft => m_Wrapper.m_Credits_ShiftLeft;
+        public InputActionMap Get() { return m_Wrapper.m_Credits; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CreditsActions set) { return set.Get(); }
+        public void SetCallbacks(ICreditsActions instance)
+        {
+            if (m_Wrapper.m_CreditsActionsCallbackInterface != null)
+            {
+                Leave.started -= m_Wrapper.m_CreditsActionsCallbackInterface.OnLeave;
+                Leave.performed -= m_Wrapper.m_CreditsActionsCallbackInterface.OnLeave;
+                Leave.canceled -= m_Wrapper.m_CreditsActionsCallbackInterface.OnLeave;
+                ShiftRight.started -= m_Wrapper.m_CreditsActionsCallbackInterface.OnShiftRight;
+                ShiftRight.performed -= m_Wrapper.m_CreditsActionsCallbackInterface.OnShiftRight;
+                ShiftRight.canceled -= m_Wrapper.m_CreditsActionsCallbackInterface.OnShiftRight;
+                ShiftLeft.started -= m_Wrapper.m_CreditsActionsCallbackInterface.OnShiftLeft;
+                ShiftLeft.performed -= m_Wrapper.m_CreditsActionsCallbackInterface.OnShiftLeft;
+                ShiftLeft.canceled -= m_Wrapper.m_CreditsActionsCallbackInterface.OnShiftLeft;
+            }
+            m_Wrapper.m_CreditsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                Leave.started += instance.OnLeave;
+                Leave.performed += instance.OnLeave;
+                Leave.canceled += instance.OnLeave;
+                ShiftRight.started += instance.OnShiftRight;
+                ShiftRight.performed += instance.OnShiftRight;
+                ShiftRight.canceled += instance.OnShiftRight;
+                ShiftLeft.started += instance.OnShiftLeft;
+                ShiftLeft.performed += instance.OnShiftLeft;
+                ShiftLeft.canceled += instance.OnShiftLeft;
+            }
+        }
+    }
+    public CreditsActions @Credits => new CreditsActions(this);
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -917,5 +1080,11 @@ public class PlayerControllerMapper : IInputActionCollection, IDisposable
         void OnShiftLeft(InputAction.CallbackContext context);
         void OnShiftRight(InputAction.CallbackContext context);
         void OnCancelReadyUp(InputAction.CallbackContext context);
+    }
+    public interface ICreditsActions
+    {
+        void OnLeave(InputAction.CallbackContext context);
+        void OnShiftRight(InputAction.CallbackContext context);
+        void OnShiftLeft(InputAction.CallbackContext context);
     }
 }
