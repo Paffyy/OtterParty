@@ -14,6 +14,8 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("OpenOptions");
         // todo
+        SceneManager.LoadScene(13);
+
     }
 
     public void QuitGame()
