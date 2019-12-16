@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3024126430120030992}
   - component: {fileID: 3024126430120030994}
   - component: {fileID: 8876825772195357776}
+  - component: {fileID: 8957384890165897153}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -88,8 +89,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 445009998502648756}
-  cameraOffset: {x: -0.5, y: 3.2, z: -4.7}
+  cameraOffset: {x: -0.5, y: 3.2, z: -4}
   cameraFollowSmoothness: 50
+--- !u!114 &8957384890165897153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3024126430120030991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: a5180e330cb799a4c92e5d875b2d7177, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &3024126430705840801
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +221,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808718079199229643, guid: 78b363bfe6042d544932ca18efed49fc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808718079199229643, guid: 78b363bfe6042d544932ca18efed49fc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808718079199229643, guid: 78b363bfe6042d544932ca18efed49fc,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808718079199229643, guid: 78b363bfe6042d544932ca18efed49fc,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808718079199229643, guid: 78b363bfe6042d544932ca18efed49fc,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5633368576090669903, guid: 78b363bfe6042d544932ca18efed49fc,
         type: 3}
