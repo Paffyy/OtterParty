@@ -15,7 +15,8 @@ public class CheckPointListener : BaseListener
     private bool hasLimitedRespawns;
     [SerializeField]
     private bool isCameraDependent;
-
+    [SerializeField]
+    private float respawnDelay = 0.7f;
 
     public override void Register()
     {
@@ -87,12 +88,17 @@ public class CheckPointListener : BaseListener
 
     private void SpawnOnLastCheckPoint(GameObject player)
     {
+        StartCoroutine("SpawnOnLastCheckPointWithDelay", player);
+     
+    }
+    private IEnumerator SpawnOnLastCheckPointWithDelay(GameObject player)
+    {
+        yield return new WaitForSeconds(respawnDelay);
         player.GetComponent<PlayerController>().Transition<AirState>();
         player.transform.position = playerCheckPoints[player].position;
         player.transform.rotation = playerCheckPoints[player].rotation;
         player.GetComponent<PlayerController>().BodyCollider.enabled = true;
     }
-
     private void SetPlayerCheckPoint(BaseEventInfo e)
     {
         CheckPointEventInfo eventInfo = e as CheckPointEventInfo;
