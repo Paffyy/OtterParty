@@ -31,6 +31,7 @@ public class FinalePinataSection : MonoBehaviour
         if(hitEventInfo != null)
         {
             GameObject playerThatShot = hitEventInfo.ObjectThatFired;
+            HandlePinataHitEvent(hitEventInfo.ObjectHit, playerThatShot);
             hitEventInfo.ObjectHit.SetActive(false);
             if(playerPinatas[playerThatShot] > 1)
             {
@@ -57,6 +58,14 @@ public class FinalePinataSection : MonoBehaviour
                 SpawnPinata(item.Key.ID);
             }
         }
+    }
+    private void HandlePinataHitEvent(GameObject hitObject, GameObject playerThatShot)
+    {
+        Vector3 position = hitObject.transform.position;
+        Quaternion rotation = hitObject.transform.rotation;
+        GameObject deathParticles = hitObject.GetComponent<PinataBehaviour>().ParticleObjects[GameController.Instance.FindPlayerByGameObject(playerThatShot).ID];
+        TransformEventInfo tei = new TransformEventInfo(position, rotation, deathParticles);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, tei);
     }
 
     private void SpawnPinata(int index)
