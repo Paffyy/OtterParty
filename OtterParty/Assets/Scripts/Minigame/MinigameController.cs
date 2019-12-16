@@ -390,7 +390,7 @@ public class MinigameController : MonoBehaviour
         {
             timeLeftText.SetActive(true);
             countDownTimerUI.SetActive(true);
-            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(15);
+            countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(didNotFinishTimer);
         }
 
     }
@@ -426,6 +426,7 @@ public class MinigameController : MonoBehaviour
                 }
             }
             GameController.Instance.PointSystem = MinigamePointSystem;
+            Debug.Log(currentPoints);
             StartCoroutine("GoToNextScene", 3);
         }
         else
