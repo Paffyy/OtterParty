@@ -373,9 +373,9 @@ public class MinigameController : MonoBehaviour
         }
         FinishedEventInfo fei = e as FinishedEventInfo;
         var player = GameController.Instance.FindPlayerByGameObject(fei.PlayerWhoFinished);
-        player.PlayerObject.SetActive(false);
         playersAlive[player] = false;
         UpdatePointSystem(player, currentPoints);
+        player.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         currentPoints++;
         if (IsGameOver(0))
         {
