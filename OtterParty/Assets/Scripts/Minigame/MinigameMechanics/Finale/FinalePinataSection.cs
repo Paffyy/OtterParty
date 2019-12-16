@@ -52,8 +52,8 @@ public class FinalePinataSection : MonoBehaviour
     {
         foreach (var item in pointSystem.GetCurrentScore())
         {
-            playerPinatas.Add(item.Key.PlayerObject, item.Value);
-            for (int i = 0; i < item.Value; i++)
+            playerPinatas.Add(item.Key.PlayerObject, item.Value + 1);
+            for (int i = 0; i < item.Value + 1; i++)
             {
                 SpawnPinata(item.Key.ID);
             }
