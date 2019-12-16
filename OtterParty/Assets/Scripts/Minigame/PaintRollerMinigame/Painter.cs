@@ -60,13 +60,13 @@ public class Painter : MonoBehaviour
         //        Paint(hit, 3);
         //    }
         //}
-        if (player.GetComponent<PlayerController>().IsActive || false)
-        {
-            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10, paintingFloorMask))
-            {
-                Paint(hit, 3);
-            }
-        }
+        //if (player.GetComponent<PlayerController>().IsActive || false)
+        //{
+        //    if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10, paintingFloorMask))
+        //    {
+        //        Paint(hit, 3);
+        //    }
+        //}
     }
     private void FixedUpdate()
     {
