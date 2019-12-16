@@ -7,7 +7,6 @@ public class Painter : MonoBehaviour
 {
     [SerializeField] private MeshRenderer floor;
     [SerializeField] private Material[] playerMaterials;
-    [SerializeField] private int brushSize = 1;
     [SerializeField] private GameObject player;
     [SerializeField] private LayerMask paintingFloorMask;
 
@@ -30,10 +29,6 @@ public class Painter : MonoBehaviour
         floor = FindObjectOfType<CalculatePixelsScript>().gameObject.GetComponent<MeshRenderer>();
         splatMap = floor.material.GetTexture("_SplatMap") as RenderTexture;
         floor.material.SetTexture("_SplatMap", splatMap);
-        foreach (var item in playerMaterials)
-        {
-            item.SetInt("_BrushSize", 1000 / brushSize);
-        }
     }
     void Update()
     {
