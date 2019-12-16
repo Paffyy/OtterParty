@@ -412,7 +412,7 @@ public class MinigameController : MonoBehaviour
         EndMinigameMechanics();
         StopAllCoroutines();
         ToggleActive(false);
-        if (gameType == GameType.PointsBased)
+        if (gameType == GameType.PointsBased || gameType == GameType.PointsAndLives)
         {
             StartCoroutine("DisplayPlayerScores");
         }
