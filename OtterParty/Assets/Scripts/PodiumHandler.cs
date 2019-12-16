@@ -81,6 +81,7 @@ public class PodiumHandler : MonoBehaviour
         foreach (var player in GameController.Instance.Players)
         {
             int placement = ps.GetCurrentScore()[player];
+            Debug.Log(placement);
             GameObject podiumPrefab = podiumPrefabs[placement - 1];
             var podium = Instantiate(podiumPrefab, podiumPlacements[player.ID].position, podiumPrefab.transform.rotation);
             podium.GetComponent<Podium>().ElevatePodium();

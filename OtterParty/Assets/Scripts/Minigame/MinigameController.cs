@@ -418,15 +418,7 @@ public class MinigameController : MonoBehaviour
         }
         else if (gameType == GameType.Finale)
         {
-            foreach (var item in playersAlive)
-            {
-                if (item.Value)
-                {
-                    UpdatePointSystem(item.Key, currentPoints);
-                }
-            }
             GameController.Instance.PointSystem = MinigamePointSystem;
-            Debug.Log(currentPoints);
             StartCoroutine("GoToNextScene", 3);
         }
         else
