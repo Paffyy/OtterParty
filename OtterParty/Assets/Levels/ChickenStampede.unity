@@ -6871,15 +6871,15 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 140
       objectReference: {fileID: 0}
-    - target: {fileID: 1858621479322429779, guid: 2b32703900d5e75479ff13434ee19733,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4185827955646258884, guid: 2b32703900d5e75479ff13434ee19733,
         type: 3}
       propertyPath: m_LocalScale.y
       value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858621479322429779, guid: 2b32703900d5e75479ff13434ee19733,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7279347978226972587, guid: 2b32703900d5e75479ff13434ee19733,
         type: 3}
@@ -20591,7 +20591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chickenBossPrefab: {fileID: 268476970345531940, guid: 15c0272c777267340a2cb0f261a4f178,
     type: 3}
-  timeBetweenRounds: 2
+  timeBetweenRounds: 1.5
   timeBetweenCharges: 0.9
   numberOfChargePoints: 1
   chargePointsMultiplier: 1
