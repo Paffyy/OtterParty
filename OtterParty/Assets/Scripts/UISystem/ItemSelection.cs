@@ -23,6 +23,8 @@ public class ItemSelection : MonoBehaviour
     private GameObject hat;
     private bool gameHasStarted;
     private int playerIndex;
+    [SerializeField]
+    private AudioClip shiftItemSound;
     public bool ShiftOnCooldown { get; set; }
 
     void Start()
@@ -157,6 +159,7 @@ public class ItemSelection : MonoBehaviour
     {
         if (centerHatIndex - 1 >= 0 && !hatSelected)
         {
+            PlayShiftSound();
             hatTakenMessage.SetActive(false);
             Destroy(hat);
             rightHat = centerHat;
@@ -181,6 +184,7 @@ public class ItemSelection : MonoBehaviour
 
         if (centerHatIndex + 1 < GameController.Instance.PlayerHats.Count && !hatSelected)
         {
+            PlayShiftSound();
             hatTakenMessage.SetActive(false);
             Destroy(hat);
             leftHat = centerHat;
@@ -224,6 +228,13 @@ public class ItemSelection : MonoBehaviour
             SendReadyUpEvent();
         }
     }
+
+    private void PlayShiftSound()
+    {
+        SoundEventInfo sei = new SoundEventInfo(shiftItemSound, 0);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
+    }
+
     private void SendReadyUpEvent()
     {
         var id = GetComponent<PlayerInput>().playerIndex;
