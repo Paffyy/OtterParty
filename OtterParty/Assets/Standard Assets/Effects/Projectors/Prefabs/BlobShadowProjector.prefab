@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400002}
   - component: {fileID: 11900000}
+  - component: {fileID: 3551002176607706663}
   m_Layer: 0
   m_Name: BlobShadowProjector
   m_TagString: Untagged
@@ -38,11 +39,11 @@ Projector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_NearClipPlane: 1
   m_FarClipPlane: 10
-  m_FieldOfView: 30
+  m_FieldOfView: 15
   m_AspectRatio: 1
   m_Orthographic: 0
   m_OrthographicSize: 0.2
@@ -50,3 +51,26 @@ Projector:
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 2048
+--- !u!114 &3551002176607706663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3e43c58dd834028baaf021101d7ca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cameras: []
+  m_shaderTagList:
+  - LightweightForward
+  - SRPDefaultUnlit
+  m_renderQueueLowerBound: 0
+  m_renderQueueUpperBound: 2500
+  m_renderPassEvent: 300
+  m_perObjectData: 0
+  m_stencilPass: {fileID: 0}
+  m_stencilRef: 1
+  m_stencilMask: 1
