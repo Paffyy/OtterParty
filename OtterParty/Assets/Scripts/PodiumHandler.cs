@@ -16,6 +16,8 @@ public class PodiumHandler : MonoBehaviour
     private float sceneDuration;
     [SerializeField]
     private GameObject playerPrefab;
+    [SerializeField]
+    private AudioClip winnerSound;
     private PlayerInputManager playerInputManager;
 
     void Awake()
@@ -66,6 +68,7 @@ public class PodiumHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(showPlacementsDelay);
         AssignPodiums();
+        PlayWinnerSound();
         StartCoroutine("GoToMainMenu");
     }
 
@@ -73,6 +76,12 @@ public class PodiumHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(sceneDuration);
         GameController.Instance.StartNextMinigame();
+    }
+
+    private void PlayWinnerSound()
+    {
+        SoundEventInfo sei = new SoundEventInfo(winnerSound, 0);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
     }
 
     private void AssignPodiums()

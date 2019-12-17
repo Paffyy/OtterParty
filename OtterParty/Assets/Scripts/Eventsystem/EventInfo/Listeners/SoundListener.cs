@@ -15,6 +15,7 @@ public class SoundListener : BaseListener
     [SerializeField]
     [Range(0, 5f)]
     private float secondaryAudioSourceVolume;
+    [SerializeField] private GameObject source = null;
 
     public override void Register()
     {
@@ -25,18 +26,28 @@ public class SoundListener : BaseListener
     private void PlaySound(BaseEventInfo e)
     {
         SoundEventInfo eventInfo = e as SoundEventInfo;
-        if(eventInfo != null)
-        {
-            if (!primaryAudioSource.isPlaying)
-            {
-                UsePrimaryAudioSource(eventInfo);
-            }
-            else
-            {
-                UseSecondaryAudioSource(eventInfo);
-            }
+        if (eventInfo != null)
+        { 
+            primaryAudioSource.PlayOneShot(eventInfo.SoundClip);
+            //if (!primaryAudioSource.isPlaying)
+            //{
+            //    UsePrimaryAudioSource(eventInfo);
+            //}
+            //else
+            //{
+            //    UseSecondaryAudioSource(eventInfo);
+            //}
         }
     }
+
+    //private void PlaySound(SoundEventInfo e)
+    //{
+    //    SoundEventInfo sei = e as SoundEventInfo;
+    //    GameObject instance = Instantiate(source);
+    //    AudioSource audio = instance.GetComponent<AudioSource>();
+    //    audio.PlayOneShot(sei.SoundClip);
+    //    Destroy(instance, sei.SoundClip.length);
+    //}
 
     private void UsePrimaryAudioSource(SoundEventInfo eventInfo)
     {

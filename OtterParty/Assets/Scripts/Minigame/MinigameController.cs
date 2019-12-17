@@ -40,6 +40,8 @@ public class MinigameController : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
+    private AudioClip countDownSound;
+    [SerializeField]
     private GameObject countDownUI;
     [SerializeField]
     private GameObject showStandingsUI;
@@ -345,6 +347,8 @@ public class MinigameController : MonoBehaviour
     IEnumerator StartCountDown()
     {
         countDownAnim.SetBool("IsCountingDown", true);
+        SoundEventInfo sei = new SoundEventInfo(countDownSound, 0);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
         if(miniGameUI != null)
         {
            Instantiate(miniGameUI, canvas.transform);
