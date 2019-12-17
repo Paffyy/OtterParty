@@ -1780,6 +1780,8 @@ MonoBehaviour:
   bodyCollider: {fileID: -140645717530234649}
   firePoint: {fileID: 0}
   gun: {fileID: 0}
+  paintPoint: {fileID: 0}
+  paintTool: {fileID: 0}
   meshRen: {fileID: 6505134203010620483}
   groundCheckDistance: 0.1
   collisionMask:
@@ -1788,6 +1790,7 @@ MonoBehaviour:
   velocityThreshold: 0
   hatPlaceHolder: {fileID: 6468355793947474744}
   gunMesh: []
+  isJoinPlayer: 0
 --- !u!136 &-140645717530234649
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3030,25 +3033,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2615300302317824843}
     m_Modifications:
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Name
-      value: BlobShadowProjector
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.79
+      value: 4.25
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.27
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3093,6 +3088,14 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.7000018
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Name
+      value: BlobShadowProjector
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
