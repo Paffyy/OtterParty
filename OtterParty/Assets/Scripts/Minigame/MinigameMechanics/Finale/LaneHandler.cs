@@ -14,7 +14,7 @@ public class LaneHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<PlayerController>().PlayerState != PlayerController.CurrentPlayerState.LockedMovementState)
         {
             laneTrigger.enabled = false;
             gate.SetActive(true);
