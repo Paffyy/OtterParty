@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.48396134, g: 0.5757402, b: 0.68019885, a: 1}
+  m_IndirectSpecularColor: {r: 0.4839558, g: 0.5757368, b: 0.6801966, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -181,10 +181,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Move around and paint as much as you can before the time runs out!
+  m_text: 'paint as much as you can!
 
 
-    Player with the most of their color wins!'
+    Player with the most paint wins!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14414364ec57d6b4b848cbfe9d3ce4f0, type: 2}
   m_sharedMaterial: {fileID: 1697393783459030373, guid: 14414364ec57d6b4b848cbfe9d3ce4f0,
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 68
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -254,12 +254,12 @@ MonoBehaviour:
   m_margin: {x: -397.86343, y: 0, z: -645.47656, w: -122.91417}
   m_textInfo:
     textComponent: {fileID: 25912247}
-    characterCount: 109
+    characterCount: 59
     spriteCount: 0
-    spaceCount: 22
-    wordCount: 22
+    spaceCount: 12
+    wordCount: 12
     linkCount: 0
-    lineCount: 4
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -6347,7 +6347,7 @@ Transform:
   - {fileID: 1418966279}
   - {fileID: 545070147}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1030912757
 GameObject:
