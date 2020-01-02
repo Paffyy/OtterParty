@@ -26,7 +26,7 @@ public class ConfettiMachine : MonoBehaviour
     {
         if(startSound != null)
         {
-            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(startSound, volume));
+            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(startSound, volume, 1));
         }
         ps.transform.localScale = new Vector3(confettiScale, confettiScale, confettiScale);
         ps.Play();

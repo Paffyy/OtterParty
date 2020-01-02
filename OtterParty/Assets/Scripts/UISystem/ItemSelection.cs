@@ -231,7 +231,7 @@ public class ItemSelection : MonoBehaviour
 
     private void PlayShiftSound()
     {
-        SoundEventInfo sei = new SoundEventInfo(shiftItemSound, 0);
+        SoundEventInfo sei = new SoundEventInfo(shiftItemSound, 0, 1);
         EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
     }
 

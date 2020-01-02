@@ -27,6 +27,18 @@ public class PinataSpawner : MonoBehaviour
     [Range(-1, -5)]
     private int decoyPinataValue;
     [SerializeField]
+    private AudioClip defaultPinataHitAudio;
+    [SerializeField]
+    private float defaultPinataHitAudioVolume;
+    [SerializeField]
+    private AudioClip specialPinataHitAudio;
+    [SerializeField]
+    private float specialPinataHitAudioVolume;
+    [SerializeField]
+    private AudioClip decoyPinataHitAudio;
+    [SerializeField]
+    private float decoyPinataHitAudioVolume;
+    [SerializeField]
     private bool isDebugging;
 
     private void Awake()
@@ -81,16 +93,18 @@ public class PinataSpawner : MonoBehaviour
         var pinataObject = pinataObj.GetComponent<PinataBehaviour>();
         if(randomValue == 4)
         {
-            pinataObject.SetValue(specialPinataMaterial, specialPinataValue);
+            pinataObject.SetValue(specialPinataMaterial, specialPinataValue, specialPinataHitAudio, specialPinataHitAudioVolume);
         }
         else if (randomValue == 3)
         {
-            pinataObject.SetValue(decoyPinataMaterial, decoyPinataValue);
+            pinataObject.SetValue(decoyPinataMaterial, decoyPinataValue, decoyPinataHitAudio, decoyPinataHitAudioVolume);
             Destroy(pinataObject.gameObject, 5);
         }
         else
         {
             pinataObject.Points = pinataValue;
+            pinataObject.HitAudio = defaultPinataHitAudio;
+            pinataObject.HitAudioVolume = defaultPinataHitAudioVolume;
         }
     }
 }

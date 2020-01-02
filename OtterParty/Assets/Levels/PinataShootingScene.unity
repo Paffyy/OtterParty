@@ -3178,6 +3178,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 28.364136
       objectReference: {fileID: 0}
+    - target: {fileID: -2979873236128578447, guid: b20c4ec448f110f4f8cc98e757f94a11,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 52637bf3a0813bf48831b5df823eeb0e, type: 2}
     - target: {fileID: -406398903128990983, guid: b20c4ec448f110f4f8cc98e757f94a11,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3208,11 +3213,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-    - target: {fileID: -2979873236128578447, guid: b20c4ec448f110f4f8cc98e757f94a11,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 52637bf3a0813bf48831b5df823eeb0e, type: 2}
     - target: {fileID: -1049242078269459344, guid: b20c4ec448f110f4f8cc98e757f94a11,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3512,6 +3512,14 @@ MonoBehaviour:
   pinataValue: 1
   specialPinataValue: 3
   decoyPinataValue: -3
+  defaultPinataHitAudio: {fileID: 8300000, guid: 7baed26d56476654f94db6239b09275f,
+    type: 3}
+  defaultPinataHitAudioVolume: 0.8
+  specialPinataHitAudio: {fileID: 8300000, guid: ad84e3ddb33a82545a8b248f36fd5769,
+    type: 3}
+  specialPinataHitAudioVolume: 0.35
+  decoyPinataHitAudio: {fileID: 8300000, guid: 227978d28fcc1ea49a19fcc6061dfc9f, type: 3}
+  decoyPinataHitAudioVolume: 0.5
   isDebugging: 0
 --- !u!4 &316256015
 Transform:
@@ -8712,7 +8720,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 38a76e475eb34c74f8529e4b11ec0577, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.636
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0

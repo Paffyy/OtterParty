@@ -80,7 +80,7 @@ public class PodiumHandler : MonoBehaviour
 
     private void PlayWinnerSound()
     {
-        SoundEventInfo sei = new SoundEventInfo(winnerSound, 0);
+        SoundEventInfo sei = new SoundEventInfo(winnerSound, 0, 1);
         EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
     }
 

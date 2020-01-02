@@ -20,6 +20,7 @@ public class SoundListener : BaseListener
     public override void Register()
     {
         primaryAudioSource.volume = primaryAudioSourceVolume;
+        secondaryAudioSource.volume = secondaryAudioSourceVolume;
         EventHandler.Instance.Register(EventHandler.EventType.SoundEvent, PlaySound);
     }
 
@@ -27,16 +28,25 @@ public class SoundListener : BaseListener
     {
         SoundEventInfo eventInfo = e as SoundEventInfo;
         if (eventInfo != null)
-        { 
-            primaryAudioSource.PlayOneShot(eventInfo.SoundClip);
-            //if (!primaryAudioSource.isPlaying)
-            //{
-            //    UsePrimaryAudioSource(eventInfo);
-            //}
-            //else
-            //{
-            //    UseSecondaryAudioSource(eventInfo);
-            //}
+        {
+            if(eventInfo.AudioSourceID == 1)
+            {
+                float volume = 0f;
+                if (eventInfo.Volume > 0)
+                    volume = eventInfo.Volume;
+                else
+                    volume = primaryAudioSourceVolume;
+                 primaryAudioSource.PlayOneShot(eventInfo.SoundClip, volume);
+            }
+            else if (eventInfo.AudioSourceID == 2)
+            {
+                float volume = 0f;
+                if (eventInfo.Volume > 0)
+                    volume = eventInfo.Volume;
+                else
+                    volume = secondaryAudioSourceVolume;
+                secondaryAudioSource.PlayOneShot(eventInfo.SoundClip, volume);
+            }
         }
     }
 

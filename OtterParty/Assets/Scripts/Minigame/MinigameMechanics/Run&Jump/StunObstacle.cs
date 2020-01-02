@@ -22,7 +22,7 @@ public class StunObstacle : MonoBehaviour
             other.GetComponent<PlayerController>().Transition<LockedKnockbackState>();
             if(knockBackSound != null)
             {
-                EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(knockBackSound, volume));
+                EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(knockBackSound, volume, 1));
             }
             Destroy(gameObject);
         }

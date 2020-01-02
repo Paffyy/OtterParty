@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 112000000, guid: 21efe19bbae83bc45af253897bbee051,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3056,6 +3056,7 @@ GameObject:
   - component: {fileID: 293624034}
   - component: {fileID: 293624036}
   - component: {fileID: 293624035}
+  - component: {fileID: 293624037}
   m_Layer: 0
   m_Name: SymbolMiniGameController
   m_TagString: Untagged
@@ -3123,8 +3124,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 219.12032, y: 107.17726, z: 191.66643}
-  m_Center: {x: 14.372368, y: -61.10549, z: -7.3302383}
+  m_Size: {x: 219.12032, y: 101.48372, z: 191.66643}
+  m_Center: {x: 14.372368, y: -63.952263, z: -7.3302383}
 --- !u!54 &293624036
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3141,6 +3142,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &293624037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293624032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab8a51fb57871d48b89828ee9a048a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterSplash: {fileID: 8300000, guid: 2df11c1d45e9bf444b57f1953fae7568, type: 3}
+  waterSplashVolume: 0.6
 --- !u!1 &295381549
 GameObject:
   m_ObjectHideFlags: 0

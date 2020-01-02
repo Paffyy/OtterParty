@@ -9,7 +9,7 @@ public class ButtonSound : MonoBehaviour
 
     public void PlaySelectionSound()
     {
-        SoundEventInfo sei = new SoundEventInfo(buttonSelectedSound, 0);
+        SoundEventInfo sei = new SoundEventInfo(buttonSelectedSound, 0, 1);
         EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
     }
 }

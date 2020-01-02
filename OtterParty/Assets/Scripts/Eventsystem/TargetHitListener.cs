@@ -64,13 +64,14 @@ public class TargetHitListener : BaseListener
         GameObject deathParticles = hitObject.GetComponent<PinataBehaviour>().ParticleObjects[GameController.Instance.FindPlayerByGameObject(playerThatShot).ID];
         TransformEventInfo tei = new TransformEventInfo(position, rotation, deathParticles);
         EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, tei);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<PinataBehaviour>().HitAudio, hitObject.GetComponent<PinataBehaviour>().HitAudioVolume, 1));
     }
 
     private void HandleChickenShootingGalleryHitEvent(GameObject hitObject, GameObject playerThatShot)
     {
         Vector3 position = hitObject.transform.position;
         EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, new TransformEventInfo(position, Quaternion.identity, hitObject.GetComponent<MovingTarget>().GetPlayerParticle(GameController.Instance.FindPlayerByGameObject(playerThatShot).ID)));
-        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound, 0.5f));
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<MovingTarget>().HitSound, 1f, 1));
     }
 
     private void AssignPoints(GameObject player, int points)

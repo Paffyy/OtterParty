@@ -17,6 +17,8 @@ public class PinataBehaviour : MonoBehaviour
     private Animator anim;
     private MeshRenderer mesh;
     public int Points { get; set; }
+    public AudioClip HitAudio { get; set; }
+    public float HitAudioVolume { get; set; }
     public Action OnDestroyed { get; internal set; }
     public List<GameObject> ParticleObjects { get { return particles; } }
 
@@ -43,10 +45,12 @@ public class PinataBehaviour : MonoBehaviour
         isQuitting = true;
     }
 
-    public void SetValue(Material mat, int pts)
+    public void SetValue(Material mat, int pts, AudioClip hitAudio, float volume)
     {
         mesh.material = mat;
         Points = pts;
+        HitAudio = hitAudio;
+        HitAudioVolume = volume;
     }
 
     private void OnDestroy()

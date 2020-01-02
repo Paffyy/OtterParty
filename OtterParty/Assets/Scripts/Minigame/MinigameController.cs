@@ -347,7 +347,7 @@ public class MinigameController : MonoBehaviour
     IEnumerator StartCountDown()
     {
         countDownAnim.SetBool("IsCountingDown", true);
-        SoundEventInfo sei = new SoundEventInfo(countDownSound, 0);
+        SoundEventInfo sei = new SoundEventInfo(countDownSound, 0, 2);
         EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
         if(miniGameUI != null)
         {
