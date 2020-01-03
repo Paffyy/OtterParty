@@ -9,6 +9,8 @@ public class PickUp : MonoBehaviour
     private int points;
     [SerializeField]
     private AudioClip pickUpSound;
+    [SerializeField]
+    private List<GameObject> pickUpEffects;
     public int Points { get { return points; } }
 
     private void OnTriggerEnter(Collider other)
@@ -22,6 +24,8 @@ public class PickUp : MonoBehaviour
 
     private void FirePickUpEvent(GameObject player)
     {
+        TransformEventInfo tei = new TransformEventInfo(player.transform.position, Quaternion.identity, pickUpEffects[GameController.Instance.FindPlayerByGameObject(player).ID]);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, tei);
         SoundEventInfo sei = new SoundEventInfo(pickUpSound, 0.4f, 1);
         EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
         PickUpEventInfo pei = new PickUpEventInfo(gameObject, player);
