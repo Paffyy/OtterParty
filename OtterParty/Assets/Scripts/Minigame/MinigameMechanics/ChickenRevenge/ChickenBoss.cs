@@ -18,6 +18,12 @@ public class ChickenBoss : MonoBehaviour
     private float chargeSpeedMultiplier;
     private float defaultChargeSpeed;
     private Animator anim;
+    private bool hasNewTarget;
+    [SerializeField]
+    private AudioClip chickenHitWall;
+    [SerializeField]
+    private float chickenHitWallVolume;
+
 
     void Start()
     {
@@ -27,7 +33,7 @@ public class ChickenBoss : MonoBehaviour
         //spawn in animation
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (agent.velocity.magnitude > maxSpeed)
         {
@@ -39,9 +45,13 @@ public class ChickenBoss : MonoBehaviour
             {
                 RotateTowardsTarget();
             }
-            agent.velocity = Vector3.zero;
-            anim.SetBool("IsRunning", false);
-            onWaitUntilNext?.Invoke();
+            if (hasNewTarget)
+            {
+                hasNewTarget = false;
+                agent.velocity = Vector3.zero;
+                anim.SetBool("IsRunning", false);
+                onWaitUntilNext?.Invoke();
+            }
         }
     }
 
@@ -55,9 +65,12 @@ public class ChickenBoss : MonoBehaviour
     private void SetDestination()
     {
         agent.SetDestination(chargePoints[pointsIndex].position);
+        Debug.Log(chargePoints[pointsIndex].position);
+        Debug.Log(pointsIndex);
         agent.isStopped = false;
         anim.SetBool("IsRunning", true);
         onWaitUntilNext += NextCharge;
+        hasNewTarget = true;
     }
 
     private bool IsCharging()
@@ -68,6 +81,8 @@ public class ChickenBoss : MonoBehaviour
     private void NextCharge()
     {
         onWaitUntilNext -= NextCharge;
+        SoundEventInfo sei = new SoundEventInfo(chickenHitWall, chickenHitWallVolume, 2);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
         StartCoroutine("WaitUntilNextCharge");
     }
 

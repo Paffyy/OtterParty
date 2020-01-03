@@ -20,6 +20,10 @@ public class SymbolMiniGameController : MonoBehaviour
     [SerializeField]
     [Range(0.5f, 5f)]
     private float resetTime;
+    [SerializeField]
+    private AudioClip newPlatformSound;
+    [SerializeField]
+    private float newPlatformSoundVolume;
 
     void Start()
     {
@@ -107,6 +111,8 @@ public class SymbolMiniGameController : MonoBehaviour
     {
         AssignCurrentSymbol();
         AssignPlatformSymbols();
+        SoundEventInfo sei = new SoundEventInfo(newPlatformSound, newPlatformSoundVolume, 1);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
         yield return new WaitForSeconds(timeToFall);
         CheckPlatforms();
         timeToFall *= timeToFallMultiplier;

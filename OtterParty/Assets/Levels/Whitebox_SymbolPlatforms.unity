@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 112000000, guid: 21efe19bbae83bc45af253897bbee051,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3113,6 +3113,8 @@ MonoBehaviour:
   timeToFallMultiplier: 0.75
   currentSymbolPlatform: {fileID: 1536068489}
   resetTime: 3
+  newPlatformSound: {fileID: 8300000, guid: 6113c6a9f106bee4d94cbba7b866d12f, type: 3}
+  newPlatformSoundVolume: 0.75
 --- !u!65 &293624035
 BoxCollider:
   m_ObjectHideFlags: 0
