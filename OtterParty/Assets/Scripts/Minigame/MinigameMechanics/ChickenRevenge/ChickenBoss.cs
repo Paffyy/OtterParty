@@ -65,8 +65,6 @@ public class ChickenBoss : MonoBehaviour
     private void SetDestination()
     {
         agent.SetDestination(chargePoints[pointsIndex].position);
-        Debug.Log(chargePoints[pointsIndex].position);
-        Debug.Log(pointsIndex);
         agent.isStopped = false;
         anim.SetBool("IsRunning", true);
         onWaitUntilNext += NextCharge;
