@@ -12,7 +12,7 @@ public class FlyingCameraScript : MonoBehaviour
         var movement = new Vector3();
         if (Input.GetKey(KeyCode.W))
         {
-            movement += transform.forward;
+            movement += Vector3.forward;
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -24,15 +24,15 @@ public class FlyingCameraScript : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-            movement -= transform.forward;
+            movement -= Vector3.forward;
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            movement += transform.up;
+            movement += Vector3.up;
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
-            movement -= transform.up;
+            movement -= Vector3.up;
         }
         transform.position = Vector3.Lerp(transform.position, transform.position += movement, speed);
     }
