@@ -2795,6 +2795,8 @@ MonoBehaviour:
   hatPlaceHolder: {fileID: 2448656234028132781}
   gunMesh: []
   isJoinPlayer: 0
+  playerGotHitSound: {fileID: 8300000, guid: d4a6d7655c8fff445a085c6dc0a83842, type: 3}
+  playerGotHitSoundVolume: 1.5
 --- !u!136 &4542303948322741879
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3060,6 +3062,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1617789811333063704}
     m_Modifications:
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Name
+      value: BlobShadowProjector
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3115,14 +3125,6 @@ PrefabInstance:
     - target: {fileID: 400002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
       propertyPath: m_LocalScale.z
       value: 1.7000018
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Name
-      value: BlobShadowProjector
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}
-      propertyPath: m_Layer
-      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28a5e79925e3ce04a82856c16a572cbe, type: 3}

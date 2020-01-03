@@ -36,6 +36,7 @@ public class HitListener : BaseListener
             {
                 if (playerThatGotHit.GetComponent<PlayerController>().IsVulnerable)
                 {
+                    playerThatGotHit.GetComponent<PlayerController>().PlayHitSound();
                     playerThatGotHit.GetComponent<PlayerController>().SetInvulnerable();
                     CheckPlayerLives(playerThatGotHit);
                 }

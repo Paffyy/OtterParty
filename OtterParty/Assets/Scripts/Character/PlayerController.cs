@@ -71,6 +71,10 @@ public class PlayerController : StateMachine
     private List<MeshRenderer> gunMesh;
     [SerializeField]
     private bool isJoinPlayer;
+    [SerializeField]
+    private AudioClip playerGotHitSound;
+    [SerializeField]
+    private float playerGotHitSoundVolume;
 
 
     public CurrentPlayerState PlayerState { get; set; }
@@ -293,6 +297,15 @@ public class PlayerController : StateMachine
         {
             if (hatMesh != null)
                 hatMesh.enabled = true;
+        }
+    }
+
+    public void PlayHitSound()
+    {
+        if(playerGotHitSound != null)
+        {
+            SoundEventInfo sei = new SoundEventInfo(playerGotHitSound, playerGotHitSoundVolume, 1);
+            EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
         }
     }
 

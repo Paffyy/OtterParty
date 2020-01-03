@@ -5,10 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class StunObstacle : MonoBehaviour
 {
-    [SerializeField]
-    private AudioClip knockBackSound;
-    [SerializeField]
-    private float volume;
     private Collider coll;
     private void Awake()
     {
@@ -20,10 +16,7 @@ public class StunObstacle : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().Transition<LockedKnockbackState>();
-            if(knockBackSound != null)
-            {
-                EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(knockBackSound, volume, 1));
-            }
+            other.GetComponent<PlayerController>().PlayHitSound();
             Destroy(gameObject);
         }
     }

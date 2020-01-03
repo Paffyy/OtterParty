@@ -42,6 +42,10 @@ public class MinigameController : MonoBehaviour
     [SerializeField]
     private AudioClip countDownSound;
     [SerializeField]
+    private AudioClip applauseSound;
+    [SerializeField]
+    private float applauseSoundVolume;
+    [SerializeField]
     private GameObject countDownUI;
     [SerializeField]
     private GameObject showStandingsUI;
@@ -416,6 +420,8 @@ public class MinigameController : MonoBehaviour
         EndMinigameMechanics();
         StopAllCoroutines();
         ToggleActive(false);
+        SoundEventInfo sei = new SoundEventInfo(applauseSound, applauseSoundVolume, 2);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
         if (gameType == GameType.PointsBased || gameType == GameType.PointsAndLives)
         {
             StartCoroutine("DisplayPlayerScores");
