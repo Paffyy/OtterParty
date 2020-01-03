@@ -14303,15 +14303,15 @@ PrefabInstance:
       propertyPath: rotationSpeed
       value: 0.9
       objectReference: {fileID: 0}
-    - target: {fileID: 1180994221825849138, guid: bd9f1abb50fa70a4ab76a9c950aa6038,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2486364778749484499, guid: bd9f1abb50fa70a4ab76a9c950aa6038,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180994221825849138, guid: bd9f1abb50fa70a4ab76a9c950aa6038,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd9f1abb50fa70a4ab76a9c950aa6038, type: 3}
@@ -16187,6 +16187,8 @@ MonoBehaviour:
   isOnUILayer: 0
   hasLimitedLives: 1
   countDownSound: {fileID: 8300000, guid: 6efebaa646372654193b8301fa023113, type: 3}
+  applauseSound: {fileID: 8300000, guid: 687186220bfd90947ac1aaebd639a063, type: 3}
+  applauseSoundVolume: 0.85
   countDownUI: {fileID: 0}
   showStandingsUI: {fileID: 7833761761695191566, guid: 3f487f8d5f53aef418060822f91e3d41,
     type: 3}
@@ -18926,11 +18928,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.1
       objectReference: {fileID: 0}
-    - target: {fileID: 783355563415394306, guid: de491b2cc0eb86543be72999fa9d3d59,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -100.91
-      objectReference: {fileID: 0}
     - target: {fileID: 4907256002238548686, guid: de491b2cc0eb86543be72999fa9d3d59,
         type: 3}
       propertyPath: hasLimitedRespawns
@@ -18945,6 +18942,11 @@ PrefabInstance:
         type: 3}
       propertyPath: isCameraDependent
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 783355563415394306, guid: de491b2cc0eb86543be72999fa9d3d59,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -100.91
       objectReference: {fileID: 0}
     - target: {fileID: 1955050148799260892, guid: de491b2cc0eb86543be72999fa9d3d59,
         type: 3}
@@ -19747,9 +19749,9 @@ PrefabInstance:
       propertyPath: rotateOnAxis
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1493670769116719062, guid: 7654555e88ca1e74d85f20b441be414e,
+    - target: {fileID: 2268162109987892854, guid: 7654555e88ca1e74d85f20b441be414e,
         type: 3}
-      propertyPath: m_Convex
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 536442895926946011, guid: 7654555e88ca1e74d85f20b441be414e,
@@ -19757,9 +19759,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2268162109987892854, guid: 7654555e88ca1e74d85f20b441be414e,
+    - target: {fileID: 1493670769116719062, guid: 7654555e88ca1e74d85f20b441be414e,
         type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2115376534414030738, guid: 7654555e88ca1e74d85f20b441be414e,
@@ -25088,11 +25090,6 @@ PrefabInstance:
       propertyPath: material
       value: 
       objectReference: {fileID: 2100000, guid: ca6f8fd77a41a5b45bfe6c3914c4a447, type: 2}
-    - target: {fileID: 4865656128676233755, guid: 1c0211ba350eb8a49af468b75e85e99e,
-        type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7917829163169858772, guid: 1c0211ba350eb8a49af468b75e85e99e,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -25112,6 +25109,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865656128676233755, guid: 1c0211ba350eb8a49af468b75e85e99e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c0211ba350eb8a49af468b75e85e99e, type: 3}
