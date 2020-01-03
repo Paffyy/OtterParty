@@ -9,6 +9,7 @@ public class HarmfulObject : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerController>().BodyCollider.enabled = false;
+            other.gameObject.GetComponent<PlayerController>().PlayHitSound();
             fireRespawnEvent(other.gameObject);
         }
     }
