@@ -10,7 +10,7 @@ public class FinalePinataSection : MonoBehaviour
     [SerializeField]
     private List<GameObject> playerGates;
     private List<Transform> pinataSpawnPositions = new List<Transform>();
-    private Dictionary<GameObject, int> playerPinatas = new Dictionary<GameObject, int>();
+    private Dictionary<GameObject, List<GameObject>> playerPinatas = new Dictionary<GameObject, List<GameObject>>();
 
     void Awake()
     {
@@ -31,15 +31,19 @@ public class FinalePinataSection : MonoBehaviour
         if(hitEventInfo != null)
         {
             GameObject playerThatShot = hitEventInfo.ObjectThatFired;
-            HandlePinataHitEvent(hitEventInfo.ObjectHit, playerThatShot);
-            hitEventInfo.ObjectHit.SetActive(false);
-            if(playerPinatas[playerThatShot] > 1)
+            GameObject objectHit = hitEventInfo.ObjectHit;
+            if (playerPinatas[playerThatShot].Contains(objectHit))
             {
-                playerPinatas[playerThatShot]--;
-            }
-            else
-            {
-                OpenGate(playerThatShot);
+                HandlePinataHitEvent(objectHit, playerThatShot);
+                objectHit.SetActive(false);
+                if (playerPinatas[playerThatShot].Count > 1)
+                {
+                    playerPinatas[playerThatShot].Remove(objectHit);
+                }
+                else
+                {
+                    OpenGate(playerThatShot);
+                }
             }
         }
     }
@@ -52,10 +56,11 @@ public class FinalePinataSection : MonoBehaviour
     {
         foreach (var item in pointSystem.GetCurrentScore())
         {
-            playerPinatas.Add(item.Key.PlayerObject, item.Value);
+            List<GameObject> pinatas = new List<GameObject>();
+            playerPinatas.Add(item.Key.PlayerObject, pinatas);
             for (int i = 0; i < item.Value; i++)
             {
-                SpawnPinata(item.Key.ID);
+                playerPinatas[item.Key.PlayerObject].Add(SpawnPinata(item.Key.ID));
             }
         }
     }
@@ -66,10 +71,11 @@ public class FinalePinataSection : MonoBehaviour
         GameObject deathParticles = hitObject.GetComponent<PinataBehaviour>().ParticleObjects[GameController.Instance.FindPlayerByGameObject(playerThatShot).ID];
         TransformEventInfo tei = new TransformEventInfo(position, rotation, deathParticles);
         EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, tei);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, new SoundEventInfo(hitObject.GetComponent<PinataBehaviour>().HitAudio, hitObject.GetComponent<PinataBehaviour>().HitAudioVolume, 1));
     }
 
-    private void SpawnPinata(int index)
+    private GameObject SpawnPinata(int index)
     {
-        var pinata = Instantiate(pinataPrefab, pinataSpawnPositions[index].position, pinataSpawnPositions[index].rotation);
+        return Instantiate(pinataPrefab, pinataSpawnPositions[index].position, pinataSpawnPositions[index].rotation);
     }
 }
