@@ -80,10 +80,12 @@ public class CheckPointListener : BaseListener
 
     private void SpawnOnDefaultPosition(GameObject player)
     {
-        player.GetComponent<PlayerController>().Transition<AirState>();
+        var playerController = player.GetComponent<PlayerController>();
+        playerController.Transition<AirState>();
         player.transform.position = firstCheckPoint.position;
         player.transform.rotation = firstCheckPoint.rotation;
-        player.GetComponent<PlayerController>().BodyCollider.enabled = true;
+        playerController.BodyCollider.enabled = true;
+        player.transform.parent = playerController.Parent;
     }
 
     private void SpawnOnLastCheckPoint(GameObject player)
@@ -94,10 +96,13 @@ public class CheckPointListener : BaseListener
     private IEnumerator SpawnOnLastCheckPointWithDelay(GameObject player)
     {
         yield return new WaitForSeconds(respawnDelay);
-        player.GetComponent<PlayerController>().Transition<AirState>();
+        var playerController = player.GetComponent<PlayerController>();
+        playerController.Transition<AirState>();
         player.transform.position = playerCheckPoints[player].position;
         player.transform.rotation = playerCheckPoints[player].rotation;
-        player.GetComponent<PlayerController>().BodyCollider.enabled = true;
+        playerController.BodyCollider.enabled = true;
+        player.transform.parent = playerController.Parent;
+
     }
     private void SetPlayerCheckPoint(BaseEventInfo e)
     {

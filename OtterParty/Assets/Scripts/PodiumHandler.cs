@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Linq;
 public class PodiumHandler : MonoBehaviour
 {
     [SerializeField]
@@ -87,9 +87,14 @@ public class PodiumHandler : MonoBehaviour
     private void AssignPodiums()
     {
         PointSystem ps = GameController.Instance.PointSystem;
+        var sorted = from playerScore
+                     in ps.GetCurrentScore()
+                     orderby playerScore.Value
+                     select playerScore;
+        var sortedPointSystem = sorted as Dictionary<Player,int>;
         foreach (var player in GameController.Instance.Players)
         {
-            int placement = ps.GetCurrentScore()[player];
+            int placement = sortedPointSystem[player];
             Debug.Log(placement);
             GameObject podiumPrefab = podiumPrefabs[placement - 1];
             var podium = Instantiate(podiumPrefab, podiumPlacements[player.ID].position, podiumPrefab.transform.rotation);
