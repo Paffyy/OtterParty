@@ -9,8 +9,13 @@ public class FinalePinataSection : MonoBehaviour
     private GameObject pinataPrefab;
     [SerializeField]
     private List<GameObject> playerGates;
+    [SerializeField]
+    private AudioClip defaultPinataHitAudio;
+    [SerializeField]
+    private float defaultPinataHitAudioVolume;
     private List<Transform> pinataSpawnPositions = new List<Transform>();
     private Dictionary<GameObject, List<GameObject>> playerPinatas = new Dictionary<GameObject, List<GameObject>>();
+
 
     void Awake()
     {
@@ -76,6 +81,9 @@ public class FinalePinataSection : MonoBehaviour
 
     private GameObject SpawnPinata(int index)
     {
-        return Instantiate(pinataPrefab, pinataSpawnPositions[index].position, pinataSpawnPositions[index].rotation);
+        GameObject pinata = Instantiate(pinataPrefab, pinataSpawnPositions[index].position, pinataSpawnPositions[index].rotation);
+        pinata.GetComponent<PinataBehaviour>().HitAudio = defaultPinataHitAudio;
+        pinata.GetComponent<PinataBehaviour>().HitAudioVolume = defaultPinataHitAudioVolume;
+        return pinata;
     }
 }

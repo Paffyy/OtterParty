@@ -19,7 +19,6 @@ public class WaterSplash : MonoBehaviour
             EventHandler.Instance.FireEvent(EventHandler.EventType.ParticleEvent, tei);
             SoundEventInfo sei = new SoundEventInfo(waterSplash, waterSplashVolume, 1);
             EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
-            Debug.Log("HitWater");
         }
     }
 }

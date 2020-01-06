@@ -8,7 +8,7 @@ public class RespawnZone : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerController>().BodyCollider.enabled = false;
+             other.gameObject.GetComponent<PlayerController>().BodyCollider.enabled = false;
             fireRespawnEvent(other.gameObject);
         }
     }
