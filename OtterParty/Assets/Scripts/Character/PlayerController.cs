@@ -124,7 +124,7 @@ public class PlayerController : StateMachine
         }
         else
         {
-            playerBody.MovePosition(transform.position + movement * Time.deltaTime);
+           playerBody.MovePosition(transform.position + movement * Time.deltaTime);
         }
         CheckIfNoMovement();
     }

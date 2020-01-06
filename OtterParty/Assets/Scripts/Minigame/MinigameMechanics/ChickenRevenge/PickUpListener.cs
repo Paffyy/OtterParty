@@ -8,7 +8,6 @@ public class PickUpListener : BaseListener
     private Dictionary<GameObject, int> playerScore = new Dictionary<GameObject, int>();
     public override void Register()
     {
-   
         EventHandler.Instance.Register(EventHandler.EventType.PickUpEvent, RegisterPickUp);
     }
 

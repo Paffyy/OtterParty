@@ -428,12 +428,12 @@ public class MinigameController : MonoBehaviour
         }
         else if (gameType == GameType.Finale)
         {
+            var playerPoints = new Dictionary<Player, int>();
             foreach (var item in MinigamePointSystem.GetCurrentScore())
             {
-                var playerPoints = new Dictionary<Player, int>();
                 playerPoints.Add(item.Key, item.Value * GameController.Instance.Players.Count);
-                MinigamePointSystem.UpdateScore(playerPoints);
             }
+            MinigamePointSystem.UpdateScore(playerPoints);
             GameController.Instance.PointSystem.UpdateScore(MinigamePointSystem.GetCurrentScore());
             StartCoroutine("GoToNextScene", 3);
         }

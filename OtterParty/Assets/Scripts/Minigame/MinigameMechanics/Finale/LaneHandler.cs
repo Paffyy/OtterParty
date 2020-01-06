@@ -25,6 +25,7 @@ public class LaneHandler : MonoBehaviour
             other.gameObject.transform.position = lanePosition.position;
             other.gameObject.transform.rotation = lanePosition.rotation;
             p.InputDirection = Vector2.zero;
+            Destroy(this.gameObject);
         }
     }
 }

@@ -91,14 +91,14 @@ public class PodiumHandler : MonoBehaviour
                      in ps.GetCurrentScore()
                      orderby playerScore.Value
                      select playerScore;
-        var sortedPointSystem = sorted as Dictionary<Player,int>;
-        foreach (var player in GameController.Instance.Players)
+        var sortedList = sorted.ToList();
+        int placement = 0;
+        foreach (var player in sortedList)
         {
-            int placement = sortedPointSystem[player];
-            Debug.Log(placement);
-            GameObject podiumPrefab = podiumPrefabs[placement - 1];
-            var podium = Instantiate(podiumPrefab, podiumPlacements[player.ID].position, podiumPrefab.transform.rotation);
+            GameObject podiumPrefab = podiumPrefabs[placement];
+            var podium = Instantiate(podiumPrefab, podiumPlacements[player.Key.ID].position, podiumPrefab.transform.rotation);
             podium.GetComponent<Podium>().ElevatePodium();
+            placement++;
         }
     }
 }
