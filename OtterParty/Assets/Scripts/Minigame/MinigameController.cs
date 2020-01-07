@@ -382,9 +382,8 @@ public class MinigameController : MonoBehaviour
         FinishedEventInfo fei = e as FinishedEventInfo;
         var player = GameController.Instance.FindPlayerByGameObject(fei.PlayerWhoFinished);
         playersAlive[player] = false;
-        UpdatePointSystem(player, currentPoints);
+        UpdateReversePoints(player);
         player.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        currentPoints++;
         if (IsGameOver(0))
         {
             EndMinigame();
@@ -410,8 +409,10 @@ public class MinigameController : MonoBehaviour
     IEnumerator MinigameTimer(int duration)
     {
         yield return new WaitForSeconds(duration);
-        if (gameType != GameType.PointsBased)
+        if (gameType != GameType.PointsBased && gameType != GameType.PointsAndLives)
+        {
             AwardLastStandingPlayers();
+        }
         EndMinigame();
     }
 
@@ -431,10 +432,11 @@ public class MinigameController : MonoBehaviour
             var playerPoints = new Dictionary<Player, int>();
             foreach (var item in MinigamePointSystem.GetCurrentScore())
             {
-                playerPoints.Add(item.Key, item.Value * GameController.Instance.Players.Count);
+                playerPoints.Add(item.Key, item.Value);
             }
             MinigamePointSystem.UpdateScore(playerPoints);
             GameController.Instance.PointSystem.UpdateScore(MinigamePointSystem.GetCurrentScore());
+            var list = GameController.Instance.PointSystem.GetCurrentScore().ToList();
             StartCoroutine("GoToNextScene", 3);
         }
         else

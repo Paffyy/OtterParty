@@ -26,6 +26,7 @@ public class ShowFinalScore : UIPlayerScore
                 playerScores.Add(ps);
                 ps.Player = item;
                 ps.PlayerImage.sprite = playerSprites[item.ID];
+                ps.UpdateFinalScore(gameControllerPointsystem.GetCurrentScore()[item]);
             }
             UpdatePlacements();
         }

@@ -36,6 +36,11 @@ public class PlayerScore : MonoBehaviour
         pointsToAddText.GetComponent<Animator>().SetTrigger("Start");
 
     }
+    
+    public void UpdateFinalScore(int score)
+    {
+        currentPointsText.text = score.ToString();
+    }
     public void UpdateScore()
     {
         currentPointsText.text = finalScore.ToString();

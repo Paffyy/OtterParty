@@ -41,7 +41,6 @@ public class ChickenArenaController : MonoBehaviour
     {
         EventHandler.Instance.Register(EventHandler.EventType.StartNextRoundEvent, StartNextRound);
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
-        //StartGame(new StartMinigameEventInfo()); //debug
     }
 
     private void StartNextRound(BaseEventInfo e)
