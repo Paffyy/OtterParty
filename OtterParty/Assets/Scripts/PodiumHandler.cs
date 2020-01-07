@@ -18,6 +18,11 @@ public class PodiumHandler : MonoBehaviour
     private GameObject playerPrefab;
     [SerializeField]
     private AudioClip winnerSound;
+    [SerializeField]
+    private GameObject showStandingsUI;
+    [SerializeField]
+    private Canvas canvas;
+    [SerializeField]
     private PlayerInputManager playerInputManager;
 
     void Awake()
@@ -69,6 +74,13 @@ public class PodiumHandler : MonoBehaviour
         yield return new WaitForSeconds(showPlacementsDelay);
         AssignPodiums();
         PlayWinnerSound();
+        StartCoroutine("ShowEndScore");
+    }
+
+    IEnumerator ShowEndScore()
+    {
+        yield return new WaitForSeconds(4);
+        Instantiate(showStandingsUI, canvas.transform);
         StartCoroutine("GoToMainMenu");
     }
 

@@ -109,7 +109,7 @@ public class CheckPointListener : BaseListener
         playerController.BodyCollider.enabled = true;
         player.transform.parent = playerController.Parent;
         var p = GameController.Instance.FindPlayerByGameObject(player);
-        var obj = Instantiate(playerRespawnEffects[p.ID], player.transform.position, player.transform.rotation);
+        var obj = Instantiate(playerRespawnEffects[p.ID], player.transform.position, player.transform.rotation, player.transform);
         Destroy(obj, 3);
     }
 
