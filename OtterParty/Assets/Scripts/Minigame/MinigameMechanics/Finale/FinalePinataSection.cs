@@ -55,7 +55,8 @@ public class FinalePinataSection : MonoBehaviour
     private void OpenGate(GameObject playerThatShot)
     {
         Player p = GameController.Instance.FindPlayerByGameObject(playerThatShot);
-        playerGates[p.ID].SetActive(false);
+        playerGates[p.ID].GetComponent<Animator>().SetTrigger("OpenGate");
+        playerGates[p.ID].GetComponent<BoxCollider>().enabled = false;
     }
     public void InitPinataSection(PointSystem pointSystem)
     {
