@@ -10,6 +10,8 @@ public class LaneHandler : MonoBehaviour
     private Transform lanePosition;
     [SerializeField]
     private GameObject gate;
+    [SerializeField]
+    private GameObject gateAnimation;
 
 
     private void OnTriggerEnter(Collider other)
@@ -18,6 +20,7 @@ public class LaneHandler : MonoBehaviour
         {
             laneTrigger.enabled = false;
             gate.SetActive(true);
+            gateAnimation.GetComponent<Animator>().SetTrigger("CloseGate");
             PlayerController p = other.gameObject.GetComponent<PlayerController>();
             var rgd = other.gameObject.GetComponent<Rigidbody>();
             p.Transition<LockedMovementState>();
