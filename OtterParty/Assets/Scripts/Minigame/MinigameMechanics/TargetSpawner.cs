@@ -64,7 +64,7 @@ public class TargetSpawner : MonoBehaviour
         if (randomValue == 4)
         {
             target = Instantiate(bonusTarget, spawnLocation.position, bonusTarget.transform.rotation);
-            target.GetComponentInChildren<MovingTarget>().SetValue(bonusTargetPoints);
+            target.GetComponent<MovingTarget>().SetValue(bonusTargetPoints);
         }
         else if (randomValue == 5)
         {
@@ -74,7 +74,7 @@ public class TargetSpawner : MonoBehaviour
         else
         {
             target = Instantiate(defaultTarget, spawnLocation.position, defaultTarget.transform.rotation);
-            target.GetComponent<MovingTarget>().SetValue(defaultPoints);
+            target.GetComponentInChildren<MovingTarget>().SetValue(defaultPoints);
         }
         if(target != null)
         {

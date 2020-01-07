@@ -11,7 +11,8 @@ public class FinaleGameController : MonoBehaviour
 
     void Start()
     {
-        EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
+        //EventHandler.Instance.Register(EventHandler.EventType.StartMinigameEvent, StartGame);
+        StartGame(new StartMinigameEventInfo());
         EventHandler.Instance.Register(EventHandler.EventType.EndMinigameEvent, StopGame);
     }
 

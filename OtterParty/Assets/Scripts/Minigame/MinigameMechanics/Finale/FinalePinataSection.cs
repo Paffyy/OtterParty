@@ -85,7 +85,7 @@ public class FinalePinataSection : MonoBehaviour
 
     private GameObject SpawnPinata(int index)
     {
-        GameObject pinata = Instantiate(pinataPrefab, pinataSpawnPositions[index].position, pinataSpawnPositions[index].rotation);
+        GameObject pinata = Instantiate(pinataPrefab, pinataSpawnPositions[index].position , pinataSpawnPositions[index].rotation);
         pinata.GetComponent<PinataBehaviour>().HitAudio = defaultPinataHitAudio;
         pinata.GetComponent<PinataBehaviour>().HitAudioVolume = defaultPinataHitAudioVolume;
         return pinata;
