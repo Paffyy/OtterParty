@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class CheckPointListener : BaseListener
     private bool isCameraDependent;
     [SerializeField]
     private float respawnDelay = 0.7f;
+    [SerializeField]
+    private List<GameObject> playerRespawnEffects;
 
     public override void Register()
     {
@@ -80,12 +83,9 @@ public class CheckPointListener : BaseListener
 
     private void SpawnOnDefaultPosition(GameObject player)
     {
-        var playerController = player.GetComponent<PlayerController>();
-        playerController.Transition<AirState>();
         player.transform.position = firstCheckPoint.position;
         player.transform.rotation = firstCheckPoint.rotation;
-        playerController.BodyCollider.enabled = true;
-        player.transform.parent = playerController.Parent;
+        SpawnPlayer(player);
     }
 
     private void SpawnOnLastCheckPoint(GameObject player)
@@ -93,17 +93,26 @@ public class CheckPointListener : BaseListener
         StartCoroutine("SpawnOnLastCheckPointWithDelay", player);
      
     }
-    private IEnumerator SpawnOnLastCheckPointWithDelay(GameObject player)
+    private IEnumerator SpawnOnLastCheckPointWithDelay(GameObject player) 
     {
         yield return new WaitForSeconds(respawnDelay);
-        var playerController = player.GetComponent<PlayerController>();
-        playerController.Transition<AirState>();
         player.transform.position = playerCheckPoints[player].position;
         player.transform.rotation = playerCheckPoints[player].rotation;
+        SpawnPlayer(player);
+    }
+
+    private void SpawnPlayer(GameObject player)
+    {
+        var playerController = player.GetComponent<PlayerController>();
+        playerController.Transition<AirState>();
+    
         playerController.BodyCollider.enabled = true;
         player.transform.parent = playerController.Parent;
-
+        var p = GameController.Instance.FindPlayerByGameObject(player);
+        var obj = Instantiate(playerRespawnEffects[p.ID], player.transform.position, player.transform.rotation);
+        Destroy(obj, 3);
     }
+
     private void SetPlayerCheckPoint(BaseEventInfo e)
     {
         CheckPointEventInfo eventInfo = e as CheckPointEventInfo;
