@@ -73,7 +73,7 @@ public class MinigameController : MonoBehaviour
     private GameModes gamemode;
     private RigidbodyConstraints playerConstraints;
     private Dictionary<Player,bool> playersAlive = new Dictionary<Player, bool>();
-
+    private int finaleScoreMultiplier = 2;
     private List<Transform> spawnPoints = new List<Transform>();
     private Canvas canvas;
     private PlayerInputManager playerInputManager;
@@ -432,12 +432,11 @@ public class MinigameController : MonoBehaviour
             var playerPoints = new Dictionary<Player, int>();
             foreach (var item in MinigamePointSystem.GetCurrentScore())
             {
-                playerPoints.Add(item.Key, item.Value);
+                playerPoints.Add(item.Key, item.Value * finaleScoreMultiplier);
             }
             MinigamePointSystem.UpdateScore(playerPoints);
-            GameController.Instance.PointSystem.UpdateScore(MinigamePointSystem.GetCurrentScore());
-            var list = GameController.Instance.PointSystem.GetCurrentScore().ToList();
-            StartCoroutine("GoToNextScene", 3);
+            ShowStandingsUI();
+            StartCoroutine("GoToNextScene", endOfMatchDelay);
         }
         else
         {
@@ -533,9 +532,6 @@ public class MinigameController : MonoBehaviour
     }
     private void ShowStandingsUI()
     {
-        if (gameType == GameType.Finale)
-            winnerUI.SetActive(true);
-        else
            Instantiate(showStandingsUI, canvas.transform);
     }
     private void EnableTesting()

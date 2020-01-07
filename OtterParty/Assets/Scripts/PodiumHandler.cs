@@ -19,6 +19,10 @@ public class PodiumHandler : MonoBehaviour
     [SerializeField]
     private AudioClip winnerSound;
     [SerializeField]
+    private AudioClip clapSound;
+    [SerializeField]
+    private float clapVolume;
+    [SerializeField]
     private GameObject showStandingsUI;
     [SerializeField]
     private Canvas canvas;
@@ -81,6 +85,8 @@ public class PodiumHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(4);
         Instantiate(showStandingsUI, canvas.transform);
+        SoundEventInfo sei = new SoundEventInfo(clapSound, clapVolume, 1);
+        EventHandler.Instance.FireEvent(EventHandler.EventType.SoundEvent, sei);
         StartCoroutine("GoToMainMenu");
     }
 

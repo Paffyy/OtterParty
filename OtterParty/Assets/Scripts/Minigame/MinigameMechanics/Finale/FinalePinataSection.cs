@@ -13,6 +13,8 @@ public class FinalePinataSection : MonoBehaviour
     private AudioClip defaultPinataHitAudio;
     [SerializeField]
     private float defaultPinataHitAudioVolume;
+    [SerializeField]
+    private List<GameObject> arrowSigns;
     private List<Transform> pinataSpawnPositions = new List<Transform>();
     private Dictionary<GameObject, List<GameObject>> playerPinatas = new Dictionary<GameObject, List<GameObject>>();
 
@@ -56,6 +58,7 @@ public class FinalePinataSection : MonoBehaviour
     {
         Player p = GameController.Instance.FindPlayerByGameObject(playerThatShot);
         playerGates[p.ID].GetComponent<Animator>().SetTrigger("OpenGate");
+        arrowSigns[p.ID].SetActive(true);
         playerGates[p.ID].GetComponent<BoxCollider>().enabled = false;
     }
     public void InitPinataSection(PointSystem pointSystem)
