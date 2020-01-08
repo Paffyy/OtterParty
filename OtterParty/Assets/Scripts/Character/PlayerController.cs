@@ -168,7 +168,7 @@ public class PlayerController : StateMachine
         if (InputDirection.sqrMagnitude > deadZoneValue)
         {
             hasReceivedInput = true;
-            movement = new Vector3(InputDirection.x, 0, InputDirection.y) * speed;
+            movement = new Vector3(InputDirection.x, 0, InputDirection.y) * speed * ImportManager.Instance.Settings.PlayerSpeedMultiplier;
             transform.LookAt(transform.position + new Vector3(movement.x, 0, movement.z));
         }
         else

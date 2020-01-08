@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         Destroy(gameObject);
-        Destroy(ImportProperties.Instance.gameObject);
+        Destroy(ImportManager.Instance.gameObject);
         return;
     }
 

@@ -4,17 +4,17 @@ using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class ImportProperties : MonoBehaviour
+public class ImportManager : MonoBehaviour
 {
     #region Singleton Implementation
-    private ImportProperties() { }
-    private static ImportProperties instance;
-    public static ImportProperties Instance
+    private ImportManager() { }
+    private static ImportManager instance;
+    public static ImportManager Instance
     {
         get
         {
             if (instance == null)
-                instance = GameObject.FindObjectOfType<ImportProperties>();
+                instance = GameObject.FindObjectOfType<ImportManager>();
             return instance;
         }
     }
@@ -45,6 +45,7 @@ public class ImportProperties : MonoBehaviour
             Debug.Log(e);
             await CreateFile(fileName);
         }
+        Debug.Log(Settings.ToString());
     }
 
     private async Task CreateFile(string fileName)
@@ -56,7 +57,6 @@ public class ImportProperties : MonoBehaviour
             await sw.WriteLineAsync(output);
         }
     }
-    
 }
 
 [Serializable]
@@ -75,6 +75,7 @@ public class ImportedSettings
         }
         return true;
     }
+
     [SerializeField] private float finalScoreMultiplier = 2; //TODO
     public float FinaleScoreMultiplier
     {
@@ -82,38 +83,42 @@ public class ImportedSettings
         set { finalScoreMultiplier = value; }
     }
 
-    [SerializeField] private float playerSpeed = 6; //TODO
-    public float PlayerSpeed
+    [SerializeField] private float playerSpeedMultiplier = 1; //TODO
+    public float PlayerSpeedMultiplier
     {
-        get { return playerSpeed; }
-        set { playerSpeed = value; }
+        get { return playerSpeedMultiplier; }
+        set { playerSpeedMultiplier = value; }
     }
 
-    [SerializeField] private float jumpHeight = 6; //TODO
-    public float JumpHeight
+    [SerializeField] private float jumpHeightMultiplier = 1; //TODO
+    public float JumpHeightMultiplier
     {
-        get { return jumpHeight; }
-        set { jumpHeight = value; }
+        get { return jumpHeightMultiplier; }
+        set { jumpHeightMultiplier = value; }
     }
 
-    [SerializeField] private float shoveForce = 6; // TODO
-    public float ShowForce
+    [SerializeField] private float shoveForceMultiplier = 1; // TODO
+    public float ShowForceMultiplier
     {
-        get { return shoveForce; }
-        set { shoveForce = value; }
+        get { return shoveForceMultiplier; }
+        set { shoveForceMultiplier = value; }
     }
 
-    [SerializeField] private float shoveRange = 6; // TODO
-    public float ShoveRange
+    [SerializeField] private float shoveRangeMultiplier = 1; // TODO
+    public float ShoveRangeMultiplier
     {
-        get { return shoveRange; }
-        set { shoveRange = value; }
+        get { return shoveRangeMultiplier; }
+        set { shoveRangeMultiplier = value; }
     }
 
-    [SerializeField] private float runAndJumpModifier = 6; // TODO
+    [SerializeField] private float runAndJumpModifier = 1; // TODO
     public float RunAndJumpModifier
     {
         get { return runAndJumpModifier; }
         set { runAndJumpModifier = value; }
+    }
+    public override string ToString()
+    {
+        return FinaleScoreMultiplier + "" + PlayerSpeedMultiplier;
     }
 }
