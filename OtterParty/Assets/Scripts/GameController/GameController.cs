@@ -72,17 +72,31 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(0);
-            Destroy(gameObject);
-            return;
+            RestartGame();
         }
         nextMinigameIndex++;
     }
-    public void InitPointSystem() // Should run after Players have joined
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+        Destroy(gameObject);
+        Destroy(ImportProperties.Instance.gameObject);
+        return;
+    }
+
+    public void InitPointSystem() 
     {
         PointSystem.InitializePlayers(Players);
     }
     public Player FindPlayerByGameObject(GameObject playerObject) =>  Players.FirstOrDefault(x => x.PlayerObject == playerObject);
     public Player FindPlayerByID(int playerIndex) => Players.FirstOrDefault(x => x.ID == playerIndex);
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.F5))
+        {
+            RestartGame();
+        }
+    }
 }
