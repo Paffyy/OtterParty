@@ -182,13 +182,13 @@ public class PlayerController : StateMachine
     {
         if (anim != null)
             anim.SetTrigger("Jump");
-        playerBody.velocity += new Vector3(0, jumpHeight, 0);
+        playerBody.velocity += new Vector3(0, jumpHeight * ImportManager.Instance.Settings.JumpHeightMultiplier, 0);
     }
     public void Jump(float jumpHeightInput)
     {
         if (anim != null)
             anim.SetTrigger("Jump");
-        playerBody.velocity += new Vector3(0, jumpHeightInput, 0);
+        playerBody.velocity += new Vector3(0, jumpHeightInput * ImportManager.Instance.Settings.JumpHeightMultiplier, 0);
     }
     private void OnMove(InputValue value)
     {

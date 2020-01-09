@@ -52,14 +52,17 @@ public class DistanceHandler : MonoBehaviour
     private void UpdateValues()
     {
         List<float> playerValues = new List<float>();
-        foreach (var item in GameController.Instance.Players)
+        if(GameController.Instance != null)
         {
-            var temp = maxDistance - (endPos.position.z - item.PlayerObject.transform.position.z);
-            temp = Mathf.Clamp(temp, 0, maxDistance);
-            var meter = playerMeters[item.ID];
-            meter.transform.localScale = new Vector3(meter.transform.localScale.x, meter.transform.localScale.y, -temp/10);
-            playerValues.Add(temp);
+            foreach (var item in GameController.Instance.Players)
+            {
+                var temp = maxDistance - (endPos.position.z - item.PlayerObject.transform.position.z);
+                temp = Mathf.Clamp(temp, 0, maxDistance);
+                var meter = playerMeters[item.ID];
+                meter.transform.localScale = new Vector3(meter.transform.localScale.x, meter.transform.localScale.y, -temp / 10);
+                playerValues.Add(temp);
+            }
+            meterUI.UpdateValues(playerValues);
         }
-        meterUI.UpdateValues(playerValues);
     }
 }

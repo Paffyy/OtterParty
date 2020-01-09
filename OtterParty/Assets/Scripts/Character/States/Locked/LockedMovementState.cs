@@ -18,7 +18,6 @@ public class LockedMovementState : CharacterBaseState
     [SerializeField]
     [Range(1f, 10f)]
     private float jumpHeight;
-    private Vector3 movement;
     private Rigidbody playerBody;
     private bool previousButtonPressed;
 
@@ -36,7 +35,7 @@ public class LockedMovementState : CharacterBaseState
     private void SpamAction(bool isRightButtonPressed)
     {
         float spamSpeed = previousButtonPressed != isRightButtonPressed ? speed : speed * variationPenalty;
-        ApplyMovement(new Vector3(0, 0, spamSpeed));
+        ApplyMovement(new Vector3(0, 0, spamSpeed * ImportManager.Instance.Settings.RunAndJumpModifier));
         previousButtonPressed = isRightButtonPressed;
     }
 
@@ -44,9 +43,9 @@ public class LockedMovementState : CharacterBaseState
     {
         float updatedSpeed = Vector3.ProjectOnPlane((playerBody.velocity + movement), Vector3.up).magnitude;
 
-        if (updatedSpeed > maxSpeed)
+        if (updatedSpeed > maxSpeed * ImportManager.Instance.Settings.RunAndJumpModifier)
         {
-            playerBody.velocity = playerBody.velocity.normalized * maxSpeed;
+            playerBody.velocity = playerBody.velocity.normalized * maxSpeed * ImportManager.Instance.Settings.RunAndJumpModifier;
         }
         else
         {

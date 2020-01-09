@@ -98,7 +98,7 @@ public class ImportedSettings
     }
 
     [SerializeField] private float shoveForceMultiplier = 1; // TODO
-    public float ShowForceMultiplier
+    public float ShoveForceMultiplier
     {
         get { return shoveForceMultiplier; }
         set { shoveForceMultiplier = value; }

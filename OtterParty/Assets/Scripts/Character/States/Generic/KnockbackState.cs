@@ -21,7 +21,7 @@ public class KnockbackState : CharacterBaseState
         owner.PlayerState = PlayerController.CurrentPlayerState.KnockBackState;
         IsKnockedBacked = false;
         owner.InputDirection = Vector2.zero;
-        owner.GetComponent<Rigidbody>().velocity = -owner.transform.forward * knockbackMagnitude;
+        owner.GetComponent<Rigidbody>().velocity = -owner.transform.forward * knockbackMagnitude * ImportManager.Instance.Settings.ShoveForceMultiplier;
         base.Enter();
         Cooldown.Instance.StartNewCooldown(stunDuration, this);
     }
