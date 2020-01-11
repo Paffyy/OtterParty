@@ -50,6 +50,6 @@ public class RotatingCross : MonoBehaviour
 
     void FixedUpdate()
     {
-        rotatingCross.Rotate(rotation, rotationSpeed);
+        rotatingCross.Rotate(rotation, rotationSpeed * ImportManager.Instance.Settings.RotationMultiplier);
     }
 }

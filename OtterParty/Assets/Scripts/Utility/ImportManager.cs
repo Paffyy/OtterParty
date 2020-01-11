@@ -111,11 +111,23 @@ public class ImportedSettings
         set { shoveRangeMultiplier = value; }
     }
 
+    [SerializeField] private float rotationMultiplier = 1; // TODO
+    public float RotationMultiplier
+    {
+        get { return rotationMultiplier; }
+        set { rotationMultiplier = value; }
+    }
     [SerializeField] private float runAndJumpModifier = 1; // TODO
     public float RunAndJumpModifier
     {
         get { return runAndJumpModifier; }
         set { runAndJumpModifier = value; }
+    }
+    [SerializeField] private float chickenShootoutSpeed = 1; // TODO
+    public float ChickenShootoutSpeed
+    {
+        get { return chickenShootoutSpeed; }
+        set { chickenShootoutSpeed = value; }
     }
     public override string ToString()
     {

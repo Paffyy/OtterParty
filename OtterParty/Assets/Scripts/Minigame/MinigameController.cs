@@ -201,6 +201,16 @@ public class MinigameController : MonoBehaviour
         }
     }
 
+    private void EndMinigameMechanics()
+    {
+        EventHandler.Instance.FireEvent(EventHandler.EventType.EndMinigameEvent, new EndMinigameEventInfo());
+    }
+
+    private void StartMinigameMechanics()
+    {
+        EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
+    }
+
     private void EliminateMultiplePlayers(BaseEventInfo e)
     {
         var eventInfo = e as MultipleEliminateEventInfo;
@@ -215,7 +225,7 @@ public class MinigameController : MonoBehaviour
             player.SetActive(false);
         }
         currentPoints++;
-        if (IsGameOver(0) )
+        if (IsGameOver(0))
         {
             EndMinigame();
         }
@@ -225,15 +235,6 @@ public class MinigameController : MonoBehaviour
         }
     }
 
-    private void EndMinigameMechanics()
-    {
-        EventHandler.Instance.FireEvent(EventHandler.EventType.EndMinigameEvent, new EndMinigameEventInfo());
-    }
-
-    private void StartMinigameMechanics()
-    {
-        EventHandler.Instance.FireEvent(EventHandler.EventType.StartMinigameEvent, new StartMinigameEventInfo());
-    }
 
     private void EliminatePlayerEvent(BaseEventInfo e)
     {
@@ -261,6 +262,23 @@ public class MinigameController : MonoBehaviour
                 EliminatePlayer(player, false);
                 finishEventInfo.PlayerWhoFinished.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
+        }
+    }
+
+    private void PlayerHasMadeItToGoal(BaseEventInfo e)
+    {
+        if (!timeLeftText.activeSelf)
+        {
+            StartDNFTimer();
+        }
+        FinishedEventInfo fei = e as FinishedEventInfo;
+        var player = GameController.Instance.FindPlayerByGameObject(fei.PlayerWhoFinished);
+        playersAlive[player] = false;
+        UpdateReversePoints(player);
+        player.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        if (IsGameOver(0))
+        {
+            EndMinigame();
         }
     }
     #endregion
@@ -302,10 +320,18 @@ public class MinigameController : MonoBehaviour
                 }
                 break;
             }
+            case GameType.PointsAndLives:
+                {
+                    if (IsGameOver(0))
+                        EndMinigame();
+                    break;
+                }
             default:
                 break;
         }
     }
+
+
 
     private void UpdateAscendingPoints(Player p)
     {
@@ -372,22 +398,7 @@ public class MinigameController : MonoBehaviour
             countDownTimerUI.GetComponent<CountDownTimer>().InitiateTimer(minigameDuration);
         }
     }
-    private void PlayerHasMadeItToGoal(BaseEventInfo e)
-    {
-        if (!timeLeftText.activeSelf)
-        {
-            StartDNFTimer();
-        }
-        FinishedEventInfo fei = e as FinishedEventInfo;
-        var player = GameController.Instance.FindPlayerByGameObject(fei.PlayerWhoFinished);
-        playersAlive[player] = false;
-        UpdateReversePoints(player);
-        player.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        if (IsGameOver(0))
-        {
-            EndMinigame();
-        }
-    }
+
     public void StartDNFTimer()
     {
         StopCoroutine("MinigameTimer");

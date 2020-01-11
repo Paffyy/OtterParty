@@ -15,7 +15,7 @@ public class MovingTarget : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x + speed * ImportManager.Instance.Settings.ChickenShootoutSpeed * Time.deltaTime, transform.position.y, transform.position.z);
     }
 
     private void OnDestroy()

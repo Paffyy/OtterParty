@@ -64,6 +64,8 @@ public class HitListener : BaseListener
             else
             {
                 playerHit.SetActive(false);
+                var player = GameController.Instance.FindPlayerByGameObject(playerHit);
+                MinigameController.Instance.EliminatePlayer(player,true);
             }
         }
     }

@@ -24,6 +24,6 @@ public class RotatingBox : MonoBehaviour
 
     void FixedUpdate()
     {
-        rotatingBox.Rotate(new Vector3(1, 0, 0), rotationSpeed);
+        rotatingBox.Rotate(new Vector3(1, 0, 0), rotationSpeed * ImportManager.Instance.Settings.RotationMultiplier);
     }
 }

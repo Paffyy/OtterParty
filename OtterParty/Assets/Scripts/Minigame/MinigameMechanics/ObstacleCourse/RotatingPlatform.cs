@@ -27,6 +27,6 @@ public class RotatingPlatform : ActivePlatform
 
     void FixedUpdate()
     {
-        rotatingPlatform.Rotate(new Vector3(0, rotationDirection, 0), rotationSpeed);
+        rotatingPlatform.Rotate(new Vector3(0, rotationDirection, 0), rotationSpeed * ImportManager.Instance.Settings.RotationMultiplier);
     }
 }

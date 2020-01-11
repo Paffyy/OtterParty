@@ -15876,7 +15876,7 @@ MonoBehaviour:
   countDownTimer: 3
   gameType: 2
   leadMultiplier: 0
-  miniGameLives: 2
+  miniGameLives: 4
   isOnUILayer: 0
   hasLimitedLives: 1
   countDownSound: {fileID: 8300000, guid: 6efebaa646372654193b8301fa023113, type: 3}
@@ -17166,15 +17166,15 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3f6648979cc13444ebac3ccbad6a89b0, type: 2}
-    - target: {fileID: 3938662096717632833, guid: ed2a1327084b09c47a613c4a9b8c2c72,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.11
-      objectReference: {fileID: 0}
     - target: {fileID: 3938662096759067217, guid: ed2a1327084b09c47a613c4a9b8c2c72,
         type: 3}
       propertyPath: startDelay
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938662096717632833, guid: ed2a1327084b09c47a613c4a9b8c2c72,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed2a1327084b09c47a613c4a9b8c2c72, type: 3}
@@ -18194,6 +18194,11 @@ PrefabInstance:
       propertyPath: isCameraDependent
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3454437201123885451, guid: de491b2cc0eb86543be72999fa9d3d59,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 43.90001
+      objectReference: {fileID: 0}
     - target: {fileID: 783355563415394306, guid: de491b2cc0eb86543be72999fa9d3d59,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -18213,11 +18218,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.x
       value: 4.152398
-      objectReference: {fileID: 0}
-    - target: {fileID: 3454437201123885451, guid: de491b2cc0eb86543be72999fa9d3d59,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 43.90001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de491b2cc0eb86543be72999fa9d3d59, type: 3}
